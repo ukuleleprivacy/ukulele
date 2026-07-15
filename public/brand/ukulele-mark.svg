@@ -1,0 +1,28 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">UKULELE mark</title>
+  <desc id="desc">A white ukulele silhouette inside a circular privacy halo on black.</desc>
+  <defs>
+    <linearGradient id="body" x1="164" y1="78" x2="338" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="0.55" stop-color="#E0E0E0"/>
+      <stop offset="1" stop-color="#8C8C8C"/>
+    </linearGradient>
+    <linearGradient id="halo" x1="80" y1="128" x2="432" y2="384" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="0.45" stop-color="#BFBFBF"/>
+      <stop offset="1" stop-color="#F5F5F5"/>
+    </linearGradient>
+    <filter id="glow" x="28" y="28" width="456" height="456" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="14" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.4 0"/>
+      <feBlend in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#0A0A0A"/>
+  <circle cx="256" cy="256" r="170" stroke="url(#halo)" stroke-width="16" stroke-linecap="round" stroke-dasharray="790 180" filter="url(#glow)"/>
+  <path d="M231 77c0-15 11-25 25-25s25 10 25 25v18h18c8 0 15 7 15 15v10h11c8 0 14 6 14 14s-6 14-14 14h-11v27h11c8 0 14 6 14 14s-6 14-14 14h-11v39c0 20 12 38 29 49 38 24 59 67 49 113-11 53-59 91-116 91h-40c-57 0-105-38-116-91-10-46 11-89 49-113 17-11 29-29 29-49v-39h-11c-8 0-14-6-14-14s6-14 14-14h11v-27h-11c-8 0-14-6-14-14s6-14 14-14h11v-10c0-8 7-15 15-15h18V77Z" fill="url(#body)"/>
+  <path d="M256 96v182M232 103v160M280 103v160" stroke="#0A0A0A" stroke-width="9" stroke-linecap="round" opacity="0.82"/>
+  <circle cx="256" cy="334" r="45" fill="#141414"/>
+  <path d="M256 345l-35 83h70l-35-83Z" fill="#141414"/>
+  <path d="M226 76h60M216 113h80M215 147h82" stroke="#4D4D4D" stroke-width="10" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 200" width="640" height="200" role="img" aria-label="UKULELE — Private by Default">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#B16AFF"/>
+      <stop offset="1" stop-color="#7B3FF2"/>
+    </linearGradient>
+    <mask id="kh">
+      <rect width="200" height="200" fill="#fff"/>
+      <circle cx="82" cy="118" r="11" fill="#000"/>
+      <path d="M77 126 L87 126 L90 148 L74 148 Z" fill="#000"/>
+    </mask>
+  </defs>
+
+  <!-- Mark -->
+  <g transform="translate(6,10)">
+    <circle cx="82" cy="122" r="58" fill="none" stroke="url(#lg)" stroke-width="5"/>
+    <g fill="url(#lg)">
+      <path d="M72 16 h20 a8 8 0 0 1 8 8 v14 a8 8 0 0 1 -8 8 h-20 a8 8 0 0 1 -8 -8 v-14 a8 8 0 0 1 8 -8 Z"/>
+      <rect x="76" y="48" width="12" height="46" rx="3"/>
+      <path mask="url(#kh)" d="M82 86 c18 0 28 13 28 31 c0 21 -13 44 -28 44 c-15 0 -28 -23 -28 -44 c0 -18 10 -31 28 -31 Z"/>
+    </g>
+    <g fill="#EDE8FF">
+      <circle cx="60" cy="24" r="4.5"/><circle cx="60" cy="38" r="4.5"/>
+      <circle cx="104" cy="24" r="4.5"/><circle cx="104" cy="38" r="4.5"/>
+    </g>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="188" y="108" font-family="Orbitron, 'Trebuchet MS', sans-serif" font-size="66" font-weight="700" letter-spacing="6" fill="#EDE8FF">UKULELE</text>
+  <text x="192" y="140" font-family="Orbitron, 'Trebuchet MS', sans-serif" font-size="17" font-weight="500" letter-spacing="9" fill="#B16AFF">PRIVATE BY DEFAULT</text>
+</svg>

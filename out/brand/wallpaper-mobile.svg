@@ -1,0 +1,19 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1080" height="1920" fill="#0A0A0A"/>
+  <radialGradient id="a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(540 492) rotate(90) scale(350)">
+    <stop stop-color="#E0E0E0" stop-opacity="0.48"/>
+    <stop offset="1" stop-color="#0A0A0A" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1080" height="1920" fill="url(#a)"/>
+  <circle cx="540" cy="560" r="236" stroke="#E0E0E0" stroke-width="7" opacity="0.75"/>
+  <image href="/brand/ukulele-mark.svg" x="354" y="370" width="372" height="372"/>
+  <path d="M0 1240l143-121 119 90 147-181 151 159 149-219 159 226 212-172v898H0v-680Z" fill="#121212"/>
+  <path d="M0 1400c172-54 332-70 503-38 228 42 379 12 577-68v626H0v-520Z" fill="#050505"/>
+  <g fill="#F5F5F5" opacity="0.5">
+    <circle cx="140" cy="232" r="3"/>
+    <circle cx="828" cy="292" r="2.2"/>
+    <circle cx="250" cy="521" r="2"/>
+    <circle cx="890" cy="710" r="2.5"/>
+    <circle cx="150" cy="864" r="1.8"/>
+  </g>
+</svg>

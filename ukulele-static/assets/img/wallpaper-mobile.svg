@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920" role="img" aria-label="UKULELE mobile wallpaper">
+  <defs>
+    <linearGradient id="wm-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0E0B16"/>
+      <stop offset="0.5" stop-color="#1A1625"/>
+      <stop offset="1" stop-color="#0E0B16"/>
+    </linearGradient>
+    <linearGradient id="wm-g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#B16AFF"/>
+      <stop offset="1" stop-color="#7B3FF2"/>
+    </linearGradient>
+    <radialGradient id="wm-halo" cx="0.5" cy="0.4" r="0.5">
+      <stop offset="0" stop-color="#B16AFF" stop-opacity="0.5"/>
+      <stop offset="0.6" stop-color="#7B3FF2" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#7B3FF2" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="wm-refl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7B3FF2" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#7B3FF2" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="wm-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="16" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <mask id="wm-kh">
+      <rect width="1080" height="1920" fill="#fff"/>
+      <circle cx="540" cy="770" r="40" fill="#000"/>
+      <path d="M524 794 L556 794 L566 862 L514 862 Z" fill="#000"/>
+    </mask>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#wm-sky)"/>
+  <ellipse cx="540" cy="760" rx="560" ry="640" fill="url(#wm-halo)"/>
+
+  <g fill="#EDE8FF">
+    <circle cx="180" cy="260" r="2" opacity="0.7"/><circle cx="420" cy="180" r="1.5" opacity="0.5"/>
+    <circle cx="760" cy="300" r="2.2" opacity="0.8"/><circle cx="920" cy="200" r="1.6" opacity="0.6"/>
+    <circle cx="260" cy="480" r="1.6" opacity="0.5"/><circle cx="880" cy="520" r="1.8" opacity="0.6"/>
+    <circle cx="120" cy="640" r="1.4" opacity="0.4"/><circle cx="980" cy="640" r="1.6" opacity="0.6"/>
+  </g>
+
+  <path d="M0 1120 L220 980 L440 1100 L640 960 L840 1100 L1080 980 L1080 1180 L0 1180 Z" fill="#1A1625"/>
+  <path d="M0 1160 L300 1060 L560 1150 L820 1050 L1080 1160 L1080 1220 L0 1220 Z" fill="#0E0B16" opacity="0.85"/>
+
+  <rect x="0" y="1180" width="1080" height="740" fill="#0E0B16"/>
+  <rect x="0" y="1180" width="1080" height="740" fill="url(#wm-refl)"/>
+  <g stroke="#B16AFF" stroke-opacity="0.16" stroke-width="3">
+    <line x1="300" y1="1280" x2="780" y2="1280"/><line x1="340" y1="1360" x2="740" y2="1360"/>
+    <line x1="380" y1="1440" x2="700" y2="1440"/><line x1="420" y1="1520" x2="660" y2="1520"/>
+  </g>
+
+  <g filter="url(#wm-glow)">
+    <circle cx="540" cy="790" r="210" fill="none" stroke="url(#wm-g)" stroke-width="14"/>
+    <g fill="url(#wm-g)">
+      <rect x="500" y="470" width="80" height="64" rx="22"/>
+      <rect x="520" y="534" width="40" height="120" rx="10"/>
+      <path mask="url(#wm-kh)" d="M540 630 c64 0 100 44 100 112 c0 78 -46 158 -100 158 c-54 0 -100 -80 -100 -158 c0 -68 36 -112 100 -112 Z"/>
+    </g>
+    <g fill="#EDE8FF">
+      <circle cx="452" cy="492" r="15"/><circle cx="452" cy="534" r="15"/>
+      <circle cx="628" cy="492" r="15"/><circle cx="628" cy="534" r="15"/>
+    </g>
+  </g>
+
+  <text x="540" y="1080" text-anchor="middle" font-family="Orbitron, 'Trebuchet MS', sans-serif" font-size="46" font-weight="500" letter-spacing="24" fill="#B16AFF" opacity="0.85">PRIVACY IS FREEDOM</text>
+</svg>

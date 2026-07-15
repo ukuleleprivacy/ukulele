@@ -1,0 +1,44 @@
+{
+  "name": "ukulele-frontend",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export",
+    "lint": "next lint",
+    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+  },
+  "dependencies": {
+    "@emotion/cache": "latest",
+    "@emotion/react": "latest",
+    "@emotion/server": "latest",
+    "@emotion/styled": "latest",
+    "@fontsource/montserrat": "latest",
+    "@hookform/resolvers": "^3.9.0",
+    "@metamask/providers": "^18.0.0",
+    "@mui/icons-material": "latest",
+    "@mui/material": "latest",
+    "@types/react": "latest",
+    "@web3-react/core": "^6.1.9",
+    "@web3-react/injected-connector": "^6.0.7",
+    "axios": "^1.7.7",
+    "clsx": "2.0.0",
+    "ethers": "^5.7.2",
+    "eventemitter3": "^5.0.1",
+    "file-saver": "^2.0.5",
+    "framer-motion": "^10.16.5",
+    "next": "latest",
+    "react": "latest",
+    "react-device-detect": "2.2.3",
+    "react-dom": "latest",
+    "react-hook-form": "^7.53.0",
+    "react-icons": "latest",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/file-saver": "^2.0.7",
+    "typescript": "5.3.2"
+  }
+}
