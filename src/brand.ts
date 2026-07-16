@@ -3,7 +3,7 @@ export const brand = {
   tagline: 'Private by default',
   description:
     'A privacy-first digital currency on the Ethereum network, built fully on chain for financial sanctuary and sovereign digital interaction.',
-  telegramUrl: 'https://t.me/ukulele',
+  telegramUrl: 'https://t.me/+qMHrV95v_rAxYTE1',
   palette: {
     white: '#FFFFFF',
     silver: '#E0E0E0',
