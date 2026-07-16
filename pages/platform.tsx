@@ -8,18 +8,8 @@ import { useWeb3React } from '@web3-react/core';
 import { PrivateSendForm, type PrivateSendFields } from '../src/components/PrivateSendForm';
 import { ProgressMessageCard } from '../src/components/ProgressMessageCard';
 import { abi as privacyAbi, address as privacyAddress } from '../src/contracts/contract2';
-import { abi as gsnAbi, address as gsnAddress } from '../src/contracts/contract4';
 import { gasLimit, progressMessagesMap, type Message, type Steps } from '../src/constants';
 import { Layout } from '../src/Layout';
-import {
-  GASLESS_ACTION,
-  isGaslessRelayConfigured,
-  relayGaslessAction,
-  signGaslessAction,
-  toRelayEncryptedArray,
-  type GaslessAction,
-  type GaslessFunctionName,
-} from '../src/lib/gaslessRelay';
 
 const platformMessage = {
   title: 'Attention Required',
@@ -80,52 +70,15 @@ export default function Platform() {
   const salt = watch('salt');
   const remainingDigits = Math.max(0, 39 - (salt?.replace(/\D/g, '').length || 0));
 
-  const runGsnStep = async (
-    signer: ethers.providers.JsonRpcSigner,
-    functionName: GaslessFunctionName,
-    action: GaslessAction,
+  const runPrivacyStep = async (
+    privacyContract: ethers.Contract,
+    part: 'PART_I_' | 'PART_II_',
     encryptedValues: ethers.BigNumberish[],
   ) => {
-    if (!gsnAddress) {
-      throw new Error('No GSN contract is configured for the current protocol release.');
-    }
-
-    const gsnContract = new ethers.Contract(gsnAddress, gsnAbi, signer);
-
-    if (isGaslessRelayConfigured()) {
-      const nonce = await gsnContract.nonces(account);
-      const { chainId } = await library.getNetwork();
-      const deadline = Math.floor(Date.now() / 1000) + 20 * 60;
-      const signature = await signGaslessAction({
-        signer,
-        user: account as string,
-        chainId,
-        verifyingContract: gsnAddress,
-        privacyContractAddress: privacyAddress,
-        encryptedArray: encryptedValues,
-        action,
-        nonce,
-        deadline,
-      });
-
-      await relayGaslessAction({
-        target: gsnAddress,
-        functionName,
-        request: {
-          user: account as string,
-          privacyContractAddress: privacyAddress,
-          encryptedArray: toRelayEncryptedArray(encryptedValues),
-          deadline,
-          signature,
-        },
-      });
-      return;
-    }
-
     const tx =
-      functionName === 'executePartI'
-        ? await gsnContract.Part_I(privacyAddress, encryptedValues, transactionOptions)
-        : await gsnContract.Part_II(privacyAddress, encryptedValues, transactionOptions);
+      part === 'PART_I_'
+        ? await privacyContract.PART_I_(encryptedValues, transactionOptions)
+        : await privacyContract.PART_II_(privacyAddress, encryptedValues, transactionOptions);
     await tx.wait();
   };
 
@@ -153,7 +106,7 @@ export default function Platform() {
 
         const preparedEncryptedValues = await privacyContract.encryptValues(recipient, amount, data.salt);
         encryptedValues = preparedEncryptedValues;
-        await runGsnStep(signer, 'executePartI', GASLESS_ACTION.partI, preparedEncryptedValues);
+        await runPrivacyStep(privacyContract, 'PART_I_', preparedEncryptedValues);
         setEncryptedValuesState(preparedEncryptedValues);
       }
 
@@ -162,7 +115,7 @@ export default function Platform() {
       }
 
       setStep(2);
-      await runGsnStep(signer, 'executePartII', GASLESS_ACTION.partII, encryptedValues);
+      await runPrivacyStep(privacyContract, 'PART_II_', encryptedValues);
 
       setEncryptedValuesState(null);
       setStep(3);

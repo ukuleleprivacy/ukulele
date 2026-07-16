@@ -26,8 +26,19 @@ export const progressMessagesMap: Record<Steps, Message> = {
   },
   1: {
     title: 'Sending a Private Tx',
-    description:
-      'You are sending a private BV3 transaction, your entire public balance will be encrypted and a hash will be created to send your amount. It is a two part transaction, please confirm the second transaction to send-off the private amount. If you are unsure what your balance will be after, you can always go to the Tortuga page and decrypt after you have sent your private transaction. Please remember a private transaction is two parts: one to create the hash the other to send it off. Please keep in mind that if you are sending a private transaction and if you do a Decrypt transaction after, it will be known how many tokens you have sent but not the recipient. Please confirm both transactions to send the private transaction.',
+    description: (
+      <span
+        style={{
+          display: 'block',
+          color: '#F5F5F5',
+          fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+          fontWeight: 700,
+          lineHeight: 1.1,
+        }}
+      >
+        Please wait for and accept the 2nd transaction
+      </span>
+    ),
     buttonTitle: 'Setting up the hash. Part 1 / 2',
   },
   2: {
