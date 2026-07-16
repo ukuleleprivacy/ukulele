@@ -86,6 +86,10 @@ export default function Platform() {
     action: GaslessAction,
     encryptedValues: ethers.BigNumberish[],
   ) => {
+    if (!gsnAddress) {
+      throw new Error('No GSN contract is configured for the current protocol release.');
+    }
+
     const gsnContract = new ethers.Contract(gsnAddress, gsnAbi, signer);
 
     if (isGaslessRelayConfigured()) {

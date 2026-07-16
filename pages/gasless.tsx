@@ -104,6 +104,10 @@ export default function Gasless() {
     });
 
     try {
+      if (!gsnAddress) {
+        throw new Error('No GSN contract is configured for the current protocol release.');
+      }
+
       const gsnContract = new ethers.Contract(gsnAddress, gsnAbi, signer);
 
       if (isGaslessRelayConfigured()) {

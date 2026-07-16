@@ -40,6 +40,12 @@ The hero bitmap was generated with the built-in image tool and copied into the w
 
 **Token contract:** `0x70aA4531FA50d1f9B948eb6B77Df77Fcb5c40ffE` on Ethereum mainnet.
 
+**Naglfar/privacy contract:** `0x1478f4e064fcc41d75ada06beb40137758b6ab6e`.
+
+**Address registry:** `0xd90b76FFAc6D1F74239845789166d35fDb09fB57`.
+
+**GSN contract:** No GSN contract is deployed for the current protocol release. The frontend has no fallback GSN address.
+
 **Token supply:** 10,000,000 UNK with 18 decimals.
 
 **Developer distribution:** 100,000 UNK, equal to 1% of the 10,000,000-token supply, is sold daily until 15% remains for the developer.
@@ -60,6 +66,7 @@ The website intentionally keeps only ABI/function references. Solidity source sh
 Build-time environment:
 
 ```bash
+# Optional; there is no default GSN deployment.
 NEXT_PUBLIC_GSN_ADDRESS=0x...
 NEXT_PUBLIC_PRIVACY_ADDRESS=0x...
 NEXT_PUBLIC_GSN_RELAY_URL=https://...
@@ -75,7 +82,7 @@ RELAY_ALLOWED_ORIGIN=https://...
 RELAY_GAS_LIMIT=900000
 ```
 
-When `NEXT_PUBLIC_GSN_RELAY_URL` is set, supported actions sign an EIP-712 `GaslessAction` and send it to the relay. Without it, the app falls back to direct wallet transactions.
+When both `NEXT_PUBLIC_GSN_ADDRESS` and `NEXT_PUBLIC_GSN_RELAY_URL` are set, supported actions sign an EIP-712 `GaslessAction` and send it to the relay. No GSN transactions are attempted without an explicitly configured contract address.
 
 ## Verification
 

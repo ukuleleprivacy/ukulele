@@ -13,4 +13,4 @@ export const abi = [
 ] as const;
 
 export const address =
-  process.env.NEXT_PUBLIC_PRIVACY_ADDRESS || '0xd56fd7E66E39ddFC16E0e196c49794d17d75d386';
+  process.env.NEXT_PUBLIC_PRIVACY_ADDRESS || '0x1478f4e064fcc41d75ada06beb40137758b6ab6e';

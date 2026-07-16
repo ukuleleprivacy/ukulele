@@ -36,7 +36,8 @@ type RelayPayload = {
 const ZERO_ADDRESS = ethers.constants.AddressZero;
 const ZERO_HASH = ethers.constants.HashZero;
 
-export const isGaslessRelayConfigured = () => Boolean(process.env.NEXT_PUBLIC_GSN_RELAY_URL);
+export const isGaslessRelayConfigured = () =>
+  Boolean(process.env.NEXT_PUBLIC_GSN_ADDRESS && process.env.NEXT_PUBLIC_GSN_RELAY_URL);
 
 export const toRelayEncryptedArray = (encryptedArray: readonly ethers.BigNumberish[]) =>
   encryptedArray.map((value) => ethers.BigNumber.from(value).toString());

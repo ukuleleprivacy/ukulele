@@ -30,5 +30,6 @@ export const abi = [
   'function withdrawETH(uint256 amount)',
 ] as const;
 
-export const address =
-  process.env.NEXT_PUBLIC_GSN_ADDRESS || '0xF3c15d71CBD725A7686a837F1aCAd42C71d60bFb';
+// There is no deployed GSN contract for the current protocol release.
+// Keep this environment-only so a future deployment must be configured explicitly.
+export const address = process.env.NEXT_PUBLIC_GSN_ADDRESS || '';
