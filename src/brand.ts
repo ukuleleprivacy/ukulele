@@ -54,9 +54,9 @@ export const roadmap = [
     description: 'Polish the Gasless page and user journey around the finished protocol experience.',
   },
   {
-    title: 'Daily Founder Sales and Marketing',
+    title: 'Daily Developer Sales and Marketing',
     description:
-      'Continue selling 1% per day until 15% of supply remains with the founder, while expanding marketing.',
+      'Sell 100,000 UNK, equal to 1% of the total supply, each day until 15% remains for the developer, while expanding marketing.',
   },
 ];
 
@@ -66,8 +66,9 @@ export const protocolNotes = [
     description: 'UKULELE is fully on chain, meaning transactions cannot be manipulated.',
   },
   {
-    title: 'Founder distribution',
-    description: '1% sold daily until 15% of the supply remains with the founder.',
+    title: 'Developer distribution',
+    description:
+      '100,000 UNK, equal to 1% of the 10,000,000-token supply, is sold daily until 15% remains for the developer.',
   },
   {
     title: 'Finished protocol',
@@ -76,13 +77,11 @@ export const protocolNotes = [
 ];
 
 export const brandAssets = [
-  { label: 'Logo mark', path: '/brand/ukulele-mark.svg' },
-  { label: 'Logo lockup', path: '/brand/ukulele-logo.png' },
+  { label: 'Logo', path: '/01.png' },
   { label: 'Hero artwork', path: '/brand/ukulele-hero.png' },
   { label: 'Desktop wallpaper', path: '/brand/wallpaper-desktop.png' },
   { label: 'Mobile wallpaper', path: '/brand/wallpaper-mobile.png' },
   { label: 'Social banner', path: '/brand/social-banner.png' },
-  { label: 'Favicon', path: '/brand/favicon.svg' },
 ];
 
 export const philosophySections = [

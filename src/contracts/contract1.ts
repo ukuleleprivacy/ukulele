@@ -1,3 +1,5 @@
+import { ukuleleToken } from '../token';
+
 export const abi = [
   {
     inputs: [
@@ -617,4 +619,4 @@ export const abi = [
   },
 ] as const;
 
-export const address = '0xe96938e0D086A241D03688ddA697Bf57859Ee261'
+export const address = ukuleleToken.address;

@@ -24,16 +24,6 @@ self.__BUILD_MANIFEST = {
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/community": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/community.js"
-    ],
-    "/gasless": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/gasless.js"
-    ],
     "/platform": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",

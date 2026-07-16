@@ -18,8 +18,8 @@ export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
       <Head>
         {/* PWA primary color */}
         <meta name="theme-color" content="#0A0A0A" />
-        <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml" />
-        <link rel="shortcut icon" href="/brand/favicon.svg" />
+        <link rel="icon" href="/01.png" type="image/png" />
+        <link rel="shortcut icon" href="/01.png" />
         <meta
           name="emotion-insertion-point"
           content=""

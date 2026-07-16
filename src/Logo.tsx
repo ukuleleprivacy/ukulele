@@ -16,7 +16,7 @@ export const LogoMark = ({ size = 52 }: { size?: number }) => (
       display: 'block',
       borderRadius: '12px',
       overflow: 'hidden',
-      backgroundImage: 'url(/brand/ukulele-logo.png)',
+      backgroundImage: 'url(/01.png)',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       boxShadow: '0 0 32px rgba(255, 255, 255, 0.25)',

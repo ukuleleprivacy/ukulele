@@ -41,7 +41,7 @@ export default function Roadmap() {
               </Typography>
               <Typography color="text.secondary">
                 This sequence covers the rebrand, community development, pool launch, Gasless
-                rollout, daily founder sale schedule, and continued marketing expansion.
+                rollout, daily developer token-sale schedule, and continued marketing expansion.
               </Typography>
             </Stack>
           </Grid>

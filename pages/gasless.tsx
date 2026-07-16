@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
+import LockRounded from '@mui/icons-material/LockRounded';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -223,145 +224,201 @@ export default function Gasless() {
         <title>Gasless | Ukulele</title>
       </Head>
 
-      <Container disableGutters maxWidth="md" sx={{ pt: { xs: 5, md: 9 }, pb: { xs: 7, md: 11 } }}>
-        <Card variant="outlined" sx={{ mb: 3 }}>
-          <CardContent sx={{ p: { xs: '22px 24px!important', sm: '28px 36px!important' } }}>
-            <Typography variant="h5" fontWeight="700">
-              {gaslessMessage.title}
-            </Typography>
-            <Typography color="text.secondary" sx={{ mt: 1.5 }}>
-              {gaslessMessage.description}
-            </Typography>
-          </CardContent>
-        </Card>
-
-        <Card variant="outlined">
-          <CardContent sx={{ p: { xs: '28px 24px!important', sm: '42px 52px!important' } }}>
-            <Stack gap={3.5}>
-              <Button
-                size="large"
-                variant="contained"
-                fullWidth
-                disabled={Boolean(pendingAction)}
-                onClick={handleSell}
-                sx={{
-                  minHeight: 62,
-                  borderRadius: 999,
-                  fontSize: { xs: 16, sm: 20 },
-                }}
-              >
-                {pendingAction === 'sell' ? (
-                  <>
-                    <CircularProgress size={24} sx={{ mr: 2, color: '#fff', minWidth: 24 }} />
-                    SELL pending
-                  </>
-                ) : (
-                  'SELL'
-                )}
-              </Button>
-
-              <Button
-                size="large"
-                variant="contained"
-                fullWidth
-                disabled={Boolean(pendingAction)}
-                onClick={handleFullDisplay}
-                sx={{
-                  minHeight: 62,
-                  borderRadius: 999,
-                  fontSize: { xs: 16, sm: 20 },
-                }}
-              >
-                {pendingAction === 'fullDisplay' ? (
-                  <>
-                    <CircularProgress size={24} sx={{ mr: 2, color: '#fff', minWidth: 24 }} />
-                    Full UI display pending
-                  </>
-                ) : (
-                  'Full UI Display'
-                )}
-              </Button>
-
-              <Grid container spacing={2}>
-                <Grid item xs={12} md={8}>
-                  <TextField
-                    type="number"
-                    placeholder="0.00"
-                    variant="outlined"
-                    fullWidth
-                    value={partialAmount}
-                    disabled={Boolean(pendingAction)}
-                    onChange={(event) => setPartialAmount(event.target.value)}
-                    onKeyDown={(event) => {
-                      if (
-                        ['e', 'E', '+', '-'].includes(event.key) &&
-                        !event.metaKey &&
-                        !event.ctrlKey &&
-                        !event.altKey &&
-                        !event.shiftKey
-                      ) {
-                        event.preventDefault();
-                      }
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={12} md={4}>
-                  <Button
-                    size="large"
-                    variant="contained"
-                    fullWidth
-                    disabled={Boolean(pendingAction)}
-                    onClick={handlePartialDisplay}
-                    sx={{
-                      minHeight: 62,
-                      borderRadius: 999,
-                    }}
-                  >
-                    {pendingAction === 'partialDisplay' ? (
-                      <>
-                        <CircularProgress size={24} sx={{ mr: 2, color: '#fff', minWidth: 24 }} />
-                        Pending
-                      </>
-                    ) : (
-                      'Partial UI Display'
-                    )}
-                  </Button>
-                </Grid>
-              </Grid>
-
-              <Box
-                sx={{
-                  p: { xs: 2.25, md: 2.5 },
-                  borderRadius: '8px',
-                  border: error
-                    ? '1px solid rgba(255, 255, 255, 0.42)'
-                    : '1px solid rgba(255, 255, 255, 0.12)',
-                  backgroundColor: error ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 0.035)',
-                }}
-              >
-                <Typography fontWeight="700">{status.title}</Typography>
-                <Typography color="text.secondary" sx={{ mt: 0.75 }}>
-                  {status.description}
-                </Typography>
-              </Box>
-            </Stack>
-          </CardContent>
-        </Card>
-
+      <Container
+        disableGutters
+        maxWidth="md"
+        sx={{ position: 'relative', pt: { xs: 5, md: 9 }, pb: { xs: 7, md: 11 } }}
+      >
         <Box
+          aria-hidden="true"
           sx={{
-            mt: 3,
-            p: { xs: 2.5, md: 3 },
-            borderRadius: '8px',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
-            backgroundColor: 'rgba(255, 255, 255, 0.035)',
+            opacity: 0.18,
+            filter: 'grayscale(1)',
+            pointerEvents: 'none',
+            userSelect: 'none',
           }}
         >
-          <Typography color="text.secondary">
-            UKULELE is on Ethereum mainnet and is designed to be fully on chain. Connect your wallet
-            from the header to use wallet-aware UI states.
-          </Typography>
+          <Card variant="outlined" sx={{ mb: 3 }}>
+            <CardContent sx={{ p: { xs: '22px 24px!important', sm: '28px 36px!important' } }}>
+              <Typography variant="h5" fontWeight="700">
+                {gaslessMessage.title}
+              </Typography>
+              <Typography color="text.secondary" sx={{ mt: 1.5 }}>
+                {gaslessMessage.description}
+              </Typography>
+            </CardContent>
+          </Card>
+
+          <Card variant="outlined">
+            <CardContent sx={{ p: { xs: '28px 24px!important', sm: '42px 52px!important' } }}>
+              <Stack gap={3.5}>
+                <Button
+                  size="large"
+                  variant="contained"
+                  fullWidth
+                  disabled
+                  onClick={handleSell}
+                  sx={{
+                    minHeight: 62,
+                    borderRadius: 999,
+                    fontSize: { xs: 16, sm: 20 },
+                  }}
+                >
+                  {pendingAction === 'sell' ? (
+                    <>
+                      <CircularProgress size={24} sx={{ mr: 2, color: '#fff', minWidth: 24 }} />
+                      SELL pending
+                    </>
+                  ) : (
+                    'SELL'
+                  )}
+                </Button>
+
+                <Button
+                  size="large"
+                  variant="contained"
+                  fullWidth
+                  disabled
+                  onClick={handleFullDisplay}
+                  sx={{
+                    minHeight: 62,
+                    borderRadius: 999,
+                    fontSize: { xs: 16, sm: 20 },
+                  }}
+                >
+                  {pendingAction === 'fullDisplay' ? (
+                    <>
+                      <CircularProgress size={24} sx={{ mr: 2, color: '#fff', minWidth: 24 }} />
+                      Full UI display pending
+                    </>
+                  ) : (
+                    'Full UI Display'
+                  )}
+                </Button>
+
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={8}>
+                    <TextField
+                      type="number"
+                      placeholder="0.00"
+                      variant="outlined"
+                      fullWidth
+                      value={partialAmount}
+                      disabled
+                      onChange={(event) => setPartialAmount(event.target.value)}
+                      onKeyDown={(event) => {
+                        if (
+                          ['e', 'E', '+', '-'].includes(event.key) &&
+                          !event.metaKey &&
+                          !event.ctrlKey &&
+                          !event.altKey &&
+                          !event.shiftKey
+                        ) {
+                          event.preventDefault();
+                        }
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    <Button
+                      size="large"
+                      variant="contained"
+                      fullWidth
+                      disabled
+                      onClick={handlePartialDisplay}
+                      sx={{
+                        minHeight: 62,
+                        borderRadius: 999,
+                      }}
+                    >
+                      {pendingAction === 'partialDisplay' ? (
+                        <>
+                          <CircularProgress size={24} sx={{ mr: 2, color: '#fff', minWidth: 24 }} />
+                          Pending
+                        </>
+                      ) : (
+                        'Partial UI Display'
+                      )}
+                    </Button>
+                  </Grid>
+                </Grid>
+
+                <Box
+                  sx={{
+                    p: { xs: 2.25, md: 2.5 },
+                    borderRadius: '8px',
+                    border: error
+                      ? '1px solid rgba(255, 255, 255, 0.42)'
+                      : '1px solid rgba(255, 255, 255, 0.12)',
+                    backgroundColor: error
+                      ? 'rgba(255, 255, 255, 0.08)'
+                      : 'rgba(255, 255, 255, 0.035)',
+                  }}
+                >
+                  <Typography fontWeight="700">{status.title}</Typography>
+                  <Typography color="text.secondary" sx={{ mt: 0.75 }}>
+                    {status.description}
+                  </Typography>
+                </Box>
+              </Stack>
+            </CardContent>
+          </Card>
+
+          <Box
+            sx={{
+              mt: 3,
+              p: { xs: 2.5, md: 3 },
+              borderRadius: '8px',
+              border: '1px solid rgba(255, 255, 255, 0.12)',
+              backgroundColor: 'rgba(255, 255, 255, 0.035)',
+            }}
+          >
+            <Typography color="text.secondary">
+              UKULELE is on Ethereum mainnet and is designed to be fully on chain. Connect your wallet
+              from the header to use wallet-aware UI states.
+            </Typography>
+          </Box>
         </Box>
+
+        <Box
+          aria-hidden="true"
+          sx={{
+            position: 'absolute',
+            zIndex: 1,
+            inset: 0,
+            backgroundColor: 'rgba(10, 10, 10, 0.58)',
+            pointerEvents: 'none',
+          }}
+        />
+
+        <Stack
+          role="status"
+          alignItems="center"
+          spacing={2.5}
+          sx={{
+            position: 'absolute',
+            zIndex: 2,
+            top: { xs: 132, sm: 154, md: 190 },
+            left: '50%',
+            width: 'calc(100% - 40px)',
+            maxWidth: 720,
+            transform: 'translateX(-50%)',
+            textAlign: 'center',
+          }}
+        >
+          <LockRounded sx={{ fontSize: { xs: 54, sm: 68 }, color: 'text.primary' }} />
+          <Typography
+            variant="h5"
+            sx={{
+              fontSize: { xs: 18, sm: 22, md: 24 },
+              lineHeight: 1.5,
+              textWrap: 'balance',
+            }}
+          >
+            Gasless selling of UNK for a bit of ETH is coming soon, once we upgrade to ERC-4337
+            account abstraction with paymaster-sponsored transactions.
+          </Typography>
+        </Stack>
       </Container>
     </Layout>
   );

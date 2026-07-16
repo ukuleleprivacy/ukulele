@@ -2,8 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/gasless": "pages/gasless.js",
-  "/platform": "pages/platform.js",
   "/": "pages/index.js",
-  "/community": "pages/community.js"
+  "/gasless": "pages/gasless.js",
+  "/platform": "pages/platform.js"
 }

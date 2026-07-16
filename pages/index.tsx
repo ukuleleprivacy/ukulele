@@ -1,6 +1,7 @@
 import AutoAwesome from '@mui/icons-material/AutoAwesome';
 import HubOutlined from '@mui/icons-material/HubOutlined';
 import LockOutlined from '@mui/icons-material/LockOutlined';
+import OpenInNew from '@mui/icons-material/OpenInNew';
 import ShieldOutlined from '@mui/icons-material/ShieldOutlined';
 import VisibilityOffOutlined from '@mui/icons-material/VisibilityOffOutlined';
 import Box from '@mui/material/Box';
@@ -15,8 +16,21 @@ import FeatureSection from '../src/components/FeatureSection';
 import TopSection from '../src/components/TopSection';
 import { Layout } from '../src/Layout';
 import Link from '../src/Link';
+import { ukuleleToken } from '../src/token';
 
 const pillarIcons = [ShieldOutlined, VisibilityOffOutlined, LockOutlined, HubOutlined];
+
+const tokenFacts = [
+  { label: 'Network', value: ukuleleToken.network },
+  { label: 'Token', value: ukuleleToken.symbol },
+  { label: 'Decimals', value: String(ukuleleToken.decimals) },
+  { label: 'Total supply', value: `${ukuleleToken.totalSupply.toLocaleString('en-US')} UNK` },
+  {
+    label: 'Daily sale',
+    value: `${ukuleleToken.dailySaleTokens.toLocaleString('en-US')} UNK (${ukuleleToken.dailySalePercent}%)`,
+  },
+  { label: 'Developer reserve', value: `${ukuleleToken.developerReservePercent}%` },
+];
 
 export default function Home() {
   return (
@@ -57,6 +71,89 @@ export default function Home() {
             );
           })}
         </Grid>
+      </Box>
+
+      <Box component="section" id="token" sx={{ py: { xs: 7, md: 10 } }}>
+        <Stack gap={2} sx={{ maxWidth: 760, mb: 4 }}>
+          <Typography variant="overline" color="primary.light" sx={{ fontWeight: 700 }}>
+            Token Details
+          </Typography>
+          <Typography variant="h3" component="h2">
+            UKULELE on Ethereum
+          </Typography>
+          <Typography color="text.secondary">
+            The supply is fixed at 10,000,000 UNK. Each day, 100,000 UNK, equal to 1% of the
+            total supply, is sold until 15% remains for the developer.
+          </Typography>
+        </Stack>
+
+        <Box
+          sx={{
+            overflow: 'hidden',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            borderRadius: '8px',
+            backgroundColor: 'rgba(255, 255, 255, 0.035)',
+          }}
+        >
+          <Box sx={{ p: { xs: 2.5, sm: 3 }, borderBottom: '1px solid rgba(255, 255, 255, 0.12)' }}>
+            <Typography variant="overline" color="text.secondary" sx={{ fontWeight: 700 }}>
+              Token contract
+            </Typography>
+            <Box
+              component={Link}
+              href={ukuleleToken.etherscanUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                mt: 1,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                width: 'fit-content',
+                maxWidth: '100%',
+                color: 'text.primary',
+                '&:hover': { color: 'primary.light' },
+              }}
+            >
+              <Typography
+                component="span"
+                sx={{
+                  minWidth: 0,
+                  fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+                  fontSize: { xs: 13, sm: 16 },
+                  overflowWrap: 'anywhere',
+                }}
+              >
+                {ukuleleToken.address}
+              </Typography>
+              <OpenInNew aria-hidden="true" sx={{ flex: '0 0 auto', fontSize: 19 }} />
+            </Box>
+          </Box>
+
+          <Grid container>
+            {tokenFacts.map((fact) => (
+              <Grid
+                item
+                xs={6}
+                sm={4}
+                md={2}
+                key={fact.label}
+                sx={{
+                  p: { xs: 2, sm: 2.5 },
+                  borderRight: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderBottom: { xs: '1px solid rgba(255, 255, 255, 0.08)', md: 0 },
+                }}
+              >
+                <Typography variant="overline" color="text.secondary" sx={{ fontWeight: 700 }}>
+                  {fact.label}
+                </Typography>
+                <Typography sx={{ mt: 0.5, fontWeight: 700, overflowWrap: 'anywhere' }}>
+                  {fact.value}
+                </Typography>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       </Box>
 
       <Box component="section" id="philosophy" sx={{ py: { xs: 7, md: 11 } }}>
@@ -134,7 +231,7 @@ export default function Home() {
               </Typography>
               <Typography color="text.secondary">
                 The roadmap focuses the public rollout around identity, community, the launch pool,
-                Gasless, and a transparent founder distribution schedule.
+                Gasless, and a transparent developer distribution schedule.
               </Typography>
               <Button
                 component={Link}

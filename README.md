@@ -38,7 +38,11 @@ The hero bitmap was generated with the built-in image tool and copied into the w
 
 **On-chain:** UKULELE is presented as fully on chain, meaning transactions cannot be manipulated.
 
-**Founder distribution:** 1% sold daily until 15% of the supply remains with the founder.
+**Token contract:** `0x70aA4531FA50d1f9B948eb6B77Df77Fcb5c40ffE` on Ethereum mainnet.
+
+**Token supply:** 10,000,000 UNK with 18 decimals.
+
+**Developer distribution:** 100,000 UNK, equal to 1% of the 10,000,000-token supply, is sold daily until 15% remains for the developer.
 
 **Protocol status:** Decentralized, fully finished protocol.
 

@@ -122,7 +122,7 @@ const FeatureSection = ({
           />
           <Box
             component="img"
-            src="/brand/ukulele-mark.svg"
+            src="/01.png"
             alt=""
             aria-hidden="true"
             sx={{
