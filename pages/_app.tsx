@@ -16,6 +16,7 @@ import { ethers } from 'ethers';
 import createEmotionCache from '../src/createEmotionCache';
 import { Footer } from '../src/Footer';
 import { TopAppBar } from '../src/AppBar';
+import { WalletSession } from '../src/components/WalletSession';
 import theme from '../src/theme';
 
 const clientSideEmotionCache = createEmotionCache();
@@ -57,11 +58,13 @@ export default function MyApp(props: MyAppProps) {
           }}
         >
           <Web3ReactProvider getLibrary={getLibrary}>
-            <Container maxWidth="lg" sx={{ width: '100%', px: { xs: 2, sm: 3 } }}>
-              <TopAppBar />
-              <Component {...pageProps} />
-            </Container>
-            <Footer />
+            <WalletSession>
+              <Container maxWidth="lg" sx={{ width: '100%', px: { xs: 2, sm: 3 } }}>
+                <TopAppBar />
+                <Component {...pageProps} />
+              </Container>
+              <Footer />
+            </WalletSession>
           </Web3ReactProvider>
         </Box>
       </ThemeProvider>

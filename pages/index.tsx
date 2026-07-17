@@ -1,4 +1,5 @@
 import AutoAwesome from '@mui/icons-material/AutoAwesome';
+import ArrowForward from '@mui/icons-material/ArrowForward';
 import HubOutlined from '@mui/icons-material/HubOutlined';
 import LockOutlined from '@mui/icons-material/LockOutlined';
 import OpenInNew from '@mui/icons-material/OpenInNew';
@@ -13,6 +14,7 @@ import Head from 'next/head';
 
 import { brand, brandAssets, philosophySections, pillars, protocolNotes, roadmap } from '../src/brand';
 import FeatureSection from '../src/components/FeatureSection';
+import { TechnicalArtwork } from '../src/components/TechnicalArtwork';
 import TopSection from '../src/components/TopSection';
 import { Layout } from '../src/Layout';
 import Link from '../src/Link';
@@ -30,6 +32,29 @@ const tokenFacts = [
     value: `${ukuleleToken.dailySaleTokens.toLocaleString('en-US')} UNK (${ukuleleToken.dailySalePercent}%)`,
   },
   { label: 'Developer reserve', value: `${ukuleleToken.developerReservePercent}%` },
+];
+
+const userFlow = [
+  {
+    title: 'Connect',
+    description:
+      'Authorize MetaMask on Ethereum mainnet. Your shortened active address stays visible and the authorized session can return after a reload.',
+  },
+  {
+    title: 'Private SEND',
+    description:
+      'Enter an amount, recipient, and 39-digit SALT. Confirm PART I, save the downloaded recovery record, then confirm PART II.',
+  },
+  {
+    title: 'Decrypt',
+    description:
+      'Return either the complete private balance with decrypt() or only an entered amount with decrypt_partial(requestedAmount).',
+  },
+  {
+    title: 'Disrupt',
+    description:
+      'Create a real shadowDuster Transfer event whose temporary balance changes net to zero, then verify the transaction on Etherscan.',
+  },
 ];
 
 export default function Home() {
@@ -70,6 +95,122 @@ export default function Home() {
               </Grid>
             );
           })}
+        </Grid>
+      </Box>
+
+      <Box component="section" id="how-it-works" sx={{ py: { xs: 7, md: 10 } }}>
+        <Stack gap={2} sx={{ maxWidth: 780, mb: 4 }}>
+          <Typography variant="overline" color="primary.light" sx={{ fontWeight: 700 }}>
+            How UKULELE Works
+          </Typography>
+          <Typography variant="h2" component="h2">
+            Four actions, one Ethereum wallet
+          </Typography>
+          <Typography color="text.secondary">
+            UKULELE separates private sending, balance restoration, and zero-net event signaling
+            into explicit actions. Every submitted action is a real Ethereum transaction that you
+            review in your wallet.
+          </Typography>
+        </Stack>
+
+        <Grid container spacing={1.5}>
+          {userFlow.map((item, index) => (
+            <Grid item xs={12} sm={6} key={item.title}>
+              <Box
+                sx={{
+                  height: '100%',
+                  minHeight: 220,
+                  p: { xs: 3, md: 3.5 },
+                  borderRadius: '8px',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.035)',
+                }}
+              >
+                <Typography variant="overline" color="primary.light" fontWeight="700">
+                  {String(index + 1).padStart(2, '0')}
+                </Typography>
+                <Typography variant="h5" sx={{ mt: 0.75, mb: 1.25 }}>
+                  {item.title}
+                </Typography>
+                <Typography color="text.secondary">{item.description}</Typography>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+
+        <Stack direction={{ xs: 'column', sm: 'row' }} gap={1.5} sx={{ mt: 3 }}>
+          <Button component={Link} href="/platform" variant="contained" endIcon={<ArrowForward />}>
+            Open SEND
+          </Button>
+          <Button component={Link} href="/decrypt" variant="outlined">
+            Open Decrypt
+          </Button>
+          <Button component={Link} href="/disruptor" variant="outlined">
+            Open Disruptor
+          </Button>
+        </Stack>
+
+        <Box sx={{ mt: { xs: 4, md: 5 } }}>
+          <TechnicalArtwork
+            src="/technical/09.webp"
+            alt="UKULELE user flow showing Connect, SEND, Decrypt, and Disruptor with three safety reminders"
+            caption="The four-action UKULELE user flow and its safety checkpoints."
+            eager
+          />
+        </Box>
+      </Box>
+
+      <Box
+        component="section"
+        id="whitepaper"
+        sx={{
+          my: { xs: 7, md: 11 },
+          p: { xs: 3, sm: 4, md: 6 },
+          borderRadius: '8px',
+          border: '1px solid rgba(255, 255, 255, 0.18)',
+          background:
+            'radial-gradient(circle at 88% 18%, rgba(255, 255, 255, 0.18), transparent 28%), rgba(255, 255, 255, 0.035)',
+        }}
+      >
+        <Grid container spacing={{ xs: 4, md: 7 }} alignItems="center">
+          <Grid item xs={12} md={8}>
+            <Typography variant="overline" color="primary.light" fontWeight="700">
+              Working Draft 0.1 · Plain Text
+            </Typography>
+            <Typography variant="h3" component="h2" sx={{ mt: 0.75 }}>
+              Read the UKULELE whitepaper
+            </Typography>
+            <Typography color="text.secondary" sx={{ mt: 1.5, maxWidth: 760 }}>
+              A direct explanation of the contracts, two-step SEND, full and partial decryption,
+              Disruptor event semantics, current deployment addresses, safety limitations, and the
+              proposed gasless upgrade path.
+            </Typography>
+            <Typography
+              sx={{
+                mt: 2,
+                fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+                fontSize: { xs: 12, sm: 14 },
+                overflowWrap: 'anywhere',
+              }}
+            >
+              Public token: {ukuleleToken.address}
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Button
+              component={Link}
+              href="/whitepaper/ukulele-whitepaper.txt"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="contained"
+              size="large"
+              fullWidth
+              endIcon={<OpenInNew />}
+              sx={{ minHeight: 58, borderRadius: 999 }}
+            >
+              Open Whitepaper
+            </Button>
+          </Grid>
         </Grid>
       </Box>
 
@@ -206,16 +347,19 @@ export default function Home() {
       </Box>
 
       <FeatureSection
-        kicker="Privacy Routing"
-        title="Token flow through the privacy engine"
-        description="UKULELE routes token movement into the privacy engine, converts it into a privacy hash, and returns it back to token form through a tested flow that has been used before and proven effective."
-        imageSrc="/brand/social-banner.png"
-        imageAlt="UKULELE social banner concept"
+        kicker="Two Confirmations"
+        title="A private SEND with a clear recovery checkpoint"
+        description="The interface prepares encrypted values, confirms PART I, downloads a private text record containing the amount, recipient, and SALT, and then requests PART II to complete the SEND."
+        imageSrc="/technical/11.webp"
+        imageAlt="UKULELE Ethereum execution rail connecting wallet inputs, PART I, recovery record, PART II, private SEND, decrypt, and shadow events"
         reverse
+        containImage
+        showBrandMark={false}
+        showImageOverlay={false}
         points={[
-          'The token can expand anonymously and in a decentralized way because it lives on Ethereum without centralized management.',
-          'The platform is designed for decentralized distribution, including torrent-based mirrors that help access spread across many users.',
-          'Copy and interface states have been cleaned up for clearer grammar, calmer controls, and a more consistent UKULELE experience.',
+          'Both submitted steps are real Ethereum transactions reviewed in MetaMask.',
+          'The recovery record is created after PART I confirms and before PART II begins.',
+          'If PART II is rejected, the same page session retains the prepared values for a direct retry.',
         ]}
       />
 
@@ -292,11 +436,11 @@ export default function Home() {
             Asset Kit
           </Typography>
           <Typography variant="h3" component="h2">
-            Ready-to-place brand placeholders
+            A visual system built to explain
           </Typography>
           <Typography color="text.secondary">
-            The project now includes logo, favicon, wallpaper, social, and hero art placeholders.
-            The README includes protocol notes and manual finish steps for the rebrand.
+            The asset library combines the UKULELE identity with protocol diagrams for SEND,
+            Decrypt, Disruptor, Gasless, and the complete Ethereum execution rail.
           </Typography>
         </Stack>
         <Grid container spacing={1.5}>

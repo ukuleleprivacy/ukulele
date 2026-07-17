@@ -17,6 +17,7 @@ import { useRouter } from 'next/router';
 
 import { navItems } from './brand';
 import { ConnectWallet } from './components/ConnectWallet';
+import { WalletBalance } from './components/WalletBalance';
 import Link from './Link';
 import { Logo } from './Logo';
 
@@ -66,7 +67,10 @@ export const TopAppBar = () => {
           );
         })}
       </List>
-      <ConnectWallet fullWidth />
+      <Stack gap={1}>
+        <ConnectWallet fullWidth />
+        <WalletBalance fullWidth />
+      </Stack>
     </Box>
   );
 
@@ -103,7 +107,8 @@ export const TopAppBar = () => {
             gap={0.5}
             sx={{
               display: { xs: 'none', md: 'flex' },
-              p: 0.5,
+              p: 0.35,
+              gap: 0.25,
               border: '1px solid rgba(255, 255, 255, 0.12)',
               borderRadius: '8px',
               backgroundColor: 'rgba(255, 255, 255, 0.035)',
@@ -121,8 +126,9 @@ export const TopAppBar = () => {
                   variant={isActive ? 'contained' : 'text'}
                   color="primary"
                   sx={{
-                    minHeight: 36,
-                    px: 1.8,
+                    minHeight: 32,
+                    px: 1.15,
+                    fontSize: 12.5,
                     color: isActive ? 'primary.contrastText' : 'text.secondary',
                     '&:hover': {
                       color: 'text.primary',
@@ -137,6 +143,9 @@ export const TopAppBar = () => {
           </Stack>
 
           <Stack direction="row" alignItems="center" gap={1}>
+            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+              <WalletBalance />
+            </Box>
             <ConnectWallet sx={{ display: { xs: 'none', sm: 'inline-flex' } }} />
             <IconButton
               color="inherit"

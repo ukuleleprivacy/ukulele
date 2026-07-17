@@ -24,10 +24,15 @@ self.__BUILD_MANIFEST = {
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/platform": [
+    "/decrypt": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/platform.js"
+      "static/chunks/pages/decrypt.js"
+    ],
+    "/disruptor": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/disruptor.js"
     ]
   },
   "ampFirstPages": []

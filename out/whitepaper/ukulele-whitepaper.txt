@@ -1,0 +1,244 @@
+UKULELE
+PRIVATE BY DEFAULT
+Protocol Whitepaper — Working Draft 0.1
+July 2026
+
+
+STATUS OF THIS DOCUMENT
+
+This is a plain-language working whitepaper derived from the currently supplied website interfaces, deployed contract addresses, and user-facing transaction flow. It is not a substitute for verified Solidity source, an independent security audit, or on-chain due diligence. Where the available interface does not prove a cryptographic or architectural claim, this document does not make that claim.
+
+
+1. EXECUTIVE SUMMARY
+
+UKULELE is an Ethereum token system with a two-transaction private-send workflow, public-balance restoration through full or partial decryption actions, an address registry, and a zero-net event function called shadowDuster.
+
+The public interface is designed around four user actions:
+
+1. SEND — prepare and complete a private transfer using two Ethereum transactions.
+2. DECRYPT — return all or part of a private balance to the public token balance.
+3. DISRUPTOR — emit a standard Transfer event while leaving the supplied user and recipient balances unchanged at the end of the call.
+4. GASLESS — a planned account-abstraction path that is visibly locked until the required contract and relay updates are complete.
+
+UKULELE is fully executed through Ethereum smart-contract calls. That means transaction hashes, block inclusion, calldata, emitted events, gas usage, and other Ethereum metadata remain public. “Private” in this document refers to the protocol’s private-balance and private-send design; it should not be read as a promise of perfect anonymity or the absence of observable metadata.
+
+
+2. CURRENT ETHEREUM MAINNET DEPLOYMENTS
+
+UKULELE token:
+0x0c6336e1f020A0d59b06d9F66B52E9AF905c35FB
+
+Naglfar / privacy contract:
+0xfFd73306f9359492e65967ccaE322331a2784b4F
+
+Address registry:
+0xB4C40F697f28aac83777Dc52c597c3C11cc192a4
+
+Network:
+Ethereum mainnet (chain ID 1)
+
+Token display parameters used by the website:
+Name: Ukulele
+Symbol: UNK
+Decimals: 18
+Displayed total supply: 10,000,000 UNK
+
+Gasless contract:
+No production fallback address is configured in the current website release. Gasless actions remain locked until the update is deployed and explicitly configured.
+
+Users should independently confirm every address against official UKULELE announcements and Ethereum block-explorer records before signing a transaction.
+
+
+3. SYSTEM COMPONENTS
+
+3.1 The UKULELE token
+
+The UKULELE token exposes familiar token operations such as balanceOf, transfer, transferFrom, approve, allowance, decimals, symbol, name, totalSupply, and the standard Transfer event. It also exposes protocol-specific operations including decrypt, decrypt_partial, truebalanceOf, shadowDuster, and functions used by associated protocol contracts.
+
+The website uses the token contract as the public address shown to users and as the target for decrypt and shadowDuster transactions.
+
+3.2 Naglfar / privacy contract
+
+The Naglfar interface exposes the user-facing private-send sequence:
+
+encryptValues(address userAddress, uint256 amount, uint256 SALT)
+PART_I_(uint256[] encryptedArray)
+PART_II_(address lillypadAddress, uint256[] encryptedArray)
+
+It also exposes gasless variants and administrative or recovery-oriented functions. The website’s standard SEND flow uses encryptValues, PART_I_, and PART_II_.
+
+3.3 Address registry
+
+The address registry exposes methods for adding, processing, swapping, and looking up protocol addresses, plus checks for recognized protocol contracts. This creates a separate address-management surface rather than embedding every relationship directly into the website.
+
+3.4 Website and wallet
+
+The website is a non-custodial transaction interface. MetaMask or another supported injected wallet supplies the signer. The website does not need a user’s seed phrase or private key. An authorized wallet session can be restored after navigation or reload, while an intentional disconnect disables automatic reconnection.
+
+
+4. HOW A PRIVATE SEND WORKS
+
+The current SEND interface requires an amount, a recipient Ethereum address, and a 39-digit numeric SALT.
+
+Step 1 — Connect and verify
+
+The user connects MetaMask on Ethereum mainnet. The interface displays a shortened version of the active account. The user verifies the recipient, amount, and SALT before continuing.
+
+Step 2 — Prepare encrypted values
+
+The website converts the human-readable token amount to 18-decimal token units. It calls encryptValues as a read-only contract operation to prepare the encrypted-value array used by the two transaction steps.
+
+Step 3 — Confirm PART I
+
+The user signs and submits PART_I_(encryptedArray). The interface waits for an Ethereum confirmation. PART I must confirm before the second step begins.
+
+Step 4 — Save the recovery record
+
+After PART I confirms and before PART II is requested, the browser downloads a plain-text record containing:
+
+Amount
+Recipient
+SALT
+
+The file is intended for the user’s private records and for recovery or retry context if PART II does not complete. The file should not be published, uploaded, or shared.
+
+Step 5 — Confirm PART II
+
+The user signs and submits PART_II_. The interface retains the prepared encrypted values in memory. If the user rejects PART II or it fails, pressing Submit again retries PART II without repeating PART I during the same page session.
+
+Step 6 — Completion
+
+After PART II confirms, the interface clears its retained encrypted values and resets the form. A zero public balance during the private-balance flow can be expected; it does not by itself prove that funds were lost.
+
+Important limitation: browser memory is not durable recovery storage. Reloading or closing the page clears in-memory interface state. The downloaded record is therefore important, but users should still understand the recovery method supported by the deployed contracts before placing meaningful value at risk.
+
+
+5. DECRYPTION
+
+UKULELE provides two public-balance restoration paths.
+
+5.1 Full decrypt
+
+Function:
+decrypt()
+
+The full action requests restoration of the complete private balance associated with the caller. It is an Ethereum transaction and requires gas in the current release.
+
+5.2 Partial decrypt
+
+Function:
+decrypt_partial(uint256 requestedAmount)
+
+The partial action accepts a positive amount. The website converts the entered UNK amount to 18-decimal token units and submits requestedAmount to the token contract. This allows a user to restore only part of a private balance to the public balance.
+
+5.3 Visibility consequence
+
+Decryption is a public Ethereum transaction. Restoring a balance to the public token surface can reveal information that the user may prefer to keep separate. Users should choose full versus partial decryption deliberately.
+
+
+6. THE DISRUPTOR AND SHADOWDUSTER
+
+Function:
+shadowDuster(address user, address recipient, uint256 amount)
+
+The supplied function performs the following operations under a reentrancy guard:
+
+1. Add amount to balances[user].
+2. Subtract amount from balances[user], returning that balance to its starting value.
+3. Add amount to balances[recipient].
+4. Emit Transfer(user, recipient, amount).
+5. Subtract amount from balances[recipient], returning that balance to its starting value.
+6. Release the reentrancy guard.
+
+Net balance result:
+User: zero change
+Recipient: zero change
+
+Event result:
+One standard Transfer event is emitted.
+
+The Ethereum transaction and Transfer log are real. The token movement represented by the temporary arithmetic is not durable: both supplied balances finish where they began. An indexer that relies mainly on Transfer events may display the record like a normal token transfer even though final contract balances do not reflect lasting movement.
+
+The Disruptor interface calls shadowDuster directly and displays recent records only after verifying two conditions:
+
+1. A Transfer event was emitted by the UKULELE token.
+2. The event’s transaction input begins with the shadowDuster function selector.
+
+This distinction matters. The interface should not label every ordinary UKULELE Transfer as a shadow send.
+
+
+7. GASLESS ROADMAP
+
+The current Gasless surface is locked. A production gasless release requires more than hiding gas from the interface; it needs an explicit account-abstraction and sponsorship system.
+
+Proposed implementation steps and rough engineering estimates:
+
+1. ERC-4337 account-abstraction integration — approximately 2 weeks.
+2. Paymaster policy, sponsorship limits, and abuse controls — approximately 1 to 2 weeks.
+3. Bundler and relayer integration on testnet — approximately 1 to 2 weeks.
+4. Security review, failure testing, load testing, and mainnet release — approximately 2 to 4 weeks.
+
+Rough total: 6 to 10 weeks after upgrade work begins.
+
+This is a planning estimate, not a release commitment. Audit findings, contract changes, infrastructure reliability, or sponsor-economics changes can extend the schedule. Gasless Decrypt should remain disabled until the deployed contracts, paymaster, relay endpoint, and frontend configuration are all ready.
+
+
+8. TOKEN PARAMETERS AND DISTRIBUTION
+
+The current website presents a fixed supply of 10,000,000 UNK, 18 decimals, a daily developer sale of 100,000 UNK, and a remaining developer reserve target of 15 percent. These are project-facing parameters and distribution statements. Users should verify supply, holders, transfers, liquidity, and owner privileges directly from the deployed contracts and reputable Ethereum data sources.
+
+
+9. SECURITY AND PRIVACY MODEL
+
+9.1 What the user controls
+
+The user controls the connected wallet, transaction approvals, recipient, amount, SALT, downloaded recovery record, and the choice to decrypt all or part of a private balance.
+
+9.2 What remains public
+
+Ethereum exposes transaction hashes, sending accounts, called contract addresses, calldata, gas parameters, block inclusion, and emitted logs. Wallet providers and websites can also observe network metadata. UKULELE should not be treated as a guarantee against every form of transaction analysis.
+
+9.3 Operational risks
+
+Risks include smart-contract defects, incorrect addresses, incorrect amounts, loss or disclosure of SALT records, rejected or stalled transactions, RPC failures, malicious browser extensions, compromised wallets, phishing interfaces, approval abuse, owner or privileged contract functions, and misunderstandings about public versus private balances.
+
+9.4 Required independent review
+
+Before production use, verified Solidity source, deployment parameters, privileged roles, registry relationships, upgrade paths, token accounting, edge cases, event semantics, and reentrancy protections should be reviewed by qualified independent auditors. The supplied ABI alone cannot establish the absence of vulnerabilities.
+
+
+10. USER SAFETY CHECKLIST
+
+1. Confirm Ethereum mainnet and the active account.
+2. Confirm the UKULELE token and Naglfar addresses.
+3. Test with a small amount first.
+4. Verify the recipient character by character.
+5. Use exactly 39 numeric digits for the SALT when the SEND interface requires it.
+6. Read both MetaMask transaction requests before approving.
+7. Keep the page open through PART I and PART II.
+8. Store the downloaded recovery record privately.
+9. Do not interpret a Transfer event alone as proof of lasting token balance movement.
+10. Use Decrypt only after understanding its public visibility consequences.
+
+
+11. DESIGN PRINCIPLES
+
+Non-custodial interaction: users sign with their own wallet.
+
+Explicit transaction states: the interface distinguishes preparation, PART I, recovery-record creation, PART II, completion, and retry states.
+
+Publicly verifiable execution: actions settle as Ethereum transactions and can be inspected by transaction hash.
+
+Accurate language: a real event with zero final balance movement is described as a zero-net shadow send, not as a nonexistent blockchain transaction.
+
+Progressive gasless delivery: unavailable sponsored actions remain visibly locked instead of silently falling back to misleading behavior.
+
+
+12. CONCLUSION
+
+UKULELE combines a token contract, a two-transaction private-send contract, an address registry, decrypt operations, and the shadowDuster event mechanism in one Ethereum-facing user experience. Its practical value depends on exact contract behavior, reliable transaction handling, careful user operations, transparent limitations, and independent security verification.
+
+The immediate product path is straightforward: make the two-step SEND understandable, give users a durable local record before PART II, make full and partial Decrypt explicit, explain Disruptor event semantics honestly, and keep Gasless locked until its infrastructure is production-ready.
+
+
+END OF WORKING DRAFT 0.1

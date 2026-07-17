@@ -43,17 +43,8 @@ export const progressMessagesMap: Record<Steps, Message> = {
   },
   2: {
     title: 'Completing the Private Transaction Send',
-    description: (
-      <>
-        Please confirm and do not exit the page until you sign and confirm the amount. Please copy the SALT and the
-        amount you are sending until the transaction is confirmed so that if the transaction fails for whatever reason,
-        you can get back the token you are sending. If you for any reason reject the second transaction of the private
-        send and do not have the correct amount and the salt,{' '}
-        <span style={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-          you will lose the amount you are sending permanently.
-        </span>
-      </>
-    ),
+    description:
+      "You'll have a plain text file downloaded to you, it has your amount, recipient and SALT just in case the 2nd transaction doesn't pass and for your own personal records, don't freak out out if your balance is zero, that's fine!",
     buttonTitle: 'Sending BV3 to Recipient. Part 2 / 2',
   },
   3: {

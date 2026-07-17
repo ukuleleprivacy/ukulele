@@ -15,8 +15,11 @@ UKULELE is now presented as a premium, minimal, black-and-white brand system wit
 ## Routes
 
 - `/` - primary UKULELE landing experience
-- `/platform` - platform brand positioning
+- `/platform` - two-transaction private SEND flow with a downloadable recovery record
+- `/decrypt` - full and partial public-balance decryption actions
+- `/disruptor` - zero-net `shadowDuster` Transfer records and verified recent activity
 - `/gasless` - wallet action surface for SELL and full/partial UI display flows
+- `/whitepaper/ukulele-whitepaper.txt` - published plain-text protocol whitepaper
 - `/roadmap` - launch sequence and distribution plan
 - `/community` - brand kit, social assets, and protocol notes
 
@@ -32,17 +35,20 @@ Project-bound assets live in `public/brand`:
 - `social-banner.svg` - social banner placeholder
 - `favicon.svg` - browser/app icon
 
+Finished protocol explainers live in `public/technical` as optimized WebP assets. Their original
+1168 x 880 PNG files remain in `/Users/nik/Documents/ukulele/technical`.
+
 The hero bitmap was generated with the built-in image tool and copied into the workspace at `public/brand/ukulele-hero.png`.
 
 ## Protocol Notes
 
 **On-chain:** UKULELE is presented as fully on chain, meaning transactions cannot be manipulated.
 
-**Token contract:** `0x70aA4531FA50d1f9B948eb6B77Df77Fcb5c40ffE` on Ethereum mainnet.
+**Token contract:** `0x0c6336e1f020A0d59b06d9F66B52E9AF905c35FB` on Ethereum mainnet.
 
-**Naglfar/privacy contract:** `0x1478f4e064fcc41d75ada06beb40137758b6ab6e`.
+**Naglfar/privacy contract:** `0xfFd73306f9359492e65967ccaE322331a2784b4F`.
 
-**Address registry:** `0xd90b76FFAc6D1F74239845789166d35fDb09fB57`.
+**Address registry:** `0xB4C40F697f28aac83777Dc52c597c3C11cc192a4`.
 
 **GSN contract:** No GSN contract is deployed for the current protocol release. The frontend has no fallback GSN address.
 

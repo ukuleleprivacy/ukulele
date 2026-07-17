@@ -115,6 +115,10 @@ const theme = responsiveFontSizes(
               background: 'linear-gradient(135deg, #E8E8E8 0%, #C9C9C9 100%)',
               boxShadow: '0 0 28px rgba(255, 255, 255, 0.32)',
             },
+            '&.Mui-disabled': {
+              background: 'rgba(255, 255, 255, 0.10)',
+              color: 'rgba(255, 255, 255, 0.68)',
+            },
           },
           outlined: {
             borderColor: 'rgba(255, 255, 255, 0.22)',

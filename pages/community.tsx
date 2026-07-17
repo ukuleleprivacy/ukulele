@@ -26,11 +26,11 @@ export default function Community() {
             Brand Kit
           </Typography>
           <Typography variant="h3" component="h2">
-            Placeholder assets included
+            Brand and protocol assets
           </Typography>
           <Typography color="text.secondary">
-            These files are ready for layout and review. Replace them with final production assets
-            when the logo and campaign art are approved.
+            Open the core identity files and the finished technical explainers used across the
+            UKULELE interface, documentation, and social campaign.
           </Typography>
         </Stack>
         <Grid container spacing={1.5}>

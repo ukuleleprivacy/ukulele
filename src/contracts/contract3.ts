@@ -244,4 +244,4 @@ export const abi = [
   },
 ] as const;
 
-export const address = '0xd90b76FFAc6D1F74239845789166d35fDb09fB57';
+export const address = '0xB4C40F697f28aac83777Dc52c597c3C11cc192a4';

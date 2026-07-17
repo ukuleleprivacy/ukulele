@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import Button, { type ButtonProps } from '@mui/material/Button';
-import { InjectedConnector } from '@web3-react/injected-connector';
 import { useWeb3React } from '@web3-react/core';
 
-const injected = new InjectedConnector({ supportedChainIds: [1] });
+import { injectedConnector, walletAutoConnectKey } from '../lib/wallet';
+
+const shortenAddress = (address: string) => `${address.slice(0, 6)}…${address.slice(-4)}`;
 
 export const ConnectWallet = (props: ButtonProps) => {
   const { active, account, activate, deactivate } = useWeb3React();
@@ -13,7 +14,8 @@ export const ConnectWallet = (props: ButtonProps) => {
     setError('');
 
     try {
-      await activate(injected, undefined, true);
+      await activate(injectedConnector, undefined, true);
+      window.localStorage.setItem(walletAutoConnectKey, 'true');
     } catch (ex) {
       console.error(ex);
       setError('Wallet unavailable');
@@ -24,6 +26,7 @@ export const ConnectWallet = (props: ButtonProps) => {
     setError('');
 
     try {
+      window.localStorage.setItem(walletAutoConnectKey, 'false');
       deactivate();
     } catch (ex) {
       console.error(ex);
@@ -34,12 +37,12 @@ export const ConnectWallet = (props: ButtonProps) => {
   const { sx, ...buttonProps } = props;
   const sxOverrides = Array.isArray(sx) ? sx : sx ? [sx] : [];
   const sharedSx = {
-    minHeight: { xs: 48, md: 56 },
-    px: { xs: 2.4, md: 4 },
+    minHeight: { xs: 48, md: 40 },
+    px: { xs: 2.4, md: 2 },
     borderRadius: 999,
     background: 'linear-gradient(135deg, #FFFFFF 0%, #E0E0E0 100%)',
     color: '#0A0A0A',
-    fontSize: { xs: 15, md: 17 },
+    fontSize: { xs: 15, md: 14 },
     fontWeight: 700,
     boxShadow: 'none',
     '&:hover': {
@@ -52,13 +55,13 @@ export const ConnectWallet = (props: ButtonProps) => {
     return (
       <Button
         variant="contained"
-        aria-label={`Sign out wallet ${account}`}
-        title={error || account}
+        aria-label={`Disconnect wallet ${account}`}
+        title={error || `Connected as ${account}. Click to disconnect.`}
         onClick={disconnect}
         {...buttonProps}
         sx={[sharedSx, ...sxOverrides]}
       >
-        Sign Out
+        {shortenAddress(account)}
       </Button>
     );
   }

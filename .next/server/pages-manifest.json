@@ -2,6 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/decrypt": "pages/decrypt.js",
   "/": "pages/index.js",
-  "/platform": "pages/platform.js"
+  "/disruptor": "pages/disruptor.js",
+  "/community": "pages/community.js"
 }

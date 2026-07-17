@@ -7,11 +7,9 @@ import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-import { brand, navItems } from './brand';
+import { brand } from './brand';
 import Link from './Link';
 import { Logo } from './Logo';
-
-const footerNavItems = navItems.slice(0, 3);
 
 export const Footer = () => (
   <Box
@@ -47,24 +45,6 @@ export const Footer = () => (
                 />
               ))}
             </Stack>
-          </Stack>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={2.5}>
-          <Typography variant="subtitle2" color="text.primary" sx={{ mb: 2, fontWeight: 700 }}>
-            Explore
-          </Typography>
-          <Stack gap={1.2}>
-            {footerNavItems.map((item) => (
-              <Link
-                key={item.url}
-                href={item.url}
-                color="text.secondary"
-                className="link-hover-glow"
-              >
-                {item.label}
-              </Link>
-            ))}
           </Stack>
         </Grid>
 

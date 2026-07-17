@@ -1,5 +1,5 @@
 import ArrowForward from '@mui/icons-material/ArrowForward';
-import AutoAwesome from '@mui/icons-material/AutoAwesome';
+import DescriptionOutlined from '@mui/icons-material/DescriptionOutlined';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -92,11 +92,18 @@ const TopSection = () => {
             gap={1.5}
             alignItems={{ xs: 'stretch', sm: 'center' }}
           >
-            <Button href="/roadmap" variant="contained" size="large" endIcon={<ArrowForward />}>
-              View Roadmap
+            <Button href="/platform" variant="contained" size="large" endIcon={<ArrowForward />}>
+              Start a Private SEND
             </Button>
-            <Button href="/community#assets" variant="outlined" size="large" startIcon={<AutoAwesome />}>
-              Brand Assets
+            <Button
+              href="/whitepaper/ukulele-whitepaper.txt"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="outlined"
+              size="large"
+              startIcon={<DescriptionOutlined />}
+            >
+              Read Whitepaper
             </Button>
           </Stack>
 

@@ -13,6 +13,9 @@ interface FeatureSectionProps {
   videoSrc?: string;
   points?: string[];
   reverse?: boolean;
+  containImage?: boolean;
+  showBrandMark?: boolean;
+  showImageOverlay?: boolean;
 }
 
 const FeatureSection = ({
@@ -24,6 +27,9 @@ const FeatureSection = ({
   videoSrc,
   points = [],
   reverse = false,
+  containImage = false,
+  showBrandMark = true,
+  showImageOverlay = true,
 }: FeatureSectionProps) => (
   <Box
     component="section"
@@ -107,35 +113,39 @@ const FeatureSection = ({
                 inset: 0,
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover',
-                opacity: 0.84,
+                objectFit: containImage ? 'contain' : 'cover',
+                opacity: containImage ? 1 : 0.84,
               }}
             />
           ) : null}
-          <Box
-            sx={{
-              position: 'absolute',
-              inset: 0,
-              background:
-                'linear-gradient(180deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.72) 100%)',
-            }}
-          />
-          <Box
-            component="img"
-            src="/01.png"
-            alt=""
-            aria-hidden="true"
-            sx={{
-              position: 'absolute',
-              width: { xs: 138, md: 184 },
-              height: { xs: 138, md: 184 },
-              left: '50%',
-              top: '50%',
-              transform: 'translate(-50%, -50%)',
-              filter: 'drop-shadow(0 0 34px rgba(255, 255, 255, 0.42))',
-              animation: 'ukuleleFloat 7s ease-in-out infinite',
-            }}
-          />
+          {showImageOverlay ? (
+            <Box
+              sx={{
+                position: 'absolute',
+                inset: 0,
+                background:
+                  'linear-gradient(180deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.72) 100%)',
+              }}
+            />
+          ) : null}
+          {showBrandMark ? (
+            <Box
+              component="img"
+              src="/01.png"
+              alt=""
+              aria-hidden="true"
+              sx={{
+                position: 'absolute',
+                width: { xs: 138, md: 184 },
+                height: { xs: 138, md: 184 },
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+                filter: 'drop-shadow(0 0 34px rgba(255, 255, 255, 0.42))',
+                animation: 'ukuleleFloat 7s ease-in-out infinite',
+              }}
+            />
+          ) : null}
         </Box>
       </Grid>
     </Grid>

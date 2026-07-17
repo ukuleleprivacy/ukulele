@@ -16,7 +16,9 @@ export const brand = {
 
 export const navItems = [
   { label: 'Home', url: '/' },
-  { label: 'Platform', url: '/platform' },
+  { label: 'Send', url: '/platform' },
+  { label: 'Decrypt', url: '/decrypt' },
+  { label: 'Disruptor', url: '/disruptor' },
   { label: 'Gasless', url: '/gasless' },
   { label: 'Community', url: '/community' },
 ];
@@ -82,6 +84,12 @@ export const brandAssets = [
   { label: 'Desktop wallpaper', path: '/brand/wallpaper-desktop.png' },
   { label: 'Mobile wallpaper', path: '/brand/wallpaper-mobile.png' },
   { label: 'Social banner', path: '/brand/social-banner.png' },
+  { label: 'Balance lifecycle', path: '/technical/06.webp' },
+  { label: 'ShadowDuster anatomy', path: '/technical/07.webp' },
+  { label: 'Event versus state', path: '/technical/08.webp' },
+  { label: 'User flow', path: '/technical/09.webp' },
+  { label: 'Gasless upgrade path', path: '/technical/10.webp' },
+  { label: 'Protocol overview', path: '/technical/11.webp' },
 ];
 
 export const philosophySections = [

@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 import Head from 'next/head';
 
 import { Layout } from '../src/Layout';
+import { TechnicalArtwork } from '../src/components/TechnicalArtwork';
 import { abi as tokenAbi, address as tokenAddress } from '../src/contracts/contract1';
 import { abi as gsnAbi, address as gsnAddress } from '../src/contracts/contract4';
 import { gasLimit } from '../src/constants';
@@ -35,6 +36,29 @@ const defaultStatus = {
   title: 'Wallet actions ready',
   description: 'Connect your wallet from the header, then choose the action you want to run.',
 };
+
+const gaslessUpgradeSteps = [
+  {
+    title: 'ERC-4337 integration',
+    timeline: 'About 2 weeks',
+    description: 'Connect account-abstraction user operations to the upgraded UKULELE actions.',
+  },
+  {
+    title: 'Paymaster policy',
+    timeline: 'About 1–2 weeks',
+    description: 'Define sponsor limits, eligibility, rate controls, and protection against relay abuse.',
+  },
+  {
+    title: 'Testnet relay',
+    timeline: 'About 1–2 weeks',
+    description: 'Exercise bundler, relayer, signature, nonce, failure, and retry behavior end to end.',
+  },
+  {
+    title: 'Review and release',
+    timeline: 'About 2–4 weeks',
+    description: 'Complete security review, load testing, deployment checks, and mainnet rollout.',
+  },
+];
 
 const transactionOptions = { gasLimit: ethers.BigNumber.from(gasLimit) };
 
@@ -419,10 +443,72 @@ export default function Gasless() {
               textWrap: 'balance',
             }}
           >
-            Gasless selling of UNK for a bit of ETH is coming soon, once we upgrade to ERC-4337
-            account abstraction with paymaster-sponsored transactions.
+            Gasless actions remain locked while UKULELE moves to ERC-4337 account abstraction and
+            paymaster-sponsored transactions.
           </Typography>
         </Stack>
+
+        <Card
+          variant="outlined"
+          sx={{
+            position: 'relative',
+            zIndex: 2,
+            mt: 4,
+            backgroundColor: 'rgba(10, 10, 10, 0.96)',
+          }}
+        >
+          <CardContent sx={{ p: { xs: '26px 24px!important', sm: '34px 38px!important' } }}>
+            <Typography variant="overline" color="primary.light" fontWeight="700">
+              Proposed delivery plan
+            </Typography>
+            <Typography variant="h4" sx={{ mt: 0.5 }}>
+              What the gasless update needs
+            </Typography>
+            <Typography color="text.secondary" sx={{ mt: 1.25, maxWidth: 760 }}>
+              Rough total: 6–10 weeks after upgrade work begins. This is a planning estimate, not a
+              release commitment; contract or security findings can extend it.
+            </Typography>
+
+            <Grid container spacing={1.5} sx={{ mt: 2 }}>
+              {gaslessUpgradeSteps.map((upgradeStep, index) => (
+                <Grid item xs={12} sm={6} key={upgradeStep.title}>
+                  <Box
+                    sx={{
+                      height: '100%',
+                      p: 2.5,
+                      borderRadius: '8px',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      backgroundColor: 'rgba(255, 255, 255, 0.035)',
+                    }}
+                  >
+                    <Typography variant="overline" color="primary.light" fontWeight="700">
+                      {String(index + 1).padStart(2, '0')} · {upgradeStep.timeline}
+                    </Typography>
+                    <Typography variant="h6" sx={{ mt: 0.5 }}>
+                      {upgradeStep.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mt: 0.75 }}>
+                      {upgradeStep.description}
+                    </Typography>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+
+            <Typography color="text.secondary" sx={{ mt: 2.5 }}>
+              Gasless Decrypt, SEND, and selling controls should stay disabled until the upgraded
+              contracts, paymaster, relay endpoint, and frontend configuration are all production-ready.
+            </Typography>
+
+            <Box sx={{ mt: 3 }}>
+              <TechnicalArtwork
+                src="/technical/10.webp"
+                alt="Gasless upgrade path covering ERC-4337, paymaster policy, testnet bundler and relayer testing, and mainnet security review"
+                caption="The proposed Gasless implementation sequence and rough planning ranges."
+              />
+            </Box>
+          </CardContent>
+        </Card>
       </Container>
     </Layout>
   );
