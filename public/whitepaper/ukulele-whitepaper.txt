@@ -43,6 +43,15 @@ Symbol: UNK
 Decimals: 18
 Displayed total supply: 10,000,000 UNK
 
+Uniswap market:
+Version: Uniswap v4
+Pair: Native ETH / UNK
+Swap fee: 1%
+Tick spacing: 200
+Pool ID: 0xbcaf2724492673f9157c59bf441d31ffd1623c781179938d36488d2b5a60ed28
+Pool initialization transaction: 0x062b6cf0cabcc35f82a2c195a3f6e17d338c03913bf308c9f38ba2c743b41310
+Buy URL: https://app.uniswap.org/swap?chain=mainnet&inputCurrency=NATIVE&outputCurrency=0x799C411D50d1D67C517A34C842381673E377007c
+
 Gasless contract:
 No production fallback address is configured in the current website release. Gasless actions remain locked until the update is deployed and explicitly configured.
 

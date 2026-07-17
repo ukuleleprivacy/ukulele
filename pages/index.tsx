@@ -34,6 +34,13 @@ const tokenFacts = [
   { label: 'Developer reserve', value: `${ukuleleToken.developerReservePercent}%` },
 ];
 
+const poolFacts = [
+  { label: 'Protocol', value: ukuleleToken.uniswapPool.version },
+  { label: 'Pair', value: ukuleleToken.uniswapPool.pair },
+  { label: 'Swap fee', value: `${ukuleleToken.uniswapPool.feePercent}%` },
+  { label: 'Tick spacing', value: String(ukuleleToken.uniswapPool.tickSpacing) },
+];
+
 const userFlow = [
   {
     title: 'Connect',
@@ -294,6 +301,106 @@ export default function Home() {
               </Grid>
             ))}
           </Grid>
+        </Box>
+
+        <Box
+          sx={{
+            mt: 2,
+            overflow: 'hidden',
+            border: '1px solid rgba(255, 255, 255, 0.18)',
+            borderRadius: '8px',
+            background:
+              'radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.14), transparent 30%), rgba(255, 255, 255, 0.045)',
+          }}
+        >
+          <Grid container>
+            <Grid item xs={12} md={8} sx={{ p: { xs: 2.5, sm: 3 } }}>
+              <Typography variant="overline" color="primary.light" sx={{ fontWeight: 700 }}>
+                Live Uniswap Pool
+              </Typography>
+              <Typography variant="h5" component="h3" sx={{ mt: 0.5 }}>
+                Buy UNK with ETH
+              </Typography>
+              <Typography color="text.secondary" sx={{ mt: 1, maxWidth: 680 }}>
+                The official ETH / UNK market is live on Uniswap v4. Confirm the UKULELE contract
+                address shown above before approving a swap.
+              </Typography>
+
+              <Grid container spacing={1.5} sx={{ mt: 1 }}>
+                {poolFacts.map((fact) => (
+                  <Grid item xs={6} sm={3} key={fact.label}>
+                    <Typography variant="overline" color="text.secondary" sx={{ fontWeight: 700 }}>
+                      {fact.label}
+                    </Typography>
+                    <Typography sx={{ mt: 0.25, fontWeight: 700 }}>{fact.value}</Typography>
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
+
+            <Grid
+              item
+              xs={12}
+              md={4}
+              sx={{
+                p: { xs: 2.5, sm: 3 },
+                borderTop: { xs: '1px solid rgba(255, 255, 255, 0.12)', md: 0 },
+                borderLeft: { xs: 0, md: '1px solid rgba(255, 255, 255, 0.12)' },
+              }}
+            >
+              <Stack gap={1.25}>
+                <Button
+                  component={Link}
+                  href={ukuleleToken.uniswapPool.buyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="contained"
+                  size="large"
+                  endIcon={<OpenInNew />}
+                  sx={{ minHeight: 52 }}
+                >
+                  Buy UNK on Uniswap
+                </Button>
+                <Button
+                  component={Link}
+                  href={ukuleleToken.uniswapPool.poolUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="outlined"
+                  endIcon={<OpenInNew />}
+                >
+                  View Pool
+                </Button>
+                <Button
+                  component={Link}
+                  href={ukuleleToken.uniswapPool.creationTransactionUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  color="inherit"
+                  endIcon={<OpenInNew />}
+                >
+                  Pool Transaction
+                </Button>
+              </Stack>
+            </Grid>
+          </Grid>
+
+          <Box sx={{ px: { xs: 2.5, sm: 3 }, pb: { xs: 2.5, sm: 3 } }}>
+            <Typography variant="overline" color="text.secondary" sx={{ fontWeight: 700 }}>
+              Pool ID
+            </Typography>
+            <Typography
+              component="p"
+              sx={{
+                mt: 0.5,
+                fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+                fontSize: { xs: 11, sm: 13 },
+                overflowWrap: 'anywhere',
+              }}
+            >
+              {ukuleleToken.uniswapPool.poolId}
+            </Typography>
+          </Box>
         </Box>
       </Box>
 

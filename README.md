@@ -46,6 +46,10 @@ The hero bitmap was generated with the built-in image tool and copied into the w
 
 **Token contract:** `0x799C411D50d1D67C517A34C842381673E377007c` on Ethereum mainnet.
 
+**Uniswap pool:** Uniswap v4 ETH/UNK pool with a 1% swap fee and tick spacing 200. Pool ID: `0xbcaf2724492673f9157c59bf441d31ffd1623c781179938d36488d2b5a60ed28`.
+
+**Buy UNK:** [Open the official ETH-to-UNK swap on Uniswap](https://app.uniswap.org/swap?chain=mainnet&inputCurrency=NATIVE&outputCurrency=0x799C411D50d1D67C517A34C842381673E377007c).
+
 **Naglfar/privacy contract:** `0xfFd73306f9359492e65967ccaE322331a2784b4F`.
 
 **Address registry:** `0xB4C40F697f28aac83777Dc52c597c3C11cc192a4`.
