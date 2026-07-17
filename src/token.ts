@@ -1,5 +1,5 @@
 export const ukuleleToken = {
-  address: '0x0c6336e1f020A0d59b06d9F66B52E9AF905c35FB',
+  address: '0x799C411D50d1D67C517A34C842381673E377007c',
   name: 'Ukulele',
   symbol: 'UNK',
   network: 'Ethereum mainnet',
@@ -8,5 +8,5 @@ export const ukuleleToken = {
   dailySalePercent: 1,
   dailySaleTokens: 100_000,
   developerReservePercent: 15,
-  etherscanUrl: 'https://etherscan.io/token/0x0c6336e1f020A0d59b06d9F66B52E9AF905c35FB',
+  etherscanUrl: 'https://etherscan.io/token/0x799C411D50d1D67C517A34C842381673E377007c',
 } as const;

@@ -44,7 +44,7 @@ The hero bitmap was generated with the built-in image tool and copied into the w
 
 **On-chain:** UKULELE is presented as fully on chain, meaning transactions cannot be manipulated.
 
-**Token contract:** `0x0c6336e1f020A0d59b06d9F66B52E9AF905c35FB` on Ethereum mainnet.
+**Token contract:** `0x799C411D50d1D67C517A34C842381673E377007c` on Ethereum mainnet.
 
 **Naglfar/privacy contract:** `0xfFd73306f9359492e65967ccaE322331a2784b4F`.
 
