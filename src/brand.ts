@@ -4,6 +4,8 @@ export const brand = {
   description:
     'A privacy-first digital currency on the Ethereum network, built fully on chain for financial sanctuary and sovereign digital interaction.',
   telegramUrl: 'https://t.me/+qMHrV95v_rAxYTE1',
+  twitterHandle: '@ukuleleprivacy',
+  twitterUrl: 'https://x.com/ukuleleprivacy',
   palette: {
     white: '#FFFFFF',
     silver: '#E0E0E0',

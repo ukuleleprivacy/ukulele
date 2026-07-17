@@ -1,4 +1,5 @@
 import Telegram from '@mui/icons-material/Telegram';
+import Twitter from '@mui/icons-material/Twitter';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -52,31 +53,65 @@ export const Footer = () => (
           <Typography variant="subtitle2" color="text.primary" sx={{ mb: 2, fontWeight: 700 }}>
             Social
           </Typography>
-          <Stack gap={1.2}>
-            <Tooltip title="Telegram" arrow>
-              <IconButton
-                component={Link}
-                href={brand.telegramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="UKULELE Telegram"
-                sx={{
-                  mt: 1,
-                  width: 46,
-                  height: 46,
-                  color: 'text.primary',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                  '&:hover': {
-                    color: 'primary.light',
-                    borderColor: 'rgba(255, 255, 255, 0.55)',
-                    backgroundColor: 'rgba(255, 255, 255, 0.14)',
-                  },
-                }}
-              >
-                <Telegram />
-              </IconButton>
-            </Tooltip>
+          <Stack gap={1.5}>
+            <Stack direction="row" gap={1}>
+              <Tooltip title="Telegram" arrow>
+                <IconButton
+                  component={Link}
+                  href={brand.telegramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="UKULELE Telegram"
+                  sx={{
+                    width: 46,
+                    height: 46,
+                    color: 'text.primary',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                    '&:hover': {
+                      color: 'primary.light',
+                      borderColor: 'rgba(255, 255, 255, 0.55)',
+                      backgroundColor: 'rgba(255, 255, 255, 0.14)',
+                    },
+                  }}
+                >
+                  <Telegram />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={brand.twitterHandle} arrow>
+                <IconButton
+                  component={Link}
+                  href={brand.twitterUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`UKULELE Twitter ${brand.twitterHandle}`}
+                  sx={{
+                    width: 46,
+                    height: 46,
+                    color: 'text.primary',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                    '&:hover': {
+                      color: 'primary.light',
+                      borderColor: 'rgba(255, 255, 255, 0.55)',
+                      backgroundColor: 'rgba(255, 255, 255, 0.14)',
+                    },
+                  }}
+                >
+                  <Twitter />
+                </IconButton>
+              </Tooltip>
+            </Stack>
+            <Link
+              href={brand.twitterUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              color="text.secondary"
+              className="link-hover-glow"
+              sx={{ width: 'fit-content' }}
+            >
+              {brand.twitterHandle}
+            </Link>
           </Stack>
         </Grid>
       </Grid>

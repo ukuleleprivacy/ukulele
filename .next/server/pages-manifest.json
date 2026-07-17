@@ -3,7 +3,7 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/decrypt": "pages/decrypt.js",
-  "/": "pages/index.js",
+  "/community": "pages/community.js",
   "/disruptor": "pages/disruptor.js",
-  "/community": "pages/community.js"
+  "/": "pages/index.js"
 }
