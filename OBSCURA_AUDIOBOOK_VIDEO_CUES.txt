@@ -1,0 +1,199 @@
+THE OBSCURA COVENANT — AUDIOBOOK VIDEO CUE SHEET
+
+Audio: /Users/nik/Documents/veridan/omnione/documentation/Obsucra_Audiobook.mp3
+Transcript: /Users/nik/Documents/veridan/omnione/documentation/The Obscura Covenant AUDIOBOOK.txt
+Image library: /Users/nik/Documents/veridan/omnione/documentation/Video
+Runtime: 01:54:24.160
+Transcript word count: 13,020
+Selected image placements: 136 (from 182 available files; some thematic anchors recur)
+
+TIMING METHOD
+The supplied transcript matches the audiobook. Section boundaries are aligned by cumulative transcript word count against the exact MP3 runtime. Images are then distributed within each matching narrative sequence in story order.
+
+VISUAL TREATMENT
+1920×1080 H.264 video. Full 4:3 illustrations remain uncropped in the center; a darkened, blurred enlargement of the same image fills the 16:9 frame. The original MP3 stream is copied into the MP4 without re-encoding.
+
+00:00:00.000–00:04:28.873  Title and Prologue — In the Beginning, Darkness
+  The cover gives way to primordial enclosure, fire, caves, and the sacred origins of privacy.
+  00:00:00.000–00:00:53.775  Obscura Cover/1.png
+  00:00:53.775–00:01:47.549  1.png
+  00:01:47.549–00:02:41.324  2.png
+  00:02:41.324–00:03:35.098  new/1.png
+  00:03:35.098–00:04:28.873  new/3.png
+
+00:04:28.873–00:11:16.399  Chapter 1 — Mesopotamia, Greece, and Rome
+  Tablets, seals, hidden writing, philosophy, proto-cryptography, and the Roman domus.
+  00:04:28.873–00:05:09.625  assembly/1.png
+  00:05:09.625–00:05:50.378  assembly/2.png
+  00:05:50.378–00:06:31.131  assembly/4.png
+  00:06:31.131–00:07:11.883  assembly/6.png
+  00:07:11.883–00:07:52.636  new/18.png
+  00:07:52.636–00:08:33.389  new/22.png
+  00:08:33.389–00:09:14.141  new/28.png
+  00:09:14.141–00:09:54.894  new/31.png
+  00:09:54.894–00:10:35.647  new/9.png
+  00:10:35.647–00:11:16.399  new/12.png
+
+00:11:16.399–00:20:47.885  Chapter 1 — Asian, Medieval, and Sacred Privacy
+  Asian administrative secrecy, medieval household sanctuary, guarded commerce, and religious enclosure.
+  00:11:16.399–00:12:04.023  new1/1.png
+  00:12:04.023–00:12:51.647  new1/2.png
+  00:12:51.647–00:13:39.271  new1/5.png
+  00:13:39.271–00:14:26.895  new1/6.png
+  00:14:26.895–00:15:14.518  new1/7.png
+  00:15:14.518–00:16:02.142  new1/11.png
+  00:16:02.142–00:16:49.766  new1/12.png
+  00:16:49.766–00:17:37.390  new1/14.png
+  00:17:37.390–00:18:25.014  new1/15.png
+  00:18:25.014–00:19:12.638  new1/16.png
+  00:19:12.638–00:20:00.262  new1/18.png
+  00:20:00.262–00:20:47.885  assembly/15.png
+
+00:20:47.885–00:37:25.350  Chapter 2 — The Founders and an Analog Constitution
+  Founding documents, early public finance, taxation, strongboxes, general warrants, and digital quartering.
+  00:20:47.885–00:21:54.383  assembly/21.png
+  00:21:54.383–00:23:00.881  assembly/24.png
+  00:23:00.881–00:24:07.378  assembly/25.png
+  00:24:07.378–00:25:13.876  new2/1.png
+  00:25:13.876–00:26:20.374  new2/2.1.png
+  00:26:20.374–00:27:26.871  new2/3.png
+  00:27:26.871–00:28:33.369  new2/4.png
+  00:28:33.369–00:29:39.867  new2/5.png
+  00:29:39.867–00:30:46.364  new2/6.png
+  00:30:46.364–00:31:52.862  new2/7.png
+  00:31:52.862–00:32:59.360  new2/9.png
+  00:32:59.360–00:34:05.857  chapterII/2.png
+  00:34:05.857–00:35:12.355  chapterII/4.png
+  00:35:12.355–00:36:18.853  new2/17.png
+  00:36:18.853–00:37:25.350  new2/21.png
+
+00:37:25.350–00:52:33.191  Chapter 2 — Surveillance and the Digital Sanctuary
+  Panopticism, intelligence programs, Snowden, bulk data, digital rights, encrypted homes, and the surveillance ratchet.
+  00:37:25.350–00:38:30.196  new2/23.png
+  00:38:30.196–00:39:35.042  new2/24.png
+  00:39:35.042–00:40:39.887  new2/25.png
+  00:40:39.887–00:41:44.733  new2/26.png
+  00:41:44.733–00:42:49.579  new2/28.png
+  00:42:49.579–00:43:54.425  new2/29.png
+  00:43:54.425–00:44:59.270  new2/30.png
+  00:44:59.270–00:46:04.116  new3/1.png
+  00:46:04.116–00:47:08.962  new3/2.png
+  00:47:08.962–00:48:13.808  new3/3.png
+  00:48:13.808–00:49:18.653  new3/6.png
+  00:49:18.653–00:50:23.499  new3/14.png
+  00:50:23.499–00:51:28.345  new3/16.png
+  00:51:28.345–00:52:33.191  new3/30.png
+
+00:52:33.191–01:03:07.941  Chapter 3 — Timeline A: The Algorithm and the Abyss
+  Ben’s monitored apartment, behavioral dossier, algorithmic control, punishment, blackout, and arrest.
+  00:52:33.191–00:53:30.895  Obscura Cover/u5586167518_Algorithmic_surveillance_is_talebearing_in_silicon__b3db1781-64e9-4f1a-a01f-6ba20bb26b86.png
+  00:53:30.895–00:54:28.600  new4/2.png
+  00:54:28.600–00:55:26.304  new4/3.png
+  00:55:26.304–00:56:24.009  new4/4.png
+  00:56:24.009–00:57:21.714  new4/5.png
+  00:57:21.714–00:58:19.418  new4/6.png
+  00:58:19.418–00:59:17.123  new4/8.png
+  00:59:17.123–01:00:14.827  new4/11.png
+  01:00:14.827–01:01:12.532  new4/12.png
+  01:01:12.532–01:02:10.236  new4/13.png
+  01:02:10.236–01:03:07.941  new3/31.png
+
+01:03:07.941–01:08:08.973  Chapter 3 — Timeline B: Maya and the Wolf Pact
+  Whistleblowing, legal intervention, encrypted infrastructure, public resistance, and the dossier that arrived too late.
+  01:03:07.941–01:03:58.113  new4/3.png
+  01:03:58.113–01:04:48.285  new4/7.png
+  01:04:48.285–01:05:38.457  new4/8.png
+  01:05:38.457–01:06:28.629  new4/9.png
+  01:06:28.629–01:07:18.801  new4/10.png
+  01:07:18.801–01:08:08.973  new3/28.png
+
+01:08:08.973–01:14:24.340  Chapter 3 — The Pre-Crime of the Present
+  Today’s softer blacklist, de-platforming, data fusion, crisis powers, affective computing, and the narrowing fork.
+  01:08:08.973–01:08:55.894  new3/1.png
+  01:08:55.894–01:09:42.815  new3/2.png
+  01:09:42.815–01:10:29.736  new3/15.png
+  01:10:29.736–01:11:16.657  new3/16.png
+  01:11:16.657–01:12:03.578  new3/21.png
+  01:12:03.578–01:12:50.498  new3/24.png
+  01:12:50.498–01:13:37.419  new4/2.png
+  01:13:37.419–01:14:24.340  new4/12.png
+
+01:14:24.340–01:20:47.088  Chapter 4 — Fiducaro and Aegis ID
+  The protocol architecture, multi-hop transactional privacy, identity, selective disclosure, and auditability.
+  01:14:24.340–01:15:02.615  new3/19.png
+  01:15:02.615–01:15:40.890  new3/29.png
+  01:15:40.890–01:16:19.165  new3/32.png
+  01:16:19.165–01:16:57.440  new4/10.png
+  01:16:57.440–01:17:35.714  new4/u5586167518_This_framework_reframes_privacy_not_as_a_niche_cy_bec56f4d-67bb-4212-9422-7619d3b461b6_0.png
+  01:17:35.714–01:18:13.989  new4/u5586167518_This_framework_reframes_privacy_not_as_a_niche_cy_bec56f4d-67bb-4212-9422-7619d3b461b6_2.png
+  01:18:13.989–01:18:52.264  new4/4.png
+  01:18:52.264–01:19:30.539  new4/5.png
+  01:19:30.539–01:20:08.814  new4/6.png
+  01:20:08.814–01:20:47.088  new3/25.png
+
+01:20:47.088–01:25:34.940  Chapter 4 — Wolf Pact Policy and First-Strike Litigation
+  Charitable circulation, wealth policy, public benefit governance, the Travel Rule challenge, and constitutional litigation.
+  01:20:47.088–01:21:23.070  new2/6.png
+  01:21:23.070–01:21:59.051  new2/9.png
+  01:21:59.051–01:22:35.033  new2/15.png
+  01:22:35.033–01:23:11.014  new2/21.png
+  01:23:11.014–01:23:46.996  5.1.png
+  01:23:46.996–01:24:22.977  5.3.png
+  01:24:22.977–01:24:58.959  5.5.png
+  01:24:58.959–01:25:34.940  3.2.png
+
+01:25:34.940–01:31:22.366  Chapter 4 — Underwriting, Cross-Chain Liquidity, and Aegis ATMs
+  Auditing, pooled risk, bridge liquidity, aligned ecosystems, physical kiosks, and privacy-forward compliance.
+  01:25:34.940–01:26:18.368  new3/8.png
+  01:26:18.368–01:27:01.797  new3/9.png
+  01:27:01.797–01:27:45.225  new3/14.png
+  01:27:45.225–01:28:28.653  new3/15.png
+  01:28:28.653–01:29:12.081  new3/17.png
+  01:29:12.081–01:29:55.509  new3/32.png
+  01:29:55.509–01:30:38.938  new4/7.png
+  01:30:38.938–01:31:22.366  new4/10.png
+
+01:31:22.366–01:35:52.293  Chapter 5 — The Wolf’s Howl and Aegis Shield
+  Lobbying, the Obscura Academy, courtroom training, anonymous disclosure, and whistleblower defense.
+  01:31:22.366–01:32:07.354  assembly/23.png
+  01:32:07.354–01:32:52.342  assembly/27.png
+  01:32:52.342–01:33:37.329  3.1.png
+  01:33:37.329–01:34:22.317  3.3.png
+  01:34:22.317–01:35:07.305  5.4.png
+  01:35:07.305–01:35:52.293  new3/13.png
+
+01:35:52.293–01:43:12.506  Chapter 5 — Wealth DNA and the Digital Homestead
+  Financial life patterns, sovereign territory, public protest, compliant payroll privacy, and the global lifeline.
+  01:35:52.293–01:37:05.662  new4/4.png
+  01:37:05.662–01:38:19.031  new4/5.png
+  01:38:19.031–01:39:32.399  new3/29.png
+  01:39:32.399–01:40:45.768  new3/30.png
+  01:40:45.768–01:41:59.137  new3/27.png
+  01:41:59.137–01:43:12.506  new4/u5586167518_This_framework_reframes_privacy_not_as_a_niche_cy_bec56f4d-67bb-4212-9422-7619d3b461b6_2.png
+
+01:43:12.506–01:48:44.116  Chapter 5 — Satoshi, the Constitution, and the Endgame
+  The unfinished privacy layer, constitutional rights, the parallel economy, and a covenant to build.
+  01:43:12.506–01:43:59.879  new3/19.png
+  01:43:59.879–01:44:47.252  new3/20.png
+  01:44:47.252–01:45:34.624  new3/22.png
+  01:45:34.624–01:46:21.997  new3/23.png
+  01:46:21.997–01:47:09.370  new3/26.png
+  01:47:09.370–01:47:56.743  new4/9.png
+  01:47:56.743–01:48:44.116  new4/13.png
+
+01:48:44.116–01:52:43.465  Epilogue — The Watchtower Is Already Built
+  License-plate readers, networked tracking, automated dossiers, local resistance, and the five-year warning.
+  01:48:44.116–01:49:24.007  assembly/26.png
+  01:49:24.007–01:50:03.899  new3/21.png
+  01:50:03.899–01:50:43.790  new4/2.png
+  01:50:43.790–01:51:23.682  new3/2.png
+  01:51:23.682–01:52:03.573  new4/12.png
+  01:52:03.573–01:52:43.465  new4/8.png
+
+01:52:43.465–01:54:24.160  Final Statement — The Key and the Open Door
+  The vault, bridge, shield, mathematical key, open threshold, and final return to the Covenant.
+  01:52:43.465–01:53:08.639  new3/20.png
+  01:53:08.639–01:53:33.813  new3/23.png
+  01:53:33.813–01:53:58.987  new4/9.png
+  01:53:58.987–01:54:24.160  Obscura Cover/1.png
+

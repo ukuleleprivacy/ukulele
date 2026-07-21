@@ -4,6 +4,8 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
+import { ZoomableImage } from './ZoomableImage';
+
 interface FeatureSectionProps {
   kicker?: string;
   title: string;
@@ -81,9 +83,9 @@ const FeatureSection = ({
             minHeight: { xs: 280, sm: 360, md: 430 },
             overflow: 'hidden',
             borderRadius: '8px',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
+            border: '1px solid rgba(52, 224, 208, 0.16)',
             background:
-              'radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.28), transparent 34%), linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02))',
+              'radial-gradient(circle at 50% 38%, rgba(52, 224, 208, 0.22), transparent 36%), linear-gradient(135deg, rgba(52, 224, 208, 0.06), rgba(255, 255, 255, 0.02))',
           }}
         >
           {videoSrc ? (
@@ -104,13 +106,15 @@ const FeatureSection = ({
               }}
             />
           ) : imageSrc ? (
-            <Box
-              component="img"
+            <ZoomableImage
               src={imageSrc}
               alt={imageAlt || title}
-              sx={{
+              wrapperSx={{
                 position: 'absolute',
                 inset: 0,
+                height: '100%',
+              }}
+              imageSx={{
                 width: '100%',
                 height: '100%',
                 objectFit: containImage ? 'contain' : 'cover',
@@ -125,13 +129,14 @@ const FeatureSection = ({
                 inset: 0,
                 background:
                   'linear-gradient(180deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.72) 100%)',
+                pointerEvents: 'none',
               }}
             />
           ) : null}
           {showBrandMark ? (
             <Box
               component="img"
-              src="/01.png"
+              src="/brand/logo-mark.png"
               alt=""
               aria-hidden="true"
               sx={{
@@ -141,8 +146,9 @@ const FeatureSection = ({
                 left: '50%',
                 top: '50%',
                 transform: 'translate(-50%, -50%)',
-                filter: 'drop-shadow(0 0 34px rgba(255, 255, 255, 0.42))',
-                animation: 'ukuleleFloat 7s ease-in-out infinite',
+                filter: 'drop-shadow(0 0 34px rgba(52, 224, 208, 0.5))',
+                animation: 'fiducaroFloat 7s ease-in-out infinite',
+                pointerEvents: 'none',
               }}
             />
           ) : null}

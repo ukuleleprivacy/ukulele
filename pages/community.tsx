@@ -1,7 +1,7 @@
-import CampaignOutlined from '@mui/icons-material/CampaignOutlined';
+import FactCheckOutlined from '@mui/icons-material/FactCheckOutlined';
 import DownloadOutlined from '@mui/icons-material/DownloadOutlined';
-import GroupsOutlined from '@mui/icons-material/GroupsOutlined';
-import HubOutlined from '@mui/icons-material/HubOutlined';
+import ForumOutlined from '@mui/icons-material/ForumOutlined';
+import ScienceOutlined from '@mui/icons-material/ScienceOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import Head from 'next/head';
 
 import { brandAssets } from '../src/brand';
+import { ZoomableImage } from '../src/components/ZoomableImage';
 import { Layout } from '../src/Layout';
 import Link from '../src/Link';
 
@@ -17,20 +18,20 @@ export default function Community() {
   return (
     <Layout>
       <Head>
-        <title>Ukulele</title>
+        <title>Protocol | FIDUCARO</title>
       </Head>
 
       <Box id="assets" component="section" sx={{ py: { xs: 5, md: 9 } }}>
         <Stack gap={2} sx={{ maxWidth: 760, mb: 4 }}>
           <Typography variant="overline" color="primary.light" sx={{ fontWeight: 700 }}>
-            Brand Kit
+            Protocol Library
           </Typography>
           <Typography variant="h3" component="h2">
-            Brand and protocol assets
+            Protocol diagrams and reference assets
           </Typography>
           <Typography color="text.secondary">
-            Open the core identity files and the finished technical explainers used across the
-            UKULELE interface, documentation, and social campaign.
+            Open the diagrams and identity assets that define the live FIDUCARO command surface,
+            its hidden-balance flow, selective retrieval, and public-chain disruption layer.
           </Typography>
         </Stack>
         <Grid container spacing={1.5}>
@@ -45,17 +46,20 @@ export default function Community() {
                   backgroundColor: 'rgba(255, 255, 255, 0.035)',
                 }}
               >
-                <Box
-                  component="img"
+                <ZoomableImage
                   src={asset.path}
                   alt={`${asset.label} preview`}
-                  sx={{
+                  wrapperSx={{
+                    overflow: 'hidden',
+                    borderRadius: '8px',
+                    backgroundColor: '#0A0A0A',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                  }}
+                  imageSx={{
                     width: '100%',
                     height: 150,
                     objectFit: 'contain',
                     borderRadius: '8px',
-                    backgroundColor: '#0A0A0A',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
                   }}
                 />
                 <Stack direction="row" alignItems="center" justifyContent="space-between" gap={1} sx={{ mt: 1.5 }}>
@@ -87,18 +91,18 @@ export default function Community() {
                 height: '100%',
                 p: { xs: 3, md: 4 },
                 borderRadius: '8px',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
+                border: '1px solid rgba(52, 224, 208, 0.28)',
                 background:
-                  'linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.025))',
+                  'linear-gradient(180deg, rgba(52, 224, 208, 0.12), rgba(255, 255, 255, 0.02))',
               }}
             >
-              <CampaignOutlined color="primary" sx={{ fontSize: 38, mb: 2 }} />
+              <ScienceOutlined color="primary" sx={{ fontSize: 38, mb: 2 }} />
               <Typography variant="h5" sx={{ mb: 1 }}>
-                Standard Promotion
+                Enter With Control
               </Typography>
               <Typography color="text.secondary">
-                Standard Twitter promotion and basic social media promotion build early awareness
-                around the token and public launch materials.
+                Connect deliberately, read every wallet request, and keep the recovery record under
+                your control until the complete two-part SEND resolves.
               </Typography>
             </Box>
           </Grid>
@@ -112,13 +116,13 @@ export default function Community() {
                 backgroundColor: 'rgba(255, 255, 255, 0.035)',
               }}
             >
-              <GroupsOutlined color="primary" sx={{ fontSize: 38, mb: 2 }} />
+              <FactCheckOutlined color="primary" sx={{ fontSize: 38, mb: 2 }} />
               <Typography variant="h5" sx={{ mb: 1 }}>
-                Increased Decentralization
+                Verify Each Step
               </Typography>
               <Typography color="text.secondary">
-                The community begins to take over after the token sell-off ends. The frontend is
-                torrented, additional privacy contracts can be added, and the founder steps back.
+                Check the network, active account, token and protocol addresses, requested method,
+                amount, and resulting receipt before drawing a conclusion.
               </Typography>
             </Box>
           </Grid>
@@ -132,14 +136,13 @@ export default function Community() {
                 backgroundColor: 'rgba(255, 255, 255, 0.035)',
               }}
             >
-              <HubOutlined color="primary" sx={{ fontSize: 38, mb: 2 }} />
+              <ForumOutlined color="primary" sx={{ fontSize: 38, mb: 2 }} />
               <Typography variant="h5" sx={{ mb: 1 }}>
-                Full Decentralization
+                Read the Chain
               </Typography>
               <Typography color="text.secondary">
-                A DAO may form, the protocol can stand alone, and anonymous developers can update
-                it through GitHub if needed. Contract keys can be handed to trusted developers over
-                time.
+                Inspect transaction hashes, interface state, emitted events, and final balances.
+                Never publish SALTs, recovery records, private keys, or identifying wallet details.
               </Typography>
             </Box>
           </Grid>

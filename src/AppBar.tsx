@@ -52,9 +52,10 @@ export const TopAppBar = () => {
                 sx={{
                   minHeight: 48,
                   borderRadius: '8px',
-                  color: isActive ? 'text.primary' : 'text.secondary',
+                  color: isActive ? 'primary.main' : 'text.secondary',
                   '&.Mui-selected': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.18)',
+                    backgroundColor: 'rgba(52, 224, 208, 0.14)',
+                    boxShadow: 'inset 0 0 0 1px rgba(52, 224, 208, 0.3)',
                   },
                 }}
               >
@@ -86,8 +87,8 @@ export const TopAppBar = () => {
           py: { xs: 1.25, md: 2 },
           backdropFilter: 'blur(22px)',
           background:
-            'linear-gradient(180deg, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.58) 100%)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            'linear-gradient(180deg, rgba(9, 12, 13, 0.9) 0%, rgba(9, 12, 13, 0.6) 100%)',
+          borderBottom: '1px solid rgba(52, 224, 208, 0.12)',
         }}
       >
         <Toolbar
@@ -109,9 +110,9 @@ export const TopAppBar = () => {
               display: { xs: 'none', md: 'flex' },
               p: 0.35,
               gap: 0.25,
-              border: '1px solid rgba(255, 255, 255, 0.12)',
+              border: '1px solid rgba(255, 255, 255, 0.09)',
               borderRadius: '8px',
-              backgroundColor: 'rgba(255, 255, 255, 0.035)',
+              backgroundColor: 'rgba(255, 255, 255, 0.028)',
             }}
             aria-label="Primary navigation"
           >
@@ -131,8 +132,8 @@ export const TopAppBar = () => {
                     fontSize: 12.5,
                     color: isActive ? 'primary.contrastText' : 'text.secondary',
                     '&:hover': {
-                      color: 'text.primary',
-                      backgroundColor: isActive ? undefined : 'rgba(255, 255, 255, 0.06)',
+                      color: isActive ? undefined : 'primary.main',
+                      backgroundColor: isActive ? undefined : 'rgba(52, 224, 208, 0.08)',
                     },
                   }}
                 >

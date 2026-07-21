@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { brand } from './brand';
 import Link from './Link';
 
-export const LogoMark = ({ size = 52 }: { size?: number }) => (
+export const LogoMark = ({ size = 46 }: { size?: number }) => (
   <Box
     component="span"
     aria-hidden="true"
@@ -14,12 +14,11 @@ export const LogoMark = ({ size = 52 }: { size?: number }) => (
       height: size,
       flex: '0 0 auto',
       display: 'block',
-      borderRadius: '12px',
-      overflow: 'hidden',
-      backgroundImage: 'url(/01.png)',
-      backgroundSize: 'cover',
+      backgroundImage: 'url(/brand/logo-mark.png)',
+      backgroundSize: 'contain',
+      backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
-      boxShadow: '0 0 32px rgba(255, 255, 255, 0.25)',
+      filter: 'drop-shadow(0 0 14px rgba(52, 224, 208, 0.45))',
     }}
   />
 );

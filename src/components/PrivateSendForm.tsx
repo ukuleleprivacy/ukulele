@@ -208,9 +208,9 @@ export const PrivateSendForm = ({
           >
             <Button
               type="submit"
-              color="secondary"
-              sx={{ color: 'white', px: 2 }}
-              variant="outlined"
+              color="primary"
+              sx={{ px: 3 }}
+              variant="contained"
               disabled={isLocked || isInProcess}
             >
               {isLocked ? (

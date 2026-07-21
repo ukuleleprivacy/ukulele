@@ -16,6 +16,7 @@ import { ethers } from 'ethers';
 import createEmotionCache from '../src/createEmotionCache';
 import { Footer } from '../src/Footer';
 import { TopAppBar } from '../src/AppBar';
+import { TestCaseBanner } from '../src/components/TestCaseBanner';
 import { WalletSession } from '../src/components/WalletSession';
 import theme from '../src/theme';
 
@@ -33,14 +34,14 @@ export default function MyApp(props: MyAppProps) {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>Ukulele</title>
+        <title>Fiducaro</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <meta
           name="description"
-          content="UKULELE is a privacy-first digital currency brand with a premium monochrome identity in pure black and white."
+          content="FIDUCARO is a live Ethereum protocol for burying balances, retrieving hidden value, and projecting zero-net transfer signals onto the public record."
         />
-        <meta property="og:title" content="Ukulele" />
-        <meta property="og:description" content="Private by default." />
+        <meta property="og:title" content="FIDUCARO · Live on Ethereum" />
+        <meta property="og:description" content="Bury value. Retrieve it. Disrupt the public record." />
         <meta property="og:image" content="/brand/social-banner.png" />
       </Head>
       <ThemeProvider theme={theme}>
@@ -54,13 +55,14 @@ export default function MyApp(props: MyAppProps) {
             overflow: 'hidden',
             backgroundColor: 'background.default',
             backgroundImage:
-              'radial-gradient(circle at 75% 8%, rgba(255, 255, 255, 0.18), transparent 30%), radial-gradient(circle at 12% 28%, rgba(210, 210, 210, 0.08), transparent 25%), linear-gradient(180deg, #0A0A0A 0%, #101010 44%, #070707 100%)',
+              'radial-gradient(circle at 78% 6%, rgba(52, 224, 208, 0.16), transparent 32%), radial-gradient(circle at 10% 22%, rgba(52, 224, 208, 0.07), transparent 28%), radial-gradient(circle at 50% 120%, rgba(52, 224, 208, 0.05), transparent 40%), linear-gradient(180deg, #0B0D0E 0%, #101416 46%, #070909 100%)',
           }}
         >
           <Web3ReactProvider getLibrary={getLibrary}>
             <WalletSession>
               <Container maxWidth="lg" sx={{ width: '100%', px: { xs: 2, sm: 3 } }}>
                 <TopAppBar />
+                <TestCaseBanner />
                 <Component {...pageProps} />
               </Container>
               <Footer />

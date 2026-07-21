@@ -1,12 +1,12 @@
 <svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">UKULELE social banner</title>
-  <desc id="desc">A black and white UKULELE brand banner with ukulele logo and privacy tagline.</desc>
+  <title id="title">FIDUCARO social banner</title>
+  <desc id="desc">A black and white FIDUCARO brand banner with the project logo and privacy tagline.</desc>
   <rect width="1600" height="900" fill="#0A0A0A"/>
-  <image href="/brand/ukulele-hero.png" x="0" y="0" width="1600" height="900" preserveAspectRatio="xMidYMid slice" opacity="0.72"/>
+  <image href="/brand/fiducaro-hero.png" x="0" y="0" width="1600" height="900" preserveAspectRatio="xMidYMid slice" opacity="0.72"/>
   <rect width="1600" height="900" fill="url(#shade)"/>
   <circle cx="388" cy="450" r="138" stroke="#E0E0E0" stroke-width="8" stroke-linecap="round" stroke-dasharray="654 120"/>
-  <image href="/brand/ukulele-mark.svg" x="272" y="334" width="232" height="232"/>
-  <text x="590" y="430" fill="#F5F5F5" font-family="Arial, Helvetica, sans-serif" font-size="86" font-weight="700">UKULELE</text>
+  <image href="/brand/fiducaro-mark.svg" x="272" y="334" width="232" height="232"/>
+  <text x="590" y="430" fill="#F5F5F5" font-family="Arial, Helvetica, sans-serif" font-size="86" font-weight="700">FIDUCARO</text>
   <text x="596" y="500" fill="#BFBFBF" font-family="Arial, Helvetica, sans-serif" font-size="30">PRIVATE BY DEFAULT</text>
   <defs>
     <linearGradient id="shade" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">

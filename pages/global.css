@@ -1,10 +1,13 @@
 :root {
   color-scheme: dark;
-  --ukulele-black: #0a0a0a;
-  --ukulele-ink: #141414;
-  --ukulele-white: #ffffff;
-  --ukulele-silver: #e0e0e0;
-  --ukulele-pearl: #f5f5f5;
+  --fiducaro-black: #0b0d0e;
+  --fiducaro-ink: #14181b;
+  --fiducaro-graphite: #1f252a;
+  --fiducaro-white: #edf1f2;
+  --fiducaro-silver: #9aa6ad;
+  --fiducaro-pearl: #c4cdd2;
+  --fiducaro-neon: #34e0d0;
+  --fiducaro-neon-dark: #15b7a8;
 }
 
 html {
@@ -13,7 +16,7 @@ html {
 
 body {
   min-width: 320px;
-  background: var(--ukulele-black);
+  background: var(--fiducaro-black);
 }
 
 * {
@@ -25,31 +28,35 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 ::-webkit-scrollbar-thumb {
-  border: 2px solid var(--ukulele-black);
+  border: 2px solid var(--fiducaro-black);
   border-radius: 999px;
-  background-color: rgba(255, 255, 255, 0.72);
+  background-color: rgba(52, 224, 208, 0.55);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(52, 224, 208, 0.85);
 }
 
 ::selection {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.65);
+  color: #04110f;
+  background: rgba(52, 224, 208, 0.85);
 }
 
 .link-hover-glow {
-  color: rgba(255, 255, 255, 0.76) !important;
+  color: rgba(237, 241, 242, 0.74) !important;
   transition: color 180ms ease, text-shadow 180ms ease !important;
 }
 
 .link-hover-glow:hover {
-  color: #ffffff !important;
-  text-shadow: 0 0 18px rgba(255, 255, 255, 0.48) !important;
+  color: var(--fiducaro-neon) !important;
+  text-shadow: 0 0 18px rgba(52, 224, 208, 0.55) !important;
 }
 
-@keyframes ukuleleFloat {
+@keyframes fiducaroFloat {
   0% {
     transform: translate3d(0, 0, 0);
   }
@@ -61,7 +68,7 @@ body {
   }
 }
 
-@keyframes ukuleleGlow {
+@keyframes fiducaroGlow {
   0% {
     opacity: 0.42;
   }

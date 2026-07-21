@@ -18,26 +18,26 @@ const theme = responsiveFontSizes(
     palette: {
       mode: 'dark',
       primary: {
-        main: '#FFFFFF',
-        light: '#E0E0E0',
-        dark: '#8C8C8C',
-        contrastText: '#0A0A0A',
+        main: '#34E0D0',
+        light: '#6FF0E4',
+        dark: '#15B7A8',
+        contrastText: '#04110F',
       },
       secondary: {
-        main: '#BFBFBF',
-        light: '#E5E5E5',
-        dark: '#737373',
-        contrastText: '#0A0A0A',
+        main: '#9AA6AD',
+        light: '#C4CDD2',
+        dark: '#5D686E',
+        contrastText: '#0B0D0E',
       },
       background: {
-        default: '#0A0A0A',
-        paper: '#121212',
+        default: '#0B0D0E',
+        paper: '#14181B',
       },
       text: {
-        primary: '#F5F5F5',
-        secondary: 'rgba(255, 255, 255, 0.72)',
+        primary: '#EDF1F2',
+        secondary: 'rgba(237, 241, 242, 0.64)',
       },
-      divider: 'rgba(255, 255, 255, 0.12)',
+      divider: 'rgba(255, 255, 255, 0.10)',
     },
     typography: {
       fontFamily,
@@ -90,7 +90,7 @@ const theme = responsiveFontSizes(
       MuiCssBaseline: {
         styleOverrides: {
           body: {
-            backgroundColor: '#0A0A0A',
+            backgroundColor: '#0B0D0E',
           },
         },
       },
@@ -104,28 +104,31 @@ const theme = responsiveFontSizes(
             textTransform: 'none',
             whiteSpace: 'nowrap',
             '&:focus-visible': {
-              outline: '2px solid #E0E0E0',
+              outline: '2px solid #34E0D0',
               outlineOffset: 3,
             },
           },
           containedPrimary: {
-            background: 'linear-gradient(135deg, #FFFFFF 0%, #E0E0E0 100%)',
-            color: '#0A0A0A',
+            background: 'linear-gradient(135deg, #34E0D0 0%, #17BBAC 100%)',
+            color: '#04110F',
+            boxShadow: '0 0 0 1px rgba(52, 224, 208, 0.35), 0 10px 30px rgba(52, 224, 208, 0.18)',
             '&:hover': {
-              background: 'linear-gradient(135deg, #E8E8E8 0%, #C9C9C9 100%)',
-              boxShadow: '0 0 28px rgba(255, 255, 255, 0.32)',
+              background: 'linear-gradient(135deg, #4CE9DA 0%, #22C7B7 100%)',
+              boxShadow: '0 0 26px rgba(52, 224, 208, 0.5), 0 0 0 1px rgba(52, 224, 208, 0.6)',
             },
             '&.Mui-disabled': {
-              background: 'rgba(255, 255, 255, 0.10)',
-              color: 'rgba(255, 255, 255, 0.68)',
+              background: 'rgba(52, 224, 208, 0.12)',
+              color: 'rgba(237, 241, 242, 0.5)',
+              boxShadow: 'none',
             },
           },
           outlined: {
-            borderColor: 'rgba(255, 255, 255, 0.22)',
-            color: '#F5F5F5',
+            borderColor: 'rgba(52, 224, 208, 0.34)',
+            color: '#EDF1F2',
             '&:hover': {
-              borderColor: 'rgba(255, 255, 255, 0.72)',
-              backgroundColor: 'rgba(255, 255, 255, 0.08)',
+              borderColor: 'rgba(52, 224, 208, 0.85)',
+              backgroundColor: 'rgba(52, 224, 208, 0.08)',
+              boxShadow: '0 0 20px rgba(52, 224, 208, 0.18)',
             },
           },
         },
@@ -135,7 +138,7 @@ const theme = responsiveFontSizes(
           root: {
             borderRadius: 8,
             '&:focus-visible': {
-              outline: '2px solid #E0E0E0',
+              outline: '2px solid #34E0D0',
               outlineOffset: 3,
             },
           },
@@ -147,7 +150,7 @@ const theme = responsiveFontSizes(
             color: 'inherit',
             textDecoration: 'none',
             '&:focus-visible': {
-              outline: '2px solid #E0E0E0',
+              outline: '2px solid #34E0D0',
               outlineOffset: 3,
             },
           },
@@ -159,11 +162,11 @@ const theme = responsiveFontSizes(
             backgroundImage: 'none',
           },
           outlined: {
-            border: '1px solid rgba(255, 255, 255, 0.12)',
+            border: '1px solid rgba(255, 255, 255, 0.09)',
             borderRadius: 8,
             background:
-              'linear-gradient(180deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.025) 100%)',
-            boxShadow: '0 20px 70px rgba(0, 0, 0, 0.28)',
+              'linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.018) 100%)',
+            boxShadow: '0 24px 70px rgba(0, 0, 0, 0.45)',
           },
         },
       },
@@ -186,34 +189,36 @@ const theme = responsiveFontSizes(
         styleOverrides: {
           tooltip: {
             maxWidth: 320,
-            border: '1px solid rgba(255, 255, 255, 0.14)',
-            backgroundColor: '#F5F5F5',
-            color: '#0A0A0A',
+            border: '1px solid rgba(52, 224, 208, 0.28)',
+            backgroundColor: '#0F1518',
+            color: '#EDF1F2',
             borderRadius: 6,
             fontWeight: 700,
+            boxShadow: '0 0 24px rgba(52, 224, 208, 0.12)',
           },
           arrow: {
-            color: '#F5F5F5',
+            color: '#0F1518',
           },
         },
       },
       MuiTabs: {
         styleOverrides: {
           indicator: {
-            backgroundColor: '#E0E0E0',
+            backgroundColor: '#34E0D0',
             height: 3,
             borderRadius: 3,
+            boxShadow: '0 0 12px rgba(52, 224, 208, 0.7)',
           },
         },
       },
       MuiTab: {
         styleOverrides: {
           root: {
-            color: 'rgba(255, 255, 255, 0.68)',
+            color: 'rgba(237, 241, 242, 0.62)',
             fontWeight: 700,
             textTransform: 'none',
             '&.Mui-selected': {
-              color: '#F5F5F5',
+              color: '#34E0D0',
             },
           },
         },

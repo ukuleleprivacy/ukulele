@@ -15,7 +15,6 @@ import Typography from '@mui/material/Typography';
 import Head from 'next/head';
 
 import { Layout } from '../src/Layout';
-import { TechnicalArtwork } from '../src/components/TechnicalArtwork';
 import { abi as tokenAbi, address as tokenAddress } from '../src/contracts/contract1';
 import { gasLimit } from '../src/constants';
 
@@ -163,7 +162,7 @@ export default function Decrypt() {
   return (
     <Layout>
       <Head>
-        <title>Decrypt | Ukulele</title>
+        <title>Decrypt | Fiducaro</title>
       </Head>
 
       <Container disableGutters maxWidth="md" sx={{ pt: { xs: 5, md: 9 }, pb: { xs: 7, md: 11 } }}>
@@ -173,7 +172,7 @@ export default function Decrypt() {
               Decrypt
             </Typography>
             <Typography color="text.secondary" sx={{ mt: 1.5 }}>
-              Move all or part of your private UKULELE balance back into your public wallet balance.
+              Move all or part of your private FIDUCARO balance back into your public wallet balance.
               Decryption is an on-chain action and makes the decrypted amount public.
             </Typography>
           </CardContent>
@@ -285,7 +284,7 @@ export default function Decrypt() {
                   p: { xs: 2.25, md: 2.5 },
                   borderRadius: '8px',
                   border: hasError
-                    ? '1px solid rgba(255, 255, 255, 0.42)'
+                    ? '1px solid rgba(52, 224, 208, 0.55)'
                     : '1px solid rgba(255, 255, 255, 0.12)',
                   backgroundColor: hasError
                     ? 'rgba(255, 255, 255, 0.08)'
@@ -301,13 +300,6 @@ export default function Decrypt() {
           </CardContent>
         </Card>
 
-        <Box sx={{ mt: 3 }}>
-          <TechnicalArtwork
-            src="/technical/06.webp"
-            alt="Balance lifecycle diagram showing public balance, private SEND flow, private balance, and full or partial decrypt paths"
-            caption="Public balance, private balance, and both decrypt paths in one lifecycle."
-          />
-        </Box>
       </Container>
     </Layout>
   );

@@ -32,17 +32,22 @@ const SplashLoader = ({ videoVisible, setVideoVisible }: any) => {
           textAlign: 'center',
           color: 'text.primary',
           background:
-            'radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.22), transparent 32%), #0A0A0A',
+            'radial-gradient(circle at 50% 42%, rgba(52, 224, 208, 0.2), transparent 34%), #0B0D0E',
         }}
       >
         <Fade in={splashVisible}>
           <Box>
             <Box
               component="img"
-              src="/01.png"
+              src="/brand/logo-mark.png"
               alt=""
               aria-hidden="true"
-              sx={{ width: 108, height: 108, mb: 2 }}
+              sx={{
+                width: 108,
+                height: 108,
+                mb: 2,
+                filter: 'drop-shadow(0 0 24px rgba(52, 224, 208, 0.45))',
+              }}
             />
             <Typography variant="h5">{brand.name}</Typography>
           </Box>

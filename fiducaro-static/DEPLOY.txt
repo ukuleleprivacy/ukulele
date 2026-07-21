@@ -1,0 +1,110 @@
+==============================================================
+ FIDUCARO — STATIC SITE DEPLOYMENT INSTRUCTIONS
+==============================================================
+
+This is a plain static website: HTML, CSS, JS, and SVG assets.
+There is NO build step, NO server code, NO database, and NO
+blockchain/wallet code. Any static host will serve it as-is.
+
+--------------------------------------------------------------
+FOLDER CONTENTS
+--------------------------------------------------------------
+  index.html            Home
+  about.html            About
+  tech.html             Technology / principles
+  roadmap.html          The 6-phase plan
+  community.html        Community + brand-kit downloads
+  DEPLOY.txt            This file
+  assets/
+    css/styles.css      Design system (all styling)
+    js/main.js          Nav toggle, scroll reveals, footer year
+    img/                Logo, favicon, banner, icon, wallpapers (SVG)
+
+Fonts (Orbitron + Inter) load from Google Fonts via a <link>
+in each page. To self-host fonts (fully offline / no third-party
+requests), download them and replace the <link> tags.
+
+--------------------------------------------------------------
+TEST LOCALLY
+--------------------------------------------------------------
+Open a terminal in this folder and run ONE of:
+
+  python3 -m http.server 8080
+      -> then visit http://localhost:8080
+
+  npx serve .
+      -> uses the URL it prints
+
+Opening index.html directly with file:// also works, but a local
+server is closer to production.
+
+--------------------------------------------------------------
+DEPLOY — OPTION A: NETLIFY (drag & drop, easiest)
+--------------------------------------------------------------
+1. Go to https://app.netlify.com/drop
+2. Drag this entire folder onto the page.
+3. Done — you get a live URL. Add a custom domain in Site settings.
+
+--------------------------------------------------------------
+DEPLOY — OPTION B: VERCEL
+--------------------------------------------------------------
+1. Install once:   npm i -g vercel
+2. In this folder: vercel
+3. Accept defaults (framework: "Other"). Then:  vercel --prod
+
+--------------------------------------------------------------
+DEPLOY — OPTION C: GITHUB PAGES
+--------------------------------------------------------------
+1. Create a repo and push the contents of this folder.
+2. Repo Settings -> Pages -> Source: "Deploy from a branch".
+3. Pick branch "main" and folder "/ (root)". Save.
+4. Site publishes at https://<user>.github.io/<repo>/
+   (If pages sit in a subfolder, keep the relative asset paths
+    as-is — they already use relative URLs.)
+
+--------------------------------------------------------------
+DEPLOY — OPTION D: CLOUDFLARE PAGES
+--------------------------------------------------------------
+1. Cloudflare dash -> Pages -> Create -> Connect your repo
+   (or "Direct Upload" and drop this folder).
+2. Build command: (leave blank)   Output dir: /
+3. Save & Deploy.
+
+--------------------------------------------------------------
+DEPLOY — OPTION E: ANY WEB HOST / S3 / NGINX
+--------------------------------------------------------------
+Upload the folder contents to your web root (e.g. /var/www/html
+or an S3 bucket with static hosting enabled). index.html must be
+the directory index. No special server config required.
+
+--------------------------------------------------------------
+CUSTOM DOMAIN + HTTPS
+--------------------------------------------------------------
+Netlify, Vercel, Cloudflare, and GitHub Pages all provision free
+HTTPS certificates automatically once you attach a domain. Point
+your domain's DNS at the host per their docs and wait for the
+certificate to issue (usually minutes).
+
+--------------------------------------------------------------
+BEFORE GOING LIVE — CHECKLIST
+--------------------------------------------------------------
+[ ] Replace the "#" placeholder links (community.html social
+    buttons, Whitepaper, Contact) with real URLs.
+[ ] Wire the newsletter form in community.html to a real
+    provider (Mailchimp, Buttondown, Formspree, etc.). As shipped
+    it does nothing but show a confirmation message.
+[ ] Update og:image / meta descriptions if you change branding.
+[ ] Optional: convert SVG social assets to PNG/JPG if a platform
+    requires raster uploads (e.g. some avatar/banner uploaders).
+
+--------------------------------------------------------------
+CONVERT SVG ASSETS TO PNG (optional)
+--------------------------------------------------------------
+macOS (built in):
+  qlmanage -t -s 1500 -o . assets/img/social-banner.svg
+With rsvg-convert (brew install librsvg):
+  rsvg-convert -w 1500 -h 500 assets/img/social-banner.svg -o banner.png
+
+==============================================================
+That's it. It's a static site — copy the files, serve them, done.
+==============================================================

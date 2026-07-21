@@ -15,11 +15,12 @@ export const progressMessagesMap: Record<Steps, Message> = {
     title: 'Attention Required',
     description: (
       <>
-        The website is still in test mode, manuals have not been completed yet, conduct transactions at your own risk.
+        FIDUCARO is live on Ethereum mainnet. Transactions and gas costs are real; review every
+        wallet request before approving it.
         <br />
         <br />
-        Do not conduct any transactions or press any buttons/toggles before reading the user guide mirror1 mirror2
-        mirror3. Uninformed actions may result in loss of privacy and funds.
+        Read The Obscura Protocol before continuing. Keep the recovery record private and retain it
+        until PART II is complete.
       </>
     ),
     buttonTitle: '',
@@ -48,9 +49,9 @@ export const progressMessagesMap: Record<Steps, Message> = {
     buttonTitle: 'Sending BV3 to Recipient. Part 2 / 2',
   },
   3: {
-    title: 'Your Private Transaction was Successful',
+    title: 'The Two-Step SEND Confirmed',
     description:
-      'You have successfully sent your tokens to your recipient. Your public balance has been fully privatized, you may continue sending other private transactions (if you have the balance) or do partial decryptions to publicly move or sell tokens from this wallet. You can also do a Decrypt transaction to reveal your prior public balance after a transaction although this is highly not recommended as the amount you sent will be known.',
+      'Both Ethereum transactions confirmed. Your private SEND is complete; retain the recovery record and inspect the resulting wallet state.',
     buttonTitle: '',
   },
   4: {

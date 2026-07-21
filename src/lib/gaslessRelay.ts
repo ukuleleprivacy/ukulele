@@ -64,7 +64,7 @@ export const signGaslessAction = async ({
   deadline,
 }: SignGaslessActionParams) => {
   const domain = {
-    name: 'UKULELE GSN',
+    name: 'FIDUCARO GSN',
     version: '1',
     chainId,
     verifyingContract,

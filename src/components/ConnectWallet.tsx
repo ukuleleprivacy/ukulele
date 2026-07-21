@@ -40,14 +40,14 @@ export const ConnectWallet = (props: ButtonProps) => {
     minHeight: { xs: 48, md: 40 },
     px: { xs: 2.4, md: 2 },
     borderRadius: 999,
-    background: 'linear-gradient(135deg, #FFFFFF 0%, #E0E0E0 100%)',
-    color: '#0A0A0A',
+    background: 'linear-gradient(135deg, #34E0D0 0%, #17BBAC 100%)',
+    color: '#04110F',
     fontSize: { xs: 15, md: 14 },
     fontWeight: 700,
-    boxShadow: 'none',
+    boxShadow: '0 0 0 1px rgba(52, 224, 208, 0.35)',
     '&:hover': {
-      background: 'linear-gradient(135deg, #E8E8E8 0%, #C9C9C9 100%)',
-      boxShadow: '0 0 30px rgba(255, 255, 255, 0.32)',
+      background: 'linear-gradient(135deg, #4CE9DA 0%, #22C7B7 100%)',
+      boxShadow: '0 0 26px rgba(52, 224, 208, 0.5)',
     },
   };
 

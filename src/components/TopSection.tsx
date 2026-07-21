@@ -1,5 +1,4 @@
 import ArrowForward from '@mui/icons-material/ArrowForward';
-import DescriptionOutlined from '@mui/icons-material/DescriptionOutlined';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -7,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import { brand, pillars } from '../brand';
+import Link from '../Link';
 
 const TopSection = () => {
   return (
@@ -14,29 +14,30 @@ const TopSection = () => {
       component="section"
       sx={{
         position: 'relative',
-        minHeight: { xs: 'auto', md: '74dvh' },
+        minHeight: { xs: 'auto', md: '58dvh' },
         mt: { xs: 1, md: 2 },
         mb: { xs: 7, md: 10 },
         display: 'flex',
         alignItems: 'center',
         overflow: 'hidden',
-        border: '1px solid rgba(255, 255, 255, 0.12)',
+        border: '1px solid rgba(52, 224, 208, 0.22)',
         borderRadius: '8px',
-        backgroundColor: '#0A0A0A',
+        backgroundColor: '#07100F',
+        boxShadow: '0 30px 90px rgba(0, 0, 0, 0.55), inset 0 0 120px rgba(52, 224, 208, 0.06)',
       }}
     >
       <Box
         component="img"
-        src="/brand/ukulele-hero.png"
-        alt="Black and white ukulele silhouette glowing in the dark"
+        src="/brand/hero-obsidian.webp"
+        alt="Obsidian architectural blocks lit by neon teal seams in the dark"
         sx={{
           position: 'absolute',
           inset: 0,
           width: '100%',
           height: '100%',
           objectFit: 'cover',
-          objectPosition: { xs: '58% center', md: 'center center' },
-          opacity: { xs: 0.58, md: 0.72 },
+          objectPosition: { xs: '68% center', md: 'center center' },
+          opacity: { xs: 0.5, md: 0.82 },
         }}
       />
       <Box
@@ -44,7 +45,7 @@ const TopSection = () => {
           position: 'absolute',
           inset: 0,
           background:
-            'linear-gradient(90deg, rgba(0, 0, 0, 0.94) 0%, rgba(0, 0, 0, 0.70) 42%, rgba(0, 0, 0, 0.18) 100%), linear-gradient(0deg, rgba(0, 0, 0, 0.74) 0%, rgba(0, 0, 0, 0.08) 58%)',
+            'linear-gradient(90deg, rgba(7, 12, 13, 0.96) 0%, rgba(7, 12, 13, 0.74) 44%, rgba(7, 12, 13, 0.14) 100%), linear-gradient(0deg, rgba(7, 12, 13, 0.78) 0%, rgba(7, 12, 13, 0.05) 60%), radial-gradient(circle at 88% 40%, rgba(52, 224, 208, 0.14), transparent 42%)',
         }}
       />
 
@@ -92,18 +93,21 @@ const TopSection = () => {
             gap={1.5}
             alignItems={{ xs: 'stretch', sm: 'center' }}
           >
-            <Button href="/platform" variant="contained" size="large" endIcon={<ArrowForward />}>
-              Start a Private SEND
+            <Button
+              variant="contained"
+              size="large"
+              disabled
+            >
+              FIDU Access
             </Button>
             <Button
-              href="/whitepaper/ukulele-whitepaper.txt"
-              target="_blank"
-              rel="noopener noreferrer"
+              component={Link}
+              href="/platform"
               variant="outlined"
               size="large"
-              startIcon={<DescriptionOutlined />}
+              endIcon={<ArrowForward />}
             >
-              Read Whitepaper
+              Open FIDUCARO
             </Button>
           </Stack>
 
@@ -116,12 +120,17 @@ const TopSection = () => {
                     minHeight: 116,
                     p: 2,
                     borderRadius: '8px',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    backgroundColor: 'rgba(0, 0, 0, 0.48)',
+                    border: '1px solid rgba(52, 224, 208, 0.18)',
+                    backgroundColor: 'rgba(7, 12, 13, 0.55)',
                     backdropFilter: 'blur(12px)',
+                    transition: 'border-color 200ms ease, box-shadow 200ms ease',
+                    '&:hover': {
+                      borderColor: 'rgba(52, 224, 208, 0.5)',
+                      boxShadow: '0 0 24px rgba(52, 224, 208, 0.12)',
+                    },
                   }}
                 >
-                  <Typography variant="subtitle2" sx={{ mb: 0.75, fontWeight: 700 }}>
+                  <Typography variant="subtitle2" sx={{ mb: 0.75, fontWeight: 700, color: 'primary.light' }}>
                     {pillar.title}
                   </Typography>
                   <Typography variant="caption" color="text.secondary" sx={{ display: 'block', lineHeight: 1.5 }}>

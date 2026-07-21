@@ -61,7 +61,7 @@ export const Footer = () => (
                   href={brand.telegramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="UKULELE Telegram"
+                  aria-label="FIDUCARO Telegram"
                   sx={{
                     width: 46,
                     height: 46,
@@ -70,8 +70,8 @@ export const Footer = () => (
                     backgroundColor: 'rgba(255, 255, 255, 0.04)',
                     '&:hover': {
                       color: 'primary.light',
-                      borderColor: 'rgba(255, 255, 255, 0.55)',
-                      backgroundColor: 'rgba(255, 255, 255, 0.14)',
+                      borderColor: 'rgba(52, 224, 208, 0.6)',
+                      backgroundColor: 'rgba(52, 224, 208, 0.12)',
                     },
                   }}
                 >
@@ -84,7 +84,7 @@ export const Footer = () => (
                   href={brand.twitterUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`UKULELE Twitter ${brand.twitterHandle}`}
+                  aria-label={`FIDUCARO Twitter ${brand.twitterHandle}`}
                   sx={{
                     width: 46,
                     height: 46,
@@ -93,8 +93,8 @@ export const Footer = () => (
                     backgroundColor: 'rgba(255, 255, 255, 0.04)',
                     '&:hover': {
                       color: 'primary.light',
-                      borderColor: 'rgba(255, 255, 255, 0.55)',
-                      backgroundColor: 'rgba(255, 255, 255, 0.14)',
+                      borderColor: 'rgba(52, 224, 208, 0.6)',
+                      backgroundColor: 'rgba(52, 224, 208, 0.12)',
                     },
                   }}
                 >
@@ -128,10 +128,10 @@ export const Footer = () => (
         }}
       >
         <Typography variant="body2" color="text.secondary">
-          UKULELE - Private by Default.
+          FIDUCARO — Private value. Public disruption. Live on Ethereum.
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Financial sanctuary on Ethereum.
+          Every command is user-approved and executed on chain.
         </Typography>
       </Box>
     </Container>

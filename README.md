@@ -1,11 +1,13 @@
-# UKULELE Frontend Rebrand
+# FIDUCARO Ethereum Test Case
 
-UKULELE is now presented as a premium, minimal, black-and-white brand system with a privacy-first tone. This repo update is intentionally frontend-only: layout, copy, visual identity, static assets, responsiveness, accessibility, and build output.
+FIDUCARO is an experimental Ethereum mainnet case study for a two-transaction private-balance workflow, public balance restoration, and the difference between emitted token events and final contract state. The interface is intended for reproducible, small-value trials—not investment, production use, or a claim of guaranteed privacy.
+
+Transactions use real assets and gas. A tester can acquire roughly 100 FIDU through the verified ETH/FIDU Uniswap v4 pool, then exercise SEND, Decrypt, and Disruptor while recording what the wallet and chain actually show.
 
 ## Design Direction
 
-- **Brand name:** UKULELE
-- **Tagline:** Private by default
+- **Brand name:** FIDUCARO
+- **Tagline:** An on-chain privacy test case
 - **Primary palette:** `#0E0B16`, `#1A1625`, `#2A2640`, `#7B3FF2`, `#B16AFF`, `#EDEBFF`
 - **Accent:** pure white and soft grays over deep black; light is the only accent.
 - **Typography:** Montserrat with system fallbacks. Headings are bold, compact, and letter spacing remains neutral.
@@ -14,41 +16,41 @@ UKULELE is now presented as a premium, minimal, black-and-white brand system wit
 
 ## Routes
 
-- `/` - primary UKULELE landing experience
-- `/platform` - two-transaction private SEND flow with a downloadable recovery record
+- `/` - test-case overview, safety boundaries, and verified pool entry point
+- `/platform` - experimental two-transaction SEND flow with a downloadable recovery record
 - `/decrypt` - full and partial public-balance decryption actions
 - `/disruptor` - zero-net `shadowDuster` Transfer records and verified recent activity
 - `/gasless` - wallet action surface for SELL and full/partial UI display flows
-- `/whitepaper/ukulele-whitepaper.txt` - published plain-text protocol whitepaper
-- `/roadmap` - launch sequence and distribution plan
-- `/community` - brand kit, social assets, and protocol notes
+- `/whitepaper/fiducaro-whitepaper.txt` - published plain-text protocol whitepaper
+- `/roadmap` - repeatable test and review plan
+- `/community` - test notes, reference assets, and observation guidance
 
 ## Brand Assets
 
 Project-bound assets live in `public/brand`:
 
-- `ukulele-mark.svg` - mark-only logo
-- `ukulele-logo.png` - supplied horizontal logo lockup
-- `ukulele-hero.png` - generated hero artwork
+- `fiducaro-mark.svg` - mark-only logo
+- `fiducaro-logo.png` - supplied horizontal logo lockup
+- `fiducaro-hero.png` - generated hero artwork
 - `wallpaper-desktop.svg` - desktop wallpaper placeholder
 - `wallpaper-mobile.svg` - mobile wallpaper placeholder
 - `social-banner.svg` - social banner placeholder
 - `favicon.svg` - browser/app icon
 
-Finished protocol explainers live in `public/technical` as optimized WebP assets. Their original
-1168 x 880 PNG files remain in `/Users/nik/Documents/ukulele/technical`.
+Protocol explainers live in `public/technical` as optimized WebP assets. Their original
+1168 x 880 PNG files remain in `/Users/nik/Documents/Fiducaro/technical`.
 
-The hero bitmap was generated with the built-in image tool and copied into the workspace at `public/brand/ukulele-hero.png`.
+The hero bitmap was generated with the built-in image tool and copied into the workspace at `public/brand/fiducaro-hero.png`.
 
 ## Protocol Notes
 
-**On-chain:** UKULELE is presented as fully on chain, meaning transactions cannot be manipulated.
+**Test environment:** Ethereum mainnet. Calls, gas costs, receipts, calldata, and event logs are real and publicly observable.
 
 **Token contract:** `0x799C411D50d1D67C517A34C842381673E377007c` on Ethereum mainnet.
 
-**Uniswap pool:** Uniswap v4 ETH/UNK pool with a 1% swap fee and tick spacing 200. Pool ID: `0xbcaf2724492673f9157c59bf441d31ffd1623c781179938d36488d2b5a60ed28`.
+**Direct Uniswap pool:** [Open the verified Uniswap v4 ETH/FIDU pool](https://app.uniswap.org/explore/pools/ethereum/0xbcaf2724492673f9157c59bf441d31ffd1623c781179938d36488d2b5a60ed28). It uses a 1% swap fee, tick spacing 200, and no hook. Pool ID: `0xbcaf2724492673f9157c59bf441d31ffd1623c781179938d36488d2b5a60ed28`.
 
-**Buy UNK:** [Open the official ETH-to-UNK swap on Uniswap](https://app.uniswap.org/swap?chain=mainnet&inputCurrency=NATIVE&outputCurrency=0x799C411D50d1D67C517A34C842381673E377007c).
+**Get test tokens:** [Open an ETH-to-FIDU swap prefilled for approximately 100 FIDU](https://app.uniswap.org/swap?chain=mainnet&inputCurrency=NATIVE&outputCurrency=0x799C411D50d1D67C517A34C842381673E377007c&field=output&value=100). Review the live quote, price impact, token address, and network cost before confirming. This is a test convenience, not an investment suggestion.
 
 **Naglfar/privacy contract:** `0xfFd73306f9359492e65967ccaE322331a2784b4F`.
 
@@ -56,17 +58,17 @@ The hero bitmap was generated with the built-in image tool and copied into the w
 
 **GSN contract:** No GSN contract is deployed for the current protocol release. The frontend has no fallback GSN address.
 
-**Token supply:** 10,000,000 UNK with 18 decimals.
+**Token supply:** 10,000,000 FIDU with 18 decimals.
 
-**Developer distribution:** 100,000 UNK, equal to 1% of the 10,000,000-token supply, is sold daily until 15% remains for the developer.
+**Developer distribution:** 100,000 FIDU, equal to 1% of the 10,000,000-token supply, is sold daily until 15% remains for the developer.
 
-**Protocol status:** Decentralized, fully finished protocol.
+**Protocol status:** Experimental, unaudited mainnet test case. No privacy, security, or production-readiness guarantee is made.
 
 ## Manual Finish Steps
 
-1. Replace placeholder SVG/PNG artwork in `public/brand` with final approved production art using the same filenames.
+1. Replace placeholder SVG/PNG artwork in `public/brand` with approved test-case art using the same filenames.
 2. Reserve final social handles and add verified links only after they are confirmed.
-3. Review `/gasless` copy once final product terminology is approved.
+3. Review `/gasless` copy once the next experiment scope is approved.
 4. Re-run `npm run build` before publishing.
 
 ## Gasless Configuration

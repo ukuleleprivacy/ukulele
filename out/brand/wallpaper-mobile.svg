@@ -6,7 +6,7 @@
   </radialGradient>
   <rect width="1080" height="1920" fill="url(#a)"/>
   <circle cx="540" cy="560" r="236" stroke="#E0E0E0" stroke-width="7" opacity="0.75"/>
-  <image href="/brand/ukulele-mark.svg" x="354" y="370" width="372" height="372"/>
+  <image href="/brand/fiducaro-mark.svg" x="354" y="370" width="372" height="372"/>
   <path d="M0 1240l143-121 119 90 147-181 151 159 149-219 159 226 212-172v898H0v-680Z" fill="#121212"/>
   <path d="M0 1400c172-54 332-70 503-38 228 42 379 12 577-68v626H0v-520Z" fill="#050505"/>
   <g fill="#F5F5F5" opacity="0.5">

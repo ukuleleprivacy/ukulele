@@ -27,9 +27,9 @@ import {
 } from '../src/lib/gaslessRelay';
 
 const gaslessMessage = {
-  title: 'Gasless UKULELE Actions',
+  title: 'Gasless FIDUCARO Actions',
   description:
-    'Gasless is the UKULELE interface for lower-friction wallet actions on Ethereum. The UI is designed for a fully on-chain system while keeping copy, controls, and feedback calm and minimal.',
+    'Gasless is the FIDUCARO interface for lower-friction wallet actions on Ethereum. The UI is designed for a fully on-chain system while keeping copy, controls, and feedback calm and minimal.',
 };
 
 const defaultStatus = {
@@ -41,7 +41,7 @@ const gaslessUpgradeSteps = [
   {
     title: 'ERC-4337 integration',
     timeline: 'About 2 weeks',
-    description: 'Connect account-abstraction user operations to the upgraded UKULELE actions.',
+    description: 'Connect account-abstraction user operations to the upgraded FIDUCARO actions.',
   },
   {
     title: 'Paymaster policy',
@@ -249,7 +249,7 @@ export default function Gasless() {
   return (
     <Layout>
       <Head>
-        <title>Gasless | Ukulele</title>
+        <title>Gasless | Fiducaro</title>
       </Head>
 
       <Container
@@ -376,7 +376,7 @@ export default function Gasless() {
                     p: { xs: 2.25, md: 2.5 },
                     borderRadius: '8px',
                     border: error
-                      ? '1px solid rgba(255, 255, 255, 0.42)'
+                      ? '1px solid rgba(52, 224, 208, 0.55)'
                       : '1px solid rgba(255, 255, 255, 0.12)',
                     backgroundColor: error
                       ? 'rgba(255, 255, 255, 0.08)'
@@ -402,7 +402,7 @@ export default function Gasless() {
             }}
           >
             <Typography color="text.secondary">
-              UKULELE is on Ethereum mainnet and is designed to be fully on chain. Connect your wallet
+              FIDUCARO is on Ethereum mainnet and is designed to be fully on chain. Connect your wallet
               from the header to use wallet-aware UI states.
             </Typography>
           </Box>
@@ -443,7 +443,7 @@ export default function Gasless() {
               textWrap: 'balance',
             }}
           >
-            Gasless actions remain locked while UKULELE moves to ERC-4337 account abstraction and
+            Gasless actions remain locked while FIDUCARO moves to ERC-4337 account abstraction and
             paymaster-sponsored transactions.
           </Typography>
         </Stack>

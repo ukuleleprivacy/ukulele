@@ -265,7 +265,7 @@ export default function Disruptor() {
   return (
     <Layout>
       <Head>
-        <title>Disruptor | Ukulele</title>
+        <title>Disruptor | Fiducaro</title>
       </Head>
 
       <Container disableGutters maxWidth="md" sx={{ pt: { xs: 5, md: 9 }, pb: { xs: 7, md: 11 } }}>
@@ -284,15 +284,6 @@ export default function Disruptor() {
             </Typography>
           </CardContent>
         </Card>
-
-        <Box sx={{ mb: 3 }}>
-          <TechnicalArtwork
-            src="/technical/07.webp"
-            alt="ShadowDuster function anatomy showing temporary user and recipient balance adjustments, one Transfer event, and zero net balance changes"
-            caption="The exact zero-net ShadowDuster execution sequence."
-            eager
-          />
-        </Box>
 
         <Card variant="outlined">
           <CardContent sx={{ p: { xs: '28px 24px!important', sm: '42px 52px!important' } }}>
@@ -355,7 +346,7 @@ export default function Disruptor() {
                   p: 2.5,
                   borderRadius: '8px',
                   border: hasError
-                    ? '1px solid rgba(255, 255, 255, 0.42)'
+                    ? '1px solid rgba(52, 224, 208, 0.55)'
                     : '1px solid rgba(255, 255, 255, 0.12)',
                   backgroundColor: hasError
                     ? 'rgba(255, 255, 255, 0.08)'
@@ -373,9 +364,9 @@ export default function Disruptor() {
 
         <Box sx={{ mt: 3 }}>
           <TechnicalArtwork
-            src="/technical/08.webp"
-            alt="Comparison between the Ethereum Transfer event log and the unchanged final user and recipient balances"
-            caption="Why an emitted event record and the contract's final state are not the same thing."
+            src="/technical/event-log-final-state.webp"
+            alt="Ethereum event log and final contract state shown as two distinct views of one transaction"
+            caption="One Ethereum transaction can leave a visible Transfer event while its final contract state resolves with zero net balance movement."
           />
         </Box>
 
@@ -426,7 +417,7 @@ export default function Disruptor() {
                         {shortenAddress(shadowSend.user)} → {shortenAddress(shadowSend.recipient)}
                       </Typography>
                       <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-                        {shadowSend.amount} UNK · block {shadowSend.blockNumber.toLocaleString('en-US')}
+                        {shadowSend.amount} FIDU · block {shadowSend.blockNumber.toLocaleString('en-US')}
                       </Typography>
                     </Grid>
                     <Grid item xs={12} sm={4} sx={{ textAlign: { xs: 'left', sm: 'right' } }}>

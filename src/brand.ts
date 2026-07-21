@@ -1,20 +1,29 @@
 export const brand = {
-  name: 'UKULELE',
-  tagline: 'Private by default',
+  name: 'FIDUCARO',
+  tagline: 'Private value. Public disruption. Live on Ethereum.',
   description:
-    'A privacy-first digital currency on the Ethereum network, built fully on chain for financial sanctuary and sovereign digital interaction.',
+    'FIDUCARO is a live Ethereum protocol for burying balances, retrieving hidden value, and projecting zero-net transfer signals onto the public record.',
   telegramUrl: 'https://t.me/+qMHrV95v_rAxYTE1',
-  twitterHandle: '@ukuleleprivacy',
-  twitterUrl: 'https://x.com/ukuleleprivacy',
+  twitterHandle: '@fiducaroprivacy',
+  twitterUrl: 'https://x.com/fiducaroprivacy',
   palette: {
-    white: '#FFFFFF',
-    silver: '#E0E0E0',
-    black: '#0A0A0A',
-    ink: '#141414',
-    graphite: '#262626',
-    pearl: '#F5F5F5',
+    neon: '#34E0D0',
+    neonLight: '#6FF0E4',
+    neonDark: '#15B7A8',
+    white: '#EDF1F2',
+    silver: '#9AA6AD',
+    black: '#0B0D0E',
+    ink: '#14181B',
+    graphite: '#1F252A',
+    pearl: '#C4CDD2',
   },
 };
+
+// Cut-out obsidian sculpture shapes (transparent PNG/WebP) used as decorative accents.
+export const shapes = Array.from(
+  { length: 18 },
+  (_, i) => `/shapes/shape-${String(i + 1).padStart(2, '0')}.webp`,
+);
 
 export const navItems = [
   { label: 'Home', url: '/' },
@@ -22,147 +31,136 @@ export const navItems = [
   { label: 'Decrypt', url: '/decrypt' },
   { label: 'Disruptor', url: '/disruptor' },
   { label: 'Gasless', url: '/gasless' },
-  { label: 'Community', url: '/community' },
+  { label: 'Protocol', url: '/community' },
 ];
 
 export const pillars = [
   {
-    title: 'Private',
-    description: 'A brand language centered on discretion, control, and personal sovereignty.',
+    title: 'Private SEND',
+    description: 'Bury value through an explicit two-part Ethereum transaction sequence.',
   },
   {
-    title: 'Untraceable',
-    description: 'Visual motifs use halos, waves, and dark space to suggest low-signal movement.',
+    title: 'Hidden balance',
+    description: 'Move FIDU beneath the ordinary public-balance surface while retaining control.',
   },
   {
-    title: 'Secure',
-    description: 'Dense contrast, restrained motion, and precise type keep the interface calm.',
+    title: 'Selective retrieval',
+    description: 'Unbury the entire hidden balance or retrieve only the amount you choose.',
   },
   {
-    title: 'Decentralized',
-    description: 'The system is designed to feel distributed, resilient, and community-held.',
+    title: 'Public disruption',
+    description: 'Cast a decoy Transfer signal onto Etherscan with zero lasting balance movement.',
   },
 ];
 
 export const roadmap = [
   {
-    title: 'Rebrand the Token',
-    description: 'Rebuild the UKULELE identity, refine messaging, and develop a focused community.',
+    title: 'Live Foundation',
+    description: 'FIDUCARO is deployed on Ethereum with SEND, Decrypt, and Disruptor ready for use.',
   },
   {
-    title: 'Launch the Pool',
-    description: 'Bring the public market surface online with clear presentation and launch materials.',
+    title: 'Strengthen the Vault',
+    description: 'Advance the hidden-balance layer, recovery controls, and user-owned transaction records.',
   },
   {
-    title: 'Implement Gasless',
-    description: 'Polish the Gasless page and user journey around the finished protocol experience.',
+    title: 'Expand Retrieval',
+    description: 'Make full and selective Decrypt faster, clearer, and more powerful across the interface.',
   },
   {
-    title: 'Daily Developer Sales and Marketing',
-    description:
-      'Sell 100,000 UNK, equal to 1% of the total supply, each day until 15% remains for the developer, while expanding marketing.',
+    title: 'Scale the Disruptor',
+    description: 'Extend public-chain signal control while preserving zero-net final balance state.',
   },
 ];
 
 export const protocolNotes = [
   {
-    title: 'On-chain by design',
-    description: 'UKULELE is fully on chain, meaning transactions cannot be manipulated.',
+    title: 'Live on Ethereum',
+    description: 'SEND, Decrypt, and Disruptor execute through deployed contracts on Ethereum mainnet.',
   },
   {
-    title: 'Developer distribution',
+    title: 'User-commanded execution',
     description:
-      '100,000 UNK, equal to 1% of the 10,000,000-token supply, is sold daily until 15% remains for the developer.',
+      'Every action begins in the interface, requires explicit wallet approval, and resolves on chain.',
   },
   {
-    title: 'Finished protocol',
-    description: 'A decentralized, fully finished protocol presented through a premium dark interface.',
+    title: 'Visible chain surface',
+    description: 'Ethereum metadata and emitted events remain public even when value enters the hidden-balance layer.',
   },
 ];
 
 export const brandAssets = [
   { label: 'Logo', path: '/01.png' },
-  { label: 'Hero artwork', path: '/brand/ukulele-hero.png' },
+  { label: 'Hero artwork', path: '/brand/fiducaro-hero.png' },
   { label: 'Desktop wallpaper', path: '/brand/wallpaper-desktop.png' },
   { label: 'Mobile wallpaper', path: '/brand/wallpaper-mobile.png' },
   { label: 'Social banner', path: '/brand/social-banner.png' },
-  { label: 'Balance lifecycle', path: '/technical/06.webp' },
-  { label: 'ShadowDuster anatomy', path: '/technical/07.webp' },
-  { label: 'Event versus state', path: '/technical/08.webp' },
-  { label: 'User flow', path: '/technical/09.webp' },
+  { label: 'Event log and final state', path: '/technical/event-log-final-state.webp' },
+  { label: 'Private balance lifecycle', path: '/technical/private-balance-lifecycle.webp' },
+  { label: 'Private flow', path: '/technical/private-flow.webp' },
+  { label: 'Private vault', path: '/technical/private-vault.webp' },
   { label: 'Gasless upgrade path', path: '/technical/10.webp' },
-  { label: 'Protocol overview', path: '/technical/11.webp' },
 ];
 
-export const philosophySections = [
+export const protocolVisuals = [
   {
-    title: 'The Ancient Right to Shadows',
+    label: 'Private Balance Lifecycle',
+    path: '/technical/private-balance-lifecycle.webp',
+    alt: 'FIDUCARO Private Balance Lifecycle from public balance through private transfer and selective retrieval',
+  },
+  {
+    label: 'Event Log and Final State',
+    path: '/technical/event-log-final-state.webp',
+    alt: 'Ethereum event log and final contract state shown as two distinct views of one transaction',
+  },
+  {
+    label: 'The Private Vault',
+    path: '/technical/private-vault.webp',
+    alt: 'The FIDUCARO Private Vault shown as a protected protocol chamber for hidden value',
+  },
+  {
+    label: 'Private Flow',
+    path: '/technical/private-flow.webp',
+    alt: 'FIDUCARO flow from public balance to private balance and full or partial Decrypt',
+  },
+  {
+    label: 'Private Balance Architecture',
+    path: '/technical/private-balance-architecture.webp',
+    alt: 'FIDUCARO private balance architecture showing send, transfer, recipient, and retrieval paths',
+  },
+  {
+    label: 'Vault System',
+    path: '/technical/private-vault-system.webp',
+    alt: 'Engineering systems view of the FIDUCARO Private Vault',
+  },
+];
+
+export const protocolCapabilities = [
+  {
+    title: 'Bury Value',
     body: [
-      'Privacy was not a luxury granted by civilization. It was the primordial condition that allowed the first minds to dream, to scheme, and to survive.',
-      'Privacy is not a modern invention. It is the oldest human right.',
+      'Private SEND drives FIDU beneath the ordinary public-balance surface through two deliberate Ethereum confirmations.',
+      'A private recovery record is forged between PART I and PART II so the route remains in your custody.',
     ],
   },
   {
-    title: 'The Betrayal of the Founders',
+    title: 'Retrieve on Command',
     body: [
-      'The Founders protected persons, houses, papers, and effects for an analog civilization. UKULELE extends that covenant to the digital sanctuary.',
-      'The diary became the encrypted archive. The letter became email. The strongbox became the seed phrase. The home became the data cloud.',
+      'Decrypt unburies the complete hidden balance and restores it to the public wallet surface.',
+      'Partial Decrypt retrieves only the amount you choose, leaving the remainder concealed.',
     ],
   },
   {
-    title: 'The Wealth DNA',
+    title: 'Disrupt the Record',
     body: [
-      'Your financial transaction history is your Wealth DNA: a unique and intimate blueprint of your life, relationships, affiliations, beliefs, and needs.',
-      'UKULELE exists to protect your life pattern from being harvested, weaponized, and sold.',
+      'Disruptor projects a real Transfer event from one party to another into Etherscan’s public view.',
+      'The visible signal survives while the temporary contract balances collapse back to zero net movement.',
     ],
   },
   {
-    title: 'The One-Way Ratchet',
+    title: 'Operate With Authority',
     body: [
-      'Privacy, once lost, is never voluntarily restored. The tools of observation are refined, expanded, and embedded deeper into daily life.',
-      'There is no good way out of this system because the system is designed to be inescapable.',
-    ],
-  },
-  {
-    title: "Satoshi's Unfinished Symphony",
-    body: [
-      'Bitcoin established decentralized scarcity. Ethereum introduced programmable money. UKULELE carries the privacy movement toward sovereign identity.',
-      'UKULELE does not compete with Bitcoin. It completes the revolution Bitcoin started.',
-    ],
-  },
-  {
-    title: 'The Digital Homestead',
-    body: [
-      'Moving assets onto UKULELE is the 21st-century equivalent of staking a claim to sovereign digital territory.',
-      'This land is made of bits. Its fences are cryptography. Its deed is a private key held only by you.',
-    ],
-  },
-  {
-    title: 'The Constitutional Foundation',
-    body: [
-      'The First, Fourth, Fifth, and Ninth Amendments all point toward financial privacy, anonymous association, data sovereignty, and protection from compelled disclosure.',
-      'Your financial records, cryptographic keys, and transaction histories are among your most intimate papers.',
-    ],
-  },
-  {
-    title: 'A Parallel Financial System',
-    body: [
-      'The objective is to build a superior, parallel economy where economic participation depends on cryptographic proof rather than surveillance-heavy intermediaries.',
-      'Legacy institutions of control fade as people migrate to systems that are more efficient, more fair, and fundamentally free.',
-    ],
-  },
-  {
-    title: 'The UKULELE Covenant',
-    body: [
-      'UKULELE is a commitment to build new walls that cannot be breached and forge a sovereignty that cannot be negotiated away.',
-      'UKULELE provides tools for financial sanctuary and private, sovereign interaction across the digital frontier.',
-    ],
-  },
-  {
-    title: 'The Door Is Open',
-    body: [
-      'The key is not made of metal, but of mathematics. It is not granted by permission, but seized by right.',
-      'The future is something you build, encrypt, and own. UKULELE is now in your hands.',
+      'FIDUCARO is live now: its core powers execute on Ethereum and answer to the connected wallet.',
+      'The interface exposes every command, recovery checkpoint, and resulting chain record without surrendering user control.',
     ],
   },
 ];

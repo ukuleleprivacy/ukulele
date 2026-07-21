@@ -1,10 +1,10 @@
 import AutoAwesome from '@mui/icons-material/AutoAwesome';
 import ArrowForward from '@mui/icons-material/ArrowForward';
-import HubOutlined from '@mui/icons-material/HubOutlined';
-import LockOutlined from '@mui/icons-material/LockOutlined';
+import DifferenceOutlined from '@mui/icons-material/DifferenceOutlined';
+import LockOpenOutlined from '@mui/icons-material/LockOpenOutlined';
 import OpenInNew from '@mui/icons-material/OpenInNew';
-import ShieldOutlined from '@mui/icons-material/ShieldOutlined';
-import VisibilityOffOutlined from '@mui/icons-material/VisibilityOffOutlined';
+import ScienceOutlined from '@mui/icons-material/ScienceOutlined';
+import SwapHorizOutlined from '@mui/icons-material/SwapHorizOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -12,55 +12,45 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Head from 'next/head';
 
-import { brand, brandAssets, philosophySections, pillars, protocolNotes, roadmap } from '../src/brand';
+import { pillars, protocolCapabilities, protocolNotes, protocolVisuals, roadmap } from '../src/brand';
 import FeatureSection from '../src/components/FeatureSection';
-import { TechnicalArtwork } from '../src/components/TechnicalArtwork';
 import TopSection from '../src/components/TopSection';
+import { ZoomableImage } from '../src/components/ZoomableImage';
 import { Layout } from '../src/Layout';
 import Link from '../src/Link';
-import { ukuleleToken } from '../src/token';
+import { fiducaroToken } from '../src/token';
 
-const pillarIcons = [ShieldOutlined, VisibilityOffOutlined, LockOutlined, HubOutlined];
+const pillarIcons = [ScienceOutlined, SwapHorizOutlined, LockOpenOutlined, DifferenceOutlined];
 
 const tokenFacts = [
-  { label: 'Network', value: ukuleleToken.network },
-  { label: 'Token', value: ukuleleToken.symbol },
-  { label: 'Decimals', value: String(ukuleleToken.decimals) },
-  { label: 'Total supply', value: `${ukuleleToken.totalSupply.toLocaleString('en-US')} UNK` },
-  {
-    label: 'Daily sale',
-    value: `${ukuleleToken.dailySaleTokens.toLocaleString('en-US')} UNK (${ukuleleToken.dailySalePercent}%)`,
-  },
-  { label: 'Developer reserve', value: `${ukuleleToken.developerReservePercent}%` },
-];
-
-const poolFacts = [
-  { label: 'Protocol', value: ukuleleToken.uniswapPool.version },
-  { label: 'Pair', value: ukuleleToken.uniswapPool.pair },
-  { label: 'Swap fee', value: `${ukuleleToken.uniswapPool.feePercent}%` },
-  { label: 'Tick spacing', value: String(ukuleleToken.uniswapPool.tickSpacing) },
+  { label: 'Network', value: fiducaroToken.network },
+  { label: 'Token', value: fiducaroToken.symbol },
+  { label: 'Decimals', value: String(fiducaroToken.decimals) },
+  { label: 'Total supply', value: `${fiducaroToken.totalSupply.toLocaleString('en-US')} FIDU` },
+  { label: 'Status', value: 'Live' },
+  { label: 'Execution', value: 'On-chain' },
 ];
 
 const userFlow = [
   {
-    title: 'Connect',
+    title: 'Command',
     description:
-      'Authorize MetaMask on Ethereum mainnet. Your shortened active address stays visible and the authorized session can return after a reload.',
+      'Connect MetaMask and take command of the FIDUCARO interface. Every action begins with you and moves only with your explicit approval.',
   },
   {
-    title: 'Private SEND',
+    title: 'Bury',
     description:
-      'Enter an amount, recipient, and 39-digit SALT. Confirm PART I, save the downloaded recovery record, then confirm PART II.',
+      'Drive a balance beneath ordinary view through the two-part private SEND. PART I opens the passage; your recovery record preserves the route; PART II seals it.',
   },
   {
-    title: 'Decrypt',
+    title: 'Retrieve',
     description:
-      'Return either the complete private balance with decrypt() or only an entered amount with decrypt_partial(requestedAmount).',
+      'Unbury the value you concealed. Decrypt restores the entire hidden balance, while Partial Decrypt retrieves only the amount you choose.',
   },
   {
     title: 'Disrupt',
     description:
-      'Create a real shadowDuster Transfer event whose temporary balance changes net to zero, then verify the transaction on Etherscan.',
+      'Cast a decoy balance transfer from one party to another onto Etherscan. The event is real and visible; the temporary balance movement collapses back to zero.',
   },
 ];
 
@@ -68,7 +58,7 @@ export default function Home() {
   return (
     <Layout>
       <Head>
-        <title>Ukulele</title>
+        <title>FIDUCARO · Live on Ethereum</title>
       </Head>
 
       <TopSection />
@@ -76,7 +66,7 @@ export default function Home() {
       <Box component="section" sx={{ mb: { xs: 8, md: 12 } }}>
         <Grid container spacing={1.5}>
           {pillars.map((pillar, index) => {
-            const Icon = pillarIcons[index] || ShieldOutlined;
+            const Icon = pillarIcons[index] || ScienceOutlined;
 
             return (
               <Grid item xs={12} sm={6} md={3} key={pillar.title}>
@@ -86,12 +76,18 @@ export default function Home() {
                     minHeight: 212,
                     p: 3,
                     borderRadius: '8px',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    border: '1px solid rgba(255, 255, 255, 0.09)',
                     background:
-                      'linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025))',
+                      'linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.018))',
+                    transition: 'transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease',
+                    '&:hover': {
+                      transform: 'translateY(-3px)',
+                      borderColor: 'rgba(52, 224, 208, 0.4)',
+                      boxShadow: '0 0 26px rgba(52, 224, 208, 0.12)',
+                    },
                   }}
                 >
-                  <Icon color="primary" sx={{ fontSize: 34, mb: 2 }} />
+                  <Icon sx={{ fontSize: 34, mb: 2, color: 'primary.main' }} />
                   <Typography variant="h6" sx={{ mb: 1 }}>
                     {pillar.title}
                   </Typography>
@@ -108,15 +104,15 @@ export default function Home() {
       <Box component="section" id="how-it-works" sx={{ py: { xs: 7, md: 10 } }}>
         <Stack gap={2} sx={{ maxWidth: 780, mb: 4 }}>
           <Typography variant="overline" color="primary.light" sx={{ fontWeight: 700 }}>
-            How UKULELE Works
+            The FIDUCARO Command Sequence
           </Typography>
           <Typography variant="h2" component="h2">
-            Four actions, one Ethereum wallet
+            Bury the balance. Retrieve it. Disrupt the record.
           </Typography>
           <Typography color="text.secondary">
-            UKULELE separates private sending, balance restoration, and zero-net event signaling
-            into explicit actions. Every submitted action is a real Ethereum transaction that you
-            review in your wallet.
+            FIDUCARO concentrates four deliberate powers in one command surface: enter the network,
+            bury value, retrieve it on your terms, and project a zero-net transfer signal into the
+            public record. Every command executes on Ethereum and requires your wallet approval.
           </Typography>
         </Stack>
 
@@ -147,76 +143,136 @@ export default function Home() {
 
         <Stack direction={{ xs: 'column', sm: 'row' }} gap={1.5} sx={{ mt: 3 }}>
           <Button component={Link} href="/platform" variant="contained" endIcon={<ArrowForward />}>
-            Open SEND
+            Enter SEND
           </Button>
           <Button component={Link} href="/decrypt" variant="outlined">
-            Open Decrypt
+            Retrieve Balance
           </Button>
           <Button component={Link} href="/disruptor" variant="outlined">
-            Open Disruptor
+            Launch Disruptor
           </Button>
         </Stack>
 
-        <Box sx={{ mt: { xs: 4, md: 5 } }}>
-          <TechnicalArtwork
-            src="/technical/09.webp"
-            alt="UKULELE user flow showing Connect, SEND, Decrypt, and Disruptor with three safety reminders"
-            caption="The four-action UKULELE user flow and its safety checkpoints."
-            eager
-          />
-        </Box>
       </Box>
 
       <Box
         component="section"
         id="whitepaper"
         sx={{
+          position: 'relative',
+          overflow: 'hidden',
           my: { xs: 7, md: 11 },
           p: { xs: 3, sm: 4, md: 6 },
           borderRadius: '8px',
-          border: '1px solid rgba(255, 255, 255, 0.18)',
+          border: '1px solid rgba(52, 224, 208, 0.22)',
           background:
-            'radial-gradient(circle at 88% 18%, rgba(255, 255, 255, 0.18), transparent 28%), rgba(255, 255, 255, 0.035)',
+            'radial-gradient(circle at 90% 15%, rgba(52, 224, 208, 0.18), transparent 34%), linear-gradient(180deg, rgba(52, 224, 208, 0.04), rgba(255, 255, 255, 0.02))',
         }}
       >
-        <Grid container spacing={{ xs: 4, md: 7 }} alignItems="center">
+        <Grid container spacing={{ xs: 4, md: 7 }} alignItems="center" sx={{ position: 'relative', zIndex: 1 }}>
           <Grid item xs={12} md={8}>
             <Typography variant="overline" color="primary.light" fontWeight="700">
-              Working Draft 0.1 · Plain Text
+              The Obscura Protocol · Futurist Paper 0.1
             </Typography>
             <Typography variant="h3" component="h2" sx={{ mt: 0.75 }}>
-              Read the UKULELE whitepaper
+              The Obscura Protocol
             </Typography>
             <Typography color="text.secondary" sx={{ mt: 1.5, maxWidth: 760 }}>
-              A direct explanation of the contracts, two-step SEND, full and partial decryption,
-              Disruptor event semantics, current deployment addresses, safety limitations, and the
-              proposed gasless upgrade path.
-            </Typography>
-            <Typography
-              sx={{
-                mt: 2,
-                fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
-                fontSize: { xs: 12, sm: 14 },
-                overflowWrap: 'anywhere',
-              }}
-            >
-              Public token: {ukuleleToken.address}
+              A futurist manifesto for financial sovereignty in a world of total visibility. It
+              looks beyond today’s interface toward private value, sovereign identity, adversarial
+              public signals, and a parallel architecture built for the world ahead—not the system
+              already failing behind us.
             </Typography>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Button
-              component={Link}
-              href="/whitepaper/ukulele-whitepaper.txt"
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="contained"
-              size="large"
-              fullWidth
-              endIcon={<OpenInNew />}
-              sx={{ minHeight: 58, borderRadius: 999 }}
+            <Stack gap={1.5}>
+              <ZoomableImage
+                src="/technical/private-vault.webp"
+                alt="The FIDUCARO Private Vault, a protected chamber for hidden value"
+                wrapperSx={{
+                  overflow: 'hidden',
+                  borderRadius: '8px',
+                  border: '1px solid rgba(52, 224, 208, 0.24)',
+                  backgroundColor: '#050606',
+                }}
+                imageSx={{
+                  display: 'block',
+                  width: '100%',
+                  borderRadius: '8px',
+                }}
+              />
+              <Button
+                component={Link}
+                href="/whitepaper/obscura-protocol.txt"
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="contained"
+                size="large"
+                fullWidth
+                endIcon={<OpenInNew />}
+                sx={{ minHeight: 58, borderRadius: 999 }}
+              >
+                Open The Obscura Protocol
+              </Button>
+            </Stack>
+          </Grid>
+        </Grid>
+      </Box>
+
+      <Box component="section" id="audiobook" sx={{ py: { xs: 7, md: 10 } }}>
+        <Grid container spacing={{ xs: 4, md: 7 }} alignItems="center">
+          <Grid item xs={12} md={4}>
+            <Stack gap={2}>
+              <Typography variant="overline" color="primary.light" sx={{ fontWeight: 700 }}>
+                The Obscura Covenant
+              </Typography>
+              <Typography variant="h3" component="h2">
+                Watch the full audiobook
+              </Typography>
+              <Typography color="text.secondary">
+                Enter the complete narrated vision behind FIDUCARO: private value, sovereign
+                identity, and financial infrastructure built beyond the limits of public-by-default
+                systems.
+              </Typography>
+              <Button
+                component={Link}
+                href="https://youtu.be/TqpJNWg7wQs"
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="outlined"
+                endIcon={<OpenInNew />}
+                sx={{ alignSelf: { xs: 'stretch', sm: 'flex-start' } }}
+              >
+                Watch on YouTube
+              </Button>
+            </Stack>
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <Box
+              sx={{
+                overflow: 'hidden',
+                borderRadius: '8px',
+                border: '1px solid rgba(52, 224, 208, 0.32)',
+                backgroundColor: '#000000',
+                boxShadow: '0 24px 70px rgba(0, 0, 0, 0.5), 0 0 36px rgba(52, 224, 208, 0.08)',
+              }}
             >
-              Open Whitepaper
-            </Button>
+              <Box
+                component="iframe"
+                src="https://www.youtube-nocookie.com/embed/TqpJNWg7wQs"
+                title="The Obscura Covenant audiobook"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                sx={{
+                  display: 'block',
+                  width: '100%',
+                  aspectRatio: '16 / 9',
+                  border: 0,
+                }}
+              />
+            </Box>
           </Grid>
         </Grid>
       </Box>
@@ -224,14 +280,15 @@ export default function Home() {
       <Box component="section" id="token" sx={{ py: { xs: 7, md: 10 } }}>
         <Stack gap={2} sx={{ maxWidth: 760, mb: 4 }}>
           <Typography variant="overline" color="primary.light" sx={{ fontWeight: 700 }}>
-            Token Details
+            Live on Ethereum
           </Typography>
           <Typography variant="h3" component="h2">
-            UKULELE on Ethereum
+            FIDU is live and operational
           </Typography>
           <Typography color="text.secondary">
-            The supply is fixed at 10,000,000 UNK. Each day, 100,000 UNK, equal to 1% of the
-            total supply, is sold until 15% remains for the developer.
+            The protocol is deployed and ready. Connect your wallet to bury value through SEND,
+            unbury a hidden balance through Decrypt, or project a decoy zero-net transfer onto
+            Etherscan through Disruptor.
           </Typography>
         </Stack>
 
@@ -243,41 +300,6 @@ export default function Home() {
             backgroundColor: 'rgba(255, 255, 255, 0.035)',
           }}
         >
-          <Box sx={{ p: { xs: 2.5, sm: 3 }, borderBottom: '1px solid rgba(255, 255, 255, 0.12)' }}>
-            <Typography variant="overline" color="text.secondary" sx={{ fontWeight: 700 }}>
-              Token contract
-            </Typography>
-            <Box
-              component={Link}
-              href={ukuleleToken.etherscanUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              sx={{
-                mt: 1,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1,
-                width: 'fit-content',
-                maxWidth: '100%',
-                color: 'text.primary',
-                '&:hover': { color: 'primary.light' },
-              }}
-            >
-              <Typography
-                component="span"
-                sx={{
-                  minWidth: 0,
-                  fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
-                  fontSize: { xs: 13, sm: 16 },
-                  overflowWrap: 'anywhere',
-                }}
-              >
-                {ukuleleToken.address}
-              </Typography>
-              <OpenInNew aria-hidden="true" sx={{ flex: '0 0 auto', fontSize: 19 }} />
-            </Box>
-          </Box>
-
           <Grid container>
             {tokenFacts.map((fact) => (
               <Grid
@@ -302,124 +324,25 @@ export default function Home() {
             ))}
           </Grid>
         </Box>
-
-        <Box
-          sx={{
-            mt: 2,
-            overflow: 'hidden',
-            border: '1px solid rgba(255, 255, 255, 0.18)',
-            borderRadius: '8px',
-            background:
-              'radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.14), transparent 30%), rgba(255, 255, 255, 0.045)',
-          }}
-        >
-          <Grid container>
-            <Grid item xs={12} md={8} sx={{ p: { xs: 2.5, sm: 3 } }}>
-              <Typography variant="overline" color="primary.light" sx={{ fontWeight: 700 }}>
-                Live Uniswap Pool
-              </Typography>
-              <Typography variant="h5" component="h3" sx={{ mt: 0.5 }}>
-                Buy UNK with ETH
-              </Typography>
-              <Typography color="text.secondary" sx={{ mt: 1, maxWidth: 680 }}>
-                The official ETH / UNK market is live on Uniswap v4. Confirm the UKULELE contract
-                address shown above before approving a swap.
-              </Typography>
-
-              <Grid container spacing={1.5} sx={{ mt: 1 }}>
-                {poolFacts.map((fact) => (
-                  <Grid item xs={6} sm={3} key={fact.label}>
-                    <Typography variant="overline" color="text.secondary" sx={{ fontWeight: 700 }}>
-                      {fact.label}
-                    </Typography>
-                    <Typography sx={{ mt: 0.25, fontWeight: 700 }}>{fact.value}</Typography>
-                  </Grid>
-                ))}
-              </Grid>
-            </Grid>
-
-            <Grid
-              item
-              xs={12}
-              md={4}
-              sx={{
-                p: { xs: 2.5, sm: 3 },
-                borderTop: { xs: '1px solid rgba(255, 255, 255, 0.12)', md: 0 },
-                borderLeft: { xs: 0, md: '1px solid rgba(255, 255, 255, 0.12)' },
-              }}
-            >
-              <Stack gap={1.25}>
-                <Button
-                  component={Link}
-                  href={ukuleleToken.uniswapPool.buyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="contained"
-                  size="large"
-                  endIcon={<OpenInNew />}
-                  sx={{ minHeight: 52 }}
-                >
-                  Buy UNK on Uniswap
-                </Button>
-                <Button
-                  component={Link}
-                  href={ukuleleToken.uniswapPool.poolUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="outlined"
-                  endIcon={<OpenInNew />}
-                >
-                  View Pool
-                </Button>
-                <Button
-                  component={Link}
-                  href={ukuleleToken.uniswapPool.creationTransactionUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  color="inherit"
-                  endIcon={<OpenInNew />}
-                >
-                  Pool Transaction
-                </Button>
-              </Stack>
-            </Grid>
-          </Grid>
-
-          <Box sx={{ px: { xs: 2.5, sm: 3 }, pb: { xs: 2.5, sm: 3 } }}>
-            <Typography variant="overline" color="text.secondary" sx={{ fontWeight: 700 }}>
-              Pool ID
-            </Typography>
-            <Typography
-              component="p"
-              sx={{
-                mt: 0.5,
-                fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
-                fontSize: { xs: 11, sm: 13 },
-                overflowWrap: 'anywhere',
-              }}
-            >
-              {ukuleleToken.uniswapPool.poolId}
-            </Typography>
-          </Box>
-        </Box>
       </Box>
 
-      <Box component="section" id="philosophy" sx={{ py: { xs: 7, md: 11 } }}>
+      <Box component="section" id="protocol-scope" sx={{ py: { xs: 7, md: 11 } }}>
         <Stack gap={2.5} sx={{ maxWidth: 860, mb: 4 }}>
           <Typography variant="overline" color="primary.light" sx={{ fontWeight: 700 }}>
-            The Ukulele Philosophy
+            Live Protocol Scope
           </Typography>
           <Typography variant="h2" component="h2">
-            Private by Default
+            What FIDUCARO is built to do
           </Typography>
           <Typography color="text.secondary">
-            {brand.name} is a covenant for financial sanctuary: a fully on-chain Ethereum system
-            built around the oldest human right, the right to choose what remains unseen.
+            FIDUCARO is deployed on Ethereum now. Its command surface gives the connected wallet
+            direct power to bury value, retrieve it selectively, and disrupt the public record with
+            a visible zero-net transfer signal.
           </Typography>
         </Stack>
 
         <Grid container spacing={1.5}>
-          {philosophySections.map((section, index) => (
+          {protocolCapabilities.map((section, index) => (
             <Grid item xs={12} md={6} key={section.title}>
               <Box
                 sx={{
@@ -430,8 +353,9 @@ export default function Home() {
                   border: '1px solid rgba(255, 255, 255, 0.12)',
                   background:
                     index === 0
-                      ? 'linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.025))'
-                      : 'rgba(255, 255, 255, 0.035)',
+                      ? 'linear-gradient(180deg, rgba(52, 224, 208, 0.12), rgba(255, 255, 255, 0.02))'
+                      : 'rgba(255, 255, 255, 0.03)',
+                  borderColor: index === 0 ? 'rgba(52, 224, 208, 0.28)' : 'rgba(255, 255, 255, 0.1)',
                 }}
               >
                 <Typography variant="overline" color="primary.light" sx={{ fontWeight: 700 }}>
@@ -454,19 +378,19 @@ export default function Home() {
       </Box>
 
       <FeatureSection
-        kicker="Two Confirmations"
-        title="A private SEND with a clear recovery checkpoint"
-        description="The interface prepares encrypted values, confirms PART I, downloads a private text record containing the amount, recipient, and SALT, and then requests PART II to complete the SEND."
-        imageSrc="/technical/11.webp"
-        imageAlt="UKULELE Ethereum execution rail connecting wallet inputs, PART I, recovery record, PART II, private SEND, decrypt, and shadow events"
+        kicker="Private Balance Lifecycle"
+        title="Commit private value with irreversible on-chain finality"
+        description="Private SEND is FIDUCARO’s established live passage beneath the public-balance surface. Engineered for secure, extremely efficient settlement, it runs entirely on Ethereum and divides execution into two deliberate confirmations."
+        imageSrc="/technical/private-balance-lifecycle.webp"
+        imageAlt="FIDUCARO Private Balance Lifecycle from public balance through private transfer and selective retrieval"
         reverse
         containImage
         showBrandMark={false}
         showImageOverlay={false}
         points={[
-          'Both submitted steps are real Ethereum transactions reviewed in MetaMask.',
-          'The recovery record is created after PART I confirms and before PART II begins.',
-          'If PART II is rejected, the same page session retains the prepared values for a direct retry.',
+          'PART I opens the private route; PART II seals it. Once both confirmations resolve on chain, the completed SEND is irreversible.',
+          'No off-chain settlement layer carries the transaction: every submitted step executes and finalizes on Ethereum.',
+          'FIDUCARO has operated as a live protocol over time, turning the private-balance lifecycle into working infrastructure.',
         ]}
       />
 
@@ -475,14 +399,14 @@ export default function Home() {
           <Grid item xs={12} md={4}>
             <Stack gap={2}>
               <Typography variant="overline" color="primary.light" sx={{ fontWeight: 700 }}>
-                The Plan
+                Protocol Expansion
               </Typography>
               <Typography variant="h3" component="h2">
-                Rebrand, launch, and keep expanding
+                Live now. Advancing forward.
               </Typography>
               <Typography color="text.secondary">
-                The roadmap focuses the public rollout around identity, community, the launch pool,
-                Gasless, and a transparent developer distribution schedule.
+                The core protocol is operational on Ethereum. The roadmap deepens the hidden-balance
+                layer, expands selective retrieval, and strengthens control over public-chain signals.
               </Typography>
               <Button
                 component={Link}
@@ -491,7 +415,7 @@ export default function Home() {
                 endIcon={<AutoAwesome />}
                 sx={{ alignSelf: { xs: 'stretch', sm: 'flex-start' } }}
               >
-                Full Roadmap
+                Full Protocol Roadmap
               </Button>
             </Stack>
           </Grid>
@@ -517,8 +441,9 @@ export default function Home() {
                       display: 'grid',
                       placeItems: 'center',
                       borderRadius: '8px',
-                      backgroundColor: 'rgba(255, 255, 255, 0.18)',
-                      color: 'primary.light',
+                      backgroundColor: 'rgba(52, 224, 208, 0.14)',
+                      border: '1px solid rgba(52, 224, 208, 0.35)',
+                      color: 'primary.main',
                       fontWeight: 700,
                     }}
                   >
@@ -540,53 +465,50 @@ export default function Home() {
       <Box component="section" id="assets" sx={{ py: { xs: 7, md: 11 } }}>
         <Stack gap={2} sx={{ maxWidth: 720, mb: 4 }}>
           <Typography variant="overline" color="primary.light" sx={{ fontWeight: 700 }}>
-            Asset Kit
+            Protocol Visual Library
           </Typography>
           <Typography variant="h3" component="h2">
-            A visual system built to explain
+            See the architecture of hidden value
           </Typography>
           <Typography color="text.secondary">
-            The asset library combines the UKULELE identity with protocol diagrams for SEND,
-            Decrypt, Disruptor, Gasless, and the complete Ethereum execution rail.
+            These system posters explain how FIDUCARO buries a public balance, carries value through
+            private state, retrieves it selectively, and separates visible event signals from final
+            contract state.
           </Typography>
         </Stack>
         <Grid container spacing={1.5}>
-          {brandAssets.slice(0, 6).map((asset) => (
-            <Grid item xs={12} sm={6} md={4} key={asset.path}>
+          {protocolVisuals.map((visual) => (
+            <Grid item xs={12} sm={6} key={visual.path}>
               <Box
-                component={Link}
-                href={asset.path}
-                target="_blank"
                 sx={{
-                  display: 'block',
                   height: '100%',
-                  minHeight: 220,
-                  p: 2,
+                  p: 1.25,
                   borderRadius: '8px',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  backgroundColor: 'rgba(255, 255, 255, 0.035)',
-                  transition: 'transform 180ms ease, border-color 180ms ease',
+                  border: '1px solid rgba(255, 255, 255, 0.09)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.025)',
+                  transition: 'transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease',
                   '&:hover': {
-                    transform: 'translateY(-3px)',
-                    borderColor: 'rgba(255, 255, 255, 0.5)',
+                    transform: 'translateY(-4px)',
+                    borderColor: 'rgba(52, 224, 208, 0.45)',
+                    boxShadow: '0 0 28px rgba(52, 224, 208, 0.16)',
                   },
                 }}
               >
-                <Box
-                  component="img"
-                  src={asset.path}
-                  alt={`${asset.label} preview`}
-                  sx={{
+                <ZoomableImage
+                  src={visual.path}
+                  alt={visual.alt}
+                  wrapperSx={{ borderRadius: '6px', overflow: 'hidden' }}
+                  imageSx={{
+                    display: 'block',
                     width: '100%',
-                    height: 148,
+                    aspectRatio: '4 / 3',
                     objectFit: 'contain',
-                    borderRadius: '8px',
-                    backgroundColor: '#0A0A0A',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    borderRadius: '6px',
+                    backgroundColor: '#050606',
                   }}
                 />
-                <Typography variant="subtitle1" sx={{ mt: 1.5, fontWeight: 700 }}>
-                  {asset.label}
+                <Typography variant="h6" sx={{ mt: 1.5, px: 0.5, pb: 0.5 }}>
+                  {visual.label}
                 </Typography>
               </Box>
             </Grid>
@@ -597,10 +519,10 @@ export default function Home() {
       <Box component="section" sx={{ py: { xs: 7, md: 11 } }}>
         <Stack gap={2} sx={{ maxWidth: 760, mb: 4 }}>
           <Typography variant="overline" color="primary.light" sx={{ fontWeight: 700 }}>
-            Protocol Notes
+            Protocol Authority
           </Typography>
           <Typography variant="h3" component="h2">
-            On-chain positioning
+            Live by design. Transparent by command.
           </Typography>
         </Stack>
         <Stack gap={1.5}>

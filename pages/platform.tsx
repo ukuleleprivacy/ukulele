@@ -22,7 +22,7 @@ import { Layout } from '../src/Layout';
 const platformMessage = {
   title: 'Attention Required',
   description:
-    'Do not reject the second transaction. If you do, press the submit button to send it again. Every UKULELE transaction requires two transactions for completion.',
+    'Do not reject the second transaction. If you do, press the submit button to send it again. Every FIDUCARO transaction requires two transactions for completion.',
   buttonTitle: '',
 };
 
@@ -46,9 +46,9 @@ const downloadPrivateSendRecoveryRecord = ({
   salt,
 }: PrivateSendRecoveryRecord) => {
   const record = [
-    'UKULELE PRIVATE SEND RECORD',
+    'FIDUCARO PRIVATE SEND RECORD',
     '',
-    `Amount: ${amount} UNK`,
+    `Amount: ${amount} FIDU`,
     `Recipient: ${recipient}`,
     `SALT: ${salt}`,
     '',
@@ -60,7 +60,7 @@ const downloadPrivateSendRecoveryRecord = ({
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
 
   download.href = objectUrl;
-  download.download = `ukulele-private-send-${timestamp}.txt`;
+  download.download = `fiducaro-private-send-${timestamp}.txt`;
   download.style.display = 'none';
   document.body.appendChild(download);
   download.click();
@@ -402,7 +402,7 @@ export default function Platform() {
   return (
     <Layout>
       <Head>
-        <title>SEND | Ukulele</title>
+        <title>SEND | Fiducaro</title>
       </Head>
 
       <Container disableGutters maxWidth="md" sx={{ pt: { xs: 5, md: 9 }, pb: { xs: 7, md: 11 } }}>

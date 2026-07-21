@@ -1,9 +1,9 @@
-import OpenInNewRounded from '@mui/icons-material/OpenInNewRounded';
+import ZoomInRounded from '@mui/icons-material/ZoomInRounded';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import Link from '../Link';
+import { ZoomableImage } from './ZoomableImage';
 
 type TechnicalArtworkProps = {
   src: string;
@@ -27,45 +27,34 @@ export const TechnicalArtwork = ({
       my: 0,
     }}
   >
-    <Box
-      component={Link}
-      href={src}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={`${caption} Open the full-resolution image.`}
-      sx={{
+    <ZoomableImage
+      src={src}
+      alt={alt}
+      eager={eager}
+      wrapperSx={{
         display: 'block',
         overflow: 'hidden',
         borderRadius: '8px',
-        border: '1px solid rgba(255, 255, 255, 0.14)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
         backgroundColor: '#000000',
         transition: 'border-color 180ms ease, transform 180ms ease',
         '&:hover': {
           transform: 'translateY(-2px)',
-          borderColor: 'rgba(255, 255, 255, 0.46)',
+          borderColor: 'rgba(52, 224, 208, 0.5)',
         },
       }}
-    >
-      <Box
-        component="img"
-        src={src}
-        alt={alt}
-        loading={eager ? 'eager' : 'lazy'}
-        decoding="async"
-        sx={{
-          display: 'block',
+      imageSx={{
           width: '100%',
           height: 'auto',
           aspectRatio: '1168 / 880',
           objectFit: 'contain',
-        }}
-      />
-    </Box>
+      }}
+    />
     <Stack direction="row" alignItems="center" gap={0.75} sx={{ mt: 1.25 }}>
       <Typography component="figcaption" variant="body2" color="text.secondary">
         {caption}
       </Typography>
-      <OpenInNewRounded aria-hidden="true" sx={{ ml: 'auto', flex: '0 0 auto', fontSize: 17 }} />
+      <ZoomInRounded aria-hidden="true" sx={{ ml: 'auto', flex: '0 0 auto', fontSize: 19 }} />
     </Stack>
   </Box>
 );

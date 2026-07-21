@@ -1,4 +1,4 @@
-import { ukuleleToken } from '../token';
+import { fiducaroToken } from '../token';
 
 export const abi = [
   {
@@ -96,29 +96,6 @@ export const abi = [
       },
     ],
     name: 'OWNER_SET_Synthetic_',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_uniswapAddr',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_taxCollector',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_days',
-        type: 'uint256',
-      },
-    ],
-    name: 'OWNER_SET_UniswapAddr_',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -592,19 +569,6 @@ export const abi = [
     type: 'function',
   },
   {
-    inputs: [],
-    name: 'uniswap_Addr',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
     inputs: [
       {
         internalType: 'address',
@@ -619,4 +583,4 @@ export const abi = [
   },
 ] as const;
 
-export const address = ukuleleToken.address;
+export const address = fiducaroToken.address;

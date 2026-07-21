@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 500" width="1500" height="500" role="img" aria-label="FIDUCARO social banner — Private by Default">
+  <defs>
+    <linearGradient id="sb-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0E0B16"/>
+      <stop offset="0.5" stop-color="#1A1625"/>
+      <stop offset="1" stop-color="#0E0B16"/>
+    </linearGradient>
+    <linearGradient id="sb-g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#B16AFF"/>
+      <stop offset="1" stop-color="#7B3FF2"/>
+    </linearGradient>
+    <radialGradient id="sb-halo" cx="0.28" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7B3FF2" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#7B3FF2" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="sb-kh">
+      <rect width="1500" height="500" fill="#fff"/>
+      <circle cx="400" cy="268" r="19" fill="#000"/>
+      <path d="M392 280 L408 280 L413 312 L387 312 Z" fill="#000"/>
+    </mask>
+  </defs>
+  <rect width="1500" height="500" fill="url(#sb-bg)"/>
+  <ellipse cx="400" cy="250" rx="420" ry="300" fill="url(#sb-halo)"/>
+
+  <!-- Mark -->
+  <g transform="translate(0,-8)">
+    <circle cx="400" cy="272" r="96" fill="none" stroke="url(#sb-g)" stroke-width="8"/>
+    <g fill="url(#sb-g)">
+      <rect x="380" y="118" width="40" height="34" rx="12"/>
+      <rect x="390" y="152" width="20" height="60" rx="5"/>
+      <path mask="url(#sb-kh)" d="M400 200 c31 0 47 21 47 51 c0 35 -21 72 -47 72 c-26 0 -47 -37 -47 -72 c0 -30 16 -51 47 -51 Z"/>
+    </g>
+    <g fill="#EDE8FF">
+      <circle cx="360" cy="130" r="7"/><circle cx="360" cy="152" r="7"/>
+      <circle cx="440" cy="130" r="7"/><circle cx="440" cy="152" r="7"/>
+    </g>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="600" y="248" font-family="Orbitron, 'Trebuchet MS', sans-serif" font-size="118" font-weight="700" letter-spacing="10" fill="#EDE8FF">FIDUCARO</text>
+  <text x="606" y="300" font-family="Orbitron, 'Trebuchet MS', sans-serif" font-size="30" font-weight="500" letter-spacing="18" fill="#B16AFF">PRIVATE BY DEFAULT</text>
+</svg>

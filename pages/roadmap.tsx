@@ -26,7 +26,7 @@ export default function Roadmap() {
   return (
     <Layout>
       <Head>
-        <title>Ukulele</title>
+        <title>Protocol Roadmap | FIDUCARO</title>
       </Head>
 
       <Box component="section" sx={{ py: { xs: 6, md: 10 } }}>
@@ -34,14 +34,15 @@ export default function Roadmap() {
           <Grid item xs={12} md={6}>
             <Stack gap={2.5}>
               <Typography variant="overline" color="primary.light" sx={{ fontWeight: 700 }}>
-                The Plan
+                Protocol Roadmap
               </Typography>
               <Typography variant="h2" component="h1">
-                A focused launch plan for UKULELE.
+                Live now. Built to advance.
               </Typography>
               <Typography color="text.secondary">
-                This sequence covers the rebrand, community development, pool launch, Gasless
-                rollout, daily developer token-sale schedule, and continued marketing expansion.
+                FIDUCARO’s core command surface is already operational on Ethereum. The roadmap
+                strengthens the hidden-balance layer, expands selective retrieval, and scales the
+                Disruptor’s control over public-chain signals.
               </Typography>
             </Stack>
           </Grid>
@@ -98,7 +99,7 @@ export default function Roadmap() {
                 </Box>
                 <Box>
                   <Typography variant="overline" color="primary.light" sx={{ fontWeight: 700 }}>
-                    Step {index + 1}
+                    Phase {index + 1}
                   </Typography>
                   <Typography variant="h5" sx={{ mb: 0.75 }}>
                     {item.title}
