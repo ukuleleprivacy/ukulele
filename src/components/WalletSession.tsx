@@ -1,20 +1,13 @@
-import { type PropsWithChildren, useEffect, useRef } from 'react';
+import { type PropsWithChildren, useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core';
 
 import { injectedConnector, walletAutoConnectKey } from '../lib/wallet';
 
 export const WalletSession = ({ children }: PropsWithChildren) => {
   const { active, activate } = useWeb3React();
-  const triedEagerConnection = useRef(false);
 
   useEffect(() => {
-    if (active || triedEagerConnection.current) {
-      return;
-    }
-
-    triedEagerConnection.current = true;
-
-    if (window.localStorage.getItem(walletAutoConnectKey) === 'false') {
+    if (active || window.localStorage.getItem(walletAutoConnectKey) !== 'true') {
       return;
     }
 
@@ -30,7 +23,9 @@ export const WalletSession = ({ children }: PropsWithChildren) => {
         return undefined;
       })
       .catch((error) => {
-        console.warn('[Wallet] Could not restore the previous MetaMask session.', error);
+        if (isCurrent) {
+          console.warn('[Wallet] Could not restore the previous MetaMask session.', error);
+        }
       });
 
     return () => {

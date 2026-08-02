@@ -1,5 +1,5 @@
 export const fiducaroToken = {
-  address: '0x799C411D50d1D67C517A34C842381673E377007c',
+  address: '0x5203C6EC24838664af6BF113c062e5502317Cf9d',
   name: 'Fiducaro',
   symbol: 'FIDU',
   network: 'Ethereum mainnet',

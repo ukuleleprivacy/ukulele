@@ -178,29 +178,59 @@ const logPlatform = (event: string, details?: unknown) => {
 };
 
 const getTransactionError = (error: unknown) => {
+  const transactionError =
+    error && typeof error === 'object'
+      ? (error as {
+          code?: number | string;
+          reason?: string;
+          message?: string;
+          error?: { reason?: string; message?: string };
+          receipt?: { status?: number };
+        })
+      : null;
+  const errorText = [
+    transactionError?.reason,
+    transactionError?.message,
+    transactionError?.error?.reason,
+    transactionError?.error?.message,
+  ]
+    .filter((value): value is string => Boolean(value))
+    .join(' ');
+
   if (
-    error &&
-    typeof error === 'object' &&
-    'reason' in error &&
-    typeof error.reason === 'string' &&
-    error.reason === 'user rejected transaction'
+    transactionError?.code === 4001 ||
+    /user rejected|user denied|action_rejected/i.test(errorText)
   ) {
     return {
-      title: 'User Rejected the Transaction',
+      title: 'Transaction Rejected',
       description: 'No transaction was completed. Press Submit when you are ready to try again.',
     };
   }
 
-  if (error && typeof error === 'object' && 'message' in error && typeof error.message === 'string') {
+  if (/not a privacy contract/i.test(errorText)) {
     return {
-      title: 'Transaction Error',
-      description: error.message,
+      title: 'Transaction Failed',
+      description:
+        'The selected Naglfar contract is not authorized by the FIDUCARO address registry. No successful transaction was completed.',
+    };
+  }
+
+  if (
+    transactionError?.receipt?.status === 0 ||
+    transactionError?.code === 'CALL_EXCEPTION' ||
+    /transaction failed|execution reverted/i.test(errorText)
+  ) {
+    return {
+      title: 'Transaction Failed',
+      description:
+        'The transaction failed on Ethereum. No successful transaction was completed, and the form is ready to try again.',
     };
   }
 
   return {
-    title: 'Transaction Error',
-    description: 'The transaction could not be completed. Please review the form and try again.',
+    title: 'Transaction Failed',
+    description:
+      'The transaction could not be completed. No successful transaction was completed; review the form and try again.',
   };
 };
 
@@ -236,6 +266,28 @@ export default function Platform() {
     });
 
     try {
+      if (part === 'PART_I_') {
+        await privacyContract.callStatic.PART_I_(encryptedValues, transactionOptions);
+      } else {
+        await privacyContract.callStatic.PART_II_(
+          privacyAddress,
+          encryptedValues,
+          transactionOptions,
+        );
+      }
+
+      logPlatform(`${part}: preflight simulation completed`);
+    } catch (simulationError) {
+      console.error(
+        `${platformLogPrefix} ${part}: preflight simulation failed; transaction not submitted\n${stringifyLogDetails(
+          summarizeError(simulationError),
+        )}`,
+        simulationError,
+      );
+      throw simulationError;
+    }
+
+    try {
       const estimatedGas =
         part === 'PART_I_'
           ? await privacyContract.estimateGas.PART_I_(encryptedValues)
@@ -264,6 +316,17 @@ export default function Platform() {
       logPlatform(`${part}: waiting for confirmation`, { hash: tx.hash });
 
       const receipt = await tx.wait();
+
+      if (receipt.status !== 1) {
+        const receiptError = new Error(`${part} transaction failed on Ethereum.`) as Error & {
+          code: string;
+          receipt: typeof receipt;
+        };
+        receiptError.code = 'CALL_EXCEPTION';
+        receiptError.receipt = receipt;
+        throw receiptError;
+      }
+
       logPlatform(`${part}: transaction confirmed`, summarizeReceipt(receipt));
 
       return receipt;
@@ -392,6 +455,7 @@ export default function Platform() {
         )}`,
         transactionError,
       );
+      setStep(0);
       setError(getTransactionError(transactionError));
     } finally {
       setIsInProcess(false);

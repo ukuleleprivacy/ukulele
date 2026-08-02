@@ -16,6 +16,7 @@ import { ethers } from 'ethers';
 import createEmotionCache from '../src/createEmotionCache';
 import { Footer } from '../src/Footer';
 import { TopAppBar } from '../src/AppBar';
+import { brand } from '../src/brand';
 import { TestCaseBanner } from '../src/components/TestCaseBanner';
 import { WalletSession } from '../src/components/WalletSession';
 import theme from '../src/theme';
@@ -38,10 +39,10 @@ export default function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <meta
           name="description"
-          content="FIDUCARO is a live Ethereum protocol for burying balances, retrieving hidden value, and projecting zero-net transfer signals onto the public record."
+          content={brand.description}
         />
-        <meta property="og:title" content="FIDUCARO · Live on Ethereum" />
-        <meta property="og:description" content="Bury value. Retrieve it. Disrupt the public record." />
+        <meta property="og:title" content={`FIDUCARO · ${brand.tagline}`} />
+        <meta property="og:description" content={brand.description} />
         <meta property="og:image" content="/brand/social-banner.png" />
       </Head>
       <ThemeProvider theme={theme}>
@@ -55,7 +56,7 @@ export default function MyApp(props: MyAppProps) {
             overflow: 'hidden',
             backgroundColor: 'background.default',
             backgroundImage:
-              'radial-gradient(circle at 78% 6%, rgba(52, 224, 208, 0.16), transparent 32%), radial-gradient(circle at 10% 22%, rgba(52, 224, 208, 0.07), transparent 28%), radial-gradient(circle at 50% 120%, rgba(52, 224, 208, 0.05), transparent 40%), linear-gradient(180deg, #0B0D0E 0%, #101416 46%, #070909 100%)',
+              'radial-gradient(circle at 78% 6%, rgba(52, 224, 208, 0.11), transparent 32%), radial-gradient(circle at 10% 22%, rgba(52, 224, 208, 0.045), transparent 28%), radial-gradient(circle at 50% 120%, rgba(52, 224, 208, 0.03), transparent 40%), linear-gradient(180deg, #070A0B 0%, #0B1011 46%, #030505 100%)',
           }}
         >
           <Web3ReactProvider getLibrary={getLibrary}>

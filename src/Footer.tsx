@@ -128,7 +128,7 @@ export const Footer = () => (
         }}
       >
         <Typography variant="body2" color="text.secondary">
-          FIDUCARO — Private value. Public disruption. Live on Ethereum.
+          {brand.name} — {brand.tagline}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Every command is user-approved and executed on chain.

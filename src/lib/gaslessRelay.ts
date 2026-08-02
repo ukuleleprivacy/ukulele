@@ -111,7 +111,7 @@ export const relayGaslessAction = async (payload: RelayPayload) => {
   const body = await response.json().catch(() => null);
 
   if (!response.ok) {
-    throw new Error(body?.error || 'Gasless relay request failed.');
+    throw new Error(body?.error || 'Bridge relay request failed.');
   }
 
   return body;

@@ -27,9 +27,9 @@ import {
 } from '../src/lib/gaslessRelay';
 
 const gaslessMessage = {
-  title: 'Gasless FIDUCARO Actions',
+  title: 'FIDUCARO Bridge Actions',
   description:
-    'Gasless is the FIDUCARO interface for lower-friction wallet actions on Ethereum. The UI is designed for a fully on-chain system while keeping copy, controls, and feedback calm and minimal.',
+    'Bridge is the FIDUCARO interface for lower-friction wallet actions on Ethereum. The UI is designed for a fully on-chain system while keeping copy, controls, and feedback calm and minimal.',
 };
 
 const defaultStatus = {
@@ -123,7 +123,7 @@ export default function Gasless() {
     setStatus({
       title: 'SELL pending',
       description: isGaslessRelayConfigured()
-        ? 'Sign the gasless request in your wallet and wait for the relay to finish.'
+        ? 'Sign the Bridge request in your wallet and wait for the relay to finish.'
         : 'Confirm the transaction in your wallet and wait for it to finish.',
     });
 
@@ -249,7 +249,7 @@ export default function Gasless() {
   return (
     <Layout>
       <Head>
-        <title>Gasless | Fiducaro</title>
+        <title>Bridge | Fiducaro</title>
       </Head>
 
       <Container
@@ -443,7 +443,7 @@ export default function Gasless() {
               textWrap: 'balance',
             }}
           >
-            Gasless actions remain locked while FIDUCARO moves to ERC-4337 account abstraction and
+            Bridge actions remain locked while FIDUCARO moves to ERC-4337 account abstraction and
             paymaster-sponsored transactions.
           </Typography>
         </Stack>
@@ -462,7 +462,7 @@ export default function Gasless() {
               Proposed delivery plan
             </Typography>
             <Typography variant="h4" sx={{ mt: 0.5 }}>
-              What the gasless update needs
+              What the Bridge update needs
             </Typography>
             <Typography color="text.secondary" sx={{ mt: 1.25, maxWidth: 760 }}>
               Rough total: 6–10 weeks after upgrade work begins. This is a planning estimate, not a
@@ -496,15 +496,15 @@ export default function Gasless() {
             </Grid>
 
             <Typography color="text.secondary" sx={{ mt: 2.5 }}>
-              Gasless Decrypt, SEND, and selling controls should stay disabled until the upgraded
+              Bridge Decrypt, SEND, and selling controls should stay disabled until the upgraded
               contracts, paymaster, relay endpoint, and frontend configuration are all production-ready.
             </Typography>
 
             <Box sx={{ mt: 3 }}>
               <TechnicalArtwork
                 src="/technical/10.webp"
-                alt="Gasless upgrade path covering ERC-4337, paymaster policy, testnet bundler and relayer testing, and mainnet security review"
-                caption="The proposed Gasless implementation sequence and rough planning ranges."
+                alt="Bridge upgrade path covering ERC-4337, paymaster policy, testnet bundler and relayer testing, and mainnet security review"
+                caption="The proposed Bridge implementation sequence and rough planning ranges."
               />
             </Box>
           </CardContent>

@@ -234,17 +234,6 @@ export default function Home() {
                 identity, and financial infrastructure built beyond the limits of public-by-default
                 systems.
               </Typography>
-              <Button
-                component={Link}
-                href="https://youtu.be/TqpJNWg7wQs"
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="outlined"
-                endIcon={<OpenInNew />}
-                sx={{ alignSelf: { xs: 'stretch', sm: 'flex-start' } }}
-              >
-                Watch on YouTube
-              </Button>
             </Stack>
           </Grid>
           <Grid item xs={12} md={8}>

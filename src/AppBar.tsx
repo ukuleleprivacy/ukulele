@@ -87,7 +87,7 @@ export const TopAppBar = () => {
           py: { xs: 1.25, md: 2 },
           backdropFilter: 'blur(22px)',
           background:
-            'linear-gradient(180deg, rgba(9, 12, 13, 0.9) 0%, rgba(9, 12, 13, 0.6) 100%)',
+            'linear-gradient(180deg, rgba(5, 8, 9, 0.94) 0%, rgba(5, 8, 9, 0.72) 100%)',
           borderBottom: '1px solid rgba(52, 224, 208, 0.12)',
         }}
       >

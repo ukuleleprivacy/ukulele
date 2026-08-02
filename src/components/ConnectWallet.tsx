@@ -22,15 +22,33 @@ export const ConnectWallet = (props: ButtonProps) => {
     }
   };
 
-  const disconnect = async () => {
+  const switchAccount = async () => {
     setError('');
 
     try {
-      window.localStorage.setItem(walletAutoConnectKey, 'false');
+      const ethereum = (
+        window as Window & {
+          ethereum?: {
+            request?: (request: { method: string; params?: unknown[] }) => Promise<unknown>;
+          };
+        }
+      ).ethereum;
+
+      if (!ethereum?.request) {
+        throw new Error('MetaMask is unavailable');
+      }
+
+      await ethereum.request({
+        method: 'wallet_requestPermissions',
+        params: [{ eth_accounts: {} }],
+      });
+
       deactivate();
+      await activate(injectedConnector, undefined, true);
+      window.localStorage.setItem(walletAutoConnectKey, 'true');
     } catch (ex) {
       console.error(ex);
-      setError('Sign out failed');
+      setError('Wallet switch cancelled');
     }
   };
 
@@ -55,9 +73,9 @@ export const ConnectWallet = (props: ButtonProps) => {
     return (
       <Button
         variant="contained"
-        aria-label={`Disconnect wallet ${account}`}
-        title={error || `Connected as ${account}. Click to disconnect.`}
-        onClick={disconnect}
+        aria-label={`Connected wallet ${account}. Choose another MetaMask account.`}
+        title={error || `Connected as ${account}. Click to choose another MetaMask account.`}
+        onClick={switchAccount}
         {...buttonProps}
         sx={[sharedSx, ...sxOverrides]}
       >

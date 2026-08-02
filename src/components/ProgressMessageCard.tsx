@@ -23,6 +23,8 @@ export const ProgressMessageCard = ({ message, step, error }: ProgressMessageCar
 
   return (
     <Box
+      role={error ? 'alert' : 'status'}
+      aria-live={error ? 'assertive' : 'polite'}
       sx={{
         padding: '1px',
         borderRadius: '8px',

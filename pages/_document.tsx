@@ -17,7 +17,7 @@ export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
     >
       <Head>
         {/* PWA primary color */}
-        <meta name="theme-color" content="#0B0D0E" />
+        <meta name="theme-color" content="#070A0B" />
         <link rel="icon" href="/brand/logo-mark.png" type="image/png" />
         <link rel="shortcut icon" href="/brand/logo-mark.png" />
         <meta

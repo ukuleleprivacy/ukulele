@@ -32,9 +32,9 @@ export const progressMessagesMap: Record<Steps, Message> = {
         style={{
           display: 'block',
           color: '#F5F5F5',
-          fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+          fontSize: 'clamp(1.4rem, 2.5vw, 2rem)',
           fontWeight: 700,
-          lineHeight: 1.1,
+          lineHeight: 1.25,
         }}
       >
         Please wait for and accept the 2nd transaction

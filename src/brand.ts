@@ -1,8 +1,8 @@
 export const brand = {
   name: 'FIDUCARO',
-  tagline: 'Private value. Public disruption. Live on Ethereum.',
+  tagline: 'Enabling Privacy Across International Markets.',
   description:
-    'FIDUCARO is a live Ethereum protocol for burying balances, retrieving hidden value, and projecting zero-net transfer signals onto the public record.',
+    'FIDUCARO is a settlement layer for privacy preserving transactions on the blockchain; expanding into all digital assets - with reserves being managed by OmniOne Bank.',
   telegramUrl: 'https://t.me/+qMHrV95v_rAxYTE1',
   twitterHandle: '@fiducaroprivacy',
   twitterUrl: 'https://x.com/fiducaroprivacy',
@@ -12,9 +12,9 @@ export const brand = {
     neonDark: '#15B7A8',
     white: '#EDF1F2',
     silver: '#9AA6AD',
-    black: '#0B0D0E',
-    ink: '#14181B',
-    graphite: '#1F252A',
+    black: '#070A0B',
+    ink: '#0F1315',
+    graphite: '#192024',
     pearl: '#C4CDD2',
   },
 };
@@ -30,8 +30,7 @@ export const navItems = [
   { label: 'Send', url: '/platform' },
   { label: 'Decrypt', url: '/decrypt' },
   { label: 'Disruptor', url: '/disruptor' },
-  { label: 'Gasless', url: '/gasless' },
-  { label: 'Protocol', url: '/community' },
+  { label: 'Bridge', url: '/gasless' },
 ];
 
 export const pillars = [
@@ -98,7 +97,7 @@ export const brandAssets = [
   { label: 'Private balance lifecycle', path: '/technical/private-balance-lifecycle.webp' },
   { label: 'Private flow', path: '/technical/private-flow.webp' },
   { label: 'Private vault', path: '/technical/private-vault.webp' },
-  { label: 'Gasless upgrade path', path: '/technical/10.webp' },
+  { label: 'Bridge upgrade path', path: '/technical/10.webp' },
 ];
 
 export const protocolVisuals = [

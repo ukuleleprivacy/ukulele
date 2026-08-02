@@ -30,8 +30,8 @@ const theme = responsiveFontSizes(
         contrastText: '#0B0D0E',
       },
       background: {
-        default: '#0B0D0E',
-        paper: '#14181B',
+        default: '#070A0B',
+        paper: '#0F1315',
       },
       text: {
         primary: '#EDF1F2',
@@ -90,7 +90,7 @@ const theme = responsiveFontSizes(
       MuiCssBaseline: {
         styleOverrides: {
           body: {
-            backgroundColor: '#0B0D0E',
+            backgroundColor: '#070A0B',
           },
         },
       },
@@ -165,8 +165,8 @@ const theme = responsiveFontSizes(
             border: '1px solid rgba(255, 255, 255, 0.09)',
             borderRadius: 8,
             background:
-              'linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.018) 100%)',
-            boxShadow: '0 24px 70px rgba(0, 0, 0, 0.45)',
+              'linear-gradient(180deg, rgba(255, 255, 255, 0.032) 0%, rgba(255, 255, 255, 0.01) 100%)',
+            boxShadow: '0 24px 70px rgba(0, 0, 0, 0.58)',
           },
         },
       },

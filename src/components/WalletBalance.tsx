@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
+import { walletBalanceRefreshEvent } from '../lib/wallet';
 import { fiducaroToken } from '../token';
 
 const balanceAbi = ['function balanceOf(address owner) view returns (uint256)'] as const;
@@ -56,10 +57,12 @@ export const WalletBalance = ({ fullWidth = false }: WalletBalanceProps) => {
 
     void loadBalance();
     const refreshTimer = window.setInterval(() => void loadBalance(), balanceRefreshInterval);
+    window.addEventListener(walletBalanceRefreshEvent, loadBalance);
 
     return () => {
       isCurrent = false;
       window.clearInterval(refreshTimer);
+      window.removeEventListener(walletBalanceRefreshEvent, loadBalance);
     };
   }, [account, active, library]);
 

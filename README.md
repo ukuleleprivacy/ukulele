@@ -20,7 +20,7 @@ Transactions use real assets and gas. A tester can acquire roughly 100 FIDU thro
 - `/platform` - experimental two-transaction SEND flow with a downloadable recovery record
 - `/decrypt` - full and partial public-balance decryption actions
 - `/disruptor` - zero-net `shadowDuster` Transfer records and verified recent activity
-- `/gasless` - wallet action surface for SELL and full/partial UI display flows
+- `/gasless` - Bridge wallet action surface for SELL and full/partial UI display flows
 - `/whitepaper/fiducaro-whitepaper.txt` - published plain-text protocol whitepaper
 - `/roadmap` - repeatable test and review plan
 - `/community` - test notes, reference assets, and observation guidance
@@ -46,15 +46,15 @@ The hero bitmap was generated with the built-in image tool and copied into the w
 
 **Test environment:** Ethereum mainnet. Calls, gas costs, receipts, calldata, and event logs are real and publicly observable.
 
-**Token contract:** `0x799C411D50d1D67C517A34C842381673E377007c` on Ethereum mainnet.
+**Token contract:** `0x5203C6EC24838664af6BF113c062e5502317Cf9d` on Ethereum mainnet.
 
 **Direct Uniswap pool:** [Open the verified Uniswap v4 ETH/FIDU pool](https://app.uniswap.org/explore/pools/ethereum/0xbcaf2724492673f9157c59bf441d31ffd1623c781179938d36488d2b5a60ed28). It uses a 1% swap fee, tick spacing 200, and no hook. Pool ID: `0xbcaf2724492673f9157c59bf441d31ffd1623c781179938d36488d2b5a60ed28`.
 
-**Get test tokens:** [Open an ETH-to-FIDU swap prefilled for approximately 100 FIDU](https://app.uniswap.org/swap?chain=mainnet&inputCurrency=NATIVE&outputCurrency=0x799C411D50d1D67C517A34C842381673E377007c&field=output&value=100). Review the live quote, price impact, token address, and network cost before confirming. This is a test convenience, not an investment suggestion.
+**Get test tokens:** [Open an ETH-to-FIDU swap prefilled for approximately 100 FIDU](https://app.uniswap.org/swap?chain=mainnet&inputCurrency=NATIVE&outputCurrency=0x5203C6EC24838664af6BF113c062e5502317Cf9d&field=output&value=100). Review the live quote, price impact, token address, and network cost before confirming. This is a test convenience, not an investment suggestion.
 
-**Naglfar/privacy contract:** `0xfFd73306f9359492e65967ccaE322331a2784b4F`.
+**Naglfar/privacy contract:** `0x211fC2355503cd21BcA86789a1225A04635F6D4d`.
 
-**Address registry:** `0xB4C40F697f28aac83777Dc52c597c3C11cc192a4`.
+**Address registry:** `0xad8F64166512582ED8E97dD0152650FF06936ac1`.
 
 **GSN contract:** No GSN contract is deployed for the current protocol release. The frontend has no fallback GSN address.
 
@@ -68,10 +68,10 @@ The hero bitmap was generated with the built-in image tool and copied into the w
 
 1. Replace placeholder SVG/PNG artwork in `public/brand` with approved test-case art using the same filenames.
 2. Reserve final social handles and add verified links only after they are confirmed.
-3. Review `/gasless` copy once the next experiment scope is approved.
+3. Review the Bridge copy at `/gasless` once the next experiment scope is approved.
 4. Re-run `npm run build` before publishing.
 
-## Gasless Configuration
+## Bridge Configuration
 
 The website intentionally keeps only ABI/function references. Solidity source should stay outside this repo.
 

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
-import LockRounded from '@mui/icons-material/LockRounded';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -257,24 +256,6 @@ export default function Decrypt() {
                     </Button>
                   </Grid>
                 </Grid>
-              </Box>
-
-              <Box sx={{ height: '1px', backgroundColor: 'rgba(255, 255, 255, 0.12)' }} />
-
-              <Box>
-                <Button
-                  size="large"
-                  variant="outlined"
-                  fullWidth
-                  disabled
-                  startIcon={<LockRounded />}
-                  sx={{ minHeight: 58, borderRadius: 999 }}
-                >
-                  Gasless Decrypt — Locked
-                </Button>
-                <Typography color="text.secondary" textAlign="center" sx={{ mt: 1.5 }}>
-                  Locked until the gasless contract update is available.
-                </Typography>
               </Box>
 
               <Box

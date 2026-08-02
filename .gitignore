@@ -1,3 +1,7 @@
 .next/
 out/
 *.mp4
+node_modules/
+tmp/
+*.tsbuildinfo
+.DS_Store

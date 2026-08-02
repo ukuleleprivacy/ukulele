@@ -94,11 +94,15 @@ const TopSection = () => {
             alignItems={{ xs: 'stretch', sm: 'center' }}
           >
             <Button
+              component={Link}
+              href="/whitepaper/obscura-covenant.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               variant="contained"
               size="large"
-              disabled
+              endIcon={<ArrowForward />}
             >
-              FIDU Access
+              Obscura Covenant Document
             </Button>
             <Button
               component={Link}
@@ -107,7 +111,7 @@ const TopSection = () => {
               size="large"
               endIcon={<ArrowForward />}
             >
-              Open FIDUCARO
+              OmniOne Portal
             </Button>
           </Stack>
 
