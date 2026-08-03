@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Fade from '@mui/material/Fade';
-import Typography from '@mui/material/Typography';
-
-import { brand } from './brand';
 
 const SplashLoader = ({ videoVisible, setVideoVisible }: any) => {
   const [splashVisible, setSplashVisible] = useState(true);
@@ -32,24 +29,23 @@ const SplashLoader = ({ videoVisible, setVideoVisible }: any) => {
           textAlign: 'center',
           color: 'text.primary',
           background:
-            'radial-gradient(circle at 50% 42%, rgba(52, 224, 208, 0.2), transparent 34%), #0B0D0E',
+            'radial-gradient(circle at 50% 42%, rgba(102, 255, 138, 0.2), transparent 34%), #0B0D0E',
         }}
       >
         <Fade in={splashVisible}>
           <Box>
             <Box
               component="img"
-              src="/brand/logo-mark.png"
-              alt=""
-              aria-hidden="true"
+              src="/brand/fiducaro-logo-with-text.png"
+              alt="FIDUCARO"
               sx={{
-                width: 108,
-                height: 108,
-                mb: 2,
-                filter: 'drop-shadow(0 0 24px rgba(52, 224, 208, 0.45))',
+                display: 'block',
+                width: { xs: 210, sm: 260 },
+                height: { xs: 210, sm: 260 },
+                objectFit: 'contain',
+                filter: 'drop-shadow(0 0 24px rgba(102, 255, 138, 0.45))',
               }}
             />
-            <Typography variant="h5">{brand.name}</Typography>
           </Box>
         </Fade>
       </Box>

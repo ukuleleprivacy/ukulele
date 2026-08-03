@@ -40,7 +40,7 @@ export const TechnicalArtwork = ({
         transition: 'border-color 180ms ease, transform 180ms ease',
         '&:hover': {
           transform: 'translateY(-2px)',
-          borderColor: 'rgba(52, 224, 208, 0.5)',
+          borderColor: 'rgba(102, 255, 138, 0.5)',
         },
       }}
       imageSx={{

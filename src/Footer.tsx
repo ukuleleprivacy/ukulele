@@ -1,5 +1,3 @@
-import Telegram from '@mui/icons-material/Telegram';
-import Twitter from '@mui/icons-material/Twitter';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -31,87 +29,57 @@ export const Footer = () => (
             <Typography color="text.secondary" sx={{ maxWidth: 520 }}>
               {brand.description}
             </Typography>
-            <Stack direction="row" gap={1} flexWrap="wrap">
-              {Object.entries(brand.palette).slice(0, 5).map(([name, value]) => (
-                <Box
-                  key={name}
-                  title={`${name}: ${value}`}
-                  sx={{
-                    width: 34,
-                    height: 34,
-                    borderRadius: '8px',
-                    backgroundColor: value,
-                    border: '1px solid rgba(255, 255, 255, 0.14)',
-                  }}
-                />
-              ))}
-            </Stack>
           </Stack>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={2}>
-          <Typography variant="subtitle2" color="text.primary" sx={{ mb: 2, fontWeight: 700 }}>
-            Social
-          </Typography>
-          <Stack gap={1.5}>
-            <Stack direction="row" gap={1}>
-              <Tooltip title="Telegram" arrow>
-                <IconButton
-                  component={Link}
-                  href={brand.telegramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="FIDUCARO Telegram"
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={2}
+          sx={{ display: 'flex', justifyContent: { xs: 'flex-start', md: 'flex-end' } }}
+        >
+          <Stack alignItems="center" gap={0.25}>
+            <Tooltip title="OmniOne Bank" arrow>
+              <IconButton
+                component={Link}
+                href={brand.omniOneUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit OmniOne Bank"
+                sx={{
+                  width: { xs: 124, sm: 160 },
+                  height: { xs: 124, sm: 160 },
+                  p: 0,
+                  border: 0,
+                  borderRadius: 0,
+                  backgroundColor: 'transparent',
+                  transition: 'transform 180ms ease, filter 180ms ease',
+                  '&:hover, &:focus-visible': {
+                    backgroundColor: 'transparent',
+                    transform: 'translateY(-3px) scale(1.03)',
+                    filter: 'brightness(1.18)',
+                  },
+                }}
+              >
+                <Box
+                  component="img"
+                  src="/brand/omnione-bank-pyramid.png"
+                  alt=""
+                  aria-hidden="true"
                   sx={{
-                    width: 46,
-                    height: 46,
-                    color: 'text.primary',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                    '&:hover': {
-                      color: 'primary.light',
-                      borderColor: 'rgba(52, 224, 208, 0.6)',
-                      backgroundColor: 'rgba(52, 224, 208, 0.12)',
-                    },
+                    display: 'block',
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    filter: 'drop-shadow(0 0 16px rgba(104, 220, 255, 0.34))',
                   }}
-                >
-                  <Telegram />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title={brand.twitterHandle} arrow>
-                <IconButton
-                  component={Link}
-                  href={brand.twitterUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`FIDUCARO Twitter ${brand.twitterHandle}`}
-                  sx={{
-                    width: 46,
-                    height: 46,
-                    color: 'text.primary',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                    '&:hover': {
-                      color: 'primary.light',
-                      borderColor: 'rgba(52, 224, 208, 0.6)',
-                      backgroundColor: 'rgba(52, 224, 208, 0.12)',
-                    },
-                  }}
-                >
-                  <Twitter />
-                </IconButton>
-              </Tooltip>
-            </Stack>
-            <Link
-              href={brand.twitterUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              color="text.secondary"
-              className="link-hover-glow"
-              sx={{ width: 'fit-content' }}
-            >
-              {brand.twitterHandle}
-            </Link>
+                />
+              </IconButton>
+            </Tooltip>
+            <Typography variant="subtitle2" color="text.primary" fontWeight="700">
+              OmniOne
+            </Typography>
           </Stack>
         </Grid>
       </Grid>
@@ -122,16 +90,10 @@ export const Footer = () => (
           pt: 3,
           borderTop: '1px solid rgba(255, 255, 255, 0.1)',
           display: 'flex',
-          flexDirection: { xs: 'column', sm: 'row' },
-          gap: 1,
-          justifyContent: 'space-between',
         }}
       >
         <Typography variant="body2" color="text.secondary">
-          {brand.name} — {brand.tagline}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Every command is user-approved and executed on chain.
+          {brand.tagline}
         </Typography>
       </Box>
     </Container>

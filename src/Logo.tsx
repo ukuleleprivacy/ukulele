@@ -14,11 +14,12 @@ export const LogoMark = ({ size = 46 }: { size?: number }) => (
       height: size,
       flex: '0 0 auto',
       display: 'block',
-      backgroundImage: 'url(/brand/logo-mark.png)',
-      backgroundSize: 'contain',
+      backgroundImage: 'url(/brand/fiducaro-logo-mark-dark.png)',
+      backgroundSize: '183%',
       backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
-      filter: 'drop-shadow(0 0 14px rgba(52, 224, 208, 0.45))',
+      backgroundPosition: '50% 36%',
+      borderRadius: '8px',
+      filter: 'drop-shadow(0 0 14px rgba(102, 255, 138, 0.45))',
     }}
   />
 );

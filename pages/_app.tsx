@@ -56,7 +56,7 @@ export default function MyApp(props: MyAppProps) {
             overflow: 'hidden',
             backgroundColor: 'background.default',
             backgroundImage:
-              'radial-gradient(circle at 78% 6%, rgba(52, 224, 208, 0.11), transparent 32%), radial-gradient(circle at 10% 22%, rgba(52, 224, 208, 0.045), transparent 28%), radial-gradient(circle at 50% 120%, rgba(52, 224, 208, 0.03), transparent 40%), linear-gradient(180deg, #070A0B 0%, #0B1011 46%, #030505 100%)',
+              'radial-gradient(circle at 78% 6%, rgba(102, 255, 138, 0.14), transparent 32%), radial-gradient(circle at 10% 22%, rgba(102, 255, 138, 0.06), transparent 28%), radial-gradient(circle at 50% 120%, rgba(102, 255, 138, 0.045), transparent 40%), linear-gradient(180deg, #010403 0%, #040A06 46%, #000201 100%)',
           }}
         >
           <Web3ReactProvider getLibrary={getLibrary}>

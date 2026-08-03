@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
+import Close from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
@@ -62,6 +64,7 @@ export const TestCaseBanner = () => {
   const [isClaiming, setIsClaiming] = useState(false);
   const [hasClaimed, setHasClaimed] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [isDismissed, setIsDismissed] = useState(false);
   const [status, setStatus] = useState<FaucetStatus | null>(null);
 
   useEffect(() => {
@@ -181,58 +184,67 @@ export const TestCaseBanner = () => {
       ? 'Faucet Empty'
       : 'Claim 100 FIDU';
 
+  if (isDismissed) {
+    return null;
+  }
+
   return (
     <Box
       component="aside"
       role="note"
       sx={{
+        position: 'relative',
         mt: 2,
         p: { xs: 2, sm: 2.25 },
-        border: '1px solid rgba(52, 224, 208, 0.28)',
+        pr: { xs: 5.5, sm: 7 },
+        border: '1px solid rgba(102, 255, 138, 0.28)',
         borderRadius: '8px',
         background:
-          'linear-gradient(90deg, rgba(52, 224, 208, 0.09), rgba(255, 255, 255, 0.016))',
+          'linear-gradient(90deg, rgba(102, 255, 138, 0.09), rgba(255, 255, 255, 0.016))',
       }}
     >
-      <Stack direction="row" gap={{ xs: 1.5, sm: 2 }} alignItems="center">
+      <IconButton
+        type="button"
+        aria-label="Dismiss faucet notice"
+        onClick={() => setIsDismissed(true)}
+        size="small"
+        sx={{
+          position: 'absolute',
+          top: 10,
+          right: 10,
+          color: 'primary.light',
+          border: '1px solid rgba(102, 255, 138, 0.24)',
+          backgroundColor: 'rgba(0, 0, 0, 0.28)',
+          '&:hover': { backgroundColor: 'rgba(102, 255, 138, 0.12)' },
+        }}
+      >
+        <Close fontSize="small" />
+      </IconButton>
+
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        gap={{ xs: 1.5, sm: 2 }}
+        alignItems={{ xs: 'stretch', sm: 'center' }}
+      >
         <Box
           component="img"
-          src="/brand/faucet-spacecraft.webp"
+          src="/brand/faucet-spacecraft-transparent.png"
           alt="Neon FIDUCARO spacecraft"
           sx={{
             width: { xs: 66, sm: 86 },
             height: { xs: 66, sm: 86 },
             flex: '0 0 auto',
             objectFit: 'contain',
-            filter: 'drop-shadow(0 0 12px rgba(52, 224, 208, 0.42))',
+            filter: 'drop-shadow(0 0 12px rgba(102, 255, 138, 0.42))',
           }}
         />
 
         <Stack gap={0.6} sx={{ minWidth: 0, flex: 1 }}>
           <Typography fontWeight="700">Fiducaro is LIVE</Typography>
 
-          <Stack direction="row" alignItems="center" flexWrap="wrap" gap={1}>
-            <Typography variant="body2" color="text.secondary">
-              And you can claim 100 Tokens from the Faucet.
-            </Typography>
-            <Button
-              type="button"
-              size="small"
-              variant="contained"
-              disabled={isChecking || isClaiming || hasClaimed || isEmpty}
-              onClick={claimTokens}
-              sx={{ minHeight: 32, px: 1.5 }}
-            >
-              {isChecking || isClaiming ? (
-                <>
-                  <CircularProgress size={16} sx={{ mr: 1, color: 'inherit' }} />
-                  {isClaiming ? 'Claiming…' : 'Checking…'}
-                </>
-              ) : (
-                buttonLabel
-              )}
-            </Button>
-          </Stack>
+          <Typography variant="body2" color="text.secondary">
+            And you can claim 100 Tokens from the Faucet.
+          </Typography>
 
           <Typography variant="body2" color="text.secondary">
             Test it, send it and marvel in its simplicity, low gas cost and incredible and
@@ -258,6 +270,30 @@ export const TestCaseBanner = () => {
             </Typography>
           )}
         </Stack>
+
+        <Button
+          type="button"
+          size="small"
+          variant="contained"
+          disabled={isChecking || isClaiming || hasClaimed || isEmpty}
+          onClick={claimTokens}
+          sx={{
+            minHeight: 38,
+            px: 2,
+            flex: '0 0 auto',
+            alignSelf: { xs: 'flex-end', sm: 'center' },
+            mr: { sm: 1 },
+          }}
+        >
+          {isChecking || isClaiming ? (
+            <>
+              <CircularProgress size={16} sx={{ mr: 1, color: 'inherit' }} />
+              {isClaiming ? 'Claiming…' : 'Checking…'}
+            </>
+          ) : (
+            buttonLabel
+          )}
+        </Button>
       </Stack>
     </Box>
   );

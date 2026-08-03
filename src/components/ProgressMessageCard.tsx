@@ -19,7 +19,7 @@ interface ProgressMessageCardProps {
 export const ProgressMessageCard = ({ message, step, error }: ProgressMessageCardProps) => {
   const activeMessage = error || message;
   const isAttention = step === 0 && !error;
-  const accentColor = isAttention ? '#34E0D0' : '#E6E6E6';
+  const accentColor = isAttention ? '#66FF8A' : '#E6E6E6';
 
   return (
     <Box
@@ -29,7 +29,7 @@ export const ProgressMessageCard = ({ message, step, error }: ProgressMessageCar
         padding: '1px',
         borderRadius: '8px',
         background: isAttention
-          ? 'linear-gradient(91.31deg, rgba(52, 224, 208, 0.7) 0.26%, rgba(52, 224, 208, 0.14) 80.13%)'
+          ? 'linear-gradient(91.31deg, rgba(102, 255, 138, 0.7) 0.26%, rgba(102, 255, 138, 0.14) 80.13%)'
           : error
             ? 'linear-gradient(91.31deg, #E6E6E6 0.26%, rgba(230, 230, 230, 0.28) 80.13%)'
             : 'rgba(255, 255, 255, 0.12)',
@@ -41,7 +41,7 @@ export const ProgressMessageCard = ({ message, step, error }: ProgressMessageCar
             {(isAttention || error) && (
               <Box
                 sx={{
-                  background: isAttention ? 'rgba(52, 224, 208, 0.16)' : 'rgba(255, 255, 255, 0.30)',
+                  background: isAttention ? 'rgba(102, 255, 138, 0.16)' : 'rgba(255, 255, 255, 0.30)',
                   borderRadius: '8px',
                   display: 'flex',
                   padding: 0.75,

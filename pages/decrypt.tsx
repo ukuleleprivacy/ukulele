@@ -265,7 +265,7 @@ export default function Decrypt() {
                   p: { xs: 2.25, md: 2.5 },
                   borderRadius: '8px',
                   border: hasError
-                    ? '1px solid rgba(52, 224, 208, 0.55)'
+                    ? '1px solid rgba(102, 255, 138, 0.55)'
                     : '1px solid rgba(255, 255, 255, 0.12)',
                   backgroundColor: hasError
                     ? 'rgba(255, 255, 255, 0.08)'

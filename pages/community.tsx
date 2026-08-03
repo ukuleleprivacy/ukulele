@@ -91,9 +91,9 @@ export default function Community() {
                 height: '100%',
                 p: { xs: 3, md: 4 },
                 borderRadius: '8px',
-                border: '1px solid rgba(52, 224, 208, 0.28)',
+                border: '1px solid rgba(102, 255, 138, 0.28)',
                 background:
-                  'linear-gradient(180deg, rgba(52, 224, 208, 0.12), rgba(255, 255, 255, 0.02))',
+                  'linear-gradient(180deg, rgba(102, 255, 138, 0.12), rgba(255, 255, 255, 0.02))',
               }}
             >
               <ScienceOutlined color="primary" sx={{ fontSize: 38, mb: 2 }} />

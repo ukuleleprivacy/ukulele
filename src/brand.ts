@@ -1,20 +1,19 @@
 export const brand = {
   name: 'FIDUCARO',
-  tagline: 'Enabling Privacy Across International Markets.',
+  tagline: 'Unseen. Unbreakable. Unmatched.',
   description:
     'FIDUCARO is a settlement layer for privacy preserving transactions on the blockchain; expanding into all digital assets - with reserves being managed by OmniOne Bank.',
-  telegramUrl: 'https://t.me/+qMHrV95v_rAxYTE1',
-  twitterHandle: '@fiducaroprivacy',
   twitterUrl: 'https://x.com/fiducaroprivacy',
+  omniOneUrl: 'https://omnione.netlify.app',
   palette: {
-    neon: '#34E0D0',
-    neonLight: '#6FF0E4',
-    neonDark: '#15B7A8',
+    neon: '#66FF8A',
+    neonLight: '#9AFFB0',
+    neonDark: '#24D85E',
     white: '#EDF1F2',
     silver: '#9AA6AD',
-    black: '#070A0B',
-    ink: '#0F1315',
-    graphite: '#192024',
+    black: '#010403',
+    ink: '#050A07',
+    graphite: '#0B1510',
     pearl: '#C4CDD2',
   },
 };
@@ -35,20 +34,24 @@ export const navItems = [
 
 export const pillars = [
   {
-    title: 'Private SEND',
-    description: 'Bury value through an explicit two-part Ethereum transaction sequence.',
+    title: 'The Engine',
+    description:
+      "A former uncrackable, totally on-chain privacy token, light years ahead of competition. That's what powers the Fiducaro bridge underneath, securing all your assets privately.",
   },
   {
-    title: 'Hidden balance',
-    description: 'Move FIDU beneath the ordinary public-balance surface while retaining control.',
+    title: 'Automation',
+    description:
+      'Over the course of hours, to days, based on traffic, your assets are securely moved from one address to others, across asset classes and with peace of mind with a full refund guaranteed if failure occurs.',
   },
   {
-    title: 'Selective retrieval',
-    description: 'Unbury the entire hidden balance or retrieve only the amount you choose.',
+    title: 'Top Tier Customer Support',
+    description:
+      "No more AI BS, speak to a dedicated customer service support specialist if your asset classes fail to transfer along the way. With our dedicated specialists, you'll get your money and with ATMs placed strategically, you can get cash, check or wire.",
   },
   {
-    title: 'Public disruption',
-    description: 'Cast a decoy Transfer signal onto Etherscan with zero lasting balance movement.',
+    title: 'Stake & Earn',
+    description:
+      "Crypto's point is to facilitate the transfer of money, by staking assets, you can transfer assets to a new asset class and help facilitate the private bridge necessary, while it takes time, you'll earn interest with minimal risk.",
   },
 ];
 
@@ -56,18 +59,30 @@ export const roadmap = [
   {
     title: 'Live Foundation',
     description: 'FIDUCARO is deployed on Ethereum with SEND, Decrypt, and Disruptor ready for use.',
+    nextTitle: 'Raise Funds',
+    nextDescription:
+      'Fiducaro needs to get a small Series A or large Seed funding round to complete the necessary bridge update.',
   },
   {
     title: 'Strengthen the Vault',
     description: 'Advance the hidden-balance layer, recovery controls, and user-owned transaction records.',
+    nextTitle: 'Setup the Bridge',
+    nextDescription:
+      'The network goes live with assets allowed to be swapped privately as well as staking.',
   },
   {
     title: 'Expand Retrieval',
     description: 'Make full and selective Decrypt faster, clearer, and more powerful across the interface.',
+    nextTitle: 'Real World Presence',
+    nextDescription:
+      'The creation of full cash ATMs in various countries as well as a bank card applicable only in certain countries.',
   },
   {
     title: 'Scale the Disruptor',
     description: 'Extend public-chain signal control while preserving zero-net final balance state.',
+    nextTitle: 'Network Effects',
+    nextDescription:
+      'Aegis Shield is created, lobbying and other key targets are informed about the Privacy Wolf Pact.',
   },
 ];
 
@@ -130,36 +145,5 @@ export const protocolVisuals = [
     label: 'Vault System',
     path: '/technical/private-vault-system.webp',
     alt: 'Engineering systems view of the FIDUCARO Private Vault',
-  },
-];
-
-export const protocolCapabilities = [
-  {
-    title: 'Bury Value',
-    body: [
-      'Private SEND drives FIDU beneath the ordinary public-balance surface through two deliberate Ethereum confirmations.',
-      'A private recovery record is forged between PART I and PART II so the route remains in your custody.',
-    ],
-  },
-  {
-    title: 'Retrieve on Command',
-    body: [
-      'Decrypt unburies the complete hidden balance and restores it to the public wallet surface.',
-      'Partial Decrypt retrieves only the amount you choose, leaving the remainder concealed.',
-    ],
-  },
-  {
-    title: 'Disrupt the Record',
-    body: [
-      'Disruptor projects a real Transfer event from one party to another into Etherscan’s public view.',
-      'The visible signal survives while the temporary contract balances collapse back to zero net movement.',
-    ],
-  },
-  {
-    title: 'Operate With Authority',
-    body: [
-      'FIDUCARO is live now: its core powers execute on Ethereum and answer to the connected wallet.',
-      'The interface exposes every command, recovery checkpoint, and resulting chain record without surrendering user control.',
-    ],
   },
 ];

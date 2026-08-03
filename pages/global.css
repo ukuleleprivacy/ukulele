@@ -1,13 +1,13 @@
 :root {
   color-scheme: dark;
-  --fiducaro-black: #070a0b;
-  --fiducaro-ink: #0f1315;
-  --fiducaro-graphite: #192024;
+  --fiducaro-black: #010403;
+  --fiducaro-ink: #050a07;
+  --fiducaro-graphite: #0b1510;
   --fiducaro-white: #edf1f2;
   --fiducaro-silver: #9aa6ad;
   --fiducaro-pearl: #c4cdd2;
-  --fiducaro-neon: #34e0d0;
-  --fiducaro-neon-dark: #15b7a8;
+  --fiducaro-neon: #66ff8a;
+  --fiducaro-neon-dark: #24d85e;
 }
 
 html {
@@ -34,16 +34,16 @@ body {
 ::-webkit-scrollbar-thumb {
   border: 2px solid var(--fiducaro-black);
   border-radius: 999px;
-  background-color: rgba(52, 224, 208, 0.55);
+  background-color: rgba(102, 255, 138, 0.55);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(52, 224, 208, 0.85);
+  background-color: rgba(102, 255, 138, 0.85);
 }
 
 ::selection {
   color: #04110f;
-  background: rgba(52, 224, 208, 0.85);
+  background: rgba(102, 255, 138, 0.85);
 }
 
 .link-hover-glow {
@@ -53,7 +53,7 @@ body {
 
 .link-hover-glow:hover {
   color: var(--fiducaro-neon) !important;
-  text-shadow: 0 0 18px rgba(52, 224, 208, 0.55) !important;
+  text-shadow: 0 0 18px rgba(102, 255, 138, 0.55) !important;
 }
 
 @keyframes fiducaroFloat {

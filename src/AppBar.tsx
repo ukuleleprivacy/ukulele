@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Close from '@mui/icons-material/Close';
 import Menu from '@mui/icons-material/Menu';
+import Twitter from '@mui/icons-material/Twitter';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -15,7 +16,7 @@ import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import { useRouter } from 'next/router';
 
-import { navItems } from './brand';
+import { brand, navItems } from './brand';
 import { ConnectWallet } from './components/ConnectWallet';
 import { WalletBalance } from './components/WalletBalance';
 import Link from './Link';
@@ -54,8 +55,8 @@ export const TopAppBar = () => {
                   borderRadius: '8px',
                   color: isActive ? 'primary.main' : 'text.secondary',
                   '&.Mui-selected': {
-                    backgroundColor: 'rgba(52, 224, 208, 0.14)',
-                    boxShadow: 'inset 0 0 0 1px rgba(52, 224, 208, 0.3)',
+                    backgroundColor: 'rgba(102, 255, 138, 0.14)',
+                    boxShadow: 'inset 0 0 0 1px rgba(102, 255, 138, 0.3)',
                   },
                 }}
               >
@@ -88,7 +89,7 @@ export const TopAppBar = () => {
           backdropFilter: 'blur(22px)',
           background:
             'linear-gradient(180deg, rgba(5, 8, 9, 0.94) 0%, rgba(5, 8, 9, 0.72) 100%)',
-          borderBottom: '1px solid rgba(52, 224, 208, 0.12)',
+          borderBottom: '1px solid rgba(102, 255, 138, 0.12)',
         }}
       >
         <Toolbar
@@ -133,7 +134,7 @@ export const TopAppBar = () => {
                     color: isActive ? 'primary.contrastText' : 'text.secondary',
                     '&:hover': {
                       color: isActive ? undefined : 'primary.main',
-                      backgroundColor: isActive ? undefined : 'rgba(52, 224, 208, 0.08)',
+                      backgroundColor: isActive ? undefined : 'rgba(102, 255, 138, 0.08)',
                     },
                   }}
                 >
@@ -144,6 +145,27 @@ export const TopAppBar = () => {
           </Stack>
 
           <Stack direction="row" alignItems="center" gap={1}>
+            <IconButton
+              component={Link}
+              href={brand.twitterUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="FIDUCARO on X / Twitter"
+              sx={{
+                width: 38,
+                height: 38,
+                color: 'text.primary',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                backgroundColor: 'rgba(255, 255, 255, 0.025)',
+                '&:hover': {
+                  color: 'primary.light',
+                  borderColor: 'rgba(102, 255, 138, 0.5)',
+                  backgroundColor: 'rgba(102, 255, 138, 0.1)',
+                },
+              }}
+            >
+              <Twitter sx={{ fontSize: 20 }} />
+            </IconButton>
             <Box sx={{ display: { xs: 'none', md: 'block' } }}>
               <WalletBalance />
             </Box>

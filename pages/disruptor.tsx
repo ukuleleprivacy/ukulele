@@ -17,7 +17,6 @@ import Head from 'next/head';
 
 import { Layout } from '../src/Layout';
 import Link from '../src/Link';
-import { TechnicalArtwork } from '../src/components/TechnicalArtwork';
 import { gasLimit } from '../src/constants';
 import { abi as tokenAbi, address as tokenAddress } from '../src/contracts/contract1';
 
@@ -346,7 +345,7 @@ export default function Disruptor() {
                   p: 2.5,
                   borderRadius: '8px',
                   border: hasError
-                    ? '1px solid rgba(52, 224, 208, 0.55)'
+                    ? '1px solid rgba(102, 255, 138, 0.55)'
                     : '1px solid rgba(255, 255, 255, 0.12)',
                   backgroundColor: hasError
                     ? 'rgba(255, 255, 255, 0.08)'
@@ -361,14 +360,6 @@ export default function Disruptor() {
             </Stack>
           </CardContent>
         </Card>
-
-        <Box sx={{ mt: 3 }}>
-          <TechnicalArtwork
-            src="/technical/event-log-final-state.webp"
-            alt="Ethereum event log and final contract state shown as two distinct views of one transaction"
-            caption="One Ethereum transaction can leave a visible Transfer event while its final contract state resolves with zero net balance movement."
-          />
-        </Box>
 
         <Card variant="outlined" sx={{ mt: 3 }}>
           <CardContent sx={{ p: { xs: '24px!important', sm: '32px!important' } }}>
