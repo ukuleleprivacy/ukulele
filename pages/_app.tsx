@@ -30,7 +30,8 @@ export interface MyAppProps extends AppProps {
 }
 
 export default function MyApp(props: MyAppProps) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+  const { Component, emotionCache = clientSideEmotionCache, pageProps, router } = props;
+  const isPrivateArchive = router.pathname === '/unseen';
 
   return (
     <CacheProvider value={emotionCache}>
@@ -62,11 +63,11 @@ export default function MyApp(props: MyAppProps) {
           <Web3ReactProvider getLibrary={getLibrary}>
             <WalletSession>
               <Container maxWidth="lg" sx={{ width: '100%', px: { xs: 2, sm: 3 } }}>
-                <TopAppBar />
-                <TestCaseBanner />
+                {!isPrivateArchive && <TopAppBar />}
+                {!isPrivateArchive && <TestCaseBanner />}
                 <Component {...pageProps} />
               </Container>
-              <Footer />
+              {!isPrivateArchive && <Footer />}
             </WalletSession>
           </Web3ReactProvider>
         </Box>
