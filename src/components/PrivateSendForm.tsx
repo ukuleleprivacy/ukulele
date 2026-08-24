@@ -62,8 +62,10 @@ export const PrivateSendForm = ({
     <Card
       variant="outlined"
       sx={{
-        mt: 3,
+        mt: 1.5,
         position: 'relative',
+        minHeight: { lg: 650 },
+        background: 'linear-gradient(145deg, rgba(44,46,48,.94), rgba(17,18,18,.97))',
         ...(isLocked && {
           filter: 'grayscale(100%)',
           opacity: 0.6,
@@ -92,18 +94,21 @@ export const PrivateSendForm = ({
       <form onSubmit={onSubmit}>
         <CardContent
           sx={{
-            p: { xs: '22px 32px!important', sm: '32px 42px!important' },
+            p: { xs: '24px!important', sm: '28px 32px!important' },
             transition: 'opacity 0.5s ease-in-out',
             pointerEvents: isLocked ? 'none' : 'auto', // Disable interaction when locked
           }}
         >
-          <Typography variant="h4" fontWeight="600" sx={{ mb: 3 }}>
-            {cardTitle}
-          </Typography>
+          <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
+            <Typography variant="h4" fontWeight="600">{cardTitle}</Typography>
+            <Box sx={{ px: 1.2, py: .55, borderRadius: 1, bgcolor: 'rgba(102,255,138,.1)', color: 'primary.main', fontSize: 11, fontWeight: 700 }}>
+              ● {isInProcess ? 'PROCESSING' : 'READY'}
+            </Box>
+          </Stack>
 
           {/* Amount Input */}
           <Box gap={1} sx={{ mb: 2.5 }}>
-            <InputLabel sx={{ fontSize: 14, color: 'white', mb: 1 }}>Amount</InputLabel>
+            <InputLabel sx={{ fontSize: 11, color: 'text.secondary', mb: .7, textTransform: 'uppercase' }}>Amount</InputLabel>
             <TextField
               InputProps={{
                 readOnly: isReadOnly,
@@ -128,7 +133,7 @@ export const PrivateSendForm = ({
                 required: 'Amount is required',
                 validate: (value) => Number(value) > 0 || 'Amount must be a positive number',
               })}
-              sx={{ borderRadius: 999 }}
+              sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'rgba(0,0,0,.18)' } }}
             />
             {errors.amount && (
               <InputLabel sx={{ fontSize: 12, mt: 1, color: '#e6e6e6' }}>
@@ -139,7 +144,7 @@ export const PrivateSendForm = ({
 
           {/* Address Input */}
           <Box gap={1} sx={{ mb: 2.5 }}>
-            <InputLabel sx={{ fontSize: 14, color: 'white', mb: 1 }}>Address</InputLabel>
+            <InputLabel sx={{ fontSize: 11, color: 'text.secondary', mb: .7, textTransform: 'uppercase' }}>Recipient address</InputLabel>
             <TextField
               InputProps={{
                 readOnly: isReadOnly,
@@ -155,7 +160,7 @@ export const PrivateSendForm = ({
                 validate: (value) =>
                   ethers.utils.isAddress(value) || 'Please input a valid ethereum address',
               })}
-              sx={{ borderRadius: 999 }}
+              sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'rgba(0,0,0,.18)' } }}
             />
             {errors.address && (
               <InputLabel sx={{ fontSize: 12, mt: 1, color: '#e6e6e6' }}>
@@ -166,7 +171,7 @@ export const PrivateSendForm = ({
 
           {/* Salt Input */}
           <Box gap={1} sx={{ mb: 2.5 }}>
-            <InputLabel sx={{ fontSize: 14, color: 'white', mb: 1 }}>Salt - Input Numbers</InputLabel>
+            <InputLabel sx={{ fontSize: 11, color: 'text.secondary', mb: .7, textTransform: 'uppercase' }}>39-digit SALT</InputLabel>
             <TextField
               InputProps={{
                 readOnly: isReadOnly,
@@ -185,11 +190,11 @@ export const PrivateSendForm = ({
                 validate: (value) =>
                   value.length === 39 || 'Salt must be a 39-digit number',
               })}
-              sx={{ borderRadius: 999 }}
+              sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'rgba(0,0,0,.18)' } }}
             />
             {remainingDigits > 0 && (
-              <InputLabel sx={{ fontSize: 12, mt: 1, color: 'white' }}>
-                Keep typing numbers until you have a 39-digit number.
+                <InputLabel sx={{ fontSize: 11, mt: 1, color: 'text.secondary' }}>
+                  A transaction-specific numeric value. {39 - remainingDigits} / 39 digits entered.
               </InputLabel>
             )}
             {errors.salt && (
@@ -201,15 +206,16 @@ export const PrivateSendForm = ({
 
           {/* Submit Button */}
           <Stack
-            direction="row"
-            justifyContent="space-between"
+            direction="column"
+            justifyContent="stretch"
             alignItems="center"
-            sx={{ mt: 4, mb: 4 }}
+            sx={{ mt: 3, mb: 0 }}
           >
             <Button
               type="submit"
               color="primary"
-              sx={{ px: 3 }}
+              fullWidth
+              sx={{ px: 3, minHeight: 54 }}
               variant="contained"
               disabled={isLocked || isInProcess}
             >
@@ -221,12 +227,15 @@ export const PrivateSendForm = ({
                     size={24}
                     sx={{ mr: 2, color: '#fff', minWidth: 24 }}
                   />
-                  {message.buttonTitle}
+                  {message.buttonTitle || 'Processing private send…'}
                 </>
               ) : (
-                'Submit'
+                'Begin private send'
               )}
             </Button>
+            <Typography color="text.secondary" sx={{ mt: 1.2, textAlign: 'center', fontSize: 11 }}>
+              You will confirm PART I and PART II in your wallet.
+            </Typography>
           </Stack>
         </CardContent>
       </form>

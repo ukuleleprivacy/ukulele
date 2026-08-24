@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Close from '@mui/icons-material/Close';
 import Menu from '@mui/icons-material/Menu';
-import Twitter from '@mui/icons-material/Twitter';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -16,9 +15,8 @@ import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import { useRouter } from 'next/router';
 
-import { brand, navItems } from './brand';
+import { navItems } from './brand';
 import { ConnectWallet } from './components/ConnectWallet';
-import { WalletBalance } from './components/WalletBalance';
 import Link from './Link';
 import { Logo } from './Logo';
 
@@ -70,8 +68,11 @@ export const TopAppBar = () => {
         })}
       </List>
       <Stack gap={1}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'text.secondary', px: 1 }}>
+          <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main', boxShadow: '0 0 12px rgba(102,255,138,.7)' }} />
+          Ethereum Mainnet
+        </Box>
         <ConnectWallet fullWidth />
-        <WalletBalance fullWidth />
       </Stack>
     </Box>
   );
@@ -85,11 +86,11 @@ export const TopAppBar = () => {
         sx={{
           top: 0,
           zIndex: (theme) => theme.zIndex.appBar,
-          py: { xs: 1.25, md: 2 },
+          py: { xs: 0.5, md: 0.75 },
           backdropFilter: 'blur(22px)',
           background:
-            'linear-gradient(180deg, rgba(5, 8, 9, 0.94) 0%, rgba(5, 8, 9, 0.72) 100%)',
-          borderBottom: '1px solid rgba(102, 255, 138, 0.12)',
+            'linear-gradient(180deg, rgba(8, 9, 9, 0.97) 0%, rgba(8, 9, 9, 0.9) 100%)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.11)',
         }}
       >
         <Toolbar
@@ -97,7 +98,10 @@ export const TopAppBar = () => {
           sx={{
             justifyContent: 'space-between',
             gap: 2,
-            px: { xs: 2, sm: 3, lg: 5 },
+            width: '100%',
+            maxWidth: 1920,
+            mx: 'auto',
+            px: { xs: 2, sm: 3, lg: 4.5 },
           }}
         >
           <Logo />
@@ -109,32 +113,32 @@ export const TopAppBar = () => {
             gap={0.5}
             sx={{
               display: { xs: 'none', md: 'flex' },
-              p: 0.35,
-              gap: 0.25,
-              border: '1px solid rgba(255, 255, 255, 0.09)',
-              borderRadius: '8px',
-              backgroundColor: 'rgba(255, 255, 255, 0.028)',
+              gap: 0.5,
             }}
             aria-label="Primary navigation"
           >
             {navItems.map((page) => {
-              const isActive = router.pathname === page.url;
+              const isActive =
+                router.pathname === page.url ||
+                (page.url.startsWith('/#') && router.pathname === '/' && router.asPath.includes('#'));
 
               return (
                 <Button
                   component={Link}
                   key={page.url}
                   href={page.url}
-                  variant={isActive ? 'contained' : 'text'}
+                  variant="text"
                   color="primary"
                   sx={{
-                    minHeight: 32,
-                    px: 1.15,
-                    fontSize: 12.5,
-                    color: isActive ? 'primary.contrastText' : 'text.secondary',
+                    minHeight: 56,
+                    px: 1.5,
+                    borderRadius: 0,
+                    borderBottom: isActive ? '2px solid #66FF8A' : '2px solid transparent',
+                    fontSize: 14,
+                    color: isActive ? 'text.primary' : 'text.secondary',
                     '&:hover': {
-                      color: isActive ? undefined : 'primary.main',
-                      backgroundColor: isActive ? undefined : 'rgba(102, 255, 138, 0.08)',
+                      color: 'text.primary',
+                      backgroundColor: 'transparent',
                     },
                   }}
                 >
@@ -145,29 +149,21 @@ export const TopAppBar = () => {
           </Stack>
 
           <Stack direction="row" alignItems="center" gap={1}>
-            <IconButton
-              component={Link}
-              href={brand.twitterUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="FIDUCARO on X / Twitter"
+            <Box
               sx={{
-                width: 38,
-                height: 38,
+                display: { xs: 'none', lg: 'flex' },
+                alignItems: 'center',
+                gap: 1,
+                minHeight: 40,
+                px: 1.5,
+                border: '1px solid rgba(255,255,255,.14)',
+                borderRadius: 1,
                 color: 'text.primary',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                backgroundColor: 'rgba(255, 255, 255, 0.025)',
-                '&:hover': {
-                  color: 'primary.light',
-                  borderColor: 'rgba(102, 255, 138, 0.5)',
-                  backgroundColor: 'rgba(102, 255, 138, 0.1)',
-                },
+                fontSize: 13,
               }}
             >
-              <Twitter sx={{ fontSize: 20 }} />
-            </IconButton>
-            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-              <WalletBalance />
+              <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main', boxShadow: '0 0 12px rgba(102,255,138,.8)' }} />
+              Ethereum Mainnet
             </Box>
             <ConnectWallet sx={{ display: { xs: 'none', sm: 'inline-flex' } }} />
             <IconButton

@@ -28,8 +28,9 @@ export const navItems = [
   { label: 'Home', url: '/' },
   { label: 'Send', url: '/platform' },
   { label: 'Decrypt', url: '/decrypt' },
-  { label: 'Disruptor', url: '/disruptor' },
   { label: 'Bridge', url: '/gasless' },
+  { label: 'Activity', url: '/activity' },
+  { label: 'Protocol', url: '/#protocol' },
 ];
 
 export const pillars = [

@@ -23,7 +23,7 @@ type WalletBalanceProps = {
   fullWidth?: boolean;
 };
 
-export const WalletBalance = ({ fullWidth = false }: WalletBalanceProps) => {
+export const usePublicFiduBalance = () => {
   const { active, account, library } = useWeb3React();
   const [balance, setBalance] = useState<string | null>(null);
   const [hasError, setHasError] = useState(false);
@@ -66,11 +66,21 @@ export const WalletBalance = ({ fullWidth = false }: WalletBalanceProps) => {
     };
   }, [account, active, library]);
 
+  return {
+    account,
+    active,
+    balance,
+    hasError,
+    displayBalance: hasError ? 'Unavailable' : balance === null ? 'Loading…' : `${balance} FIDU`,
+  };
+};
+
+export const WalletBalance = ({ fullWidth = false }: WalletBalanceProps) => {
+  const { active, account, displayBalance } = usePublicFiduBalance();
+
   if (!active || !account) {
     return null;
   }
-
-  const displayBalance = hasError ? 'Unavailable' : balance === null ? 'Loading…' : `${balance} FIDU`;
 
   return (
     <Tooltip title="Public FIDUCARO token balance" arrow>

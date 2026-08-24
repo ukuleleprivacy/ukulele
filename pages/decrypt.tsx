@@ -1,59 +1,48 @@
 import { useState } from 'react';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
+import LockOutlined from '@mui/icons-material/LockOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import CircularProgress from '@mui/material/CircularProgress';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Head from 'next/head';
 
-import { Layout } from '../src/Layout';
+import { ProtocolPanel, SectionLabel, StatusDot } from '../src/components/ProtocolUI';
+import { usePublicFiduBalance } from '../src/components/WalletBalance';
 import { abi as tokenAbi, address as tokenAddress } from '../src/contracts/contract1';
 import { gasLimit } from '../src/constants';
+import { Layout } from '../src/Layout';
 
 const transactionOptions = { gasLimit: ethers.BigNumber.from(gasLimit) };
-
-const defaultStatus = {
-  title: 'Choose how much to decrypt',
-  description:
-    'Full decrypt reveals your complete private balance. Partial decrypt reveals only the amount you enter.',
-};
-
 type DecryptAction = 'full' | 'partial';
 
+const defaultStatus = {
+  title: 'Choose a decrypt option',
+  description: 'Decrypt is live on Ethereum mainnet. Every action requires wallet confirmation.',
+};
+
 const getTransactionError = (error: unknown) => {
-  if (error && typeof error === 'object') {
-    const transactionError = error as { code?: number | string; reason?: string; message?: string };
+  const transactionError = error && typeof error === 'object'
+    ? error as { code?: number | string; reason?: string; message?: string }
+    : null;
 
-    if (transactionError.code === 4001 || transactionError.reason === 'user rejected transaction') {
-      return {
-        title: 'Transaction rejected',
-        description: 'No balance was decrypted. Submit the action again when you are ready.',
-      };
-    }
-
-    if (transactionError.message) {
-      return {
-        title: 'Transaction error',
-        description: transactionError.message,
-      };
-    }
+  if (transactionError?.code === 4001 || transactionError?.reason === 'user rejected transaction') {
+    return { title: 'Transaction rejected', description: 'No balance was decrypted. Try again when you are ready.' };
   }
 
   return {
     title: 'Transaction error',
-    description: 'The decrypt action could not be completed. Check your wallet and try again.',
+    description: transactionError?.message || 'The decrypt action could not be completed. Check your wallet and try again.',
   };
 };
 
 export default function Decrypt() {
   const { library, account, active } = useWeb3React();
+  const { displayBalance } = usePublicFiduBalance();
   const [partialAmount, setPartialAmount] = useState('');
   const [pendingAction, setPendingAction] = useState<DecryptAction | null>(null);
   const [status, setStatus] = useState(defaultStatus);
@@ -62,10 +51,7 @@ export default function Decrypt() {
   const requireSigner = () => {
     if (!active || !account || !library) {
       setHasError(true);
-      setStatus({
-        title: 'Wallet required',
-        description: 'Connect your wallet from the header before decrypting a balance.',
-      });
+      setStatus({ title: 'Wallet required', description: 'Connect your wallet from the header before decrypting.' });
       return null;
     }
 
@@ -75,26 +61,17 @@ export default function Decrypt() {
 
   const handleFullDecrypt = async () => {
     const signer = requireSigner();
-
-    if (!signer) {
-      return;
-    }
+    if (!signer || !account) return;
 
     setPendingAction('full');
-    setStatus({
-      title: 'Full decrypt pending',
-      description: 'Confirm the transaction in MetaMask and wait for its on-chain confirmation.',
-    });
+    setStatus({ title: 'Full decrypt pending', description: 'Confirm the transaction in your wallet and wait for Ethereum.' });
 
     try {
       const tokenContract = new ethers.Contract(tokenAddress, tokenAbi, signer);
       const transaction = await tokenContract.decrypt(transactionOptions);
       await transaction.wait();
       setHasError(false);
-      setStatus({
-        title: 'Full decrypt complete',
-        description: 'Your complete private balance has been returned to your public balance.',
-      });
+      setStatus({ title: 'Full decrypt complete', description: 'Your complete private balance has returned to public state.' });
     } catch (transactionError) {
       setHasError(true);
       setStatus(getTransactionError(transactionError));
@@ -105,49 +82,34 @@ export default function Decrypt() {
 
   const handlePartialDecrypt = async () => {
     const signer = requireSigner();
-
-    if (!signer) {
-      return;
-    }
+    if (!signer || !account) return;
 
     let requestedAmount: ethers.BigNumber;
-
     try {
       requestedAmount = ethers.utils.parseEther(partialAmount);
     } catch {
       setHasError(true);
-      setStatus({
-        title: 'Valid amount required',
-        description: 'Enter a positive numeric amount with no more than 18 decimal places.',
-      });
+      setStatus({ title: 'Valid amount required', description: 'Enter a positive numeric amount with no more than 18 decimals.' });
       return;
     }
 
     if (requestedAmount.lte(0)) {
       setHasError(true);
-      setStatus({
-        title: 'Valid amount required',
-        description: 'Enter a positive numeric amount before submitting a partial decrypt.',
-      });
+      setStatus({ title: 'Valid amount required', description: 'Enter a positive amount before submitting.' });
       return;
     }
 
     setPendingAction('partial');
-    setStatus({
-      title: 'Partial decrypt pending',
-      description: 'Confirm the requested amount in MetaMask and wait for its on-chain confirmation.',
-    });
+    setStatus({ title: 'Partial decrypt pending', description: 'Confirm the selected amount in your wallet.' });
 
     try {
       const tokenContract = new ethers.Contract(tokenAddress, tokenAbi, signer);
       const transaction = await tokenContract.decrypt_partial(requestedAmount, transactionOptions);
       await transaction.wait();
+      const completedAmount = partialAmount;
       setPartialAmount('');
       setHasError(false);
-      setStatus({
-        title: 'Partial decrypt complete',
-        description: 'The requested amount has been returned to your public balance.',
-      });
+      setStatus({ title: 'Partial decrypt complete', description: `${completedAmount} FIDU has returned to public state.` });
     } catch (transactionError) {
       setHasError(true);
       setStatus(getTransactionError(transactionError));
@@ -157,131 +119,101 @@ export default function Decrypt() {
   };
 
   const isPending = pendingAction !== null;
+  const shortAccount = account ? `${account.slice(0, 6)}…${account.slice(-4)}` : 'Not connected';
 
   return (
     <Layout>
-      <Head>
-        <title>Decrypt | Fiducaro</title>
-      </Head>
-
-      <Container disableGutters maxWidth="md" sx={{ pt: { xs: 5, md: 9 }, pb: { xs: 7, md: 11 } }}>
-        <Card variant="outlined" sx={{ mb: 3 }}>
-          <CardContent sx={{ p: { xs: '22px 24px!important', sm: '28px 36px!important' } }}>
-            <Typography variant="h4" fontWeight="700">
-              Decrypt
-            </Typography>
-            <Typography color="text.secondary" sx={{ mt: 1.5 }}>
-              Move all or part of your private FIDUCARO balance back into your public wallet balance.
-              Decryption is an on-chain action and makes the decrypted amount public.
-            </Typography>
-          </CardContent>
-        </Card>
-
-        <Card variant="outlined">
-          <CardContent sx={{ p: { xs: '28px 24px!important', sm: '42px 52px!important' } }}>
-            <Stack gap={3.5}>
-              <Box>
-                <Typography variant="h6" fontWeight="700" sx={{ mb: 1 }}>
-                  Full balance
-                </Typography>
-                <Typography color="text.secondary" sx={{ mb: 2 }}>
-                  Calls <code>decrypt()</code> and returns your complete private balance.
-                </Typography>
-                <Button
-                  size="large"
-                  variant="contained"
-                  fullWidth
-                  disabled={isPending}
-                  onClick={handleFullDecrypt}
-                  sx={{ minHeight: 58, borderRadius: 999 }}
-                >
-                  {pendingAction === 'full' ? (
-                    <>
-                      <CircularProgress size={22} sx={{ mr: 2, color: 'inherit' }} />
-                      Full decrypt pending
-                    </>
-                  ) : (
-                    'Full Decrypt'
-                  )}
-                </Button>
-              </Box>
-
-              <Box sx={{ height: '1px', backgroundColor: 'rgba(255, 255, 255, 0.12)' }} />
-
-              <Box>
-                <Typography variant="h6" fontWeight="700" sx={{ mb: 1 }}>
-                  Part of your balance
-                </Typography>
-                <Typography color="text.secondary" sx={{ mb: 2 }}>
-                  Calls <code>decrypt_partial(requestedAmount)</code> for only the amount entered.
-                </Typography>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} md={8}>
-                    <TextField
-                      label="Amount"
-                      placeholder="0.00"
-                      variant="outlined"
-                      fullWidth
-                      value={partialAmount}
-                      disabled={isPending}
-                      onChange={(event) => {
-                        if (/^\d*(?:\.\d*)?$/.test(event.target.value)) {
-                          setPartialAmount(event.target.value);
-                        }
-                      }}
-                      inputProps={{
-                        inputMode: 'decimal',
-                        pattern: '[0-9]*[.]?[0-9]*',
-                        'aria-label': 'Partial decrypt amount',
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={4}>
-                    <Button
-                      size="large"
-                      variant="contained"
-                      fullWidth
-                      disabled={isPending || !partialAmount}
-                      onClick={handlePartialDecrypt}
-                      sx={{ minHeight: 56, borderRadius: 999 }}
-                    >
-                      {pendingAction === 'partial' ? (
-                        <>
-                          <CircularProgress size={22} sx={{ mr: 1.5, color: 'inherit' }} />
-                          Pending
-                        </>
-                      ) : (
-                        'Partial Decrypt'
-                      )}
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Box>
-
-              <Box
-                role="status"
-                aria-live="polite"
-                sx={{
-                  p: { xs: 2.25, md: 2.5 },
-                  borderRadius: '8px',
-                  border: hasError
-                    ? '1px solid rgba(102, 255, 138, 0.55)'
-                    : '1px solid rgba(255, 255, 255, 0.12)',
-                  backgroundColor: hasError
-                    ? 'rgba(255, 255, 255, 0.08)'
-                    : 'rgba(255, 255, 255, 0.035)',
-                }}
-              >
-                <Typography fontWeight="700">{status.title}</Typography>
-                <Typography color="text.secondary" sx={{ mt: 0.75 }}>
-                  {status.description}
-                </Typography>
-              </Box>
+      <Head><title>Decrypt | Fiducaro</title></Head>
+      <Box
+        component="main"
+        sx={{
+          minHeight: 'calc(100vh - 70px)',
+          backgroundImage: 'linear-gradient(180deg, rgba(2,4,3,.72), rgba(2,4,3,.96)), url(/wallpaper/07.webp)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <Box sx={{ maxWidth: 1840, mx: 'auto', px: { xs: 2, sm: 3.5, lg: 5 }, py: { xs: 6, md: 8 } }}>
+          <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" gap={3}>
+            <Box>
+              <Box sx={{ display: 'inline-flex', px: 1.25, py: .55, border: '1px solid rgba(255,255,255,.14)', borderRadius: 6, bgcolor: 'rgba(255,255,255,.06)', color: 'text.secondary', fontSize: 12 }}>PRIVATE BALANCE</Box>
+              <Typography component="h1" sx={{ mt: 1.8, fontSize: { xs: 42, md: 66 }, lineHeight: 1, letterSpacing: '-.045em' }}>Bring value back into view.</Typography>
+              <Typography color="text.secondary" sx={{ mt: 2, maxWidth: 720, fontSize: { xs: 15, md: 18 } }}>
+                Restore all or part of your Fiducaro private balance to your public wallet. Only the amount you decrypt returns to public state.
+              </Typography>
+            </Box>
+            <Stack alignItems={{ xs: 'flex-start', md: 'flex-end' }} gap={.8}>
+              <Stack direction="row" alignItems="center" gap={1}><StatusDot /><Typography>Ethereum Mainnet</Typography></Stack>
+              <Typography color="primary.main">Decrypt — Operational</Typography>
             </Stack>
-          </CardContent>
-        </Card>
+          </Stack>
 
-      </Container>
+          <ProtocolPanel sx={{ mt: 5, p: { xs: 3, md: 5 }, textAlign: 'center', borderColor: 'rgba(102,255,138,.5)', boxShadow: '0 0 34px rgba(102,255,138,.17), inset 0 0 90px rgba(0,0,0,.35)' }}>
+            <LockOutlined sx={{ color: 'primary.main', fontSize: 42 }} />
+            <Typography sx={{ mt: 1, color: 'primary.main', fontSize: { xs: 30, md: 48 }, fontWeight: 700 }}>PRIVATE BALANCE ENCRYPTED</Typography>
+            <Typography color="text.secondary" sx={{ mt: 1 }}>Fiducaro does not expose a readable private-balance value.</Typography>
+            <Stack direction="row" justifyContent="center" gap={3} sx={{ mt: 3 }}>
+              <Box><SectionLabel>Public balance</SectionLabel><Typography sx={{ mt: .5, fontWeight: 700 }}>{active ? displayBalance : '—'}</Typography></Box>
+              <Box sx={{ width: '1px', bgcolor: 'divider' }} />
+              <Box><SectionLabel>Wallet</SectionLabel><Typography sx={{ mt: .5, fontWeight: 700 }}>{shortAccount}</Typography></Box>
+            </Stack>
+          </ProtocolPanel>
+
+          <Typography align="center" color="text.secondary" sx={{ mt: 2, fontSize: 12 }}>Private state remains outside the normal public-wallet display until decrypted.</Typography>
+
+          <Grid container spacing={2.5} sx={{ mt: 3.5 }}>
+            <Grid item xs={12} md={6}>
+              <ProtocolPanel sx={{ p: { xs: 3, md: 4 }, height: '100%' }}>
+                <SectionLabel>Option 01</SectionLabel>
+                <Typography variant="h3" sx={{ mt: .7 }}>Full Decrypt</Typography>
+                <Typography color="text.secondary" sx={{ mt: 1.2, maxWidth: 520 }}>Return your complete private FIDU balance to the connected public wallet.</Typography>
+                <Typography component="code" color="text.secondary" sx={{ display: 'block', mt: 2 }}>decrypt()</Typography>
+                <ProtocolPanel sx={{ mt: 3.5, p: 2.5 }}>
+                  <Stack gap={1.5}>
+                    <Stack direction="row" justifyContent="space-between"><Typography color="text.secondary">Private balance before</Typography><Typography>Encrypted</Typography></Stack>
+                    <Stack direction="row" justifyContent="space-between"><Typography color="text.secondary">Amount returning public</Typography><Typography>Full balance</Typography></Stack>
+                    <Box sx={{ height: '1px', bgcolor: 'divider' }} />
+                    <Stack direction="row" justifyContent="space-between"><Typography color="text.secondary">Private balance after</Typography><Typography>0 FIDU</Typography></Stack>
+                    <Button variant="contained" disabled={isPending} onClick={handleFullDecrypt} sx={{ mt: 1, minHeight: 52 }}>
+                      {pendingAction === 'full' ? <><CircularProgress size={20} sx={{ mr: 1.2, color: 'inherit' }} />Decrypting…</> : 'Decrypt full balance'}
+                    </Button>
+                  </Stack>
+                </ProtocolPanel>
+              </ProtocolPanel>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <ProtocolPanel sx={{ p: { xs: 3, md: 4 }, height: '100%' }}>
+                <SectionLabel>Option 02</SectionLabel>
+                <Typography variant="h3" sx={{ mt: .7 }}>Partial Decrypt</Typography>
+                <Typography color="text.secondary" sx={{ mt: 1.2, maxWidth: 560 }}>Choose the exact amount that returns to your public wallet while the remainder stays private.</Typography>
+                <Typography component="code" color="text.secondary" sx={{ display: 'block', mt: 2 }}>decrypt_partial(requestedAmount)</Typography>
+                <ProtocolPanel sx={{ mt: 3.5, p: 2.5 }}>
+                  <SectionLabel>Amount to decrypt</SectionLabel>
+                  <TextField
+                    fullWidth
+                    placeholder="0.00"
+                    value={partialAmount}
+                    disabled={isPending}
+                    onChange={(event) => { if (/^\d*(?:\.\d*)?$/.test(event.target.value)) setPartialAmount(event.target.value); }}
+                    InputProps={{ endAdornment: <Typography color="text.secondary">FIDU</Typography> }}
+                    inputProps={{ inputMode: 'decimal', 'aria-label': 'Partial decrypt amount' }}
+                    sx={{ mt: 1.2 }}
+                  />
+                  <Typography color="text.secondary" sx={{ mt: 1.2, fontSize: 11 }}>Percentage and MAX controls are unavailable because private balance is not readable.</Typography>
+                  <Button variant="contained" fullWidth disabled={isPending || !partialAmount} onClick={handlePartialDecrypt} sx={{ mt: 2.2, minHeight: 52 }}>
+                    {pendingAction === 'partial' ? <><CircularProgress size={20} sx={{ mr: 1.2, color: 'inherit' }} />Decrypting…</> : `Decrypt ${partialAmount || 'selected'} FIDU`}
+                  </Button>
+                </ProtocolPanel>
+              </ProtocolPanel>
+            </Grid>
+          </Grid>
+
+          <ProtocolPanel role={hasError ? 'alert' : 'status'} aria-live="polite" sx={{ mt: 2.5, p: 2.2, borderColor: hasError ? 'rgba(255,255,255,.45)' : 'rgba(102,255,138,.22)' }}>
+            <Typography fontWeight={700}>{status.title}</Typography>
+            <Typography color="text.secondary" sx={{ mt: .5, fontSize: 13 }}>{status.description}</Typography>
+          </ProtocolPanel>
+        </Box>
+      </Box>
     </Layout>
   );
 }

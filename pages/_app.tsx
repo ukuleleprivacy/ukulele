@@ -8,7 +8,6 @@ import type { AppProps } from 'next/app';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { Web3ReactProvider } from '@web3-react/core';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import { ethers } from 'ethers';
@@ -17,7 +16,6 @@ import createEmotionCache from '../src/createEmotionCache';
 import { Footer } from '../src/Footer';
 import { TopAppBar } from '../src/AppBar';
 import { brand } from '../src/brand';
-import { TestCaseBanner } from '../src/components/TestCaseBanner';
 import { WalletSession } from '../src/components/WalletSession';
 import theme from '../src/theme';
 
@@ -62,11 +60,10 @@ export default function MyApp(props: MyAppProps) {
         >
           <Web3ReactProvider getLibrary={getLibrary}>
             <WalletSession>
-              <Container maxWidth="lg" sx={{ width: '100%', px: { xs: 2, sm: 3 } }}>
+              <Box sx={{ width: '100%' }}>
                 {!isPrivateArchive && <TopAppBar />}
-                {!isPrivateArchive && <TestCaseBanner />}
                 <Component {...pageProps} />
-              </Container>
+              </Box>
               {!isPrivateArchive && <Footer />}
             </WalletSession>
           </Web3ReactProvider>

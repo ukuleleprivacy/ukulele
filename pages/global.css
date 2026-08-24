@@ -17,6 +17,16 @@ html {
 body {
   min-width: 320px;
   background: var(--fiducaro-black);
+  margin: 0;
+}
+
+a { color: inherit; }
+
+.fiducaro-grid {
+  background-image:
+    linear-gradient(rgba(102, 255, 138, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(102, 255, 138, 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
 * {

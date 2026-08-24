@@ -57,15 +57,17 @@ export const ConnectWallet = (props: ButtonProps) => {
   const sharedSx = {
     minHeight: { xs: 48, md: 40 },
     px: { xs: 2.4, md: 2 },
-    borderRadius: 999,
-    background: 'linear-gradient(135deg, #66FF8A 0%, #27DE62 100%)',
-    color: '#04110F',
+    borderRadius: 8,
+    border: '1px solid rgba(255,255,255,.16)',
+    background: 'linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.07))',
+    color: '#EDF1F2',
     fontSize: { xs: 15, md: 14 },
     fontWeight: 700,
-    boxShadow: '0 0 0 1px rgba(102, 255, 138, 0.35)',
+    boxShadow: 'none',
     '&:hover': {
-      background: 'linear-gradient(135deg, #7CFF9B 0%, #3DEA71 100%)',
-      boxShadow: '0 0 26px rgba(102, 255, 138, 0.5)',
+      background: 'rgba(102,255,138,.12)',
+      borderColor: 'rgba(102,255,138,.65)',
+      boxShadow: '0 0 22px rgba(102, 255, 138, 0.16)',
     },
   };
 

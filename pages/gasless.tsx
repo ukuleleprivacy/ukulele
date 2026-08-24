@@ -1,515 +1,113 @@
-import { useState } from 'react';
-import { ethers } from 'ethers';
-import { useWeb3React } from '@web3-react/core';
-import LockRounded from '@mui/icons-material/LockRounded';
+import ArrowForward from '@mui/icons-material/ArrowForward';
+import LockOutlined from '@mui/icons-material/LockOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CircularProgress from '@mui/material/CircularProgress';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Head from 'next/head';
 
+import { ProtocolPanel, SectionLabel, StatusDot } from '../src/components/ProtocolUI';
 import { Layout } from '../src/Layout';
-import { TechnicalArtwork } from '../src/components/TechnicalArtwork';
-import { abi as tokenAbi, address as tokenAddress } from '../src/contracts/contract1';
-import { abi as gsnAbi, address as gsnAddress } from '../src/contracts/contract4';
-import { gasLimit } from '../src/constants';
-import {
-  GASLESS_ACTION,
-  isGaslessRelayConfigured,
-  relayGaslessAction,
-  signGaslessAction,
-} from '../src/lib/gaslessRelay';
+import Link from '../src/Link';
 
-const gaslessMessage = {
-  title: 'FIDUCARO Bridge Actions',
-  description:
-    'Bridge is the FIDUCARO interface for lower-friction wallet actions on Ethereum. The UI is designed for a fully on-chain system while keeping copy, controls, and feedback calm and minimal.',
-};
+const Coin = ({ symbol, color }: { symbol: string; color: string }) => (
+  <Box sx={{ width: 44, height: 44, display: 'grid', placeItems: 'center', borderRadius: '50%', bgcolor: `${color}20`, color, border: `1px solid ${color}70`, fontWeight: 800 }}>{symbol}</Box>
+);
 
-const defaultStatus = {
-  title: 'Wallet actions ready',
-  description: 'Connect your wallet from the header, then choose the action you want to run.',
-};
-
-const gaslessUpgradeSteps = [
-  {
-    title: 'ERC-4337 integration',
-    timeline: 'About 2 weeks',
-    description: 'Connect account-abstraction user operations to the upgraded FIDUCARO actions.',
-  },
-  {
-    title: 'Paymaster policy',
-    timeline: 'About 1–2 weeks',
-    description: 'Define sponsor limits, eligibility, rate controls, and protection against relay abuse.',
-  },
-  {
-    title: 'Testnet relay',
-    timeline: 'About 1–2 weeks',
-    description: 'Exercise bundler, relayer, signature, nonce, failure, and retry behavior end to end.',
-  },
-  {
-    title: 'Review and release',
-    timeline: 'About 2–4 weeks',
-    description: 'Complete security review, load testing, deployment checks, and mainnet rollout.',
-  },
-];
-
-const transactionOptions = { gasLimit: ethers.BigNumber.from(gasLimit) };
-
-type ActionKey = 'sell' | 'fullDisplay' | 'partialDisplay';
-
-const getTransactionError = (error: unknown) => {
-  if (
-    error &&
-    typeof error === 'object' &&
-    'reason' in error &&
-    typeof error.reason === 'string' &&
-    error.reason === 'user rejected transaction'
-  ) {
-    return {
-      title: 'User rejected the transaction',
-      description: 'No transaction was completed. Submit the action again when you are ready.',
-    };
-  }
-
-  if (error && typeof error === 'object' && 'message' in error && typeof error.message === 'string') {
-    return {
-      title: 'Transaction error',
-      description: error.message,
-    };
-  }
-
-  return {
-    title: 'Transaction error',
-    description: 'The action could not be completed. Please check your wallet and try again.',
-  };
-};
-
-export default function Gasless() {
-  const { library, account, active } = useWeb3React();
-  const [partialAmount, setPartialAmount] = useState('');
-  const [status, setStatus] = useState(defaultStatus);
-  const [error, setError] = useState('');
-  const [pendingAction, setPendingAction] = useState<ActionKey | null>(null);
-
-  const requireWallet = () => {
-    if (!active || !account || !library) {
-      setError('Please connect your wallet from the header before using these actions.');
-      setStatus({
-        title: 'Wallet required',
-        description: 'Connect your wallet from the header, then submit the action again.',
-      });
-      return null;
-    }
-
-    setError('');
-    return library.getSigner();
-  };
-
-  const handleSell = async () => {
-    const signer = requireWallet();
-
-    if (!signer) {
-      return;
-    }
-
-    setPendingAction('sell');
-    setStatus({
-      title: 'SELL pending',
-      description: isGaslessRelayConfigured()
-        ? 'Sign the Bridge request in your wallet and wait for the relay to finish.'
-        : 'Confirm the transaction in your wallet and wait for it to finish.',
-    });
-
-    try {
-      if (!gsnAddress) {
-        throw new Error('No GSN contract is configured for the current protocol release.');
-      }
-
-      const gsnContract = new ethers.Contract(gsnAddress, gsnAbi, signer);
-
-      if (isGaslessRelayConfigured()) {
-        const nonce = await gsnContract.nonces(account);
-        const { chainId } = await library.getNetwork();
-        const deadline = Math.floor(Date.now() / 1000) + 20 * 60;
-        const signature = await signGaslessAction({
-          signer,
-          user: account as string,
-          chainId,
-          verifyingContract: gsnAddress,
-          action: GASLESS_ACTION.swapBV3ForETH,
-          nonce,
-          deadline,
-        });
-
-        await relayGaslessAction({
-          target: gsnAddress,
-          functionName: 'executeSwapBV3ForETH',
-          request: {
-            user: account as string,
-            deadline,
-            signature,
-          },
-        });
-      } else {
-        const tx = await gsnContract.Swap_BV3_for_ETH(transactionOptions);
-        await tx.wait();
-      }
-
-      setStatus({
-        title: 'SELL complete',
-        description: 'The SELL action completed successfully.',
-      });
-    } catch (transactionError) {
-      const nextError = getTransactionError(transactionError);
-      setError(nextError.description);
-      setStatus(nextError);
-    } finally {
-      setPendingAction(null);
-    }
-  };
-
-  const handleFullDisplay = async () => {
-    const signer = requireWallet();
-
-    if (!signer) {
-      return;
-    }
-
-    setPendingAction('fullDisplay');
-    setStatus({
-      title: 'Full UI display pending',
-      description: 'Confirm the transaction in your wallet and wait for it to finish.',
-    });
-
-    try {
-      const tokenContract = new ethers.Contract(tokenAddress, tokenAbi, signer);
-      const tx = await tokenContract.decrypt(transactionOptions);
-      await tx.wait();
-      setStatus({
-        title: 'Full UI display complete',
-        description: 'The full display action completed successfully.',
-      });
-    } catch (transactionError) {
-      const nextError = getTransactionError(transactionError);
-      setError(nextError.description);
-      setStatus(nextError);
-    } finally {
-      setPendingAction(null);
-    }
-  };
-
-  const handlePartialDisplay = async () => {
-    const signer = requireWallet();
-
-    if (!signer) {
-      return;
-    }
-
-    if (!partialAmount || Number(partialAmount) <= 0) {
-      setError('Enter a positive amount for partial display.');
-      setStatus({
-        title: 'Amount required',
-        description: 'Enter a positive amount, then submit the partial display action again.',
-      });
-      return;
-    }
-
-    setPendingAction('partialDisplay');
-    setStatus({
-      title: 'Partial UI display pending',
-      description: 'Confirm the transaction in your wallet and wait for it to finish.',
-    });
-
-    try {
-      const tokenContract = new ethers.Contract(tokenAddress, tokenAbi, signer);
-      const amount = ethers.utils.parseEther(partialAmount);
-      const tx = await tokenContract.decrypt_partial(amount, transactionOptions);
-      await tx.wait();
-      setPartialAmount('');
-      setStatus({
-        title: 'Partial UI display complete',
-        description: 'The partial display action completed successfully.',
-      });
-    } catch (transactionError) {
-      const nextError = getTransactionError(transactionError);
-      setError(nextError.description);
-      setStatus(nextError);
-    } finally {
-      setPendingAction(null);
-    }
-  };
-
+export default function Bridge() {
   return (
     <Layout>
-      <Head>
-        <title>Bridge | Fiducaro</title>
-      </Head>
+      <Head><title>Bridge Concept | Fiducaro</title></Head>
+      <Box component="main" sx={{ minHeight: 'calc(100vh - 70px)', background: 'radial-gradient(circle at 60% 34%, rgba(102,255,138,.09), transparent 28%), #090b0b' }}>
+        <Box sx={{ maxWidth: 1840, mx: 'auto', px: { xs: 2, sm: 3.5, lg: 5 }, py: { xs: 6, md: 8 } }}>
+          <Stack direction="row" alignItems="center" gap={1.2}>
+            <StatusDot tone="muted" />
+            <Typography sx={{ color: 'text.secondary', textTransform: 'uppercase', letterSpacing: '.04em' }}>Fiducaro Bridge</Typography>
+            <Box sx={{ px: 1.2, py: .45, borderRadius: 4, bgcolor: 'rgba(255,255,255,.09)', color: 'text.secondary', fontSize: 10, textTransform: 'uppercase' }}>Not live · In development</Box>
+          </Stack>
 
-      <Container
-        disableGutters
-        maxWidth="md"
-        sx={{ position: 'relative', pt: { xs: 5, md: 9 }, pb: { xs: 7, md: 11 } }}
-      >
-        <Box
-          aria-hidden="true"
-          sx={{
-            opacity: 0.18,
-            filter: 'grayscale(1)',
-            pointerEvents: 'none',
-            userSelect: 'none',
-          }}
-        >
-          <Card variant="outlined" sx={{ mb: 3 }}>
-            <CardContent sx={{ p: { xs: '22px 24px!important', sm: '28px 36px!important' } }}>
-              <Typography variant="h5" fontWeight="700">
-                {gaslessMessage.title}
-              </Typography>
-              <Typography color="text.secondary" sx={{ mt: 1.5 }}>
-                {gaslessMessage.description}
-              </Typography>
-            </CardContent>
-          </Card>
-
-          <Card variant="outlined">
-            <CardContent sx={{ p: { xs: '28px 24px!important', sm: '42px 52px!important' } }}>
-              <Stack gap={3.5}>
-                <Button
-                  size="large"
-                  variant="contained"
-                  fullWidth
-                  disabled
-                  onClick={handleSell}
-                  sx={{
-                    minHeight: 62,
-                    borderRadius: 999,
-                    fontSize: { xs: 16, sm: 20 },
-                  }}
-                >
-                  {pendingAction === 'sell' ? (
-                    <>
-                      <CircularProgress size={24} sx={{ mr: 2, color: '#fff', minWidth: 24 }} />
-                      SELL pending
-                    </>
-                  ) : (
-                    'SELL'
-                  )}
-                </Button>
-
-                <Button
-                  size="large"
-                  variant="contained"
-                  fullWidth
-                  disabled
-                  onClick={handleFullDisplay}
-                  sx={{
-                    minHeight: 62,
-                    borderRadius: 999,
-                    fontSize: { xs: 16, sm: 20 },
-                  }}
-                >
-                  {pendingAction === 'fullDisplay' ? (
-                    <>
-                      <CircularProgress size={24} sx={{ mr: 2, color: '#fff', minWidth: 24 }} />
-                      Full UI display pending
-                    </>
-                  ) : (
-                    'Full UI Display'
-                  )}
-                </Button>
-
-                <Grid container spacing={2}>
-                  <Grid item xs={12} md={8}>
-                    <TextField
-                      type="number"
-                      placeholder="0.00"
-                      variant="outlined"
-                      fullWidth
-                      value={partialAmount}
-                      disabled
-                      onChange={(event) => setPartialAmount(event.target.value)}
-                      onKeyDown={(event) => {
-                        if (
-                          ['e', 'E', '+', '-'].includes(event.key) &&
-                          !event.metaKey &&
-                          !event.ctrlKey &&
-                          !event.altKey &&
-                          !event.shiftKey
-                        ) {
-                          event.preventDefault();
-                        }
-                      }}
-                    />
+          <Grid container spacing={{ xs: 5, lg: 3 }} sx={{ mt: 2 }}>
+            <Grid item xs={12} lg={4}>
+              <Stack sx={{ height: '100%' }}>
+                <Typography component="h1" sx={{ mt: { md: 7 }, fontSize: { xs: 44, md: 68 }, lineHeight: 1.03, letterSpacing: '-.05em', fontWeight: 500 }}>
+                  Move between assets without leaving the private layer.
+                </Typography>
+                <Typography color="text.secondary" sx={{ mt: 3, maxWidth: 610, fontSize: { xs: 15, md: 17 } }}>
+                  The Fiducaro Bridge is being designed to extend private settlement across native BTC, ETH, and SOL through distributed liquidity.
+                </Typography>
+                <Typography color="text.secondary" sx={{ mt: 2 }}>BTC&nbsp; • &nbsp;ETH&nbsp; • &nbsp;SOL</Typography>
+                <Stack direction={{ xs: 'column', sm: 'row' }} gap={1.3} sx={{ mt: 3.5 }}>
+                  <Button component={Link} href="/roadmap" variant="contained">View roadmap</Button>
+                  <Button href="#how-bridge-works" variant="outlined">How the bridge works</Button>
+                </Stack>
+                <Box id="how-bridge-works" sx={{ mt: { xs: 7, lg: 'auto' }, pt: 5 }}>
+                  <SectionLabel>Why Fiducaro Bridge</SectionLabel>
+                  <Grid container spacing={2} sx={{ mt: 1 }}>
+                    <Grid item xs={12} sm={4}><Typography sx={{ fontSize: 12, fontWeight: 700 }}>NATIVE ASSETS</Typography><Typography color="text.secondary" sx={{ mt: .5, fontSize: 12 }}>Designed around BTC, ETH, and SOL.</Typography></Grid>
+                    <Grid item xs={12} sm={4}><Typography sx={{ fontSize: 12, fontWeight: 700 }}>DISTRIBUTED LIQUIDITY</Typography><Typography color="text.secondary" sx={{ mt: .5, fontSize: 12 }}>Settlement can route across available liquidity.</Typography></Grid>
+                    <Grid item xs={12} sm={4}><Typography sx={{ fontSize: 12, fontWeight: 700 }}>PRIVATE MIDDLE LAYER</Typography><Typography color="text.secondary" sx={{ mt: .5, fontSize: 12 }}>Fiducaro’s architecture is the foundation.</Typography></Grid>
                   </Grid>
-                  <Grid item xs={12} md={4}>
-                    <Button
-                      size="large"
-                      variant="contained"
-                      fullWidth
-                      disabled
-                      onClick={handlePartialDisplay}
-                      sx={{
-                        minHeight: 62,
-                        borderRadius: 999,
-                      }}
-                    >
-                      {pendingAction === 'partialDisplay' ? (
-                        <>
-                          <CircularProgress size={24} sx={{ mr: 2, color: '#fff', minWidth: 24 }} />
-                          Pending
-                        </>
-                      ) : (
-                        'Partial UI Display'
-                      )}
-                    </Button>
-                  </Grid>
-                </Grid>
-
-                <Box
-                  sx={{
-                    p: { xs: 2.25, md: 2.5 },
-                    borderRadius: '8px',
-                    border: error
-                      ? '1px solid rgba(102, 255, 138, 0.55)'
-                      : '1px solid rgba(255, 255, 255, 0.12)',
-                    backgroundColor: error
-                      ? 'rgba(255, 255, 255, 0.08)'
-                      : 'rgba(255, 255, 255, 0.035)',
-                  }}
-                >
-                  <Typography fontWeight="700">{status.title}</Typography>
-                  <Typography color="text.secondary" sx={{ mt: 0.75 }}>
-                    {status.description}
-                  </Typography>
                 </Box>
               </Stack>
-            </CardContent>
-          </Card>
-
-          <Box
-            sx={{
-              mt: 3,
-              p: { xs: 2.5, md: 3 },
-              borderRadius: '8px',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
-              backgroundColor: 'rgba(255, 255, 255, 0.035)',
-            }}
-          >
-            <Typography color="text.secondary">
-              FIDUCARO is on Ethereum mainnet and is designed to be fully on chain. Connect your wallet
-              from the header to use wallet-aware UI states.
-            </Typography>
-          </Box>
-        </Box>
-
-        <Box
-          aria-hidden="true"
-          sx={{
-            position: 'absolute',
-            zIndex: 1,
-            inset: 0,
-            backgroundColor: 'rgba(10, 10, 10, 0.58)',
-            pointerEvents: 'none',
-          }}
-        />
-
-        <Stack
-          role="status"
-          alignItems="center"
-          spacing={2.5}
-          sx={{
-            position: 'absolute',
-            zIndex: 2,
-            top: { xs: 132, sm: 154, md: 190 },
-            left: '50%',
-            width: 'calc(100% - 40px)',
-            maxWidth: 720,
-            transform: 'translateX(-50%)',
-            textAlign: 'center',
-          }}
-        >
-          <LockRounded sx={{ fontSize: { xs: 54, sm: 68 }, color: 'text.primary' }} />
-          <Typography
-            variant="h5"
-            sx={{
-              fontSize: { xs: 18, sm: 22, md: 24 },
-              lineHeight: 1.5,
-              textWrap: 'balance',
-            }}
-          >
-            Bridge actions remain locked while FIDUCARO moves to ERC-4337 account abstraction and
-            paymaster-sponsored transactions.
-          </Typography>
-        </Stack>
-
-        <Card
-          variant="outlined"
-          sx={{
-            position: 'relative',
-            zIndex: 2,
-            mt: 4,
-            backgroundColor: 'rgba(10, 10, 10, 0.96)',
-          }}
-        >
-          <CardContent sx={{ p: { xs: '26px 24px!important', sm: '34px 38px!important' } }}>
-            <Typography variant="overline" color="primary.light" fontWeight="700">
-              Proposed delivery plan
-            </Typography>
-            <Typography variant="h4" sx={{ mt: 0.5 }}>
-              What the Bridge update needs
-            </Typography>
-            <Typography color="text.secondary" sx={{ mt: 1.25, maxWidth: 760 }}>
-              Rough total: 6–10 weeks after upgrade work begins. This is a planning estimate, not a
-              release commitment; contract or security findings can extend it.
-            </Typography>
-
-            <Grid container spacing={1.5} sx={{ mt: 2 }}>
-              {gaslessUpgradeSteps.map((upgradeStep, index) => (
-                <Grid item xs={12} sm={6} key={upgradeStep.title}>
-                  <Box
-                    sx={{
-                      height: '100%',
-                      p: 2.5,
-                      borderRadius: '8px',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
-                      backgroundColor: 'rgba(255, 255, 255, 0.035)',
-                    }}
-                  >
-                    <Typography variant="overline" color="primary.light" fontWeight="700">
-                      {String(index + 1).padStart(2, '0')} · {upgradeStep.timeline}
-                    </Typography>
-                    <Typography variant="h6" sx={{ mt: 0.5 }}>
-                      {upgradeStep.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mt: 0.75 }}>
-                      {upgradeStep.description}
-                    </Typography>
-                  </Box>
-                </Grid>
-              ))}
             </Grid>
 
-            <Typography color="text.secondary" sx={{ mt: 2.5 }}>
-              Bridge Decrypt, SEND, and selling controls should stay disabled until the upgraded
-              contracts, paymaster, relay endpoint, and frontend configuration are all production-ready.
-            </Typography>
+            <Grid item xs={12} lg={5}>
+              <ProtocolPanel sx={{ p: { xs: 2.5, md: 3 }, background: 'linear-gradient(145deg, rgba(76,78,82,.96), rgba(29,30,32,.98))' }}>
+                <Stack direction="row" justifyContent="space-between" alignItems="center">
+                  <Typography sx={{ fontWeight: 700 }}>PRIMARY BRIDGE INTERFACE</Typography>
+                  <Box sx={{ px: 1, py: .45, borderRadius: 4, bgcolor: 'rgba(255,255,255,.12)', fontSize: 10 }}>CONCEPT PREVIEW</Box>
+                </Stack>
+                <Box sx={{ height: '1px', bgcolor: 'divider', my: 2 }} />
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <SectionLabel>You send</SectionLabel>
+                    <ProtocolPanel sx={{ mt: 1, p: 1.5 }}><Stack direction="row" alignItems="center" gap={1}><Coin symbol="₿" color="#f5a623" /><Typography>BTC — Bitcoin</Typography></Stack></ProtocolPanel>
+                    <TextField disabled fullWidth value="12.000000 BTC" sx={{ mt: 1.2 }} />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <SectionLabel>You receive</SectionLabel>
+                    <ProtocolPanel sx={{ mt: 1, p: 1.5 }}><Stack direction="row" alignItems="center" gap={1}><Coin symbol="◆" color="#edf1f2" /><Typography>ETH — Ethereum</Typography></Stack></ProtocolPanel>
+                    <TextField disabled fullWidth value="≈ 532.41 ETH" sx={{ mt: 1.2 }} />
+                  </Grid>
+                </Grid>
+                <Stack direction="row" alignItems="center" gap={1.2} sx={{ mt: 2.5 }}><LockOutlined color="primary" /><Box><SectionLabel>Privacy status</SectionLabel><Typography color="primary.main">Designed for private routing</Typography></Box></Stack>
+                <ProtocolPanel sx={{ mt: 2.5, p: 2.5, textAlign: 'center' }}>
+                  <SectionLabel>Estimated private settlement window</SectionLabel>
+                  <Typography sx={{ mt: .7, fontSize: { xs: 34, md: 46 }, lineHeight: 1 }}>72–96 Hours</Typography>
+                  <Typography color="text.secondary" sx={{ mt: 1, fontSize: 11 }}>Concept estimate only. No bridge service is currently available.</Typography>
+                </ProtocolPanel>
+                <Box sx={{ mt: 2.2, minHeight: 275, p: 3, borderRadius: 1, backgroundImage: 'linear-gradient(rgba(3,5,4,.25), rgba(3,5,4,.72)), url(/wallpaper/03.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                  <Stack direction="row" justifyContent="center" alignItems="center" gap={{ xs: .5, sm: 2 }} sx={{ height: '100%' }}>
+                    <Coin symbol="₿" color="#f5a623" /><ArrowForward sx={{ color: 'primary.main', fontSize: { xs: 28, sm: 50 } }} /><Stack gap={1}><Box sx={{ px: 1.5, py: .7, bgcolor: 'rgba(0,0,0,.65)', border: '1px solid rgba(102,255,138,.4)', borderRadius: 1 }}>BTC</Box><Box sx={{ px: 1.5, py: .7, bgcolor: 'rgba(0,0,0,.65)', border: '1px solid rgba(102,255,138,.4)', borderRadius: 1 }}>ETH</Box><Box sx={{ px: 1.5, py: .7, bgcolor: 'rgba(0,0,0,.65)', border: '1px solid rgba(102,255,138,.4)', borderRadius: 1 }}>SOL</Box></Stack><ArrowForward sx={{ color: 'primary.main', fontSize: { xs: 28, sm: 50 } }} /><Coin symbol="◆" color="#edf1f2" />
+                  </Stack>
+                </Box>
+                <Typography align="center" sx={{ mt: 1.5, fontSize: 12 }}>One position. Distributed liquidity. One destination.</Typography>
+                <Box sx={{ mt: 2.4, pt: 2.2, borderTop: '1px solid rgba(255,255,255,.12)' }}>
+                  <Typography variant="h5">Destination Addresses</Typography>
+                  <Grid container spacing={1.2} sx={{ mt: .5 }}>{['50%', '30%', '20%'].map((amount, index) => <Grid item xs={12} sm={4} key={amount}><ProtocolPanel sx={{ p: 1.4 }}><SectionLabel>Address 0{index + 1}</SectionLabel><Typography sx={{ mt: .4 }}>0x…</Typography><Typography color="text.secondary" sx={{ fontSize: 11 }}>Allocation: {amount}</Typography></ProtocolPanel></Grid>)}</Grid>
+                </Box>
+              </ProtocolPanel>
+            </Grid>
 
-            <Box sx={{ mt: 3 }}>
-              <TechnicalArtwork
-                src="/technical/10.webp"
-                alt="Bridge upgrade path covering ERC-4337, paymaster policy, testnet bundler and relayer testing, and mainnet security review"
-                caption="The proposed Bridge implementation sequence and rough planning ranges."
-              />
-            </Box>
-          </CardContent>
-        </Card>
-      </Container>
+            <Grid item xs={12} lg={3}>
+              <Box sx={{ minHeight: 390, borderRadius: 1.2, backgroundImage: 'url(/wallpaper/07.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
+              <ProtocolPanel sx={{ mt: 2.2, p: 3 }}>
+                <Typography variant="h4" align="center">Provide Liquidity</Typography>
+                <Typography color="text.secondary" align="center" sx={{ mt: 1, fontSize: 12 }}>Future liquidity participants may help facilitate cross-asset settlement.</Typography>
+                <Grid container spacing={1} sx={{ mt: 1.5 }}>{[['₿', 'BTC'], ['◆', 'ETH'], ['S', 'SOL']].map(([icon, coin]) => <Grid item xs={4} key={coin}><ProtocolPanel sx={{ p: 1.3, textAlign: 'center' }}><Typography color="primary.main">{icon}</Typography><Typography sx={{ mt: .4, fontSize: 12 }}>{coin}</Typography><Typography color="text.secondary" sx={{ fontSize: 10 }}>— APY</Typography></ProtocolPanel></Grid>)}</Grid>
+                <Button disabled variant="outlined" fullWidth sx={{ mt: 2 }}>Not available</Button>
+              </ProtocolPanel>
+              <Box sx={{ mt: 5, pt: 4, borderTop: '1px solid rgba(255,255,255,.14)' }}>
+                <Typography variant="h4">Private Send exists today. The Bridge is what comes next.</Typography>
+                <Stack direction={{ xs: 'column', sm: 'row', lg: 'column' }} gap={1.2} sx={{ mt: 2.5 }}><Button component={Link} href="/platform" variant="contained">Try Private Send</Button><Button component={Link} href="/roadmap" variant="outlined">View roadmap</Button></Stack>
+                <Typography color="text.secondary" sx={{ mt: 1.5, fontSize: 11 }}>PRIVATE SEND — LIVE &nbsp;•&nbsp; BRIDGE — NOT LIVE</Typography>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
     </Layout>
   );
 }
