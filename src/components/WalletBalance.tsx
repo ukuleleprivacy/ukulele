@@ -71,16 +71,12 @@ export const usePublicFiduBalance = () => {
     active,
     balance,
     hasError,
-    displayBalance: hasError ? 'Unavailable' : balance === null ? 'Loading…' : `${balance} FIDU`,
+    displayBalance: !active || !account ? 'Connect wallet' : hasError ? 'Unavailable' : balance === null ? 'Loading…' : `${balance} FIDU`,
   };
 };
 
 export const WalletBalance = ({ fullWidth = false }: WalletBalanceProps) => {
   const { active, account, displayBalance } = usePublicFiduBalance();
-
-  if (!active || !account) {
-    return null;
-  }
 
   return (
     <Tooltip title="Public FIDUCARO token balance" arrow>

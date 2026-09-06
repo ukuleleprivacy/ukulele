@@ -481,7 +481,7 @@ export default function Platform() {
           backgroundPosition: 'center',
         }}
       >
-        <Box sx={{ maxWidth: 1840, mx: 'auto', px: { xs: 2, sm: 3.5, lg: 5 }, pt: { xs: 6, md: 7 }, pb: { xs: 8, md: 10 } }}>
+        <Box sx={{ maxWidth: 1520, mx: 'auto', px: { xs: 2.5, sm: 4, lg: 6 }, pt: { xs: 6, md: 7 }, pb: { xs: 8, md: 10 } }}>
           <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" gap={3}>
             <Box>
               <SectionLabel>Private Send</SectionLabel>
@@ -492,7 +492,6 @@ export default function Platform() {
             </Box>
             <Stack alignItems={{ xs: 'flex-start', md: 'flex-end' }} gap={.7}>
               <Stack direction="row" alignItems="center" gap={1}><StatusDot /><Typography sx={{ fontSize: 18 }}>Ethereum Mainnet</Typography></Stack>
-              <Typography color="primary.main">Private Send — Operational</Typography>
               <Typography color="text.secondary" sx={{ fontSize: 11 }}>2 Confirmations • On-chain Execution • Recovery Record</Typography>
             </Stack>
           </Stack>

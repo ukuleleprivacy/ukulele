@@ -49,8 +49,8 @@ export const Footer = () => (
                 rel="noopener noreferrer"
                 aria-label="Visit OmniOne Bank"
                 sx={{
-                  width: { xs: 124, sm: 160 },
-                  height: { xs: 124, sm: 160 },
+                  width: { xs: 64, sm: 80 },
+                  height: { xs: 64, sm: 80 },
                   p: 0,
                   border: 0,
                   borderRadius: 0,

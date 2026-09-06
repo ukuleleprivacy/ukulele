@@ -29,9 +29,9 @@ export default function Bridge() {
           </Stack>
 
           <Grid container spacing={{ xs: 5, lg: 3 }} sx={{ mt: 2 }}>
-            <Grid item xs={12} lg={4}>
+            <Grid item xs={12}>
               <Stack sx={{ height: '100%' }}>
-                <Typography component="h1" sx={{ mt: { md: 7 }, fontSize: { xs: 44, md: 68 }, lineHeight: 1.03, letterSpacing: '-.05em', fontWeight: 500 }}>
+                <Typography component="h1" sx={{ mt: 1, maxWidth: 1200, fontSize: { xs: 44, md: 68 }, lineHeight: 1.03, letterSpacing: '-.05em', fontWeight: 500 }}>
                   Move between assets without leaving the private layer.
                 </Typography>
                 <Typography color="text.secondary" sx={{ mt: 3, maxWidth: 610, fontSize: { xs: 15, md: 17 } }}>
@@ -42,7 +42,7 @@ export default function Bridge() {
                   <Button component={Link} href="/roadmap" variant="contained">View roadmap</Button>
                   <Button href="#how-bridge-works" variant="outlined">How the bridge works</Button>
                 </Stack>
-                <Box id="how-bridge-works" sx={{ mt: { xs: 7, lg: 'auto' }, pt: 5 }}>
+                <Box id="how-bridge-works" sx={{ mt: 3, pt: 2 }}>
                   <SectionLabel>Why Fiducaro Bridge</SectionLabel>
                   <Grid container spacing={2} sx={{ mt: 1 }}>
                     <Grid item xs={12} sm={4}><Typography sx={{ fontSize: 12, fontWeight: 700 }}>NATIVE ASSETS</Typography><Typography color="text.secondary" sx={{ mt: .5, fontSize: 12 }}>Designed around BTC, ETH, and SOL.</Typography></Grid>
@@ -53,8 +53,8 @@ export default function Bridge() {
               </Stack>
             </Grid>
 
-            <Grid item xs={12} lg={5}>
-              <ProtocolPanel sx={{ p: { xs: 2.5, md: 3 }, background: 'linear-gradient(145deg, rgba(76,78,82,.96), rgba(29,30,32,.98))' }}>
+            <Grid item xs={12} lg={9}>
+              <ProtocolPanel sx={{ p: { xs: 2.5, md: 5 }, background: 'linear-gradient(145deg, rgba(76,78,82,.96), rgba(29,30,32,.98))' }}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center">
                   <Typography sx={{ fontWeight: 700 }}>PRIMARY BRIDGE INTERFACE</Typography>
                   <Box sx={{ px: 1, py: .45, borderRadius: 4, bgcolor: 'rgba(255,255,255,.12)', fontSize: 10 }}>CONCEPT PREVIEW</Box>
@@ -78,7 +78,7 @@ export default function Bridge() {
                   <Typography sx={{ mt: .7, fontSize: { xs: 34, md: 46 }, lineHeight: 1 }}>72–96 Hours</Typography>
                   <Typography color="text.secondary" sx={{ mt: 1, fontSize: 11 }}>Concept estimate only. No bridge service is currently available.</Typography>
                 </ProtocolPanel>
-                <Box sx={{ mt: 2.2, minHeight: 275, p: 3, borderRadius: 1, backgroundImage: 'linear-gradient(rgba(3,5,4,.25), rgba(3,5,4,.72)), url(/wallpaper/03.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                <Box sx={{ mt: 2.2, minHeight: { xs: 275, md: 380 }, p: 3, borderRadius: 1, backgroundImage: 'linear-gradient(rgba(3,5,4,.25), rgba(3,5,4,.72)), url(/wallpaper/03.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
                   <Stack direction="row" justifyContent="center" alignItems="center" gap={{ xs: .5, sm: 2 }} sx={{ height: '100%' }}>
                     <Coin symbol="₿" color="#f5a623" /><ArrowForward sx={{ color: 'primary.main', fontSize: { xs: 28, sm: 50 } }} /><Stack gap={1}><Box sx={{ px: 1.5, py: .7, bgcolor: 'rgba(0,0,0,.65)', border: '1px solid rgba(102,255,138,.4)', borderRadius: 1 }}>BTC</Box><Box sx={{ px: 1.5, py: .7, bgcolor: 'rgba(0,0,0,.65)', border: '1px solid rgba(102,255,138,.4)', borderRadius: 1 }}>ETH</Box><Box sx={{ px: 1.5, py: .7, bgcolor: 'rgba(0,0,0,.65)', border: '1px solid rgba(102,255,138,.4)', borderRadius: 1 }}>SOL</Box></Stack><ArrowForward sx={{ color: 'primary.main', fontSize: { xs: 28, sm: 50 } }} /><Coin symbol="◆" color="#edf1f2" />
                   </Stack>
@@ -93,17 +93,6 @@ export default function Bridge() {
 
             <Grid item xs={12} lg={3}>
               <Box sx={{ minHeight: 390, borderRadius: 1.2, backgroundImage: 'url(/wallpaper/07.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
-              <ProtocolPanel sx={{ mt: 2.2, p: 3 }}>
-                <Typography variant="h4" align="center">Provide Liquidity</Typography>
-                <Typography color="text.secondary" align="center" sx={{ mt: 1, fontSize: 12 }}>Future liquidity participants may help facilitate cross-asset settlement.</Typography>
-                <Grid container spacing={1} sx={{ mt: 1.5 }}>{[['₿', 'BTC'], ['◆', 'ETH'], ['S', 'SOL']].map(([icon, coin]) => <Grid item xs={4} key={coin}><ProtocolPanel sx={{ p: 1.3, textAlign: 'center' }}><Typography color="primary.main">{icon}</Typography><Typography sx={{ mt: .4, fontSize: 12 }}>{coin}</Typography><Typography color="text.secondary" sx={{ fontSize: 10 }}>— APY</Typography></ProtocolPanel></Grid>)}</Grid>
-                <Button disabled variant="outlined" fullWidth sx={{ mt: 2 }}>Not available</Button>
-              </ProtocolPanel>
-              <Box sx={{ mt: 5, pt: 4, borderTop: '1px solid rgba(255,255,255,.14)' }}>
-                <Typography variant="h4">Private Send exists today. The Bridge is what comes next.</Typography>
-                <Stack direction={{ xs: 'column', sm: 'row', lg: 'column' }} gap={1.2} sx={{ mt: 2.5 }}><Button component={Link} href="/platform" variant="contained">Try Private Send</Button><Button component={Link} href="/roadmap" variant="outlined">View roadmap</Button></Stack>
-                <Typography color="text.secondary" sx={{ mt: 1.5, fontSize: 11 }}>PRIVATE SEND — LIVE &nbsp;•&nbsp; BRIDGE — NOT LIVE</Typography>
-              </Box>
             </Grid>
           </Grid>
         </Box>
