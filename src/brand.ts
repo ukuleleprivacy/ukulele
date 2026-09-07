@@ -31,6 +31,7 @@ export const navItems = [
   { label: 'Decrypt', url: '/decrypt' },
   { label: 'Bridge', url: '/gasless' },
   { label: 'Activity', url: '/activity' },
+  { label: 'People', url: '/people' },
 ];
 
 export const pillars = [
