@@ -64,8 +64,7 @@ export const PrivateSendForm = ({
       sx={{
         mt: 1.5,
         position: 'relative',
-        minHeight: { lg: 650 },
-        background: 'linear-gradient(145deg, rgba(44,46,48,.94), rgba(17,18,18,.97))',
+        background: '#3b3c42',
         ...(isLocked && {
           filter: 'grayscale(100%)',
           opacity: 0.6,

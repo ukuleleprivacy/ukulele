@@ -17,9 +17,10 @@ export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
     >
       <Head>
         {/* PWA primary color */}
-        <meta name="theme-color" content="#070A0B" />
-        <link rel="icon" href="/brand/favicon.svg?v=2" type="image/svg+xml" />
-        <link rel="shortcut icon" href="/brand/favicon.svg?v=2" />
+        <meta name="theme-color" content="#292a2e" />
+        <link rel="icon" href="/brand/favicon-official.png" type="image/png" sizes="32x32" />
+        <link rel="shortcut icon" href="/favicon.ico?v=3" />
+        <link rel="apple-touch-icon" href="/brand/apple-touch-icon-official.png" sizes="180x180" />
         <meta
           name="emotion-insertion-point"
           content=""

@@ -13,7 +13,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
 import { useRouter } from 'next/router';
+import { FaTelegramPlane } from 'react-icons/fa';
 
 import { navItems } from './brand';
 import { ConnectWallet } from './components/ConnectWallet';
@@ -53,8 +55,8 @@ export const TopAppBar = () => {
                   borderRadius: '8px',
                   color: isActive ? 'primary.main' : 'text.secondary',
                   '&.Mui-selected': {
-                    backgroundColor: 'rgba(102, 255, 138, 0.14)',
-                    boxShadow: 'inset 0 0 0 1px rgba(102, 255, 138, 0.3)',
+                    backgroundColor: 'rgba(167, 215, 160, 0.14)',
+                    boxShadow: 'inset 0 0 0 1px rgba(167, 215, 160, 0.3)',
                   },
                 }}
               >
@@ -68,8 +70,18 @@ export const TopAppBar = () => {
         })}
       </List>
       <Stack gap={1}>
+        <Button
+          component="a"
+          href="https://t.me/+zVqxwbcpLTlmOWJl"
+          target="_blank"
+          rel="noopener noreferrer"
+          startIcon={<FaTelegramPlane />}
+          sx={{ justifyContent: 'flex-start', color: 'primary.main' }}
+        >
+          Telegram
+        </Button>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'text.secondary', px: 1 }}>
-          <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main', boxShadow: '0 0 12px rgba(102,255,138,.7)' }} />
+          <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main', boxShadow: '0 0 12px rgba(167, 215, 160,.7)' }} />
           Ethereum Mainnet
         </Box>
         <ConnectWallet fullWidth />
@@ -89,7 +101,7 @@ export const TopAppBar = () => {
           py: { xs: 0.5, md: 0.75 },
           backdropFilter: 'blur(22px)',
           background:
-            'linear-gradient(180deg, rgba(8, 9, 9, 0.97) 0%, rgba(8, 9, 9, 0.9) 100%)',
+            'linear-gradient(180deg, rgba(37, 38, 42, 0.97) 0%, rgba(37, 38, 42, 0.9) 100%)',
           borderBottom: '1px solid rgba(255, 255, 255, 0.11)',
         }}
       >
@@ -133,7 +145,7 @@ export const TopAppBar = () => {
                     minHeight: 56,
                     px: 1.5,
                     borderRadius: 0,
-                    borderBottom: isActive ? '2px solid #66FF8A' : '2px solid transparent',
+                    borderBottom: isActive ? '2px solid #a7d7a0' : '2px solid transparent',
                     fontSize: 14,
                     color: isActive ? 'text.primary' : 'text.secondary',
                     '&:hover': {
@@ -149,6 +161,18 @@ export const TopAppBar = () => {
           </Stack>
 
           <Stack direction="row" alignItems="center" gap={1}>
+            <Tooltip title="Join Fiducaro on Telegram" arrow>
+              <IconButton
+                component="a"
+                href="https://t.me/+zVqxwbcpLTlmOWJl"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Join Fiducaro on Telegram"
+                sx={{ color: 'primary.main', border: '1px solid rgba(167, 215, 160,.24)', '&:hover': { backgroundColor: 'rgba(167, 215, 160,.1)', boxShadow: '0 0 18px rgba(167, 215, 160,.18)' } }}
+              >
+                <FaTelegramPlane size={17} />
+              </IconButton>
+            </Tooltip>
             <Box
               sx={{
                 display: { xs: 'none', lg: 'flex' },
@@ -162,7 +186,7 @@ export const TopAppBar = () => {
                 fontSize: 13,
               }}
             >
-              <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main', boxShadow: '0 0 12px rgba(102,255,138,.8)' }} />
+              <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main', boxShadow: '0 0 12px rgba(167, 215, 160,.8)' }} />
               Ethereum Mainnet
             </Box>
             <ConnectWallet sx={{ display: { xs: 'none', sm: 'inline-flex' } }} />

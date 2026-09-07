@@ -6,8 +6,14 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Collapse from '@mui/material/Collapse';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
+import CheckCircleRounded from '@mui/icons-material/CheckCircleRounded';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Head from 'next/head';
@@ -20,7 +26,6 @@ import { abi as privacyAbi, address as privacyAddress } from '../src/contracts/c
 import { gasLimit, progressMessagesMap, type Message, type Steps } from '../src/constants';
 import { Layout } from '../src/Layout';
 import { ProtocolPanel, SectionLabel, StatusDot } from '../src/components/ProtocolUI';
-import { usePublicFiduBalance } from '../src/components/WalletBalance';
 
 const platformMessage = {
   title: 'Attention Required',
@@ -244,7 +249,7 @@ export default function Platform() {
   const [encryptedValuesState, setEncryptedValuesState] = useState<ethers.BigNumberish[] | null>(null);
   const [isGuideOpen, setIsGuideOpen] = useState(false);
   const { library, account, active } = useWeb3React();
-  const { displayBalance } = usePublicFiduBalance();
+  const [isReminderOpen, setIsReminderOpen] = useState(false);
 
   const {
     register,
@@ -476,9 +481,7 @@ export default function Platform() {
         component="main"
         sx={{
           minHeight: 'calc(100vh - 70px)',
-          backgroundImage: 'linear-gradient(180deg, rgba(5,7,7,.88), rgba(2,4,3,.94)), url(/wallpaper/05.webp)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          bgcolor: '#292a2e',
         }}
       >
         <Box sx={{ maxWidth: 1520, mx: 'auto', px: { xs: 2.5, sm: 4, lg: 6 }, pt: { xs: 6, md: 7 }, pb: { xs: 8, md: 10 } }}>
@@ -496,19 +499,31 @@ export default function Platform() {
             </Stack>
           </Stack>
 
-          <Stack direction={{ xs: 'column', md: 'row' }} divider={<Box sx={{ width: { md: '1px' }, height: { xs: '1px', md: 24 }, bgcolor: 'divider' }} />} justifyContent="space-around" gap={2} sx={{ mt: 4, py: 1.5, borderTop: '1px solid rgba(255,255,255,.12)', borderBottom: '1px solid rgba(255,255,255,.12)', color: 'text.secondary' }}>
-            <Typography sx={{ fontSize: 12 }}>PUBLIC BALANCE: <Box component="span" color="text.primary">{active ? displayBalance : 'Connect wallet'}</Box></Typography>
-            <Typography sx={{ fontSize: 12 }}>CONNECTED WALLET: <Box component="span" color="text.primary">{account ? `${account.slice(0, 6)}…${account.slice(-4)}` : 'Not connected'}</Box></Typography>
-            <Typography sx={{ fontSize: 12 }}>NETWORK: <Box component="span" color="text.primary">Ethereum Mainnet</Box></Typography>
-          </Stack>
+          {Boolean(error || step > 0) && (
+            <Box sx={{ mt: 2.5 }}>
+              <ProgressMessageCard message={platformMessages[step]} step={step} error={error} />
+            </Box>
+          )}
 
-          <Box sx={{ mt: 2.5 }}>
-            <ProgressMessageCard message={platformMessages[step]} step={step} error={error} />
-          </Box>
+          <Dialog open={isReminderOpen} onClose={() => setIsReminderOpen(false)} aria-labelledby="send-reminder-title" aria-describedby="send-reminder-description" maxWidth="sm" fullWidth>
+            <DialogTitle id="send-reminder-title">{platformMessage.title}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="send-reminder-description">{platformMessage.description}</DialogContentText>
+            </DialogContent>
+            <DialogActions sx={{ px: 3, pb: 2 }}>
+              <Button onClick={() => setIsReminderOpen(false)} variant="contained">Got it</Button>
+            </DialogActions>
+          </Dialog>
 
-          <Grid container spacing={2.5} sx={{ mt: .5 }}>
-            <Grid item xs={12} lg={6}>
-              <SectionLabel>Transaction terminal</SectionLabel>
+          <Box sx={{ mt: 4 }}>
+              <Stack direction="row" alignItems="center" justifyContent="space-between">
+                <SectionLabel>Transaction terminal</SectionLabel>
+                <Tooltip title="Two-transaction reminder" arrow>
+                  <IconButton color="primary" aria-label="Open two-transaction reminder" aria-haspopup="dialog" onClick={() => setIsReminderOpen(true)}>
+                    <CheckCircleRounded fontSize="small" />
+                  </IconButton>
+                </Tooltip>
+              </Stack>
               <PrivateSendForm
                 onSubmit={handleSubmit(handlePrivateSend)}
                 isInProcess={isInProcess}
@@ -520,33 +535,7 @@ export default function Platform() {
                 isLocked={false}
                 step={step}
               />
-            </Grid>
-            <Grid item xs={12} lg={6}>
-              <SectionLabel>Execution / privacy visual</SectionLabel>
-              <ProtocolPanel sx={{ mt: 1.5, minHeight: { lg: 650 }, p: { xs: 3, md: 4 }, backgroundImage: 'linear-gradient(rgba(4,5,5,.72), rgba(4,5,5,.88)), url(/wallpaper/07.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-                <Typography variant="h4">Execution Path</Typography>
-                <Stack alignItems="center" gap={0} sx={{ mt: 4 }}>
-                  {[
-                    ['01 — PREPARE', 'Address · Amount · SALT'],
-                    ['02 — PART I', 'First Ethereum confirmation'],
-                    ['03 — RECOVERY RECORD', 'Amount · Recipient · SALT'],
-                    ['04 — PART II', 'Private Send complete'],
-                  ].map(([title, description], index) => {
-                    const activeStep = step === 3 ? true : index <= step;
-                    return (
-                      <Stack alignItems="center" key={title} sx={{ width: '100%' }}>
-                        <ProtocolPanel sx={{ width: 'min(100%, 320px)', p: 2, textAlign: 'center', borderColor: activeStep ? 'rgba(102,255,138,.7)' : 'rgba(255,255,255,.17)', boxShadow: activeStep ? '0 0 24px rgba(102,255,138,.13)' : 'none' }}>
-                          <Typography sx={{ fontWeight: 700, color: activeStep ? 'text.primary' : 'text.secondary' }}>{title}</Typography>
-                          <Typography color="text.secondary" sx={{ mt: .5, fontSize: 12 }}>{description}</Typography>
-                        </ProtocolPanel>
-                        {index < 3 && <Box sx={{ width: 2, height: 44, bgcolor: activeStep ? 'primary.main' : 'rgba(255,255,255,.18)', boxShadow: activeStep ? '0 0 12px #66ff8a' : 'none' }} />}
-                      </Stack>
-                    );
-                  })}
-                </Stack>
-              </ProtocolPanel>
-            </Grid>
-          </Grid>
+          </Box>
 
           <Box sx={{ mt: 3 }}>
           <Button
@@ -621,6 +610,29 @@ export default function Platform() {
             </Card>
           </Collapse>
           </Box>
+
+              <ProtocolPanel sx={{ mt: 3, p: { xs: 3, md: 4 }, bgcolor: '#3b3c42' }}>
+                <Typography variant="h4">Execution Path</Typography>
+                <Stack alignItems="center" gap={0} sx={{ mt: 4 }}>
+                  {[
+                    ['01 — PREPARE', 'Address · Amount · SALT'],
+                    ['02 — PART I', 'First Ethereum confirmation'],
+                    ['03 — RECOVERY RECORD', 'Amount · Recipient · SALT'],
+                    ['04 — PART II', 'Private Send complete'],
+                  ].map(([title, description], index) => {
+                    const activeStep = step === 3 ? true : index <= step;
+                    return (
+                      <Stack alignItems="center" key={title} sx={{ width: '100%' }}>
+                        <ProtocolPanel sx={{ width: 'min(100%, 320px)', p: 2, textAlign: 'center', borderColor: activeStep ? 'rgba(167,215,160,.7)' : 'rgba(255,255,255,.17)', boxShadow: activeStep ? '0 0 24px rgba(167,215,160,.13)' : 'none' }}>
+                          <Typography sx={{ fontWeight: 700, color: activeStep ? 'text.primary' : 'text.secondary' }}>{title}</Typography>
+                          <Typography color="text.secondary" sx={{ mt: .5, fontSize: 12 }}>{description}</Typography>
+                        </ProtocolPanel>
+                        {index < 3 && <Box sx={{ width: 2, height: 44, bgcolor: activeStep ? 'primary.main' : 'rgba(255,255,255,.18)', boxShadow: activeStep ? '0 0 12px #a7d7a0' : 'none' }} />}
+                      </Stack>
+                    );
+                  })}
+                </Stack>
+              </ProtocolPanel>
         </Box>
       </Box>
     </Layout>

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
-import LockOutlined from '@mui/icons-material/LockOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -12,7 +11,6 @@ import Typography from '@mui/material/Typography';
 import Head from 'next/head';
 
 import { ProtocolPanel, SectionLabel, StatusDot } from '../src/components/ProtocolUI';
-import { usePublicFiduBalance } from '../src/components/WalletBalance';
 import { abi as tokenAbi, address as tokenAddress } from '../src/contracts/contract1';
 import { gasLimit } from '../src/constants';
 import { Layout } from '../src/Layout';
@@ -42,7 +40,6 @@ const getTransactionError = (error: unknown) => {
 
 export default function Decrypt() {
   const { library, account, active } = useWeb3React();
-  const { displayBalance } = usePublicFiduBalance();
   const [partialAmount, setPartialAmount] = useState('');
   const [pendingAction, setPendingAction] = useState<DecryptAction | null>(null);
   const [status, setStatus] = useState(defaultStatus);
@@ -119,7 +116,6 @@ export default function Decrypt() {
   };
 
   const isPending = pendingAction !== null;
-  const shortAccount = account ? `${account.slice(0, 6)}…${account.slice(-4)}` : 'Not connected';
 
   return (
     <Layout>
@@ -128,15 +124,13 @@ export default function Decrypt() {
         component="main"
         sx={{
           minHeight: 'calc(100vh - 70px)',
-          backgroundImage: 'linear-gradient(180deg, rgba(2,4,3,.72), rgba(2,4,3,.96)), url(/wallpaper/07.webp)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          bgcolor: '#292a2e',
         }}
       >
         <Box sx={{ maxWidth: 1840, mx: 'auto', px: { xs: 2, sm: 3.5, lg: 5 }, py: { xs: 6, md: 8 } }}>
           <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" gap={3}>
             <Box>
-              <Box sx={{ display: 'inline-flex', px: 1.25, py: .55, border: '1px solid rgba(255,255,255,.14)', borderRadius: 6, bgcolor: 'rgba(255,255,255,.06)', color: 'text.secondary', fontSize: 12 }}>PRIVATE BALANCE</Box>
+              <SectionLabel>Decrypt</SectionLabel>
               <Typography component="h1" sx={{ mt: 1.8, fontSize: { xs: 42, md: 66 }, lineHeight: 1, letterSpacing: '-.045em' }}>Bring value back into view.</Typography>
               <Typography color="text.secondary" sx={{ mt: 2, maxWidth: 720, fontSize: { xs: 15, md: 18 } }}>
                 Restore all or part of your Fiducaro private balance to your public wallet. Only the amount you decrypt returns to public state.
@@ -147,19 +141,6 @@ export default function Decrypt() {
               <Typography color="primary.main">Decrypt — Operational</Typography>
             </Stack>
           </Stack>
-
-          <ProtocolPanel sx={{ mt: 5, p: { xs: 3, md: 5 }, textAlign: 'center', borderColor: 'rgba(102,255,138,.5)', boxShadow: '0 0 34px rgba(102,255,138,.17), inset 0 0 90px rgba(0,0,0,.35)' }}>
-            <LockOutlined sx={{ color: 'primary.main', fontSize: 42 }} />
-            <Typography sx={{ mt: 1, color: 'primary.main', fontSize: { xs: 30, md: 48 }, fontWeight: 700 }}>PRIVATE BALANCE ENCRYPTED</Typography>
-            <Typography color="text.secondary" sx={{ mt: 1 }}>Fiducaro does not expose a readable private-balance value.</Typography>
-            <Stack direction="row" justifyContent="center" gap={3} sx={{ mt: 3 }}>
-              <Box><SectionLabel>Public balance</SectionLabel><Typography sx={{ mt: .5, fontWeight: 700 }}>{active ? displayBalance : '—'}</Typography></Box>
-              <Box sx={{ width: '1px', bgcolor: 'divider' }} />
-              <Box><SectionLabel>Wallet</SectionLabel><Typography sx={{ mt: .5, fontWeight: 700 }}>{shortAccount}</Typography></Box>
-            </Stack>
-          </ProtocolPanel>
-
-          <Typography align="center" color="text.secondary" sx={{ mt: 2, fontSize: 12 }}>Private state remains outside the normal public-wallet display until decrypted.</Typography>
 
           <Grid container spacing={2.5} sx={{ mt: 3.5 }}>
             <Grid item xs={12} md={6}>

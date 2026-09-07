@@ -4,11 +4,11 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 export const panelSx = {
-  border: '1px solid rgba(255,255,255,.14)',
+  border: '1px solid rgba(227,230,237,.22)',
   borderRadius: 1.25,
   background:
-    'linear-gradient(145deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.045) 45%, rgba(255,255,255,.075) 100%)',
-  boxShadow: 'inset 0 1px rgba(255,255,255,.04), 0 18px 44px rgba(0,0,0,.28)',
+    'linear-gradient(145deg, rgba(99,100,109,.64) 0%, rgba(72,73,81,.64) 45%, rgba(83,84,93,.64) 100%)',
+  boxShadow: 'inset 0 1px rgba(255,255,255,.06), 0 14px 32px rgba(0,0,0,.16)',
   backdropFilter: 'blur(16px)',
 };
 
@@ -22,8 +22,8 @@ export const SectionLabel = ({ children }: PropsWithChildren) => (
   <Typography
     component="div"
     sx={{
-      color: 'rgba(237,241,242,.62)',
-      fontSize: 12,
+      color: 'rgba(237,241,242,.76)',
+      fontSize: 13,
       fontWeight: 600,
       letterSpacing: '.04em',
       textTransform: 'uppercase',
@@ -42,7 +42,7 @@ export const StatusDot = ({ tone = 'live' }: { tone?: 'live' | 'muted' | 'warnin
       flex: '0 0 auto',
       borderRadius: '50%',
       bgcolor: tone === 'live' ? 'primary.main' : tone === 'warning' ? '#a8a8a8' : '#666',
-      boxShadow: tone === 'live' ? '0 0 12px rgba(102,255,138,.8)' : 'none',
+      boxShadow: tone === 'live' ? '0 0 12px rgba(167, 215, 160,.8)' : 'none',
     }}
   />
 );

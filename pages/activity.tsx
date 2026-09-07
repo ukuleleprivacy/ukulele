@@ -67,7 +67,7 @@ export default function Activity() {
   return (
     <Layout>
       <Head><title>Activity | Fiducaro</title></Head>
-      <Box component="main" sx={{ minHeight: 'calc(100vh - 70px)', background: 'radial-gradient(circle at 80% 0%, rgba(255,255,255,.07), transparent 24%), #050606' }}>
+      <Box component="main" sx={{ minHeight: 'calc(100vh - 70px)', background: 'radial-gradient(circle at 80% 0%, rgba(255,255,255,.07), transparent 24%), #292a2e' }}>
         <Box sx={{ maxWidth: 1540, mx: 'auto', px: { xs: 2, sm: 3.5, lg: 5 }, py: { xs: 4, md: 7 } }}>
           <Stack direction="row" justifyContent="center" gap={3} sx={{ borderBottom: '1px solid rgba(255,255,255,.15)' }}>
             <Button onClick={() => setTab('activity')} sx={{ minHeight: 48, borderRadius: 0, color: tab === 'activity' ? 'text.primary' : 'text.secondary', borderBottom: tab === 'activity' ? '2px solid white' : '2px solid transparent' }}>Activity</Button>

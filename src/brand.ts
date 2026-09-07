@@ -4,16 +4,17 @@ export const brand = {
   description:
     'FIDUCARO is a settlement layer for privacy preserving transactions on the blockchain; expanding into all digital assets - with reserves being managed by OmniOne Bank.',
   twitterUrl: 'https://x.com/fiducaroprivacy',
+  telegramUrl: 'https://t.me/+zVqxwbcpLTlmOWJl',
   omniOneUrl: 'https://omnione.netlify.app',
   palette: {
-    neon: '#66FF8A',
-    neonLight: '#9AFFB0',
-    neonDark: '#24D85E',
+    neon: '#a7d7a0',
+    neonLight: '#c4e6bf',
+    neonDark: '#80b779',
     white: '#EDF1F2',
     silver: '#9AA6AD',
-    black: '#010403',
-    ink: '#050A07',
-    graphite: '#0B1510',
+    black: '#25262a',
+    ink: '#37383e',
+    graphite: '#45464c',
     pearl: '#C4CDD2',
   },
 };
@@ -103,7 +104,7 @@ export const protocolNotes = [
 ];
 
 export const brandAssets = [
-  { label: 'Logo', path: '/01.png' },
+  { label: 'Logo', path: '/brand/fiducaro-official.webp' },
   { label: 'Hero artwork', path: '/brand/fiducaro-hero.png' },
   { label: 'Desktop wallpaper', path: '/brand/wallpaper-desktop.png' },
   { label: 'Mobile wallpaper', path: '/brand/wallpaper-mobile.png' },

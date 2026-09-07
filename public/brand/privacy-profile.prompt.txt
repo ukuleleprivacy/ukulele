@@ -1,0 +1,11 @@
+Generated with the built-in imagegen tool. Final website asset: public/brand/privacy-profile.webp
+
+Use case: photorealistic-natural
+Asset type: original portrait photograph for the right side of a premium private finance website hero
+Primary request: a photorealistic editorial studio side profile of a fictional adult androgynous model, facing left, head and upper shoulders, calm assured expression.
+Scene/backdrop: seamless charcoal graphite background, visually close to #292a2e, quiet and clean.
+Style/medium: premium editorial studio photography, natural skin detail, realistic human facial anatomy.
+Composition/framing: landscape 3:2 image, head and upper shoulders composed on the right half with generous clean negative space on the left; full profile silhouette and top of head visible, shoulders softly fading into the dark backdrop.
+Lighting/mood: refined silver monochrome skin lighting with a very subtle pale sage rim light; calm, private, secure, understated.
+Color palette: charcoal graphite, silver grays, nearly imperceptible pale sage accent.
+Constraints: one fictional adult person only, no text, no logos, no watermarks, no futuristic overlays, no graphics, no jewelry, no props.

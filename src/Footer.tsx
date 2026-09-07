@@ -6,6 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { FaTelegramPlane } from 'react-icons/fa';
 
 import { brand } from './brand';
 import Link from './Link';
@@ -19,7 +20,7 @@ export const Footer = () => (
       pt: { xs: 8, md: 12 },
       pb: 6,
       background:
-        'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(5, 5, 5, 0.88) 32%, #050505 100%)',
+        'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(37, 38, 42, 0.88) 32%, #25262a 100%)',
     }}
   >
     <Container maxWidth="lg">
@@ -99,6 +100,18 @@ export const Footer = () => (
         <Typography variant="body2" color="text.secondary">
           {brand.tagline}
         </Typography>
+        <Tooltip title="Join Fiducaro on Telegram" arrow>
+          <IconButton
+            component="a"
+            href={brand.telegramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Join Fiducaro on Telegram"
+            sx={{ color: 'primary.main', border: '1px solid rgba(167, 215, 160,.24)', '&:hover': { backgroundColor: 'rgba(167, 215, 160,.1)', boxShadow: '0 0 18px rgba(167, 215, 160,.18)' } }}
+          >
+            <FaTelegramPlane size={18} />
+          </IconButton>
+        </Tooltip>
         <Tooltip title="Private investor access" arrow>
           <Box
             component={Link}
@@ -119,7 +132,7 @@ export const Footer = () => (
               transition: 'color 180ms ease, text-shadow 180ms ease',
               '&:hover, &:focus-visible': {
                 color: 'primary.main',
-                textShadow: '0 0 14px rgba(102, 255, 138, 0.55)',
+                textShadow: '0 0 14px rgba(167, 215, 160, 0.55)',
               },
             }}
           >
