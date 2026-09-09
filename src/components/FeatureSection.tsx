@@ -85,10 +85,10 @@ const FeatureSection = ({
             minHeight: { xs: 280, sm: 360, md: 430 },
             overflow: 'hidden',
             borderRadius: '8px',
-            border: '1px solid rgba(102, 255, 138, 0.16)',
+            border: '1px solid rgba(104, 199, 107, 0.16)',
             background:
               imageBackground ||
-              'radial-gradient(circle at 50% 38%, rgba(102, 255, 138, 0.22), transparent 36%), linear-gradient(135deg, rgba(102, 255, 138, 0.06), rgba(255, 255, 255, 0.02))',
+              'radial-gradient(circle at 50% 38%, rgba(104, 199, 107, 0.22), transparent 36%), linear-gradient(135deg, rgba(104, 199, 107, 0.06), rgba(255, 255, 255, 0.02))',
           }}
         >
           {videoSrc ? (
@@ -148,12 +148,12 @@ const FeatureSection = ({
                 top: '50%',
                 display: 'block',
                 borderRadius: '12px',
-                backgroundImage: 'url(/brand/fiducaro-official-mark.webp)',
+                backgroundImage: 'url(/brand/fiducaro-dark-mark.webp)',
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 transform: 'translate(-50%, -50%)',
-                filter: 'drop-shadow(0 0 34px rgba(102, 255, 138, 0.5))',
+                filter: 'drop-shadow(0 0 34px rgba(104, 199, 107, 0.5))',
                 animation: 'fiducaroFloat 7s ease-in-out infinite',
                 pointerEvents: 'none',
               }}

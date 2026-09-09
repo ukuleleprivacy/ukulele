@@ -4,12 +4,11 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 export const panelSx = {
-  border: '1px solid rgba(227,230,237,.22)',
+  border: '1px solid rgba(104, 199, 107,.22)',
   borderRadius: 1.25,
   background:
-    'linear-gradient(145deg, rgba(99,100,109,.64) 0%, rgba(72,73,81,.64) 45%, rgba(83,84,93,.64) 100%)',
+    'linear-gradient(145deg, #101c22 0%, #0b1419 55%, #0c181c 100%)',
   boxShadow: 'inset 0 1px rgba(255,255,255,.06), 0 14px 32px rgba(0,0,0,.16)',
-  backdropFilter: 'blur(16px)',
 };
 
 export const ProtocolPanel = ({ children, sx, ...props }: PropsWithChildren<BoxProps>) => (
@@ -42,7 +41,7 @@ export const StatusDot = ({ tone = 'live' }: { tone?: 'live' | 'muted' | 'warnin
       flex: '0 0 auto',
       borderRadius: '50%',
       bgcolor: tone === 'live' ? 'primary.main' : tone === 'warning' ? '#a8a8a8' : '#666',
-      boxShadow: tone === 'live' ? '0 0 12px rgba(167, 215, 160,.8)' : 'none',
+      boxShadow: tone === 'live' ? '0 0 12px rgba(104, 199, 107,.8)' : 'none',
     }}
   />
 );

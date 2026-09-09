@@ -97,7 +97,7 @@ export const ZoomableImage = ({
                   height: 'auto',
                   objectFit: 'contain',
                   borderRadius: '8px',
-                  border: '1px solid rgba(102, 255, 138, 0.55)',
+                  border: '1px solid rgba(104, 199, 107, 0.55)',
                   backgroundColor: '#000000',
                   boxShadow:
                     '0 0 0 1px rgba(255, 255, 255, 0.08), 0 24px 90px rgba(0, 0, 0, 0.9)',
@@ -162,8 +162,8 @@ export const ZoomableImage = ({
             transition: 'border-color 180ms ease, box-shadow 180ms ease',
           },
           '&:hover::after, &:focus-visible::after': {
-            borderColor: 'rgba(102, 255, 138, 0.78)',
-            boxShadow: '0 0 0 3px rgba(102, 255, 138, 0.15), 0 0 30px rgba(102, 255, 138, 0.18)',
+            borderColor: 'rgba(104, 199, 107, 0.78)',
+            boxShadow: '0 0 0 3px rgba(104, 199, 107, 0.15), 0 0 30px rgba(104, 199, 107, 0.18)',
           },
           '&:focus-visible': {
             outline: 'none',
@@ -175,7 +175,7 @@ export const ZoomableImage = ({
           '&:hover .zoomable-image-hint, &:focus-visible .zoomable-image-hint': {
             opacity: 1,
             transform: 'translateY(-2px)',
-            backgroundColor: 'rgba(102, 255, 138, 0.95)',
+            backgroundColor: 'rgba(104, 199, 107, 0.95)',
             color: '#07100F',
           },
           ...wrapperSx,

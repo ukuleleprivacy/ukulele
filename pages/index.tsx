@@ -18,6 +18,7 @@ import { Metric, ProtocolPanel, SectionLabel, StatusDot, StatusLine } from '../s
 import { Layout } from '../src/Layout';
 import Link from '../src/Link';
 import { fiducaroToken } from '../src/token';
+import { brand } from '../src/brand';
 
 function DevelopmentProgress() {
   return (
@@ -58,7 +59,7 @@ export default function Home() {
   return (
     <Layout>
       <Head><title>Fiducaro · Private value, live on Ethereum</title></Head>
-      <Box component="main" sx={{ background: 'radial-gradient(ellipse at 78% 4%, rgba(220,224,228,.07), transparent 35%), #292a2e' }}>
+      <Box component="main" sx={{ background: 'radial-gradient(ellipse at 78% 4%, rgba(220,224,228,.07), transparent 35%), #060c10' }}>
         <Box component="section" className="home-hero" sx={{ maxWidth: 1600, mx: 'auto', px: { xs: 2.5, sm: 4, lg: 5 }, pt: { xs: 5, md: 6 }, pb: { xs: 6, md: 7 } }}>
           <Grid container spacing={{ xs: 5, lg: 7 }} alignItems="center">
             <Grid item xs={12} lg={6}>
@@ -96,10 +97,10 @@ export default function Home() {
             </Grid>
             <Grid item xs={12} lg={6}>
               <Box className="privacy-portrait">
-                <Box component="img" src="/brand/privacy-profile.webp" alt="Side profile of a model in soft silver studio light" width={1536} height={1024} className="privacy-portrait-image" fetchPriority="high" />
+                <Box component="img" src="/brand/fiducaro-dark-wallpaper.webp" alt="Fiducaro — Enabling Privacy Across International Markets" width={1440} height={810} className="privacy-portrait-image" fetchPriority="high" />
                 <Box className="privacy-portrait-copy">
-                  <Typography component="h2" sx={{ fontSize: { xs: 27, sm: 34 }, fontWeight: 600, lineHeight: 1.18, letterSpacing: '-.035em' }}>Your privacy matters.<br /><Box component="span" sx={{ color: 'primary.main' }}>Your security matters.</Box></Typography>
-                  <Typography sx={{ mt: 1.5, maxWidth: 465, fontSize: { xs: 15, sm: 16 }, lineHeight: 1.65, color: 'text.secondary' }}>Work with only the best to feel comfortable and secure, against all intrusions.</Typography>
+                  <Typography component="h2" sx={{ fontSize: { xs: 27, sm: 34 }, fontWeight: 600, lineHeight: 1.18, letterSpacing: '-.035em' }}>{brand.tagline}.</Typography>
+                  <Typography sx={{ mt: 1.5, maxWidth: 465, fontSize: { xs: 15, sm: 16 }, lineHeight: 1.65, color: 'primary.main' }}>Privacy is the norm. Fiducaro is the rail.</Typography>
                 </Box>
               </Box>
             </Grid>
@@ -107,7 +108,7 @@ export default function Home() {
           <Box sx={{ mt: { xs: 5, md: 6 } }}><DevelopmentProgress /></Box>
         </Box>
 
-        <Box id="protocol" className="engine-section" component="section" sx={{ borderTop: '1px solid rgba(255,255,255,.1)', background: '#25262a' }}>
+        <Box id="protocol" className="engine-section" component="section" sx={{ borderTop: '1px solid rgba(255,255,255,.1)', background: '#03080b' }}>
           <Box sx={{ maxWidth: 1600, mx: 'auto', px: { xs: 2, sm: 3.5, lg: 5 }, py: { xs: 9, md: 12 } }}>
             <Grid container spacing={3} alignItems="flex-end">
               <Grid item xs={12} md={7}>
@@ -137,15 +138,15 @@ export default function Home() {
                 <StatusLine label="FIDU Token" /><StatusLine label="Private Send" /><StatusLine label="Full Decrypt" /><StatusLine label="Partial Decrypt" /><StatusLine label="Native Asset Bridge" status="In development" tone="muted" /><StatusLine label="Activity" status="Not live" tone="muted" /><StatusLine label="Mobile" status="Planned" tone="muted" />
               </Stack>
             </ProtocolPanel>
-            <Box className="fiducaro-grid architecture-stage" sx={{ position: 'relative', mt: 3, p: { xs: 2.5, md: 4 }, borderRadius: 3, overflow: 'hidden', border: '1px solid rgba(167, 215, 160,.14)' }}>
+            <Box className="fiducaro-grid architecture-stage" sx={{ position: 'relative', mt: 3, p: { xs: 2.5, md: 4 }, borderRadius: 3, overflow: 'hidden', border: '1px solid rgba(104, 199, 107,.14)' }}>
               <ArchitectureExplorer />
             </Box>
           </Box>
         </Box>
 
-        <Box component="section" sx={{ background: 'radial-gradient(circle at 12% 0%, rgba(167, 215, 160,.07), transparent 28%), #2d2e33' }}>
+        <Box component="section" sx={{ background: 'radial-gradient(circle at 12% 0%, rgba(104, 199, 107,.07), transparent 28%), #091116' }}>
           <Box sx={{ maxWidth: 1600, mx: 'auto', px: { xs: 2, sm: 3.5, lg: 5 }, py: { xs: 9, md: 12 } }}>
-            <ProtocolPanel className="obscura-card" sx={{ overflow: 'hidden', backgroundImage: 'linear-gradient(90deg, rgba(40,41,46,.94), rgba(40,41,46,.82)), url(/wallpaper/obscura-covenant.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            <ProtocolPanel className="obscura-card" sx={{ overflow: 'hidden', backgroundImage: 'linear-gradient(90deg, rgba(6,12,16,.94), rgba(6,12,16,.82)), url(/wallpaper/obscura-covenant.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
               <Grid container alignItems="center" spacing={3} sx={{ p: { xs: 3, md: 5 }, width: '100%', m: 0, '& > .MuiGrid-item': { pt: 0, pl: { xs: 0, md: 3 } }, rowGap: 3 }}>
                 <Grid item xs={12} md={7}>
                   <SectionLabel>The paper & the audiobook</SectionLabel>
@@ -154,7 +155,7 @@ export default function Home() {
                   <Button component={Link} href="/whitepaper/Obscura_Coveneant.pdf" target="_blank" rel="noopener noreferrer" variant="contained" sx={{ mt: 3 }}>Read paper</Button>
                 </Grid>
                 <Grid item xs={12} md={5}>
-                  <Box component="iframe" src="https://www.youtube-nocookie.com/embed/TqpJNWg7wQs" title="The Obscura Covenant" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen sx={{ display: 'block', width: '100%', maxWidth: 440, ml: { md: 'auto' }, aspectRatio: '16 / 9', border: '1px solid rgba(167, 215, 160,.25)', borderRadius: 2 }} />
+                  <Box component="iframe" src="https://www.youtube-nocookie.com/embed/TqpJNWg7wQs" title="The Obscura Covenant" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen sx={{ display: 'block', width: '100%', maxWidth: 440, ml: { md: 'auto' }, aspectRatio: '16 / 9', border: '1px solid rgba(104, 199, 107,.25)', borderRadius: 2 }} />
                 </Grid>
               </Grid>
             </ProtocolPanel>

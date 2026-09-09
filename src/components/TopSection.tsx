@@ -17,11 +17,11 @@ const TopSection = () => {
         mt: { xs: 1, md: 2 },
         mb: { xs: 7, md: 10 },
         overflow: 'hidden',
-        border: '1px solid rgba(102, 255, 138, 0.22)',
+        border: '1px solid rgba(104, 199, 107, 0.22)',
         borderRadius: '8px',
         background:
           'radial-gradient(circle at 72% 24%, rgba(20, 116, 75, 0.2), transparent 36%), radial-gradient(circle at 38% 48%, rgba(17, 75, 54, 0.14), transparent 42%), #020604',
-        boxShadow: '0 30px 90px rgba(0, 0, 0, 0.55), inset 0 0 120px rgba(102, 255, 138, 0.06)',
+        boxShadow: '0 30px 90px rgba(0, 0, 0, 0.55), inset 0 0 120px rgba(104, 199, 107, 0.06)',
       }}
     >
       <Box

@@ -197,10 +197,10 @@ export const TestCaseBanner = () => {
         mt: 2,
         p: { xs: 2, sm: 2.25 },
         pr: { xs: 5.5, sm: 7 },
-        border: '1px solid rgba(102, 255, 138, 0.28)',
+        border: '1px solid rgba(104, 199, 107, 0.28)',
         borderRadius: '8px',
         background:
-          'linear-gradient(90deg, rgba(102, 255, 138, 0.09), rgba(255, 255, 255, 0.016))',
+          'linear-gradient(90deg, rgba(104, 199, 107, 0.09), rgba(255, 255, 255, 0.016))',
       }}
     >
       <IconButton
@@ -213,9 +213,9 @@ export const TestCaseBanner = () => {
           top: 10,
           right: 10,
           color: 'primary.light',
-          border: '1px solid rgba(102, 255, 138, 0.24)',
+          border: '1px solid rgba(104, 199, 107, 0.24)',
           backgroundColor: 'rgba(0, 0, 0, 0.28)',
-          '&:hover': { backgroundColor: 'rgba(102, 255, 138, 0.12)' },
+          '&:hover': { backgroundColor: 'rgba(104, 199, 107, 0.12)' },
         }}
       >
         <Close fontSize="small" />
@@ -235,7 +235,7 @@ export const TestCaseBanner = () => {
             height: { xs: 66, sm: 86 },
             flex: '0 0 auto',
             objectFit: 'contain',
-            filter: 'drop-shadow(0 0 12px rgba(102, 255, 138, 0.42))',
+            filter: 'drop-shadow(0 0 12px rgba(104, 199, 107, 0.42))',
           }}
         />
 

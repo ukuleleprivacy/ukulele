@@ -158,7 +158,7 @@ export default function Unseen() {
             zIndex: -3,
             inset: 0,
             background:
-              'radial-gradient(circle at 50% 38%, rgba(102, 255, 138, 0.13), transparent 27%), radial-gradient(circle at 10% 82%, rgba(102, 255, 138, 0.06), transparent 24%)',
+              'radial-gradient(circle at 50% 38%, rgba(104, 199, 107, 0.13), transparent 27%), radial-gradient(circle at 10% 82%, rgba(104, 199, 107, 0.06), transparent 24%)',
           },
         }}
       >
@@ -174,7 +174,7 @@ export default function Unseen() {
             opacity: 0.25,
             transformOrigin: 'center bottom',
             backgroundImage:
-              'linear-gradient(rgba(102, 255, 138, 0.22) 1px, transparent 1px), linear-gradient(90deg, rgba(102, 255, 138, 0.22) 1px, transparent 1px)',
+              'linear-gradient(rgba(104, 199, 107, 0.22) 1px, transparent 1px), linear-gradient(90deg, rgba(104, 199, 107, 0.22) 1px, transparent 1px)',
             backgroundSize: '44px 44px',
             maskImage: 'linear-gradient(to bottom, transparent, black 30%, black)',
             animation: `${gridDrift} 3.8s linear infinite`,
@@ -225,16 +225,16 @@ export default function Unseen() {
                   mx: 'auto',
                   mb: 4,
                   borderRadius: '50%',
-                  border: '1px solid rgba(102, 255, 138, 0.3)',
+                  border: '1px solid rgba(104, 199, 107, 0.3)',
                   backgroundColor: 'rgba(3, 12, 7, 0.78)',
                   boxShadow:
-                    'inset 0 0 30px rgba(102, 255, 138, 0.08), 0 0 60px rgba(102, 255, 138, 0.16)',
+                    'inset 0 0 30px rgba(104, 199, 107, 0.08), 0 0 60px rgba(104, 199, 107, 0.16)',
                   '&::before': {
                     content: '""',
                     position: 'absolute',
                     inset: -9,
                     borderRadius: '50%',
-                    borderTop: '1px solid #66FF8A',
+                    borderTop: '1px solid #68c76b',
                     borderRight: '1px solid transparent',
                     animation: `${orbit} 5s linear infinite`,
                   },
@@ -243,7 +243,7 @@ export default function Unseen() {
                     position: 'absolute',
                     inset: 8,
                     borderRadius: '50%',
-                    border: '1px dashed rgba(102, 255, 138, 0.24)',
+                    border: '1px dashed rgba(104, 199, 107, 0.24)',
                     animation: `${orbit} 9s linear infinite reverse`,
                   },
                 }}
@@ -254,7 +254,7 @@ export default function Unseen() {
                     zIndex: 1,
                     fontSize: 38,
                     color: 'primary.main',
-                    filter: 'drop-shadow(0 0 10px rgba(102, 255, 138, 0.8))',
+                    filter: 'drop-shadow(0 0 10px rgba(104, 199, 107, 0.8))',
                     animation: `${pulse} 2.6s ease-in-out infinite`,
                   }}
                 />
@@ -295,7 +295,7 @@ export default function Unseen() {
                 sx={{
                   position: 'relative',
                   p: { xs: 2, sm: 2.5 },
-                  border: '1px solid rgba(102, 255, 138, 0.24)',
+                  border: '1px solid rgba(104, 199, 107, 0.24)',
                   borderRadius: '8px',
                   background:
                     'linear-gradient(180deg, rgba(9, 20, 13, 0.9), rgba(2, 7, 4, 0.94))',
@@ -308,8 +308,8 @@ export default function Unseen() {
                     left: '12%',
                     width: '32%',
                     height: '1px',
-                    background: 'linear-gradient(90deg, transparent, #66FF8A, transparent)',
-                    boxShadow: '0 0 16px #66FF8A',
+                    background: 'linear-gradient(90deg, transparent, #68c76b, transparent)',
+                    boxShadow: '0 0 16px #68c76b',
                   },
                 }}
               >
@@ -351,10 +351,10 @@ export default function Unseen() {
                         minHeight: 54,
                         backgroundColor: 'rgba(0, 0, 0, 0.3)',
                         '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.14)' },
-                        '&:hover fieldset': { borderColor: 'rgba(102, 255, 138, 0.5)' },
+                        '&:hover fieldset': { borderColor: 'rgba(104, 199, 107, 0.5)' },
                         '&.Mui-focused fieldset': {
                           borderColor: 'primary.main',
-                          boxShadow: '0 0 18px rgba(102, 255, 138, 0.18)',
+                          boxShadow: '0 0 18px rgba(104, 199, 107, 0.18)',
                         },
                       },
                     }}
@@ -440,10 +440,10 @@ export default function Unseen() {
             <Box
               sx={{
                 overflow: 'hidden',
-                border: '1px solid rgba(102, 255, 138, 0.28)',
+                border: '1px solid rgba(104, 199, 107, 0.28)',
                 borderRadius: '8px',
                 backgroundColor: '#0A0E0B',
-                boxShadow: '0 30px 100px rgba(0, 0, 0, 0.62), 0 0 36px rgba(102, 255, 138, 0.08)',
+                boxShadow: '0 30px 100px rgba(0, 0, 0, 0.62), 0 0 36px rgba(104, 199, 107, 0.08)',
               }}
             >
               <Box

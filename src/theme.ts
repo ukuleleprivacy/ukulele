@@ -18,9 +18,9 @@ const theme = responsiveFontSizes(
     palette: {
       mode: 'dark',
       primary: {
-        main: '#a7d7a0',
-        light: '#c4e6bf',
-        dark: '#80b779',
+        main: '#68c76b',
+        light: '#a2e69b',
+        dark: '#419a4d',
         contrastText: '#04110F',
       },
       secondary: {
@@ -30,8 +30,8 @@ const theme = responsiveFontSizes(
         contrastText: '#0B0D0E',
       },
       background: {
-        default: '#25262a',
-        paper: '#37383e',
+        default: '#03080b',
+        paper: '#0b1419',
       },
       text: {
         primary: '#EDF1F2',
@@ -90,7 +90,7 @@ const theme = responsiveFontSizes(
       MuiCssBaseline: {
         styleOverrides: {
           body: {
-            backgroundColor: '#25262a',
+            backgroundColor: '#03080b',
           },
         },
       },
@@ -104,31 +104,31 @@ const theme = responsiveFontSizes(
             textTransform: 'none',
             whiteSpace: 'nowrap',
             '&:focus-visible': {
-              outline: '2px solid #a7d7a0',
+              outline: '2px solid #68c76b',
               outlineOffset: 3,
             },
           },
           containedPrimary: {
-            background: 'linear-gradient(135deg, #a7d7a0 0%, #93c68c 100%)',
+            background: 'linear-gradient(135deg, #68c76b 0%, #55b95f 100%)',
             color: '#04110F',
-            boxShadow: '0 0 0 1px rgba(167, 215, 160, 0.35), 0 10px 30px rgba(167, 215, 160, 0.18)',
+            boxShadow: '0 0 0 1px rgba(104, 199, 107, 0.35), 0 10px 30px rgba(104, 199, 107, 0.18)',
             '&:hover': {
-              background: 'linear-gradient(135deg, #c4e6bf 0%, #afd5a8 100%)',
-              boxShadow: '0 0 26px rgba(167, 215, 160, 0.5), 0 0 0 1px rgba(167, 215, 160, 0.6)',
+              background: 'linear-gradient(135deg, #a2e69b 0%, #86d980 100%)',
+              boxShadow: '0 0 26px rgba(104, 199, 107, 0.5), 0 0 0 1px rgba(104, 199, 107, 0.6)',
             },
             '&.Mui-disabled': {
-              background: 'rgba(167, 215, 160, 0.12)',
+              background: 'rgba(104, 199, 107, 0.12)',
               color: 'rgba(237, 241, 242, 0.5)',
               boxShadow: 'none',
             },
           },
           outlined: {
-            borderColor: 'rgba(167, 215, 160, 0.34)',
+            borderColor: 'rgba(104, 199, 107, 0.34)',
             color: '#EDF1F2',
             '&:hover': {
-              borderColor: 'rgba(167, 215, 160, 0.85)',
-              backgroundColor: 'rgba(167, 215, 160, 0.08)',
-              boxShadow: '0 0 20px rgba(167, 215, 160, 0.18)',
+              borderColor: 'rgba(104, 199, 107, 0.85)',
+              backgroundColor: 'rgba(104, 199, 107, 0.08)',
+              boxShadow: '0 0 20px rgba(104, 199, 107, 0.18)',
             },
           },
         },
@@ -138,7 +138,7 @@ const theme = responsiveFontSizes(
           root: {
             borderRadius: 8,
             '&:focus-visible': {
-              outline: '2px solid #a7d7a0',
+              outline: '2px solid #68c76b',
               outlineOffset: 3,
             },
           },
@@ -150,7 +150,7 @@ const theme = responsiveFontSizes(
             color: 'inherit',
             textDecoration: 'none',
             '&:focus-visible': {
-              outline: '2px solid #a7d7a0',
+              outline: '2px solid #68c76b',
               outlineOffset: 3,
             },
           },
@@ -189,25 +189,25 @@ const theme = responsiveFontSizes(
         styleOverrides: {
           tooltip: {
             maxWidth: 320,
-            border: '1px solid rgba(167, 215, 160, 0.28)',
-            backgroundColor: '#37383e',
+            border: '1px solid rgba(104, 199, 107, 0.28)',
+            backgroundColor: '#0b1419',
             color: '#EDF1F2',
             borderRadius: 6,
             fontWeight: 700,
-            boxShadow: '0 0 24px rgba(167, 215, 160, 0.12)',
+            boxShadow: '0 0 24px rgba(104, 199, 107, 0.12)',
           },
           arrow: {
-            color: '#37383e',
+            color: '#0b1419',
           },
         },
       },
       MuiTabs: {
         styleOverrides: {
           indicator: {
-            backgroundColor: '#a7d7a0',
+            backgroundColor: '#68c76b',
             height: 3,
             borderRadius: 3,
-            boxShadow: '0 0 12px rgba(167, 215, 160, 0.7)',
+            boxShadow: '0 0 12px rgba(104, 199, 107, 0.7)',
           },
         },
       },
@@ -218,7 +218,7 @@ const theme = responsiveFontSizes(
             fontWeight: 700,
             textTransform: 'none',
             '&.Mui-selected': {
-              color: '#a7d7a0',
+              color: '#68c76b',
             },
           },
         },

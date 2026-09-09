@@ -30,7 +30,7 @@ export default function People() {
         <title>People of note | Fiducaro</title>
         <meta name="description" content="People of note in the privacy world. Explore voices discussing financial privacy, digital sovereignty, and security, starting with Monero Time." />
       </Head>
-      <Box component="main" sx={{ minHeight: 'calc(100vh - 70px)', bgcolor: '#292a2e' }}>
+      <Box component="main" sx={{ minHeight: 'calc(100vh - 70px)', bgcolor: '#060c10' }}>
         <Box sx={{ maxWidth: 1520, mx: 'auto', px: { xs: 2.5, sm: 4, lg: 6 }, py: { xs: 6, md: 8 } }}>
           <SectionLabel>The privacy world</SectionLabel>
           <Typography component="h1" sx={{ mt: 1.5, fontSize: { xs: 44, md: 68 }, lineHeight: 1.05, letterSpacing: '-.045em', fontWeight: 600 }}>
@@ -45,7 +45,7 @@ export default function People() {
               <Box component="article" key={person.handle} aria-labelledby={`person-${person.initials}`} sx={{ ...panelSx, p: { xs: 3, md: 5 }, borderRadius: 2 }}>
                 <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} gap={3}>
                   <Stack direction="row" alignItems="center" gap={2}>
-                    <Box aria-hidden="true" sx={{ width: 64, height: 64, display: 'grid', placeItems: 'center', flexShrink: 0, borderRadius: '50%', border: '1px solid rgba(167,215,160,.45)', bgcolor: 'rgba(167,215,160,.08)', color: 'primary.light', fontSize: 23, fontWeight: 600 }}>
+                    <Box aria-hidden="true" sx={{ width: 64, height: 64, display: 'grid', placeItems: 'center', flexShrink: 0, borderRadius: '50%', border: '1px solid rgba(104, 199, 107,.45)', bgcolor: 'rgba(104, 199, 107,.08)', color: 'primary.light', fontSize: 23, fontWeight: 600 }}>
                       {person.initials}
                     </Box>
                     <Box>

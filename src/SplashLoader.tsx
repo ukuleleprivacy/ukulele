@@ -29,21 +29,21 @@ const SplashLoader = ({ videoVisible, setVideoVisible }: any) => {
           textAlign: 'center',
           color: 'text.primary',
           background:
-            'radial-gradient(circle at 50% 42%, rgba(102, 255, 138, 0.2), transparent 34%), #0B0D0E',
+            'radial-gradient(circle at 50% 42%, rgba(104, 199, 107, 0.2), transparent 34%), #0B0D0E',
         }}
       >
         <Fade in={splashVisible}>
           <Box>
             <Box
               component="img"
-              src="/brand/fiducaro-logo-with-text.png"
+              src="/brand/fiducaro-dark-mark.webp"
               alt="FIDUCARO"
               sx={{
                 display: 'block',
                 width: { xs: 210, sm: 260 },
                 height: { xs: 210, sm: 260 },
                 objectFit: 'contain',
-                filter: 'drop-shadow(0 0 24px rgba(102, 255, 138, 0.45))',
+                filter: 'drop-shadow(0 0 24px rgba(104, 199, 107, 0.45))',
               }}
             />
           </Box>

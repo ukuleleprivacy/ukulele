@@ -65,9 +65,9 @@ export const ConnectWallet = (props: ButtonProps) => {
     fontWeight: 700,
     boxShadow: 'none',
     '&:hover': {
-      background: 'rgba(102,255,138,.12)',
-      borderColor: 'rgba(102,255,138,.65)',
-      boxShadow: '0 0 22px rgba(102, 255, 138, 0.16)',
+      background: 'rgba(104, 199, 107,.12)',
+      borderColor: 'rgba(104, 199, 107,.65)',
+      boxShadow: '0 0 22px rgba(104, 199, 107, 0.16)',
     },
   };
 

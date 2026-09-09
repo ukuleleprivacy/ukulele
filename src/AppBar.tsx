@@ -55,8 +55,8 @@ export const TopAppBar = () => {
                   borderRadius: '8px',
                   color: isActive ? 'primary.main' : 'text.secondary',
                   '&.Mui-selected': {
-                    backgroundColor: 'rgba(167, 215, 160, 0.14)',
-                    boxShadow: 'inset 0 0 0 1px rgba(167, 215, 160, 0.3)',
+                    backgroundColor: 'rgba(104, 199, 107, 0.14)',
+                    boxShadow: 'inset 0 0 0 1px rgba(104, 199, 107, 0.3)',
                   },
                 }}
               >
@@ -81,7 +81,7 @@ export const TopAppBar = () => {
           Telegram
         </Button>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'text.secondary', px: 1 }}>
-          <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main', boxShadow: '0 0 12px rgba(167, 215, 160,.7)' }} />
+          <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main', boxShadow: '0 0 12px rgba(104, 199, 107,.7)' }} />
           Ethereum Mainnet
         </Box>
         <ConnectWallet fullWidth />
@@ -99,9 +99,9 @@ export const TopAppBar = () => {
           top: 0,
           zIndex: (theme) => theme.zIndex.appBar,
           py: { xs: 0.5, md: 0.75 },
-          backdropFilter: 'blur(22px)',
+          backdropFilter: { xs: 'none', md: 'blur(12px)' },
           background:
-            'linear-gradient(180deg, rgba(37, 38, 42, 0.97) 0%, rgba(37, 38, 42, 0.9) 100%)',
+            'linear-gradient(180deg, rgba(3, 8, 11, 0.97) 0%, rgba(3, 8, 11, 0.9) 100%)',
           borderBottom: '1px solid rgba(255, 255, 255, 0.11)',
         }}
       >
@@ -145,7 +145,7 @@ export const TopAppBar = () => {
                     minHeight: 56,
                     px: 1.5,
                     borderRadius: 0,
-                    borderBottom: isActive ? '2px solid #a7d7a0' : '2px solid transparent',
+                    borderBottom: isActive ? '2px solid #68c76b' : '2px solid transparent',
                     fontSize: 14,
                     color: isActive ? 'text.primary' : 'text.secondary',
                     '&:hover': {
@@ -168,7 +168,7 @@ export const TopAppBar = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Join Fiducaro on Telegram"
-                sx={{ color: 'primary.main', border: '1px solid rgba(167, 215, 160,.24)', '&:hover': { backgroundColor: 'rgba(167, 215, 160,.1)', boxShadow: '0 0 18px rgba(167, 215, 160,.18)' } }}
+                sx={{ color: 'primary.main', border: '1px solid rgba(104, 199, 107,.24)', '&:hover': { backgroundColor: 'rgba(104, 199, 107,.1)', boxShadow: '0 0 18px rgba(104, 199, 107,.18)' } }}
               >
                 <FaTelegramPlane size={17} />
               </IconButton>
@@ -186,7 +186,7 @@ export const TopAppBar = () => {
                 fontSize: 13,
               }}
             >
-              <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main', boxShadow: '0 0 12px rgba(167, 215, 160,.8)' }} />
+              <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main', boxShadow: '0 0 12px rgba(104, 199, 107,.8)' }} />
               Ethereum Mainnet
             </Box>
             <ConnectWallet sx={{ display: { xs: 'none', sm: 'inline-flex' } }} />

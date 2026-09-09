@@ -345,7 +345,7 @@ export default function Disruptor() {
                   p: 2.5,
                   borderRadius: '8px',
                   border: hasError
-                    ? '1px solid rgba(102, 255, 138, 0.55)'
+                    ? '1px solid rgba(104, 199, 107, 0.55)'
                     : '1px solid rgba(255, 255, 255, 0.12)',
                   backgroundColor: hasError
                     ? 'rgba(255, 255, 255, 0.08)'

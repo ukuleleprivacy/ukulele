@@ -20,7 +20,7 @@ export const Footer = () => (
       pt: { xs: 8, md: 12 },
       pb: 6,
       background:
-        'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(37, 38, 42, 0.88) 32%, #25262a 100%)',
+        'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(3, 8, 11, 0.88) 32%, #03080b 100%)',
     }}
   >
     <Container maxWidth="lg">
@@ -107,7 +107,7 @@ export const Footer = () => (
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Join Fiducaro on Telegram"
-            sx={{ color: 'primary.main', border: '1px solid rgba(167, 215, 160,.24)', '&:hover': { backgroundColor: 'rgba(167, 215, 160,.1)', boxShadow: '0 0 18px rgba(167, 215, 160,.18)' } }}
+            sx={{ color: 'primary.main', border: '1px solid rgba(104, 199, 107,.24)', '&:hover': { backgroundColor: 'rgba(104, 199, 107,.1)', boxShadow: '0 0 18px rgba(104, 199, 107,.18)' } }}
           >
             <FaTelegramPlane size={18} />
           </IconButton>
@@ -132,7 +132,7 @@ export const Footer = () => (
               transition: 'color 180ms ease, text-shadow 180ms ease',
               '&:hover, &:focus-visible': {
                 color: 'primary.main',
-                textShadow: '0 0 14px rgba(167, 215, 160, 0.55)',
+                textShadow: '0 0 14px rgba(104, 199, 107, 0.55)',
               },
             }}
           >

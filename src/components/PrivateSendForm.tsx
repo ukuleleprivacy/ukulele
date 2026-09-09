@@ -64,7 +64,10 @@ export const PrivateSendForm = ({
       sx={{
         mt: 1.5,
         position: 'relative',
-        background: '#3b3c42',
+        borderColor: 'rgba(104, 199, 107, .28)',
+        background:
+          'radial-gradient(circle at 12% 0%, rgba(104, 199, 107, .09), transparent 34%), linear-gradient(145deg, #101c22 0%, #0b1419 58%, #071014 100%)',
+        boxShadow: 'inset 0 1px rgba(255,255,255,.035), 0 22px 70px rgba(0,0,0,.36)',
         ...(isLocked && {
           filter: 'grayscale(100%)',
           opacity: 0.6,
@@ -100,7 +103,7 @@ export const PrivateSendForm = ({
         >
           <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
             <Typography variant="h4" fontWeight="600">{cardTitle}</Typography>
-            <Box sx={{ px: 1.2, py: .55, borderRadius: 1, bgcolor: 'rgba(102,255,138,.1)', color: 'primary.main', fontSize: 11, fontWeight: 700 }}>
+            <Box sx={{ px: 1.2, py: .55, borderRadius: 1, bgcolor: 'rgba(104, 199, 107,.1)', color: 'primary.main', fontSize: 11, fontWeight: 700 }}>
               ● {isInProcess ? 'PROCESSING' : 'READY'}
             </Box>
           </Stack>
@@ -132,7 +135,7 @@ export const PrivateSendForm = ({
                 required: 'Amount is required',
                 validate: (value) => Number(value) > 0 || 'Amount must be a positive number',
               })}
-              sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'rgba(0,0,0,.18)' } }}
+              sx={{ '& .MuiOutlinedInput-root': { bgcolor: '#071318' } }}
             />
             {errors.amount && (
               <InputLabel sx={{ fontSize: 12, mt: 1, color: '#e6e6e6' }}>
@@ -159,7 +162,7 @@ export const PrivateSendForm = ({
                 validate: (value) =>
                   ethers.utils.isAddress(value) || 'Please input a valid ethereum address',
               })}
-              sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'rgba(0,0,0,.18)' } }}
+              sx={{ '& .MuiOutlinedInput-root': { bgcolor: '#071318' } }}
             />
             {errors.address && (
               <InputLabel sx={{ fontSize: 12, mt: 1, color: '#e6e6e6' }}>
@@ -189,7 +192,7 @@ export const PrivateSendForm = ({
                 validate: (value) =>
                   value.length === 39 || 'Salt must be a 39-digit number',
               })}
-              sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'rgba(0,0,0,.18)' } }}
+              sx={{ '& .MuiOutlinedInput-root': { bgcolor: '#071318' } }}
             />
             {remainingDigits > 0 && (
                 <InputLabel sx={{ fontSize: 11, mt: 1, color: 'text.secondary' }}>

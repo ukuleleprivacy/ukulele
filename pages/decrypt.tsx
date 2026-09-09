@@ -124,7 +124,7 @@ export default function Decrypt() {
         component="main"
         sx={{
           minHeight: 'calc(100vh - 70px)',
-          bgcolor: '#292a2e',
+          bgcolor: '#060c10',
         }}
       >
         <Box sx={{ maxWidth: 1840, mx: 'auto', px: { xs: 2, sm: 3.5, lg: 5 }, py: { xs: 6, md: 8 } }}>
@@ -189,7 +189,7 @@ export default function Decrypt() {
             </Grid>
           </Grid>
 
-          <ProtocolPanel role={hasError ? 'alert' : 'status'} aria-live="polite" sx={{ mt: 2.5, p: 2.2, borderColor: hasError ? 'rgba(255,255,255,.45)' : 'rgba(102,255,138,.22)' }}>
+          <ProtocolPanel role={hasError ? 'alert' : 'status'} aria-live="polite" sx={{ mt: 2.5, p: 2.2, borderColor: hasError ? 'rgba(255,255,255,.45)' : 'rgba(104, 199, 107,.22)' }}>
             <Typography fontWeight={700}>{status.title}</Typography>
             <Typography color="text.secondary" sx={{ mt: .5, fontSize: 13 }}>{status.description}</Typography>
           </ProtocolPanel>

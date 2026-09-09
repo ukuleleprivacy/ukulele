@@ -1,4 +1,5 @@
-import { useState, type CSSProperties } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
@@ -28,13 +29,65 @@ const strands = [
   ['M180 220 C340 210 490 125 700 110', 'M180 220 C480 330 440 5 700 110', 'M710 245 C690 245 650 245 630 245'],
   ['M180 285 C340 260 490 235 700 210', 'M180 285 C530 30 370 320 700 210', 'M630 245 C630 215 630 190 630 160'],
 ];
-function PrivacyWeave() {
-  return <div className="privacy-weave" role="img" aria-label="Address, recipient, amount and SALT intertwine into a lock. The lock opens and the strands return to Fiducaro.">
+// Every shape is one M + C segment, so the same eight coordinates interpolate
+// directly. Updating the SVG attribute avoids Safari's unsupported CSS d path.
+const strandPoints = strands.map(shapes => shapes.map(shape => shape.match(/-?\d+(?:\.\d+)?/g)!.map(Number)));
+const shapeTimeline = [[0, 0], [.1, 0], [.27, 1], [.42, 2], [.7, 2], [.85, 1], [1, 0]];
+const ease = (value: number) => value * value * (3 - 2 * value);
+const ramp = (time: number, start: number, end: number) => ease(Math.max(0, Math.min(1, (time - start) / (end - start))));
+
+function PrivacyWeave({ running = true }: { running?: boolean }) {
+  const root = useRef<HTMLDivElement>(null);
+  const elapsed = useRef(0);
+  const reduceMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
+  useEffect(() => {
+    const paths = root.current!.querySelectorAll<SVGPathElement>('.weave-strand');
+    const detail = root.current!.querySelector<SVGGElement>('.weave-lock-detail')!;
+    const shackle = root.current!.querySelector<SVGPathElement>('.weave-shackle')!;
+    const labels = root.current!.querySelector<SVGGElement>('.weave-labels')!;
+    const render = (time: number) => {
+      const end = shapeTimeline.findIndex(([at]) => at > time);
+      const [fromTime, fromShape] = shapeTimeline[end - 1];
+      const [toTime, toShape] = shapeTimeline[end];
+      const progress = ramp(time, fromTime, toTime);
+      paths.forEach((path, index) => {
+        const from = strandPoints[index][fromShape];
+        const to = strandPoints[index][toShape];
+        const points = from.map((value, i) => (value + (to[i] - value) * progress).toFixed(2));
+        path.setAttribute('d', `M${points[0]} ${points[1]} C${points.slice(2).join(' ')}`);
+      });
+      // Details appear only once the four strands have formed the lock body.
+      const visible = ramp(time, .42, .45) * (1 - ramp(time, .66, .7));
+      detail.setAttribute('opacity', String(visible));
+      shackle.setAttribute('transform', `rotate(${-38 * ramp(time, .5, .59)} 644 160)`);
+      labels.setAttribute('opacity', String(1 - .65 * ramp(time, .15, .42) * (1 - ramp(time, .7, .95))));
+    };
+
+    if (reduceMotion) {
+      render(.49);
+      return;
+    }
+    render((elapsed.current % 12000) / 12000);
+    if (!running) return;
+    let frame = 0;
+    let previous: number | undefined;
+    const tick = (now: number) => {
+      if (previous !== undefined) elapsed.current += now - previous;
+      previous = now;
+      render((elapsed.current % 12000) / 12000);
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [running, reduceMotion]);
+
+  return <div ref={root} className="privacy-weave" role="img" aria-label="Address, recipient, amount and SALT intertwine into a lock. The lock opens and the strands return to Fiducaro.">
     <svg viewBox="0 0 850 360" aria-hidden="true">
       <text x="26" y="42" className="weave-brand">FIDUCARO</text>
-      {['ADDRESS', 'RECIPIENT', 'AMOUNT', 'SALT'].map((label, i) => <g className="weave-label" key={label}><rect x="24" y={66 + i * 66} width="136" height="40" rx="8" /><text x="37" y={92 + i * 66}>{label}</text></g>)}
-      {strands.map(([start, mesh, lock], i) => <path key={i} className={`weave-strand strand-${i}`} d={start} style={{ '--strand-start': `path('${start}')`, '--strand-mesh': `path('${mesh}')`, '--strand-lock': `path('${lock}')` } as CSSProperties} />)}
-      <g className="weave-lock-detail">
+      <g className="weave-labels">{['ADDRESS', 'RECIPIENT', 'AMOUNT', 'SALT'].map((label, i) => <g className="weave-label" key={label}><rect x="24" y={66 + i * 66} width="136" height="40" rx="8" /><text x="37" y={92 + i * 66}>{label}</text></g>)}</g>
+      {strands.map(([start], i) => <path key={i} className={`weave-strand strand-${i}`} d={start} />)}
+      <g className="weave-lock-detail" opacity="0">
         <path className="weave-shackle" d="M644 160 V136 C644 98 696 98 696 136 V160" />
         <circle cx="670" cy="198" r="7" /><path d="M670 201 V216" />
       </g>
@@ -63,9 +116,24 @@ const panels = [
 export function ArchitectureExplorer() {
   const [selected, setSelected] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [pageVisible, setPageVisible] = useState(true);
+  const root = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting));
+    observer.observe(root.current!);
+    const onVisibility = () => setPageVisible(!document.hidden);
+    onVisibility();
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, []);
+  const running = !paused && visible && pageVisible;
   const panel = panels[selected];
   const Visual = panel.visual;
-  return <Box className={`architecture-explorer explorer-${selected}${paused ? ' animations-paused' : ''}`}>
+  return <Box ref={root} className={`architecture-explorer explorer-${selected}${running ? '' : ' animations-paused'}`}>
     <Stack direction="row" justifyContent="space-between" alignItems="center" gap={2} sx={{ mb: 3 }}>
       <Typography component="h3" sx={{ fontSize: 24, fontWeight: 600, '&:focus': { outline: 'none' } }}>Inside the architecture</Typography>
     </Stack>
@@ -74,7 +142,7 @@ export function ArchitectureExplorer() {
     </Tabs>
     <div role="tabpanel" id={`architecture-panel-${selected}`} aria-labelledby={`architecture-tab-${selected}`} key={selected} className="explorer-content">
       <div className="explorer-copy"><SectionLabel>{panel.label}</SectionLabel><Typography component="h4" sx={{ fontSize: { xs: 28, md: 38 }, lineHeight: 1.12, letterSpacing: '-.035em', mt: 1.5, mb: 2 }}>{panel.headline}</Typography><Typography sx={{ color: 'text.secondary', fontSize: 15, lineHeight: 1.85 }}>{panel.body}</Typography></div>
-      <Visual />
+      <Visual running={running} />
     </div>
     <Button onClick={() => setPaused(value => !value)} startIcon={paused ? <FiPlay /> : <FiPause />} aria-pressed={paused} sx={{ mt: 2, fontSize: 12 }}>{paused ? 'Resume animation' : 'Pause animation'}</Button>
   </Box>;

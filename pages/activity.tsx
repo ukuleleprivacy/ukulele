@@ -22,17 +22,7 @@ import Head from 'next/head';
 import { ProtocolPanel, SectionLabel, StatusDot } from '../src/components/ProtocolUI';
 import { usePublicFiduBalance } from '../src/components/WalletBalance';
 import { Layout } from '../src/Layout';
-
-type FiducaroActivity = {
-  id: string;
-  type: 'Private Send' | 'Full Decrypt' | 'Partial Decrypt';
-  status: 'Complete' | 'Pending';
-  amount?: string;
-  destination: string;
-  transactionHash: string;
-  date: string;
-  stage?: string;
-};
+import { fiducaroActivities, type FiducaroActivity } from '../src/activityData';
 
 const filters = ['All', 'Private Send', 'Full Decrypt', 'Partial Decrypt', 'Completed', 'Pending'] as const;
 
@@ -45,7 +35,7 @@ export default function Activity() {
   const [tab, setTab] = useState<'activity' | 'balance'>('activity');
   const [filter, setFilter] = useState<(typeof filters)[number]>('All');
   const [search, setSearch] = useState('');
-  const activities: FiducaroActivity[] = [];
+  const activities = fiducaroActivities;
   const [selected, setSelected] = useState<FiducaroActivity | null>(null);
 
   const filtered = useMemo(() => {
@@ -67,7 +57,7 @@ export default function Activity() {
   return (
     <Layout>
       <Head><title>Activity | Fiducaro</title></Head>
-      <Box component="main" sx={{ minHeight: 'calc(100vh - 70px)', background: 'radial-gradient(circle at 80% 0%, rgba(255,255,255,.07), transparent 24%), #292a2e' }}>
+      <Box component="main" sx={{ minHeight: 'calc(100vh - 70px)', background: 'radial-gradient(circle at 80% 0%, rgba(255,255,255,.07), transparent 24%), #060c10' }}>
         <Box sx={{ maxWidth: 1540, mx: 'auto', px: { xs: 2, sm: 3.5, lg: 5 }, py: { xs: 4, md: 7 } }}>
           <Stack direction="row" justifyContent="center" gap={3} sx={{ borderBottom: '1px solid rgba(255,255,255,.15)' }}>
             <Button onClick={() => setTab('activity')} sx={{ minHeight: 48, borderRadius: 0, color: tab === 'activity' ? 'text.primary' : 'text.secondary', borderBottom: tab === 'activity' ? '2px solid white' : '2px solid transparent' }}>Activity</Button>

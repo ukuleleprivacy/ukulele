@@ -42,7 +42,7 @@ export default function MyApp(props: MyAppProps) {
         />
         <meta property="og:title" content={`FIDUCARO · ${brand.tagline}`} />
         <meta property="og:description" content={brand.description} />
-        <meta property="og:image" content="/brand/social-banner.png" />
+        <meta property="og:image" content="/brand/fiducaro-dark-wallpaper.webp" />
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -55,7 +55,7 @@ export default function MyApp(props: MyAppProps) {
             overflow: 'hidden',
             backgroundColor: 'background.default',
             backgroundImage:
-              'radial-gradient(ellipse at 78% 6%, rgba(225, 228, 233, 0.07), transparent 38%), linear-gradient(180deg, #292a2e 0%, #303136 46%, #25262a 100%)',
+              'radial-gradient(ellipse at 78% 6%, rgba(225, 228, 233, 0.07), transparent 38%), linear-gradient(180deg, #060c10 0%, #0b1419 46%, #03080b 100%)',
           }}
         >
           <Web3ReactProvider getLibrary={getLibrary}>

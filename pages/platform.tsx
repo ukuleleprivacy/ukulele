@@ -481,7 +481,7 @@ export default function Platform() {
         component="main"
         sx={{
           minHeight: 'calc(100vh - 70px)',
-          bgcolor: '#292a2e',
+          bgcolor: '#060c10',
         }}
       >
         <Box sx={{ maxWidth: 1520, mx: 'auto', px: { xs: 2.5, sm: 4, lg: 6 }, pt: { xs: 6, md: 7 }, pb: { xs: 8, md: 10 } }}>
@@ -611,7 +611,7 @@ export default function Platform() {
           </Collapse>
           </Box>
 
-              <ProtocolPanel sx={{ mt: 3, p: { xs: 3, md: 4 }, bgcolor: '#3b3c42' }}>
+              <ProtocolPanel sx={{ mt: 3, p: { xs: 3, md: 4 }, bgcolor: '#0c181d' }}>
                 <Typography variant="h4">Execution Path</Typography>
                 <Stack alignItems="center" gap={0} sx={{ mt: 4 }}>
                   {[
@@ -623,11 +623,11 @@ export default function Platform() {
                     const activeStep = step === 3 ? true : index <= step;
                     return (
                       <Stack alignItems="center" key={title} sx={{ width: '100%' }}>
-                        <ProtocolPanel sx={{ width: 'min(100%, 320px)', p: 2, textAlign: 'center', borderColor: activeStep ? 'rgba(167,215,160,.7)' : 'rgba(255,255,255,.17)', boxShadow: activeStep ? '0 0 24px rgba(167,215,160,.13)' : 'none' }}>
+                        <ProtocolPanel sx={{ width: 'min(100%, 320px)', p: 2, textAlign: 'center', borderColor: activeStep ? 'rgba(104, 199, 107,.7)' : 'rgba(255,255,255,.17)', boxShadow: activeStep ? '0 0 24px rgba(104, 199, 107,.13)' : 'none' }}>
                           <Typography sx={{ fontWeight: 700, color: activeStep ? 'text.primary' : 'text.secondary' }}>{title}</Typography>
                           <Typography color="text.secondary" sx={{ mt: .5, fontSize: 12 }}>{description}</Typography>
                         </ProtocolPanel>
-                        {index < 3 && <Box sx={{ width: 2, height: 44, bgcolor: activeStep ? 'primary.main' : 'rgba(255,255,255,.18)', boxShadow: activeStep ? '0 0 12px #a7d7a0' : 'none' }} />}
+                        {index < 3 && <Box sx={{ width: 2, height: 44, bgcolor: activeStep ? 'primary.main' : 'rgba(255,255,255,.18)', boxShadow: activeStep ? '0 0 12px #68c76b' : 'none' }} />}
                       </Stack>
                     );
                   })}

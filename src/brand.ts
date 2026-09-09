@@ -1,20 +1,20 @@
 export const brand = {
   name: 'FIDUCARO',
-  tagline: 'Unseen. Unbreakable. Unmatched.',
+  tagline: 'Enabling Privacy Across International Markets',
   description:
     'FIDUCARO is a settlement layer for privacy preserving transactions on the blockchain; expanding into all digital assets - with reserves being managed by OmniOne Bank.',
   twitterUrl: 'https://x.com/fiducaroprivacy',
   telegramUrl: 'https://t.me/+zVqxwbcpLTlmOWJl',
   omniOneUrl: 'https://omnione.netlify.app',
   palette: {
-    neon: '#a7d7a0',
-    neonLight: '#c4e6bf',
-    neonDark: '#80b779',
+    neon: '#68c76b',
+    neonLight: '#a2e69b',
+    neonDark: '#419a4d',
     white: '#EDF1F2',
     silver: '#9AA6AD',
-    black: '#25262a',
-    ink: '#37383e',
-    graphite: '#45464c',
+    black: '#03080b',
+    ink: '#0b1419',
+    graphite: '#142026',
     pearl: '#C4CDD2',
   },
 };
@@ -105,11 +105,11 @@ export const protocolNotes = [
 ];
 
 export const brandAssets = [
-  { label: 'Logo', path: '/brand/fiducaro-official.webp' },
+  { label: 'Logo', path: '/brand/fiducaro-dark-mark.webp' },
   { label: 'Hero artwork', path: '/brand/fiducaro-hero.png' },
-  { label: 'Desktop wallpaper', path: '/brand/wallpaper-desktop.png' },
+  { label: 'Desktop wallpaper', path: '/brand/fiducaro-dark-wallpaper.webp' },
   { label: 'Mobile wallpaper', path: '/brand/wallpaper-mobile.png' },
-  { label: 'Social banner', path: '/brand/social-banner.png' },
+  { label: 'Social banner', path: '/brand/fiducaro-dark-wallpaper.webp' },
   { label: 'Event log and final state', path: '/technical/event-log-final-state.webp' },
   { label: 'Private balance lifecycle', path: '/technical/private-balance-lifecycle.webp' },
   { label: 'Private flow', path: '/technical/private-flow.webp' },
