@@ -16,7 +16,6 @@ import createEmotionCache from '../src/createEmotionCache';
 import { Footer } from '../src/Footer';
 import { TopAppBar } from '../src/AppBar';
 import { brand } from '../src/brand';
-import { WalletSession } from '../src/components/WalletSession';
 import theme from '../src/theme';
 
 const clientSideEmotionCache = createEmotionCache();
@@ -59,13 +58,11 @@ export default function MyApp(props: MyAppProps) {
           }}
         >
           <Web3ReactProvider getLibrary={getLibrary}>
-            <WalletSession>
-              <Box sx={{ width: '100%' }}>
-                {!isPrivateArchive && <TopAppBar />}
-                <Component {...pageProps} />
-              </Box>
-              {!isPrivateArchive && <Footer />}
-            </WalletSession>
+            <Box sx={{ width: '100%' }}>
+              {!isPrivateArchive && <TopAppBar />}
+              <Component {...pageProps} />
+            </Box>
+            {!isPrivateArchive && <Footer />}
           </Web3ReactProvider>
         </Box>
       </ThemeProvider>

@@ -16,6 +16,8 @@ export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
       className={montserrat.className}
     >
       <Head>
+        {/* Install before Next's runtime so extension startup failures are isolated. */}
+        <script src="/wallet-extension-errors.js" />
         {/* PWA primary color */}
         <meta name="theme-color" content="#060c10" />
         <link rel="icon" href="/brand/favicon-dark.png" type="image/png" sizes="32x32" />

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button, { type ButtonProps } from '@mui/material/Button';
 import { useWeb3React } from '@web3-react/core';
 
-import { injectedConnector, walletAutoConnectKey } from '../lib/wallet';
+import { injectedConnector } from '../lib/wallet';
 
 const shortenAddress = (address: string) => `${address.slice(0, 6)}…${address.slice(-4)}`;
 
@@ -15,7 +15,6 @@ export const ConnectWallet = (props: ButtonProps) => {
 
     try {
       await activate(injectedConnector, undefined, true);
-      window.localStorage.setItem(walletAutoConnectKey, 'true');
     } catch (ex) {
       console.error(ex);
       setError('Wallet unavailable');
@@ -45,7 +44,6 @@ export const ConnectWallet = (props: ButtonProps) => {
 
       deactivate();
       await activate(injectedConnector, undefined, true);
-      window.localStorage.setItem(walletAutoConnectKey, 'true');
     } catch (ex) {
       console.error(ex);
       setError('Wallet switch cancelled');

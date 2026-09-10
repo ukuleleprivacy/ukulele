@@ -92,7 +92,6 @@ function PrivacyWeave({ running = true }: { running?: boolean }) {
         <circle cx="670" cy="198" r="7" /><path d="M670 201 V216" />
       </g>
     </svg>
-    <span className="network-caption">Intertwine → lock → open → return</span>
   </div>;
 }
 

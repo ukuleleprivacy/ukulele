@@ -14,12 +14,38 @@ const people = [
     handle: '@MoneroTime',
     initials: 'MT',
     profileUrl: 'https://x.com/MoneroTime',
+    actionUrl: 'https://x.com/MoneroTime',
+    actionLabel: 'View on X',
+    dateLabel: 'Posted',
+    date: 'January 17, 2026',
     topics: ['Monero', 'Digital privacy', 'Operational security'],
     excerpt:
       'Monero Time shares commentary on financial privacy, cryptocurrency security, and digital sovereignty. The account discusses Monero alongside practical approaches to protecting sensitive information, including Tails, KeePassXC, and VeraCrypt. Its posts take a skeptical view of sweeping security claims and encourage readers to think carefully about their threat models.',
-    quote: 'TailsOS + KeePassXC + VeraCrypt = true digital sovereignty!',
-    postUrl: 'https://x.com/MoneroTime/status/2012627921110810638',
-    postDate: 'January 17, 2026',
+    spotlightLabel: 'From the pinned post',
+    spotlightText: 'TailsOS + KeePassXC + VeraCrypt = true digital sovereignty!',
+    spotlightMeta: '@MoneroTime · January 17, 2026',
+    spotlightUrl: 'https://x.com/MoneroTime/status/2012627921110810638',
+    spotlightAction: 'Read the original post',
+    isQuote: true,
+  },
+  {
+    name: 'GhostofMapl',
+    handle: 'echo-of-ghost/blockquote',
+    initials: 'GM',
+    profileUrl: 'https://github.com/echo-of-ghost/blockquote',
+    actionUrl: 'https://blockquote.sh/',
+    actionLabel: 'Visit blockquote.sh',
+    dateLabel: 'Project published',
+    date: 'September 24, 2025',
+    topics: ['Bitcoin', 'Open source', 'Retro computing'],
+    excerpt:
+      'GhostofMapl created blockquote.sh, an open-source collection of Bitcoin and Bitcoin-related quotes presented through historically accurate CRT terminal themes. The project pairs thoughtful writing with tactile details such as typewriter timing, bookmarks, search, shareable links, and keyboard and touch controls.',
+    spotlightLabel: 'Featured project',
+    spotlightText: 'A growing collection of Bitcoin quotes rendered through historically accurate CRT terminal themes.',
+    spotlightMeta: 'blockquote.sh · Open source',
+    spotlightUrl: 'https://github.com/echo-of-ghost/blockquote',
+    spotlightAction: 'View the project on GitHub',
+    isQuote: false,
   },
 ];
 
@@ -28,7 +54,7 @@ export default function People() {
     <Layout>
       <Head>
         <title>People of note | Fiducaro</title>
-        <meta name="description" content="People of note in the privacy world. Explore voices discussing financial privacy, digital sovereignty, and security, starting with Monero Time." />
+        <meta name="description" content="People of note in the privacy world. Explore voices and makers working across financial privacy, digital sovereignty, Bitcoin, and security." />
       </Head>
       <Box component="main" sx={{ minHeight: 'calc(100vh - 70px)', bgcolor: '#060c10' }}>
         <Box sx={{ maxWidth: 1520, mx: 'auto', px: { xs: 2.5, sm: 4, lg: 6 }, py: { xs: 6, md: 8 } }}>
@@ -42,7 +68,7 @@ export default function People() {
 
           <Stack gap={3} sx={{ mt: { xs: 4, md: 6 } }}>
             {people.map((person) => (
-              <Box component="article" key={person.handle} aria-labelledby={`person-${person.initials}`} sx={{ ...panelSx, p: { xs: 3, md: 5 }, borderRadius: 2 }}>
+              <Box component="article" key={person.name} aria-labelledby={`person-${person.initials}`} sx={{ ...panelSx, p: { xs: 3, md: 5 }, borderRadius: 2 }}>
                 <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} gap={3}>
                   <Stack direction="row" alignItems="center" gap={2}>
                     <Box aria-hidden="true" sx={{ width: 64, height: 64, display: 'grid', placeItems: 'center', flexShrink: 0, borderRadius: '50%', border: '1px solid rgba(104, 199, 107,.45)', bgcolor: 'rgba(104, 199, 107,.08)', color: 'primary.light', fontSize: 23, fontWeight: 600 }}>
@@ -51,10 +77,11 @@ export default function People() {
                     <Box>
                       <Typography component="h2" id={`person-${person.initials}`} sx={{ fontSize: { xs: 25, md: 32 }, fontWeight: 600, letterSpacing: '-.025em' }}>{person.name}</Typography>
                       <Typography component="a" href={person.profileUrl} target="_blank" rel="noopener noreferrer" sx={{ color: 'primary.main', fontSize: 16, textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>{person.handle}</Typography>
+                      <Typography sx={{ mt: .65, color: '#fff', fontSize: 14, fontWeight: 600 }}>{person.dateLabel} · {person.date}</Typography>
                     </Box>
                   </Stack>
-                  <Button component="a" href={person.profileUrl} target="_blank" rel="noopener noreferrer" variant="outlined" endIcon={<OpenInNewRounded sx={{ fontSize: 17 }} />}>
-                    View on X
+                  <Button component="a" href={person.actionUrl} target="_blank" rel="noopener noreferrer" variant="outlined" endIcon={<OpenInNewRounded sx={{ fontSize: 17 }} />}>
+                    {person.actionLabel}
                   </Button>
                 </Stack>
 
@@ -68,13 +95,13 @@ export default function People() {
                     <Typography sx={{ mt: 1.5, fontSize: 16, lineHeight: 1.85, color: 'text.secondary' }}>{person.excerpt}</Typography>
                   </Box>
                   <Box component="figure" sx={{ m: 0, pl: 3, borderLeft: '2px solid', borderColor: 'primary.main' }}>
-                    <SectionLabel>From the pinned post</SectionLabel>
+                    <SectionLabel>{person.spotlightLabel}</SectionLabel>
                     <Typography component="blockquote" sx={{ mx: 0, my: 2, fontSize: { xs: 21, md: 24 }, fontWeight: 600, lineHeight: 1.5 }}>
-                      “{person.quote}”
+                      {person.isQuote ? `“${person.spotlightText}”` : person.spotlightText}
                     </Typography>
                     <Box component="figcaption">
-                      <Typography color="text.secondary" sx={{ fontSize: 14 }}>{person.handle} · {person.postDate}</Typography>
-                      <Button component="a" href={person.postUrl} target="_blank" rel="noopener noreferrer" endIcon={<OpenInNewRounded sx={{ fontSize: 16 }} />} sx={{ mt: 1, px: 0, fontSize: 14 }}>Read the original post</Button>
+                      <Typography color="text.secondary" sx={{ fontSize: 14 }}>{person.spotlightMeta}</Typography>
+                      <Button component="a" href={person.spotlightUrl} target="_blank" rel="noopener noreferrer" endIcon={<OpenInNewRounded sx={{ fontSize: 16 }} />} sx={{ mt: 1, px: 0, fontSize: 14 }}>{person.spotlightAction}</Button>
                     </Box>
                   </Box>
                 </Box>
