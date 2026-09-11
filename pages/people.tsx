@@ -26,6 +26,8 @@ const people = [
     spotlightMeta: '@MoneroTime · January 17, 2026',
     spotlightUrl: 'https://x.com/MoneroTime/status/2012627921110810638',
     spotlightAction: 'Read the original post',
+    spotlightImage: null,
+    spotlightImageAlt: '',
     isQuote: true,
   },
   {
@@ -45,7 +47,30 @@ const people = [
     spotlightMeta: 'blockquote.sh · Open source',
     spotlightUrl: 'https://github.com/echo-of-ghost/blockquote',
     spotlightAction: 'View the project on GitHub',
+    spotlightImage: null,
+    spotlightImageAlt: '',
     isQuote: false,
+  },
+  {
+    name: 'Picolas Cage',
+    handle: '@Picolas_Caged',
+    initials: 'PC',
+    profileUrl: 'https://x.com/Picolas_Caged',
+    actionUrl: 'https://x.com/Picolas_Caged',
+    actionLabel: 'View on X',
+    dateLabel: 'Posted',
+    date: 'September 5, 2026',
+    topics: ['Bitcoin', 'Crypto markets', 'DeFi'],
+    excerpt:
+      'Picolas Cage is a Bitcoin and Ethereum swing trader and DeFi enthusiast who has been active in crypto since 2018. The account comments on market narratives, investor behavior, token design, and the recurring search for the next early-stage opportunity.',
+    spotlightLabel: 'From the post',
+    spotlightText: "They want to do this because they missed 'the first bitcoin'",
+    spotlightMeta: '@Picolas_Caged · September 5, 2026',
+    spotlightUrl: 'https://x.com/Picolas_Caged/status/2096232108519760172',
+    spotlightAction: 'Read the original post',
+    spotlightImage: '/people/picolas-caged-first-bitcoin.png',
+    spotlightImageAlt: "Post by Picolas Cage reading: They want to do this because they missed 'the first bitcoin'",
+    isQuote: true,
   },
 ];
 
@@ -88,6 +113,12 @@ export default function People() {
                 <Stack direction="row" useFlexGap flexWrap="wrap" gap={1} sx={{ mt: 3 }}>
                   {person.topics.map((topic) => <Box key={topic} component="span" sx={{ px: 1.5, py: .5, borderRadius: 4, border: '1px solid rgba(255,255,255,.14)', color: 'text.secondary', fontSize: 14 }}>{topic}</Box>)}
                 </Stack>
+
+                {person.spotlightImage && (
+                  <Box sx={{ mt: 3.5, overflow: 'hidden', border: '1px solid rgba(255,255,255,.12)', borderRadius: 1.5, bgcolor: '#000' }}>
+                    <Box component="img" src={person.spotlightImage} alt={person.spotlightImageAlt} sx={{ display: 'block', width: '100%', height: 'auto' }} />
+                  </Box>
+                )}
 
                 <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1.4fr 1fr' }, gap: { xs: 3, md: 5 }, mt: 3.5, pt: 3.5, borderTop: '1px solid', borderColor: 'divider' }}>
                   <Box>

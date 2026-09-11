@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box';
 import LockOutlined from '@mui/icons-material/LockOutlined';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
@@ -24,67 +23,13 @@ export const Footer = () => (
     }}
   >
     <Container maxWidth="lg">
-      <Grid container spacing={{ xs: 5, md: 8 }} justifyContent="space-between">
-        <Grid item xs={12} md={5}>
-          <Stack gap={2.5}>
-            <Logo />
-            <Typography color="text.secondary" sx={{ maxWidth: 520 }}>
-              {brand.description}
-            </Typography>
-          </Stack>
-        </Grid>
-
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          md={2}
-          sx={{ display: 'flex', justifyContent: { xs: 'flex-start', md: 'flex-end' } }}
-        >
-          <Stack alignItems="center" gap={0.25}>
-            <Tooltip title="OmniOne Bank" arrow>
-              <IconButton
-                component={Link}
-                href={brand.omniOneUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Visit OmniOne Bank"
-                sx={{
-                  width: { xs: 64, sm: 80 },
-                  height: { xs: 64, sm: 80 },
-                  p: 0,
-                  border: 0,
-                  borderRadius: 0,
-                  backgroundColor: 'transparent',
-                  transition: 'transform 180ms ease, filter 180ms ease',
-                  '&:hover, &:focus-visible': {
-                    backgroundColor: 'transparent',
-                    transform: 'translateY(-3px) scale(1.03)',
-                    filter: 'brightness(1.18)',
-                  },
-                }}
-              >
-                <Box
-                  component="img"
-                  src="/brand/omnione-bank-pyramid.png"
-                  alt=""
-                  aria-hidden="true"
-                  sx={{
-                    display: 'block',
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                    filter: 'drop-shadow(0 0 16px rgba(104, 220, 255, 0.34))',
-                  }}
-                />
-              </IconButton>
-            </Tooltip>
-            <Typography variant="subtitle2" color="text.primary" fontWeight="700">
-              OmniOne
-            </Typography>
-          </Stack>
-        </Grid>
-      </Grid>
+      <Stack gap={2.5} sx={{ maxWidth: 720 }}>
+        <Logo />
+        <Typography color="text.secondary">
+          Fiducaro is a live Ethereum protocol for private transfers. Send FIDU privately and
+          restore all or part of your private balance to your public wallet.
+        </Typography>
+      </Stack>
 
       <Box
         sx={{

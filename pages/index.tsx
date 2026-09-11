@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import AccountBalanceWalletOutlined from '@mui/icons-material/AccountBalanceWalletOutlined';
 import ArrowForward from '@mui/icons-material/ArrowForward';
 import CodeRounded from '@mui/icons-material/CodeRounded';
+import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded';
 import StorageRounded from '@mui/icons-material/StorageRounded';
 import VerifiedOutlined from '@mui/icons-material/VerifiedOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import ButtonBase from '@mui/material/ButtonBase';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -19,6 +22,79 @@ import { Layout } from '../src/Layout';
 import Link from '../src/Link';
 import { fiducaroToken } from '../src/token';
 import { brand } from '../src/brand';
+
+function ObscuraVideo() {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  return (
+    <Box
+      sx={{
+        position: 'relative',
+        width: '100%',
+        maxWidth: 440,
+        ml: { md: 'auto' },
+        aspectRatio: '16 / 9',
+        overflow: 'hidden',
+        border: '1px solid rgba(104, 199, 107, .25)',
+        borderRadius: 2,
+        bgcolor: '#000',
+      }}
+    >
+      {isPlaying ? (
+        <Box
+          component="iframe"
+          src="https://www.youtube-nocookie.com/embed/TqpJNWg7wQs?autoplay=1"
+          title="The Obscura Covenant"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+          sx={{ display: 'block', width: '100%', height: '100%', border: 0 }}
+        />
+      ) : (
+        <ButtonBase
+          type="button"
+          aria-label="Play The Obscura Covenant audiobook on YouTube"
+          onClick={() => setIsPlaying(true)}
+          sx={{ display: 'block', width: '100%', height: '100%' }}
+        >
+          <Box
+            component="img"
+            src="/brand/fiducaro-dark-wallpaper.webp"
+            alt=""
+            sx={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+          <Box
+            aria-hidden="true"
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.32))',
+            }}
+          />
+          <Box
+            aria-hidden="true"
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              width: 72,
+              height: 72,
+              display: 'grid',
+              placeItems: 'center',
+              borderRadius: '50%',
+              transform: 'translate(-50%, -50%)',
+              color: '#071009',
+              bgcolor: 'primary.main',
+              boxShadow: '0 0 0 8px rgba(104, 199, 107, .14), 0 10px 30px rgba(0,0,0,.45)',
+            }}
+          >
+            <PlayArrowRounded sx={{ ml: .4, fontSize: 42 }} />
+          </Box>
+        </ButtonBase>
+      )}
+    </Box>
+  );
+}
 
 function DevelopmentProgress() {
   return (
@@ -155,7 +231,7 @@ export default function Home() {
                   <Button component={Link} href="/whitepaper/Obscura_Coveneant.pdf" target="_blank" rel="noopener noreferrer" variant="contained" sx={{ mt: 3 }}>Read paper</Button>
                 </Grid>
                 <Grid item xs={12} md={5}>
-                  <Box component="iframe" src="https://www.youtube-nocookie.com/embed/TqpJNWg7wQs" title="The Obscura Covenant" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen sx={{ display: 'block', width: '100%', maxWidth: 440, ml: { md: 'auto' }, aspectRatio: '16 / 9', border: '1px solid rgba(104, 199, 107,.25)', borderRadius: 2 }} />
+                  <ObscuraVideo />
                 </Grid>
               </Grid>
             </ProtocolPanel>

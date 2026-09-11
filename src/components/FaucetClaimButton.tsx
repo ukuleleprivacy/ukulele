@@ -19,12 +19,14 @@ type FaucetClaimButtonProps = {
   onBalanceChange?: (balance: string | null) => void;
 };
 
-const mainnetReadProvider = new ethers.providers.JsonRpcProvider(
-  process.env.NEXT_PUBLIC_ETHEREUM_RPC_URL || 'https://ethereum-rpc.publicnode.com',
+const mainnetReadProvider = new ethers.providers.StaticJsonRpcProvider(
+  process.env.NEXT_PUBLIC_ETHEREUM_RPC_URL || 'https://ethereum.publicnode.com',
+  { chainId: 1, name: 'homestead' },
 );
 
 const formatFaucetBalance = (balance: ethers.BigNumber) =>
   ethers.utils.commify(ethers.utils.formatUnits(balance, fiducaroToken.decimals));
+const faucetBalanceRefreshInterval = 30_000;
 
 const getClaimError = (error: unknown) => {
   const transactionError =
@@ -64,11 +66,12 @@ const getClaimError = (error: unknown) => {
 };
 
 export const FaucetClaimButton = ({ onBalanceChange }: FaucetClaimButtonProps) => {
-  const { active, account, library } = useWeb3React();
+  const { active, account, library, chainId } = useWeb3React();
   const [isChecking, setIsChecking] = useState(false);
   const [isClaiming, setIsClaiming] = useState(false);
   const [hasClaimed, setHasClaimed] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [faucetBalance, setFaucetBalance] = useState<string | null>(null);
   const [message, setMessage] = useState<FaucetMessage | null>(null);
 
   useEffect(() => {
@@ -77,7 +80,10 @@ export const FaucetClaimButton = ({ onBalanceChange }: FaucetClaimButtonProps) =
     }
 
     let isCurrent = true;
-    const faucet = new ethers.Contract(faucetAddress, faucetAbi, library || mainnetReadProvider);
+    // Faucet state is public Ethereum data. Keep these background reads off the
+    // injected wallet so a connected/previously-authorized MetaMask session
+    // cannot leave the claim button waiting on wallet RPC state.
+    const faucet = new ethers.Contract(faucetAddress, faucetAbi, mainnetReadProvider);
 
     const loadFaucetState = async () => {
       setIsChecking(true);
@@ -97,6 +103,7 @@ export const FaucetClaimButton = ({ onBalanceChange }: FaucetClaimButtonProps) =
         const formattedBalance = formatFaucetBalance(balance);
         setHasClaimed(nextHasClaimed);
         setIsEmpty(nextIsEmpty);
+        setFaucetBalance(formattedBalance);
         onBalanceChange?.(formattedBalance);
         setMessage(
           nextHasClaimed
@@ -109,8 +116,11 @@ export const FaucetClaimButton = ({ onBalanceChange }: FaucetClaimButtonProps) =
         console.warn('[Faucet] Could not load getBalance().', error);
 
         if (isCurrent) {
+          setFaucetBalance(null);
           onBalanceChange?.(null);
-          setMessage({ tone: 'error', text: 'The Faucet balance could not be loaded.' });
+          setHasClaimed(false);
+          setIsEmpty(false);
+          setMessage({ tone: 'info', text: 'Faucet status is unavailable; you can still try to claim.' });
         }
       } finally {
         if (isCurrent) {
@@ -120,11 +130,16 @@ export const FaucetClaimButton = ({ onBalanceChange }: FaucetClaimButtonProps) =
     };
 
     void loadFaucetState();
+    const refreshFaucetState = () => void loadFaucetState();
+    const refreshTimer = window.setInterval(refreshFaucetState, faucetBalanceRefreshInterval);
+    window.addEventListener(walletBalanceRefreshEvent, refreshFaucetState);
 
     return () => {
       isCurrent = false;
+      window.clearInterval(refreshTimer);
+      window.removeEventListener(walletBalanceRefreshEvent, refreshFaucetState);
     };
-  }, [account, active, library, onBalanceChange]);
+  }, [account, onBalanceChange]);
 
   const claimTokens = async () => {
     if (!active || !account || !library) {
@@ -136,18 +151,23 @@ export const FaucetClaimButton = ({ onBalanceChange }: FaucetClaimButtonProps) =
     setMessage({ tone: 'info', text: 'Preparing your 100 FIDU claim…' });
 
     try {
-      const network = await library.getNetwork();
-
-      if (network.chainId !== 1) {
+      if (chainId !== 1) {
         setMessage({ tone: 'error', text: 'Switch MetaMask to Ethereum mainnet first.' });
         return;
       }
 
-      const faucet = new ethers.Contract(faucetAddress, faucetAbi, library.getSigner());
+      const signer = library.getSigner(account);
+      const signerAddress = await signer.getAddress();
+
+      if (signerAddress.toLowerCase() !== account.toLowerCase()) {
+        throw new Error('The connected wallet account changed. Reconnect and try again.');
+      }
+
+      const readFaucet = new ethers.Contract(faucetAddress, faucetAbi, mainnetReadProvider);
       const [nextHasClaimed, balance, faucetAmount] = await Promise.all([
-        faucet.hasClaimed(account),
-        faucet.getBalance(),
-        faucet.FAUCET_AMOUNT(),
+        readFaucet.hasClaimed(account),
+        readFaucet.getBalance(),
+        readFaucet.FAUCET_AMOUNT(),
       ]);
 
       onBalanceChange?.(formatFaucetBalance(balance));
@@ -164,6 +184,7 @@ export const FaucetClaimButton = ({ onBalanceChange }: FaucetClaimButtonProps) =
         return;
       }
 
+      const faucet = new ethers.Contract(faucetAddress, faucetAbi, signer);
       await faucet.callStatic.claim();
       const transaction = await faucet.claim();
       setMessage({ tone: 'info', text: 'Claim submitted. Waiting for confirmation…' });
@@ -173,8 +194,10 @@ export const FaucetClaimButton = ({ onBalanceChange }: FaucetClaimButtonProps) =
         throw new Error('Claim transaction failed');
       }
 
-      const remainingBalance = await faucet.getBalance();
-      onBalanceChange?.(formatFaucetBalance(remainingBalance));
+      const remainingBalance = await readFaucet.getBalance();
+      const formattedRemainingBalance = formatFaucetBalance(remainingBalance);
+      setFaucetBalance(formattedRemainingBalance);
+      onBalanceChange?.(formattedRemainingBalance);
       setHasClaimed(true);
       setMessage({ tone: 'success', text: 'Claim confirmed — 100 FIDU is now in your wallet.' });
       window.dispatchEvent(new Event(walletBalanceRefreshEvent));
@@ -194,14 +217,27 @@ export const FaucetClaimButton = ({ onBalanceChange }: FaucetClaimButtonProps) =
 
   return (
     <Stack gap={0.75} sx={{ width: '100%' }}>
+      <Typography
+        variant="caption"
+        role="status"
+        aria-live="polite"
+        sx={{ color: 'primary.main', fontWeight: 700, textAlign: 'center' }}
+      >
+        {faucetBalance
+          ? `${faucetBalance} FIDU remaining in the Faucet`
+          : isChecking
+            ? 'Loading Faucet balance…'
+            : 'Faucet balance unavailable'}
+      </Typography>
+
       <Button
         type="button"
         variant="outlined"
         fullWidth
-        disabled={isChecking || isClaiming || hasClaimed || isEmpty}
+        disabled={isClaiming || hasClaimed || isEmpty}
         onClick={claimTokens}
       >
-        {isChecking || isClaiming ? (
+        {(isChecking && !active) || isClaiming ? (
           <>
             <CircularProgress size={16} sx={{ mr: 1, color: 'inherit' }} />
             {isClaiming ? 'Claiming…' : 'Checking Faucet…'}
