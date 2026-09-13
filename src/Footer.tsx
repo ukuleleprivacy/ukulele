@@ -1,5 +1,4 @@
 import Box from '@mui/material/Box';
-import LockOutlined from '@mui/icons-material/LockOutlined';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
@@ -8,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import { FaTelegramPlane } from 'react-icons/fa';
 
 import { brand } from './brand';
-import Link from './Link';
 import { Logo } from './Logo';
 
 export const Footer = () => (
@@ -56,36 +54,6 @@ export const Footer = () => (
           >
             <FaTelegramPlane size={18} />
           </IconButton>
-        </Tooltip>
-        <Tooltip title="Private investor access" arrow>
-          <Box
-            component={Link}
-            href="/unseen"
-            rel="nofollow"
-            prefetch={false}
-            aria-label="Private investor access"
-            sx={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 0.75,
-              flex: '0 0 auto',
-              color: 'rgba(237, 241, 242, 0.36)',
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              transition: 'color 180ms ease, text-shadow 180ms ease',
-              '&:hover, &:focus-visible': {
-                color: 'primary.main',
-                textShadow: '0 0 14px rgba(104, 199, 107, 0.55)',
-              },
-            }}
-          >
-            <LockOutlined sx={{ fontSize: 14 }} />
-            <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>
-              Private access
-            </Box>
-          </Box>
         </Tooltip>
       </Box>
     </Container>

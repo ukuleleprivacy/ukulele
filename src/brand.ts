@@ -1,6 +1,6 @@
 export const brand = {
   name: 'FIDUCARO',
-  tagline: 'Enabling Privacy Across International Markets',
+  tagline: 'Spend Freely. Prove Everything. Reveal Nothing',
   description:
     'FIDUCARO is a settlement layer for privacy preserving transactions on the blockchain; expanding into all digital assets - with reserves being managed by OmniOne Bank.',
   twitterUrl: 'https://x.com/fiducaroprivacy',

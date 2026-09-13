@@ -25,14 +25,18 @@ const TopSection = () => {
       }}
     >
       <Box
-        component="img"
-        src="/brand/fiducaro-hero-o3.webp"
-        alt="Neon green Fiducaro spacecraft with the Fiducaro emblem and wordmark"
+        component="video"
+        src="/Videos/fiducaro-black-card.mp4"
+        poster="/brand/fiducaro-black-card-poster.jpg"
+        aria-label="Fiducaro black card commercial"
+        controls
+        playsInline
+        preload="metadata"
         sx={{
           display: 'block',
           width: '100%',
           height: 'auto',
-          aspectRatio: '1376 / 768',
+          aspectRatio: '16 / 9',
           objectFit: 'contain',
           objectPosition: 'center',
           backgroundColor: '#020604',

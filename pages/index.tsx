@@ -17,6 +17,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 import { ArchitectureExplorer } from '../src/components/ArchitectureExplorer';
 import { FaucetClaimButton } from '../src/components/FaucetClaimButton';
+import { HeroVideo } from '../src/components/HeroVideo';
 import { Metric, ProtocolPanel, SectionLabel, StatusDot, StatusLine } from '../src/components/ProtocolUI';
 import { Layout } from '../src/Layout';
 import Link from '../src/Link';
@@ -173,10 +174,9 @@ export default function Home() {
             </Grid>
             <Grid item xs={12} lg={6}>
               <Box className="privacy-portrait">
-                <Box component="img" src="/brand/fiducaro-dark-wallpaper.webp" alt="Fiducaro — Enabling Privacy Across International Markets" width={1440} height={810} className="privacy-portrait-image" fetchPriority="high" />
+                <HeroVideo />
                 <Box className="privacy-portrait-copy">
                   <Typography component="h2" sx={{ fontSize: { xs: 27, sm: 34 }, fontWeight: 600, lineHeight: 1.18, letterSpacing: '-.035em' }}>{brand.tagline}.</Typography>
-                  <Typography sx={{ mt: 1.5, maxWidth: 465, fontSize: { xs: 15, sm: 16 }, lineHeight: 1.65, color: 'primary.main' }}>Privacy is the norm. Fiducaro is the rail.</Typography>
                 </Box>
               </Box>
             </Grid>

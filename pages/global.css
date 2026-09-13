@@ -222,12 +222,114 @@ a { color: inherit; }
   background: linear-gradient(145deg, #0b1419, #03080b);
   border: 1px solid rgba(104, 199, 107, .28);
 }
-.privacy-portrait-image {
+.privacy-portrait-image,
+.privacy-portrait-video {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   aspect-ratio: 16 / 9;
   object-fit: contain;
+}
+.hero-video-stage {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+}
+.hero-video-stage.is-expanded {
+  position: fixed;
+  z-index: 1401;
+  top: 50%;
+  left: 50%;
+  width: min(92vw, 1280px);
+  max-height: 86vh;
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 16px;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, .7);
+  transform: translate(-50%, -50%);
+}
+.hero-video-backdrop {
+  position: fixed;
+  z-index: 1400;
+  inset: 0;
+  background: rgba(1, 4, 6, .88);
+  backdrop-filter: blur(8px);
+  cursor: zoom-out;
+}
+.hero-video-close {
+  position: fixed !important;
+  z-index: 1402;
+  top: 22px;
+  right: 22px;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255, 255, 255, .18) !important;
+  color: #b7bec2 !important;
+  background: rgba(255, 255, 255, .1) !important;
+}
+.hero-video-close:hover {
+  color: var(--fiducaro-white) !important;
+  background: rgba(255, 255, 255, .14) !important;
+}
+.hero-video-expand-hit-area {
+  position: absolute;
+  z-index: 1;
+  inset: 0 0 68px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+.hero-video-expand-hit-area:focus-visible {
+  outline: 2px solid var(--fiducaro-neon);
+  outline-offset: -5px;
+}
+.hero-video-controls {
+  z-index: 2;
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, .15);
+  border-radius: 12px;
+  background: rgba(3, 8, 11, .78);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .28);
+  backdrop-filter: blur(12px);
+}
+.hero-video-controls .MuiIconButton-root {
+  flex: 0 0 auto;
+  color: var(--fiducaro-white);
+}
+.hero-video-controls .MuiIconButton-root:hover {
+  color: var(--fiducaro-neon);
+  background: rgba(104, 199, 107, .12);
+}
+.hero-video-controls .hero-video-play-button {
+  color: #071009;
+  background: var(--fiducaro-neon);
+}
+.hero-video-controls .hero-video-play-button:hover {
+  color: #071009;
+  background: #83dc85;
+}
+.hero-video-scrubber {
+  min-width: 70px;
+  height: 4px;
+  flex: 1 1 auto;
+  accent-color: var(--fiducaro-neon);
+  cursor: pointer;
+}
+.hero-video-time {
+  min-width: 72px;
+  color: var(--fiducaro-pearl);
+  font-size: 11px !important;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
 }
 .privacy-portrait-copy {
   position: relative;
@@ -291,6 +393,12 @@ a { color: inherit; }
     background: rgba(196, 219, 192, .25);
   }
   .privacy-portrait-copy { padding: 22px; }
+  .hero-video-controls { right: 8px; bottom: 8px; left: 8px; padding: 5px 6px; }
+  .hero-video-controls .MuiIconButton-root { padding: 6px; }
+  .hero-video-controls .MuiSvgIcon-root { font-size: 20px; }
+  .hero-video-time { display: none; }
+  .hero-video-expand-hit-area { bottom: 52px; }
+  .hero-video-close { top: 10px; right: 10px; }
 }
 .hero-atmosphere {
   position: absolute; inset: 0; z-index: -1; overflow: hidden;
