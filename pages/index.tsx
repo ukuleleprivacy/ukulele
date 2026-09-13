@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ButtonBase from '@mui/material/ButtonBase';
 import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Head from 'next/head';
@@ -24,6 +25,9 @@ import { Layout } from '../src/Layout';
 import Link from '../src/Link';
 import { fiducaroToken } from '../src/token';
 import { brand } from '../src/brand';
+import { address as naglfarAddress } from '../src/contracts/contract2';
+import { address as registryAddress } from '../src/contracts/contract3';
+import { faucetAddress } from '../src/contracts/faucet';
 
 function ObscuraVideo() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -148,6 +152,7 @@ export default function Home() {
   const reduceMotion = useReducedMotion();
   const [showDevelopmentStory, setShowDevelopmentStory] = useState(false);
   const [isEngineExpanded, setIsEngineExpanded] = useState(false);
+  const [showContracts, setShowContracts] = useState(false);
   return (
     <Layout>
       <Head><title>Fiducaro · Private value, live on Ethereum</title></Head>
@@ -178,11 +183,54 @@ export default function Home() {
                 <ProtocolPanel sx={{ mt: 3, p: 2.25 }}>
                   <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" gap={2}>
                     <Stack direction="row" gap={1.5} alignItems="center">
-                      <StorageRounded sx={{ color: 'primary.main' }} />
+                      <IconButton
+                        type="button"
+                        className={`contract-directory-toggle${showContracts ? ' is-active' : ''}`}
+                        aria-label={showContracts ? 'Hide deployed contract addresses' : 'Show deployed contract addresses'}
+                        aria-expanded={showContracts}
+                        aria-controls="contract-directory"
+                        onClick={() => setShowContracts((isOpen) => !isOpen)}
+                      >
+                        <StorageRounded />
+                      </IconButton>
                       <Box><SectionLabel>Live FIDU token</SectionLabel><Typography sx={{ mt: .3, fontWeight: 700 }}>Ethereum-native public token</Typography></Box>
                     </Stack>
                     <StatusLine label="FIDU Token" />
                   </Stack>
+                  <AnimatePresence initial={false}>
+                    {showContracts && (
+                      <motion.div
+                        id="contract-directory"
+                        initial={reduceMotion ? false : { opacity: 0, height: 0, y: -6 }}
+                        animate={{ opacity: 1, height: 'auto', y: 0 }}
+                        exit={reduceMotion ? { opacity: 0 } : { opacity: 0, height: 0, y: -6 }}
+                        transition={{ duration: reduceMotion ? .01 : .38, ease: [0.22, 1, 0.36, 1] }}
+                        style={{ overflow: 'hidden' }}
+                      >
+                        <Box className="contract-directory-list">
+                          {[
+                            { label: 'ADDR REGISTRY', address: registryAddress },
+                            { label: 'FIDUCARO', address: fiducaroToken.address },
+                            { label: 'NAGLFAR', address: naglfarAddress },
+                            { label: 'FAUCET', address: faucetAddress },
+                          ].map(({ label, address }) => (
+                            <Box
+                              component="a"
+                              key={label}
+                              href={`https://etherscan.io/address/${address}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="contract-directory-link"
+                            >
+                              <Box component="span" className="contract-directory-label">{label}</Box>
+                              <Box component="code">{address}</Box>
+                              <ArrowForward aria-hidden="true" />
+                            </Box>
+                          ))}
+                        </Box>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </ProtocolPanel>
               </Stack>
             </Grid>
@@ -203,7 +251,7 @@ export default function Home() {
             <Grid container spacing={3} alignItems="flex-end">
               <Grid item xs={12} md={7}>
                 <SectionLabel>The engine</SectionLabel>
-                <Typography component="h2" sx={{ mt: 1.5, maxWidth: 780, fontSize: { xs: 36, md: 56 }, lineHeight: 1.06, fontWeight: 600, letterSpacing: '-.045em' }}>Built before it<br />was marketed.</Typography>
+                <Typography component="h2" sx={{ mt: 1.5, maxWidth: 780, fontSize: { xs: 36, md: 56 }, lineHeight: 1.06, fontWeight: 600, letterSpacing: '-.045em' }}>A Computer Science Miracle</Typography>
               </Grid>
               <Grid item xs={12} md={5}>
                 <Typography color="text.secondary" sx={{ maxWidth: 520, fontSize: 16, lineHeight: 1.8 }}>Four years of development. Deployed on Ethereum. Used with real value before the current product and brand existed.</Typography>

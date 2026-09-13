@@ -595,6 +595,65 @@ a { color: inherit; }
 }
 .obscura-card { border-radius: 20px !important; box-shadow: 0 24px 60px rgba(0,0,0,.25); }
 .hero-highlight { color: var(--fiducaro-neon); text-shadow: 0 0 38px rgba(104, 199, 107,.16); }
+.contract-directory-toggle {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(104, 199, 107, .2) !important;
+  border-radius: 9px !important;
+  color: var(--fiducaro-neon) !important;
+  background: rgba(104, 199, 107, .04) !important;
+}
+.contract-directory-toggle:hover,
+.contract-directory-toggle.is-active {
+  border-color: rgba(104, 199, 107, .65) !important;
+  background: rgba(104, 199, 107, .12) !important;
+  box-shadow: 0 0 22px rgba(104, 199, 107, .1);
+}
+.contract-directory-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(104, 199, 107, .18);
+}
+.contract-directory-link {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 12px;
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 8px;
+  color: var(--fiducaro-pearl);
+  background: rgba(255, 255, 255, .025);
+  text-decoration: none;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+.contract-directory-link:hover,
+.contract-directory-link:focus-visible {
+  color: var(--fiducaro-white);
+  border-color: rgba(104, 199, 107, .45);
+  background: rgba(104, 199, 107, .07);
+}
+.contract-directory-label {
+  color: var(--fiducaro-neon);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+.contract-directory-link code {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: inherit;
+  font-size: 12px;
+}
+.contract-directory-link svg { font-size: 17px; color: var(--fiducaro-neon); }
+@media (max-width: 599px) {
+  .contract-directory-link { grid-template-columns: 1fr auto; gap: 6px 10px; }
+  .contract-directory-link code { grid-column: 1 / -1; grid-row: 2; font-size: 10px; line-height: 1.6; }
+  .contract-directory-link svg { grid-column: 2; grid-row: 1; }
+}
 .home-hero .MuiButton-root, .obscura-card .MuiButton-root { transition: transform 200ms ease, box-shadow 200ms ease; }
 .home-hero .MuiButton-root:hover, .obscura-card .MuiButton-root:hover { transform: translateY(-2px); box-shadow: 0 5px 25px rgba(104, 199, 107,.2); }
 .architecture-cube:hover .architecture-cube-face { border-color: #68c76b; box-shadow: 0 0 26px rgba(104, 199, 107,.15); }
