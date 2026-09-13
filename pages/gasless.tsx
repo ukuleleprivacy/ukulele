@@ -159,7 +159,7 @@ const Hourglass = ({ color }: { color: string }) => (
   </Box>
 );
 
-export default function Bridge() {
+export default function Bridge({ embedded = false }: { embedded?: boolean }) {
   const [sendTicker, setSendTicker] = useState('BTC');
   const [receiveTicker, setReceiveTicker] = useState('ETH');
   const [waitValue, setWaitValue] = useState('56');
@@ -175,9 +175,9 @@ export default function Bridge() {
 
   return (
     <Layout>
-      <Head><title>Bridge Concept | Fiducaro</title></Head>
-      <Box component="main" sx={{ minHeight: 'calc(100vh - 70px)', background: 'radial-gradient(circle at 60% 34%, rgba(104, 199, 107,.09), transparent 28%), #060c10' }}>
-        <Box sx={{ maxWidth: 1840, mx: 'auto', px: { xs: 2, sm: 3.5, lg: 5 }, py: { xs: 6, md: 8 } }}>
+      {!embedded && <Head><title>Bridge Concept | Fiducaro</title></Head>}
+      <Box component={embedded ? 'section' : 'main'} sx={{ minHeight: embedded ? 0 : 'calc(100vh - 70px)', background: embedded ? 'transparent' : 'radial-gradient(circle at 60% 34%, rgba(104, 199, 107,.09), transparent 28%), #060c10' }}>
+        <Box sx={{ maxWidth: 1840, mx: 'auto', px: embedded ? 0 : { xs: 2, sm: 3.5, lg: 5 }, py: embedded ? 3 : { xs: 6, md: 8 } }}>
           <Stack direction="row" alignItems="center" gap={1.2}>
             <StatusDot tone="muted" />
             <Typography sx={{ color: 'text.secondary', textTransform: 'uppercase', letterSpacing: '.04em' }}>Fiducaro Bridge</Typography>
@@ -187,7 +187,7 @@ export default function Bridge() {
           <Grid container spacing={{ xs: 5, lg: 3 }} sx={{ mt: 2 }}>
             <Grid item xs={12}>
               <Stack sx={{ height: '100%' }}>
-                <Typography component="h1" sx={{ mt: 1, maxWidth: 1200, fontSize: { xs: 44, md: 68 }, lineHeight: 1.03, letterSpacing: '-.05em', fontWeight: 500 }}>
+                <Typography component={embedded ? 'h2' : 'h1'} sx={{ mt: 1, maxWidth: 800, fontSize: embedded ? { xs: 30, md: 38 } : { xs: 44, md: 68 }, lineHeight: 1.13, letterSpacing: '-.05em', fontWeight: 400 }}>
                   Move between assets without leaving the private layer.
                 </Typography>
               </Stack>

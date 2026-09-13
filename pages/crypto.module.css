@@ -1,0 +1,66 @@
+.status {
+  display: inline-flex;
+  align-items: center;
+}
+.status i {
+  background: #e47777;
+  box-shadow: 0 0 8px #e4777740;
+}
+.previewCard {
+  min-width: 230px;
+  max-width: 280px;
+  padding: 25px;
+  border: 1px solid #b9e99125;
+  border-radius: 16px;
+  background: linear-gradient(140deg, #17261f, #0b1615);
+}
+.previewCard > svg {
+  color: #b9e991;
+  margin-bottom: 20px;
+}
+.previewCard > span {
+  display: block;
+  color: #94aa9a;
+  font-size: 10px;
+  letter-spacing: 0.09em;
+}
+.previewCard strong {
+  display: block;
+  font-size: 22px;
+  letter-spacing: -0.04em;
+  color: #dbead4;
+  font-weight: 400;
+  margin-top: 9px;
+}
+.previewCard p {
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.content :global(.MuiPaper-root),
+.content article {
+  border-color: #b9e99125;
+  background: linear-gradient(135deg, #13221d, #0c1717);
+}
+.content :global(.MuiTypography-root) {
+  overflow-wrap: anywhere;
+}
+.page a {
+  color: #b9e991;
+}
+@media (max-width: 600px) {
+  .previewCard {
+    display: none;
+  }
+  .tabs button[role='tab'] {
+    padding: 16px 8px;
+    font-size: 15px;
+    grid-template-columns: 18px auto;
+    gap: 6px;
+  }
+  .tabs button[role='tab'] svg {
+    font-size: 18px;
+  }
+  .tabs button[role='tab'] small {
+    font-size: 8px;
+  }
+}

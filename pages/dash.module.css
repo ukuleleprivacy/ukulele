@@ -123,6 +123,64 @@
   border-bottom: 1px solid #ffffff15;
   margin-bottom: 24px;
 }
+.introToggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 0;
+  color: #9fb895;
+  background: none;
+  border: 0;
+  font-size: 11px !important;
+}
+.introToggle svg {
+  font-size: 20px;
+  transition: transform 0.4s ease;
+}
+.introShell {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.45s ease,
+    opacity 0.25s ease,
+    visibility 0s 0.45s;
+}
+.introShell.introOpen {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  opacity: 1;
+  transition:
+    grid-template-rows 0.45s ease,
+    opacity 0.3s ease,
+    visibility 0s;
+}
+.introShell .heading {
+  min-height: 0;
+  overflow: hidden;
+  padding: 0;
+}
+.introShell .heading > div:first-child {
+  padding: 22px 0 34px;
+}
+.member {
+  text-decoration: none;
+  color: inherit;
+  padding: 16px;
+  border: 1px solid #b9e99122;
+  border-radius: 12px;
+  background: #b9e99105;
+}
+.member:hover {
+  border-color: #b9e99166;
+  background: #b9e9910c;
+}
+.member:focus-visible {
+  outline: 2px solid #b9e991;
+  outline-offset: 4px;
+}
 .tabs {
   display: flex;
   gap: 25px;
@@ -135,16 +193,22 @@
   border: 0;
   border-bottom: 2px solid transparent;
   color: var(--muted);
-  padding: 15px 0 19px;
-  font-size: 12px;
+  padding: 22px 30px;
+  font-size: 21px;
+  min-height: 76px;
+  border-radius: 10px 10px 0 0;
 }
 .tabs svg,
 .quietButton svg {
   font-size: 17px;
 }
+.tabs svg {
+  font-size: 25px;
+}
 .tabs .selected {
   color: #b9e991;
   border-bottom-color: #b9e991;
+  background: rgba(185, 233, 145, 0.07);
 }
 .quietButton {
   display: flex;
@@ -1119,10 +1183,26 @@
     gap: 10px;
   }
   .tabs {
-    gap: 20px;
+    gap: 8px;
+    flex: 1;
   }
   .tabs button {
-    font-size: 10px;
+    font-size: 16px;
+    padding: 18px 10px;
+    flex: 1;
+    min-height: 66px;
+  }
+  .tabs svg {
+    font-size: 19px;
+  }
+  .introShell .heading {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+  .introShell .member {
+    margin: 0 0 24px;
   }
   .quietButton {
     font-size: 0 !important;

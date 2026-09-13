@@ -1,61 +1,83 @@
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
-import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
-import { FaTelegramPlane } from 'react-icons/fa';
-
+import Link from 'next/link';
+import { ArrowForwardRounded, NorthEastRounded } from '@mui/icons-material';
+import { LogoMark } from './Logo';
 import { brand } from './brand';
-import { Logo } from './Logo';
+import { fiducaroToken } from './token';
+import styles from './Footer.module.css';
 
 export const Footer = () => (
-  <Box
-    component="footer"
-    sx={{
-      mt: 'auto',
-      pt: { xs: 8, md: 12 },
-      pb: 6,
-      background:
-        'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(3, 8, 11, 0.88) 32%, #03080b 100%)',
-    }}
-  >
-    <Container maxWidth="lg">
-      <Stack gap={2.5} sx={{ maxWidth: 720 }}>
-        <Logo />
-        <Typography color="text.secondary">
-          Fiducaro is a live Ethereum protocol for private transfers. Send FIDU privately and
-          restore all or part of your private balance to your public wallet.
-        </Typography>
-      </Stack>
-
-      <Box
-        sx={{
-          mt: 7,
-          pt: 3,
-          borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 2,
-        }}
-      >
-        <Typography variant="body2" color="text.secondary">
-          {brand.tagline}
-        </Typography>
-        <Tooltip title="Join Fiducaro on Telegram" arrow>
-          <IconButton
-            component="a"
+  <footer className={styles.footer}>
+    <div className={styles.inner}>
+      <div className={styles.top}>
+        <div className={styles.brand}>
+          <Link
+            href="/"
+            className={styles.wordmark}
+            aria-label="Fiducaro home"
+          >
+            <LogoMark size={42} />
+            <span>FIDUCARO</span>
+          </Link>
+          <h2>
+            Spend freely.
+            <br />
+            Prove everything.
+            <br />
+            <em>Reveal nothing.</em>
+          </h2>
+          <p>Private credit. A world of possibility.</p>
+        </div>
+        <nav aria-label="Footer navigation">
+          <span className={styles.label}>EXPLORE</span>
+          <Link href="/privacy">
+            Privacy <NorthEastRounded />
+          </Link>
+          <Link href="/dash">
+            Credit <NorthEastRounded />
+          </Link>
+          <Link href="/crypto">
+            Crypto <NorthEastRounded />
+          </Link>
+        </nav>
+        <div className={styles.connect}>
+          <span className={styles.label}>STAY CLOSE</span>
+          <p>
+            Follow the work.
+            <br />
+            Be part of what comes next.
+          </p>
+          <a
             href={brand.telegramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Join Fiducaro on Telegram"
-            sx={{ color: 'primary.main', border: '1px solid rgba(104, 199, 107,.24)', '&:hover': { backgroundColor: 'rgba(104, 199, 107,.1)', boxShadow: '0 0 18px rgba(104, 199, 107,.18)' } }}
+            className={styles.telegram}
           >
-            <FaTelegramPlane size={18} />
-          </IconButton>
-        </Tooltip>
-      </Box>
-    </Container>
-  </Box>
+            Join the conversation <ArrowForwardRounded />
+          </a>
+          <a
+            href="/whitepaper/Obscura_Coveneant.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.paper}
+          >
+            Read The Obscura Covenant ↗
+          </a>
+        </div>
+      </div>
+      <div className={styles.bottom}>
+        <span className={styles.network}>
+          <i />
+          FIDU · Ethereum Mainnet
+        </span>
+        <a
+          href={`https://etherscan.io/token/${fiducaroToken.address}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Token contract <code>0x5203…Cf9d</code> ↗
+        </a>
+        <span className={styles.note}>Privacy protocol live · Credit & Crypto are concept previews</span>
+      </div>
+    </div>
+  </footer>
 );

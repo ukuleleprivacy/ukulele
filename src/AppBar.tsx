@@ -23,6 +23,36 @@ import { useBodyScrollLock } from './components/useBodyScrollLock';
 import Link from './Link';
 import { Logo } from './Logo';
 
+const navActive = (url: string, pathname: string) =>
+  pathname === url ||
+  (url === '/privacy' && ['/platform', '/decrypt'].includes(pathname)) ||
+  (url === '/crypto' && ['/gasless', '/activity', '/people'].includes(pathname)) ||
+  (url === '/dash' && pathname === '/profile');
+
+const NavLabel = ({ label, status }: { label: string; status?: string }) => (
+  <Box
+    component="span"
+    sx={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: '5px', minHeight: 33 }}
+  >
+    {label}
+    {status && (
+      <Box
+        component="span"
+        role="img"
+        aria-label={status === 'live' ? 'Live' : 'Not live — concept preview'}
+        title={status === 'live' ? 'Live FIDU tools' : 'Not live — concept preview'}
+        sx={{
+          width: 6,
+          height: 6,
+          borderRadius: '50%',
+          bgcolor: status === 'live' ? '#86da88' : '#e47777',
+          boxShadow: `0 0 9px ${status === 'live' ? '#86da8870' : '#e4777750'}`,
+        }}
+      />
+    )}
+  </Box>
+);
+
 export const TopAppBar = () => {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -34,19 +64,31 @@ export const TopAppBar = () => {
 
   const drawer = (
     <Box sx={{ p: 2 }}>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ mb: 2 }}
+      >
         <Logo />
-        <IconButton aria-label="Close menu" onClick={handleDrawerToggle}>
+        <IconButton
+          aria-label="Close menu"
+          onClick={handleDrawerToggle}
+        >
           <Close />
         </IconButton>
       </Stack>
       <Divider />
       <List sx={{ py: 2 }}>
         {navItems.map((item) => {
-          const isActive = router.pathname === item.url;
+          const isActive = navActive(item.url, router.pathname);
 
           return (
-            <ListItem key={item.url} disablePadding sx={{ mb: 0.5 }}>
+            <ListItem
+              key={item.url}
+              disablePadding
+              sx={{ mb: 0.5 }}
+            >
               <ListItemButton
                 component={Link}
                 href={item.url}
@@ -63,7 +105,12 @@ export const TopAppBar = () => {
                 }}
               >
                 <ListItemText
-                  primary={item.label}
+                  primary={
+                    <NavLabel
+                      label={item.label}
+                      status={item.status}
+                    />
+                  }
                   primaryTypographyProps={{ fontWeight: 700 }}
                 />
               </ListItemButton>
@@ -83,7 +130,15 @@ export const TopAppBar = () => {
           Telegram
         </Button>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'text.secondary', px: 1 }}>
-          <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main', boxShadow: '0 0 12px rgba(104, 199, 107,.7)' }} />
+          <Box
+            sx={{
+              width: 8,
+              height: 8,
+              borderRadius: '50%',
+              bgcolor: 'primary.main',
+              boxShadow: '0 0 12px rgba(104, 199, 107,.7)',
+            }}
+          />
           Ethereum Mainnet
         </Box>
         <ConnectWallet fullWidth />
@@ -102,8 +157,7 @@ export const TopAppBar = () => {
           zIndex: (theme) => theme.zIndex.appBar,
           py: { xs: 0.5, md: 0.75 },
           backdropFilter: { xs: 'none', md: 'blur(12px)' },
-          background:
-            'linear-gradient(180deg, rgba(3, 8, 11, 0.97) 0%, rgba(3, 8, 11, 0.9) 100%)',
+          background: 'linear-gradient(180deg, rgba(3, 8, 11, 0.97) 0%, rgba(3, 8, 11, 0.9) 100%)',
           borderBottom: '1px solid rgba(255, 255, 255, 0.11)',
         }}
       >
@@ -132,9 +186,7 @@ export const TopAppBar = () => {
             aria-label="Primary navigation"
           >
             {navItems.map((page) => {
-              const isActive =
-                router.pathname === page.url ||
-                (page.url.startsWith('/#') && router.pathname === '/' && router.asPath.includes('#'));
+              const isActive = navActive(page.url, router.pathname);
 
               return (
                 <Button
@@ -156,21 +208,38 @@ export const TopAppBar = () => {
                     },
                   }}
                 >
-                  {page.label}
+                  <NavLabel
+                    label={page.label}
+                    status={page.status}
+                  />
                 </Button>
               );
             })}
           </Stack>
 
-          <Stack direction="row" alignItems="center" gap={1}>
-            <Tooltip title="Join Fiducaro on Telegram" arrow>
+          <Stack
+            direction="row"
+            alignItems="center"
+            gap={1}
+          >
+            <Tooltip
+              title="Join Fiducaro on Telegram"
+              arrow
+            >
               <IconButton
                 component="a"
                 href="https://t.me/+zVqxwbcpLTlmOWJl"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Join Fiducaro on Telegram"
-                sx={{ color: 'primary.main', border: '1px solid rgba(104, 199, 107,.24)', '&:hover': { backgroundColor: 'rgba(104, 199, 107,.1)', boxShadow: '0 0 18px rgba(104, 199, 107,.18)' } }}
+                sx={{
+                  color: 'primary.main',
+                  border: '1px solid rgba(104, 199, 107,.24)',
+                  '&:hover': {
+                    backgroundColor: 'rgba(104, 199, 107,.1)',
+                    boxShadow: '0 0 18px rgba(104, 199, 107,.18)',
+                  },
+                }}
               >
                 <FaTelegramPlane size={17} />
               </IconButton>
@@ -188,7 +257,15 @@ export const TopAppBar = () => {
                 fontSize: 13,
               }}
             >
-              <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main', boxShadow: '0 0 12px rgba(104, 199, 107,.8)' }} />
+              <Box
+                sx={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  bgcolor: 'primary.main',
+                  boxShadow: '0 0 12px rgba(104, 199, 107,.8)',
+                }}
+              />
               Ethereum Mainnet
             </Box>
             <ConnectWallet sx={{ display: { xs: 'none', sm: 'inline-flex' } }} />
@@ -215,8 +292,7 @@ export const TopAppBar = () => {
           sx: {
             width: 'min(88vw, 360px)',
             borderLeft: '1px solid rgba(255, 255, 255, 0.12)',
-            background:
-              'linear-gradient(180deg, rgba(18, 18, 18, 0.98) 0%, rgba(0, 0, 0, 0.98) 100%)',
+            background: 'linear-gradient(180deg, rgba(18, 18, 18, 0.98) 0%, rgba(0, 0, 0, 0.98) 100%)',
           },
         }}
       >

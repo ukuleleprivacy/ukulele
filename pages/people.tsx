@@ -74,17 +74,17 @@ const people = [
   },
 ];
 
-export default function People() {
+export default function People({ embedded = false }: { embedded?: boolean }) {
   return (
     <Layout>
-      <Head>
+      {!embedded && <Head>
         <title>People of note | Fiducaro</title>
         <meta name="description" content="People of note in the privacy world. Explore voices and makers working across financial privacy, digital sovereignty, Bitcoin, and security." />
-      </Head>
-      <Box component="main" sx={{ minHeight: 'calc(100vh - 70px)', bgcolor: '#060c10' }}>
-        <Box sx={{ maxWidth: 1520, mx: 'auto', px: { xs: 2.5, sm: 4, lg: 6 }, py: { xs: 6, md: 8 } }}>
+      </Head>}
+      <Box component={embedded ? 'section' : 'main'} sx={{ minHeight: embedded ? 0 : 'calc(100vh - 70px)', bgcolor: embedded ? 'transparent' : '#060c10' }}>
+        <Box sx={{ maxWidth: 1520, mx: 'auto', px: embedded ? 0 : { xs: 2.5, sm: 4, lg: 6 }, py: embedded ? 3 : { xs: 6, md: 8 } }}>
           <SectionLabel>The privacy world</SectionLabel>
-          <Typography component="h1" sx={{ mt: 1.5, fontSize: { xs: 44, md: 68 }, lineHeight: 1.05, letterSpacing: '-.045em', fontWeight: 600 }}>
+          <Typography component={embedded ? 'h2' : 'h1'} sx={{ mt: 1.5, fontSize: embedded ? 36 : { xs: 44, md: 68 }, lineHeight: 1.05, letterSpacing: '-.045em', fontWeight: 400 }}>
             People of note
           </Typography>
           <Typography color="text.secondary" sx={{ mt: 2, maxWidth: 650, fontSize: { xs: 16, md: 18 } }}>

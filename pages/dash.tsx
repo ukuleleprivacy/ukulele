@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import {
   ArrowForwardRounded,
@@ -15,6 +16,7 @@ import {
   AddRounded,
   CheckRounded,
   AccountBalanceOutlined,
+  ExpandMoreRounded,
 } from '@mui/icons-material';
 import styles from './dash.module.css';
 import { LogoMark } from '../src/Logo';
@@ -106,6 +108,7 @@ const usd = (value: number) =>
   value.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 
 export default function Dashboard() {
+  const [introOpen, setIntroOpen] = useState(true);
   const [view, setView] = useState<'account' | 'lender'>('account');
   const [hidden, setHidden] = useState(false);
   const [branch, setBranch] = useState(0);
@@ -162,7 +165,7 @@ export default function Dashboard() {
   return (
     <>
       <Head>
-        <title>Dash · Fiducaro Private Banking</title>
+        <title>Credit · Fiducaro Private Banking</title>
         <meta
           name="description"
           content="Explore the Fiducaro private banking concept. Illustrative balances, private portfolios and lending."
@@ -177,25 +180,44 @@ export default function Dashboard() {
             Interactive concept <b>DEMO DATA</b>
           </span>
         </div>
-        <header className={styles.heading}>
-          <div>
-            <p className={styles.eyebrow}>YOUR WORLD. YOUR TERMS.</p>
-            <h1>
-              A little more private.
-              <br />
-              <em>A lot more possibility.</em>
-            </h1>
-            <p>Your assets, your credit, your next move. All in one place.</p>
-          </div>
-          <div className={styles.member}>
-            <span className={styles.avatar}>AM</span>
+        <button
+          type="button"
+          className={styles.introToggle}
+          aria-expanded={introOpen}
+          aria-controls="credit-intro"
+          onClick={() => setIntroOpen(!introOpen)}
+        >
+          <span>{introOpen ? 'Collapse account overview' : 'Show account overview'}</span>
+          <ExpandMoreRounded style={{ transform: introOpen ? 'rotate(180deg)' : undefined }} />
+        </button>
+        <div className={`${styles.introShell} ${introOpen ? styles.introOpen : ''}`}>
+          <header
+            id="credit-intro"
+            className={styles.heading}
+          >
             <div>
-              <strong>Alex Morgan</strong>
-              <small>Private member · {branches[branch].code} / 0042</small>
+              <p className={styles.eyebrow}>YOUR WORLD. YOUR TERMS.</p>
+              <h1>
+                A little more private.
+                <br />
+                <em>A lot more possibility.</em>
+              </h1>
+              <p>Your assets, your credit, your next move. All in one place.</p>
             </div>
-            <ShieldOutlined />
-          </div>
-        </header>
+            <Link
+              href={`/profile?branch=${branches[branch].code}`}
+              className={styles.member}
+              aria-label="Open Alex Morgan’s demo profile"
+            >
+              <span className={styles.avatar}>AM</span>
+              <div>
+                <strong>Alex Morgan</strong>
+                <small>Private member · {branches[branch].code} / 0042</small>
+              </div>
+              <ShieldOutlined />
+            </Link>
+          </header>
+        </div>
         <div className={styles.toolbar}>
           <div
             className={styles.tabs}

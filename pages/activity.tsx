@@ -29,7 +29,7 @@ const filters = ['All', 'Private Send', 'Full Decrypt', 'Partial Decrypt', 'Comp
 const shortHash = (value: string) => value.length > 14 ? `${value.slice(0, 7)}…${value.slice(-5)}` : value;
 const formatDate = (value: string) => new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date(value));
 
-export default function Activity() {
+export default function Activity({ embedded = false }: { embedded?: boolean }) {
   const { account, active } = useWeb3React();
   const { displayBalance } = usePublicFiduBalance();
   const [tab, setTab] = useState<'activity' | 'balance'>('activity');
@@ -56,9 +56,9 @@ export default function Activity() {
 
   return (
     <Layout>
-      <Head><title>Activity | Fiducaro</title></Head>
-      <Box component="main" sx={{ minHeight: 'calc(100vh - 70px)', background: 'radial-gradient(circle at 80% 0%, rgba(255,255,255,.07), transparent 24%), #060c10' }}>
-        <Box sx={{ maxWidth: 1540, mx: 'auto', px: { xs: 2, sm: 3.5, lg: 5 }, py: { xs: 4, md: 7 } }}>
+      {!embedded && <Head><title>Activity | Fiducaro</title></Head>}
+      <Box component={embedded ? 'section' : 'main'} sx={{ minHeight: embedded ? 0 : 'calc(100vh - 70px)', background: embedded ? 'transparent' : 'radial-gradient(circle at 80% 0%, rgba(255,255,255,.07), transparent 24%), #060c10' }}>
+        <Box sx={{ maxWidth: 1540, mx: 'auto', px: embedded ? 0 : { xs: 2, sm: 3.5, lg: 5 }, py: embedded ? 3 : { xs: 4, md: 7 } }}>
           <Stack direction="row" justifyContent="center" gap={3} sx={{ borderBottom: '1px solid rgba(255,255,255,.15)' }}>
             <Button onClick={() => setTab('activity')} sx={{ minHeight: 48, borderRadius: 0, color: tab === 'activity' ? 'text.primary' : 'text.secondary', borderBottom: tab === 'activity' ? '2px solid white' : '2px solid transparent' }}>Activity</Button>
             <Button onClick={() => setTab('balance')} sx={{ minHeight: 48, borderRadius: 0, color: tab === 'balance' ? 'text.primary' : 'text.secondary', borderBottom: tab === 'balance' ? '2px solid white' : '2px solid transparent' }}>Balance history</Button>
@@ -67,7 +67,7 @@ export default function Activity() {
           <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" gap={3} sx={{ mt: 5 }}>
             <Box>
               <Box sx={{ display: 'inline-flex', px: 1.1, py: .5, borderRadius: 1, bgcolor: 'rgba(255,255,255,.08)', color: 'text.secondary', fontSize: 11 }}>ACCOUNT</Box>
-              <Typography component="h1" sx={{ mt: 1.1, fontSize: { xs: 42, md: 58 }, lineHeight: 1 }}>{tab === 'activity' ? 'Activity' : 'Balance History'}</Typography>
+              <Typography component={embedded ? 'h2' : 'h1'} sx={{ mt: 1.1, fontSize: embedded ? 36 : { xs: 42, md: 58 }, fontWeight: 400, lineHeight: 1 }}>{tab === 'activity' ? 'Activity' : 'Balance History'}</Typography>
               <Typography color="text.secondary" sx={{ mt: 1.5, maxWidth: 680 }}>
                 {tab === 'activity' ? 'Preview the planned interface for reviewing Fiducaro interactions and Ethereum execution status.' : 'Preview the planned public-balance history interface. Private balance and private-balance history will never be exposed.'}
               </Typography>

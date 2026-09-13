@@ -20,19 +20,13 @@ export const brand = {
 };
 
 // Cut-out obsidian sculpture shapes (transparent PNG/WebP) used as decorative accents.
-export const shapes = Array.from(
-  { length: 18 },
-  (_, i) => `/shapes/shape-${String(i + 1).padStart(2, '0')}.webp`,
-);
+export const shapes = Array.from({ length: 18 }, (_, i) => `/shapes/shape-${String(i + 1).padStart(2, '0')}.webp`);
 
 export const navItems = [
   { label: 'Home', url: '/' },
-  { label: 'Credit', url: '/dash' },
-  { label: 'Send', url: '/platform' },
-  { label: 'Decrypt', url: '/decrypt' },
-  { label: 'Bridge', url: '/gasless' },
-  { label: 'Activity', url: '/activity' },
-  { label: 'People', url: '/people' },
+  { label: 'Privacy', url: '/privacy', status: 'live' },
+  { label: 'Credit', url: '/dash', status: 'preview' },
+  { label: 'Crypto', url: '/crypto', status: 'preview' },
 ];
 
 export const pillars = [
@@ -70,8 +64,7 @@ export const roadmap = [
     title: 'Strengthen the Vault',
     description: 'Advance the hidden-balance layer, recovery controls, and user-owned transaction records.',
     nextTitle: 'Setup the Bridge',
-    nextDescription:
-      'The network goes live with assets allowed to be swapped privately as well as staking.',
+    nextDescription: 'The network goes live with assets allowed to be swapped privately as well as staking.',
   },
   {
     title: 'Expand Retrieval',
@@ -96,8 +89,7 @@ export const protocolNotes = [
   },
   {
     title: 'User-commanded execution',
-    description:
-      'Every action begins in the interface, requires explicit wallet approval, and resolves on chain.',
+    description: 'Every action begins in the interface, requires explicit wallet approval, and resolves on chain.',
   },
   {
     title: 'Visible chain surface',
