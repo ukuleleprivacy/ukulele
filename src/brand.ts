@@ -27,6 +27,7 @@ export const shapes = Array.from(
 
 export const navItems = [
   { label: 'Home', url: '/' },
+  { label: 'Dash', url: '/dash' },
   { label: 'Send', url: '/platform' },
   { label: 'Decrypt', url: '/decrypt' },
   { label: 'Bridge', url: '/gasless' },

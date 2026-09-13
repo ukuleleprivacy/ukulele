@@ -133,6 +133,7 @@ function DevelopmentProgress() {
 
 export default function Home() {
   const reduceMotion = useReducedMotion();
+  const [showDevelopmentStory, setShowDevelopmentStory] = useState(false);
   return (
     <Layout>
       <Head><title>Fiducaro · Private value, live on Ethereum</title></Head>
@@ -201,13 +202,50 @@ export default function Home() {
                 { icon: <AccountBalanceWalletOutlined />, value: '~$700K', label: 'Historical development' },
                 { icon: <CodeRounded />, value: '3', label: 'Core privacy contracts' },
                 { icon: <StorageRounded />, value: 'ETHEREUM', label: 'Mainnet deployed' },
-              ].map(({ icon, value, label }, index) => <Grid item xs={6} md={3} key={label}>
-                <motion.div initial={reduceMotion ? false : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .25 }} transition={{ duration: .6, delay: index * .1 }} className="engine-metric">
-                  <Box sx={{ color: 'primary.main', mb: 2 }}>{icon}</Box>
-                  <Metric value={value} label={label} />
-                </motion.div>
-              </Grid>)}
+              ].map(({ icon, value, label }, index) => {
+                const metricCard = (
+                  <motion.div initial={reduceMotion ? false : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .25 }} transition={{ duration: .6, delay: index * .1 }} className={`engine-metric${index === 0 && showDevelopmentStory ? ' is-active' : ''}`}>
+                    <Box sx={{ color: 'primary.main', mb: 2 }}>{icon}</Box>
+                    <Metric value={value} label={label} />
+                    {index === 0 && <Typography className="engine-metric-hint">Click to read the story</Typography>}
+                  </motion.div>
+                );
+
+                return (
+                  <Grid item xs={6} md={3} key={label}>
+                    {index === 0 ? (
+                      <ButtonBase
+                        type="button"
+                        className="engine-metric-button"
+                        aria-expanded={showDevelopmentStory}
+                        aria-controls="development-origin-story"
+                        onClick={() => setShowDevelopmentStory((isOpen) => !isOpen)}
+                      >
+                        {metricCard}
+                      </ButtonBase>
+                    ) : metricCard}
+                  </Grid>
+                );
+              })}
             </Grid>
+            {showDevelopmentStory && (
+              <motion.div
+                id="development-origin-story"
+                initial={reduceMotion ? false : { opacity: 0, height: 0, y: -8 }}
+                animate={{ opacity: 1, height: 'auto', y: 0 }}
+                transition={{ duration: .35, ease: 'easeOut' }}
+              >
+                <ProtocolPanel className="engine-origin-story" sx={{ mt: 2, p: { xs: 2.5, md: 3.5 } }}>
+                  <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} gap={2}>
+                    <SectionLabel>Four years of development</SectionLabel>
+                    <Button size="small" variant="text" onClick={() => setShowDevelopmentStory(false)}>Close story</Button>
+                  </Stack>
+                  <Typography sx={{ mt: 1.5, maxWidth: 1180, color: 'text.secondary', fontSize: { xs: 15, md: 17 }, lineHeight: 1.8 }}>
+                    At first, it wasn&apos;t even believed that privacy could occur on an open blockchain. Ethereum itself fought against us, by making the task as difficult as possible. It was nothing short of a scientific miracle that privacy did actually get achieved, but the implications - that people could operate a privacy based banking system anywhere in the world, have yet to fully reveal themselves.
+                  </Typography>
+                </ProtocolPanel>
+              </motion.div>
+            )}
             <ProtocolPanel className="engine-status" sx={{ mt: 2, p: { xs: 2, md: 2.5 } }}>
               <SectionLabel>Live protocol status</SectionLabel>
               <Stack direction="row" useFlexGap flexWrap="wrap" gap={{ xs: 1.5, md: 3 }} sx={{ mt: 1.4 }}>

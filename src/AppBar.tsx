@@ -19,12 +19,14 @@ import { FaTelegramPlane } from 'react-icons/fa';
 
 import { navItems } from './brand';
 import { ConnectWallet } from './components/ConnectWallet';
+import { useBodyScrollLock } from './components/useBodyScrollLock';
 import Link from './Link';
 import { Logo } from './Logo';
 
 export const TopAppBar = () => {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+  useBodyScrollLock(mobileOpen);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -208,7 +210,7 @@ export const TopAppBar = () => {
         anchor="right"
         open={mobileOpen}
         onClose={handleDrawerToggle}
-        ModalProps={{ keepMounted: true }}
+        ModalProps={{ keepMounted: true, disableScrollLock: true }}
         PaperProps={{
           sx: {
             width: 'min(88vw, 360px)',
