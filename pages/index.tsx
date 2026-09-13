@@ -2,6 +2,7 @@ import { useState } from 'react';
 import AccountBalanceWalletOutlined from '@mui/icons-material/AccountBalanceWalletOutlined';
 import ArrowForward from '@mui/icons-material/ArrowForward';
 import CodeRounded from '@mui/icons-material/CodeRounded';
+import ExpandMoreRounded from '@mui/icons-material/ExpandMoreRounded';
 import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded';
 import StorageRounded from '@mui/icons-material/StorageRounded';
 import VerifiedOutlined from '@mui/icons-material/VerifiedOutlined';
@@ -13,7 +14,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Head from 'next/head';
 import LinearProgress from '@mui/material/LinearProgress';
-import { motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 
 import { ArchitectureExplorer } from '../src/components/ArchitectureExplorer';
 import { FaucetClaimButton } from '../src/components/FaucetClaimButton';
@@ -98,16 +99,28 @@ function ObscuraVideo() {
 }
 
 function DevelopmentProgress() {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
-    <Box component="section" aria-labelledby="development-title" className="development-timeline">
-      <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" gap={1} sx={{ mb: 3 }}>
+    <Box component="section" aria-labelledby="development-title" className={`development-timeline${isExpanded ? ' is-expanded' : ' is-collapsed'}`}>
+      <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" gap={1} sx={{ mb: 3 }} className="development-heading">
         <Box>
           <SectionLabel>Development progress</SectionLabel>
           <Typography component="h2" id="development-title" sx={{ mt: .7, fontSize: { xs: 23, md: 28 }, fontWeight: 600, letterSpacing: '-.03em' }}>From private crypto to private value rails.</Typography>
         </Box>
         <Typography color="text.secondary" sx={{ fontSize: 14, alignSelf: { sm: 'flex-end' } }}>Built on Ethereum. Built to expand.</Typography>
+        <ButtonBase
+          type="button"
+          className="development-toggle"
+          aria-expanded={isExpanded}
+          aria-controls="development-stages"
+          onClick={() => setIsExpanded((expanded) => !expanded)}
+        >
+          <Box component="span">{isExpanded ? 'Hide progress' : 'Show progress'}</Box>
+          <ExpandMoreRounded />
+        </ButtonBase>
       </Stack>
-      <Box component="ol" className="development-stages">
+      <Box component="ol" id="development-stages" className="development-stages">
         {[
           { label: 'Private Send', value: 100, status: 'Complete', detail: 'Private Ethereum-native transfers', href: '/platform' },
           { label: 'Bridge', value: 27, status: 'In development', detail: 'Cross-asset private settlement', href: '/gasless' },
@@ -134,6 +147,7 @@ function DevelopmentProgress() {
 export default function Home() {
   const reduceMotion = useReducedMotion();
   const [showDevelopmentStory, setShowDevelopmentStory] = useState(false);
+  const [isEngineExpanded, setIsEngineExpanded] = useState(false);
   return (
     <Layout>
       <Head><title>Fiducaro · Private value, live on Ethereum</title></Head>
@@ -146,14 +160,13 @@ export default function Home() {
                   Private Financial Infrastructure
                 </Box>
                 <Typography component="h1" sx={{ mt: 3, maxWidth: 760, fontSize: { xs: 42, sm: 58, xl: 66 }, fontWeight: 600, lineHeight: 1.08, letterSpacing: '-.045em' }}>
-                  Private value.<br /><Box component="span" className="hero-highlight">Live on Ethereum.</Box>
+                  Private Credit<br /><Box component="span" className="hero-highlight">Live on Ethereum.</Box>
                 </Typography>
                 <Typography color="text.secondary" sx={{ mt: 2, maxWidth: 760, fontSize: { xs: 16, md: 18 }, lineHeight: 1.55 }}>
                   Claim FIDU, move value into private state, send privately, or recover selected portions of value through live on-chain contracts.
                 </Typography>
                 <Stack direction="row" useFlexGap flexWrap="wrap" gap={1.5} sx={{ mt: 3 }}>
-                  <Button component={Link} href="/platform" variant="contained" endIcon={<ArrowForward />}>Send privately</Button>
-                  <Button component={Link} href="/decrypt" variant="outlined">Open decrypt</Button>
+                  <Button component={Link} href="/platform" variant="contained" endIcon={<ArrowForward />}>Test the Most Secure Crypto Token</Button>
                 </Stack>
                 <Stack direction="row" alignItems="center" gap={1.1} sx={{ mt: 4, color: 'primary.main' }}>
                   <StatusDot />
@@ -185,7 +198,7 @@ export default function Home() {
           <Box sx={{ mt: { xs: 5, md: 6 } }}><DevelopmentProgress /></Box>
         </Box>
 
-        <Box id="protocol" className="engine-section" component="section" sx={{ borderTop: '1px solid rgba(255,255,255,.1)', background: '#03080b' }}>
+        <Box id="protocol" className={`engine-section${isEngineExpanded ? ' is-expanded' : ' is-collapsed'}`} component="section" sx={{ borderTop: '1px solid rgba(255,255,255,.1)', background: '#03080b' }}>
           <Box sx={{ maxWidth: 1600, mx: 'auto', px: { xs: 2, sm: 3.5, lg: 5 }, py: { xs: 9, md: 12 } }}>
             <Grid container spacing={3} alignItems="flex-end">
               <Grid item xs={12} md={7}>
@@ -196,7 +209,22 @@ export default function Home() {
                 <Typography color="text.secondary" sx={{ maxWidth: 520, fontSize: 16, lineHeight: 1.8 }}>Four years of development. Deployed on Ethereum. Used with real value before the current product and brand existed.</Typography>
               </Grid>
             </Grid>
-            <Grid container spacing={2} sx={{ mt: 3 }}>
+            <ButtonBase
+              type="button"
+              className="engine-toggle"
+              aria-expanded={isEngineExpanded}
+              aria-controls="engine-details"
+              onClick={() => {
+                if (isEngineExpanded) setShowDevelopmentStory(false);
+                setIsEngineExpanded(!isEngineExpanded);
+              }}
+            >
+              <Box component="span">{isEngineExpanded ? 'Hide engine details' : 'Show engine details'}</Box>
+              <ExpandMoreRounded />
+            </ButtonBase>
+            <Box className="engine-details-shell">
+              <Box id="engine-details" className="engine-details">
+                <Grid container spacing={2} sx={{ mt: 3 }}>
               {[
                 { icon: <VerifiedOutlined />, value: '4 YEARS', label: 'Development' },
                 { icon: <AccountBalanceWalletOutlined />, value: '~$700K', label: 'Historical development' },
@@ -227,33 +255,39 @@ export default function Home() {
                   </Grid>
                 );
               })}
-            </Grid>
-            {showDevelopmentStory && (
-              <motion.div
-                id="development-origin-story"
-                initial={reduceMotion ? false : { opacity: 0, height: 0, y: -8 }}
-                animate={{ opacity: 1, height: 'auto', y: 0 }}
-                transition={{ duration: .35, ease: 'easeOut' }}
-              >
-                <ProtocolPanel className="engine-origin-story" sx={{ mt: 2, p: { xs: 2.5, md: 3.5 } }}>
-                  <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} gap={2}>
-                    <SectionLabel>Four years of development</SectionLabel>
-                    <Button size="small" variant="text" onClick={() => setShowDevelopmentStory(false)}>Close story</Button>
-                  </Stack>
-                  <Typography sx={{ mt: 1.5, maxWidth: 1180, color: 'text.secondary', fontSize: { xs: 15, md: 17 }, lineHeight: 1.8 }}>
-                    At first, it wasn&apos;t even believed that privacy could occur on an open blockchain. Ethereum itself fought against us, by making the task as difficult as possible. It was nothing short of a scientific miracle that privacy did actually get achieved, but the implications - that people could operate a privacy based banking system anywhere in the world, have yet to fully reveal themselves.
-                  </Typography>
-                </ProtocolPanel>
-              </motion.div>
-            )}
-            <ProtocolPanel className="engine-status" sx={{ mt: 2, p: { xs: 2, md: 2.5 } }}>
+                </Grid>
+                <AnimatePresence initial={false}>
+              {showDevelopmentStory && (
+                <motion.div
+                  id="development-origin-story"
+                  initial={reduceMotion ? false : { opacity: 0, height: 0, y: -10 }}
+                  animate={{ opacity: 1, height: 'auto', y: 0 }}
+                  exit={reduceMotion ? { opacity: 0 } : { opacity: 0, height: 0, y: -10 }}
+                  transition={{ duration: reduceMotion ? .01 : .48, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ overflow: 'hidden' }}
+                >
+                  <ProtocolPanel className="engine-origin-story" sx={{ mt: 2, p: { xs: 2.5, md: 3.5 } }}>
+                    <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} gap={2}>
+                      <SectionLabel>Four years of development</SectionLabel>
+                      <Button size="small" variant="text" onClick={() => setShowDevelopmentStory(false)}>Close story</Button>
+                    </Stack>
+                    <Typography sx={{ mt: 1.5, maxWidth: 1180, color: 'text.secondary', fontSize: { xs: 15, md: 17 }, lineHeight: 1.8 }}>
+                      At first, it wasn&apos;t even believed that privacy could occur on an open blockchain. Ethereum itself fought against us, by making the task as difficult as possible. It was nothing short of a scientific miracle that privacy did actually get achieved, but the implications - that people could operate a privacy based banking system anywhere in the world, have yet to fully reveal themselves.
+                    </Typography>
+                  </ProtocolPanel>
+                </motion.div>
+              )}
+                </AnimatePresence>
+                <ProtocolPanel className="engine-status" sx={{ mt: 2, p: { xs: 2, md: 2.5 } }}>
               <SectionLabel>Live protocol status</SectionLabel>
               <Stack direction="row" useFlexGap flexWrap="wrap" gap={{ xs: 1.5, md: 3 }} sx={{ mt: 1.4 }}>
                 <StatusLine label="FIDU Token" /><StatusLine label="Private Send" /><StatusLine label="Full Decrypt" /><StatusLine label="Partial Decrypt" /><StatusLine label="Native Asset Bridge" status="In development" tone="muted" /><StatusLine label="Activity" status="Not live" tone="muted" /><StatusLine label="Mobile" status="Planned" tone="muted" />
               </Stack>
-            </ProtocolPanel>
-            <Box className="fiducaro-grid architecture-stage" sx={{ position: 'relative', mt: 3, p: { xs: 2.5, md: 4 }, borderRadius: 3, overflow: 'hidden', border: '1px solid rgba(104, 199, 107,.14)' }}>
-              <ArchitectureExplorer />
+                </ProtocolPanel>
+                <Box className="fiducaro-grid architecture-stage" sx={{ position: 'relative', mt: 3, p: { xs: 2.5, md: 4 }, borderRadius: 3, overflow: 'hidden', border: '1px solid rgba(104, 199, 107,.14)' }}>
+                  <ArchitectureExplorer />
+                </Box>
+              </Box>
             </Box>
           </Box>
         </Box>
