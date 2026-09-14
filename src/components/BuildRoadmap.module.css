@@ -1,0 +1,148 @@
+.roadmap {
+  border-top: 1px solid #b9e99113;
+  color: #99ae9c;
+}
+.toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  width: 100%;
+  padding: 9px 20px 4px;
+  cursor: pointer;
+  font-size: 10px;
+}
+.toggle > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.toggle .label {
+  color: #b9e991;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+}
+.toggle svg {
+  font-size: 13px;
+  transition: transform 0.3s;
+}
+.toggle:focus-visible {
+  outline: 1px solid #b9e991;
+  outline-offset: -2px;
+}
+.shell {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    grid-template-rows 0.35s ease,
+    opacity 0.2s,
+    visibility 0s 0.35s;
+}
+.shell.open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    grid-template-rows 0.35s ease,
+    opacity 0.2s,
+    visibility 0s;
+}
+.inner {
+  min-height: 0;
+  overflow: hidden;
+  max-width: 900px;
+  width: 100%;
+  margin: auto;
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 18px 24px 0;
+}
+.steps a {
+  padding: 18px;
+  color: #e7eeea;
+  text-decoration: none;
+  background: #122019;
+  border: 1px solid #b9e99120;
+  border-radius: 9px;
+}
+.steps a:hover {
+  border-color: #b9e99170;
+}
+.steps a:focus-visible {
+  outline: 2px solid #b9e991;
+  outline-offset: 2px;
+}
+.steps small {
+  color: #b9e991;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+.steps strong {
+  display: block;
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 12px;
+}
+.steps i {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin: 0 8px 3px 0;
+  border-radius: 50%;
+  background: #b9e991;
+}
+.steps i.pending {
+  background: #e47777;
+}
+.steps p {
+  font-size: 10px;
+  color: #92a698;
+  line-height: 1.6;
+  margin: 9px 0 0;
+}
+.note {
+  text-align: center;
+  font-size: 9px;
+  padding: 0 20px;
+  margin: 12px 0 18px;
+}
+@media (max-width: 600px) {
+  .toggle {
+    padding-top: 8px;
+    gap: 15px;
+  }
+  .steps {
+    gap: 7px;
+    padding: 14px 12px 0;
+  }
+  .steps a {
+    padding: 11px 8px;
+  }
+  .steps small {
+    font-size: 7px;
+  }
+  .steps strong {
+    font-size: 16px;
+  }
+  .steps p {
+    font-size: 9px;
+  }
+  .note {
+    font-size: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shell,
+  .toggle svg {
+    transition: none;
+  }
+}

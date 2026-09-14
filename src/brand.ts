@@ -25,8 +25,9 @@ export const shapes = Array.from({ length: 18 }, (_, i) => `/shapes/shape-${Stri
 export const navItems = [
   { label: 'Home', url: '/' },
   { label: 'Privacy', url: '/privacy', status: 'live' },
-  { label: 'Credit', url: '/dash', status: 'preview' },
   { label: 'Crypto', url: '/crypto', status: 'preview' },
+  { label: 'Credit', url: '/dash', status: 'preview' },
+  { label: 'Thesis', url: '/thesis' },
 ];
 
 export const pillars = [

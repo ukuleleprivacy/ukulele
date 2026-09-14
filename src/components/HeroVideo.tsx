@@ -30,10 +30,22 @@ export function HeroVideo() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
+    // Cached video metadata can load before React attaches its event handlers.
+    const video = videoRef.current;
+    if (!video) return;
+    if (Number.isFinite(video.duration)) setDuration(video.duration);
+    setCurrentTime(video.currentTime);
+    setIsPlaying(!video.paused);
+  }, []);
+
+  useEffect(() => {
     if (!isExpanded) return undefined;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setIsExpanded(false);
+      if (event.key === 'Escape') {
+        videoRef.current?.pause();
+        setIsExpanded(false);
+      }
     };
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -56,7 +68,7 @@ export function HeroVideo() {
     takeControl();
     if (video.paused) {
       if (video.ended) video.currentTime = 0;
-      await video.play();
+      await video.play().catch(() => setIsPlaying(false));
     } else {
       video.pause();
     }
@@ -121,67 +133,100 @@ export function HeroVideo() {
   return (
     <>
       {isExpanded && (
-        <Box className="hero-video-backdrop" onClick={closeExpandedPlayer}>
-          <IconButton type="button" aria-label="Close expanded video" onClick={closeExpandedPlayer} className="hero-video-close">
+        <Box
+          className="hero-video-backdrop"
+          onClick={closeExpandedPlayer}
+        >
+          <IconButton
+            type="button"
+            aria-label="Close expanded video"
+            onClick={closeExpandedPlayer}
+            className="hero-video-close"
+          >
             <CloseRounded />
           </IconButton>
         </Box>
       )}
       <Box className={`hero-video-stage${isExpanded ? ' is-expanded' : ''}`}>
-      <Box
-        ref={videoRef}
-        component="video"
-        className="privacy-portrait-video"
-        src="/Videos/fiducaro-hero.mp4"
-        poster="/brand/fiducaro-dark-wallpaper.webp"
-        aria-label="Fiducaro brand video — Spend Freely. Prove Everything. Reveal Nothing."
-        autoPlay
-        muted
-        playsInline
-        preload="metadata"
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
-        onEnded={() => setIsPlaying(false)}
-        onLoadedMetadata={(event) => setDuration(event.currentTarget.duration)}
-        onTimeUpdate={handleTimeUpdate}
-      />
-      {!isExpanded && (
         <Box
-          component="button"
-          type="button"
-          className="hero-video-expand-hit-area"
-          aria-label="Expand video"
-          onClick={openExpandedPlayer}
+          ref={videoRef}
+          component="video"
+          className="privacy-portrait-video"
+          src="/Videos/fiducaro-hero.mp4"
+          poster="/brand/fiducaro-dark-wallpaper.webp"
+          aria-label="Fiducaro brand video — Spend Freely. Prove Everything. Reveal Nothing."
+          autoPlay
+          muted
+          playsInline
+          preload="metadata"
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
+          onEnded={() => setIsPlaying(false)}
+          onLoadedMetadata={(event) => setDuration(event.currentTarget.duration)}
+          onDurationChange={(event) => setDuration(event.currentTarget.duration)}
+          onTimeUpdate={handleTimeUpdate}
         />
-      )}
-      <Box className="hero-video-controls" aria-label="Video controls" onClick={(event) => event.stopPropagation()}>
-        <IconButton type="button" aria-label="Skip back 5 seconds" onClick={() => skipBy(-SKIP_TIME)}>
-          <FastRewindRounded />
-        </IconButton>
-        <IconButton type="button" aria-label={isPlaying ? 'Pause video' : 'Play video'} onClick={togglePlayback} className="hero-video-play-button">
-          {isPlaying ? <PauseRounded /> : <PlayArrowRounded />}
-        </IconButton>
-        <IconButton type="button" aria-label="Skip forward 5 seconds" onClick={() => skipBy(SKIP_TIME)}>
-          <FastForwardRounded />
-        </IconButton>
+        {!isExpanded && (
+          <Box
+            component="button"
+            type="button"
+            className="hero-video-expand-hit-area"
+            aria-label="Expand video"
+            onClick={openExpandedPlayer}
+          />
+        )}
         <Box
-          component="input"
-          className="hero-video-scrubber"
-          type="range"
-          min={0}
-          max={duration || 30}
-          step="0.01"
-          value={currentTime}
-          aria-label="Video position"
-          onChange={seekTo}
-        />
-        <Typography className="hero-video-time" aria-live="off">
-          {formatTime(currentTime)} / {formatTime(duration)}
-        </Typography>
-        <IconButton type="button" aria-label={isMuted ? 'Turn sound on' : 'Mute video'} onClick={toggleMuted}>
-          {isMuted ? <VolumeOffRounded /> : <VolumeUpRounded />}
-        </IconButton>
-      </Box>
+          className="hero-video-controls"
+          aria-label="Video controls"
+          onClick={(event) => event.stopPropagation()}
+        >
+          <IconButton
+            type="button"
+            aria-label="Skip back 5 seconds"
+            onClick={() => skipBy(-SKIP_TIME)}
+          >
+            <FastRewindRounded />
+          </IconButton>
+          <IconButton
+            type="button"
+            aria-label={isPlaying ? 'Pause video' : 'Play video'}
+            onClick={togglePlayback}
+            className="hero-video-play-button"
+          >
+            {isPlaying ? <PauseRounded /> : <PlayArrowRounded />}
+          </IconButton>
+          <IconButton
+            type="button"
+            aria-label="Skip forward 5 seconds"
+            onClick={() => skipBy(SKIP_TIME)}
+          >
+            <FastForwardRounded />
+          </IconButton>
+          <Box
+            component="input"
+            className="hero-video-scrubber"
+            type="range"
+            min={0}
+            max={duration || 30}
+            step="0.01"
+            value={currentTime}
+            aria-label="Video position"
+            onChange={seekTo}
+          />
+          <Typography
+            className="hero-video-time"
+            aria-live="off"
+          >
+            {formatTime(currentTime)} / {formatTime(duration)}
+          </Typography>
+          <IconButton
+            type="button"
+            aria-label={isMuted ? 'Turn sound on' : 'Mute video'}
+            onClick={toggleMuted}
+          >
+            {isMuted ? <VolumeOffRounded /> : <VolumeUpRounded />}
+          </IconButton>
+        </Box>
       </Box>
     </>
   );

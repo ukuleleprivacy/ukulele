@@ -32,11 +32,14 @@ export const Footer = () => (
           <Link href="/privacy">
             Privacy <NorthEastRounded />
           </Link>
+          <Link href="/crypto">
+            Crypto <NorthEastRounded />
+          </Link>
           <Link href="/dash">
             Credit <NorthEastRounded />
           </Link>
-          <Link href="/crypto">
-            Crypto <NorthEastRounded />
+          <Link href="/thesis">
+            Thesis <NorthEastRounded />
           </Link>
         </nav>
         <div className={styles.connect}>

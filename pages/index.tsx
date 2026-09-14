@@ -1,376 +1,379 @@
 import { useState } from 'react';
-import AccountBalanceWalletOutlined from '@mui/icons-material/AccountBalanceWalletOutlined';
-import ArrowForward from '@mui/icons-material/ArrowForward';
-import CodeRounded from '@mui/icons-material/CodeRounded';
-import ExpandMoreRounded from '@mui/icons-material/ExpandMoreRounded';
-import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded';
-import StorageRounded from '@mui/icons-material/StorageRounded';
-import VerifiedOutlined from '@mui/icons-material/VerifiedOutlined';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import ButtonBase from '@mui/material/ButtonBase';
-import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import Head from 'next/head';
-import LinearProgress from '@mui/material/LinearProgress';
+import Link from 'next/link';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-
-import { ArchitectureExplorer } from '../src/components/ArchitectureExplorer';
-import { FaucetClaimButton } from '../src/components/FaucetClaimButton';
+import {
+  ArrowForwardRounded,
+  ArrowOutwardRounded,
+  AccountBalanceWalletOutlined,
+  CodeRounded,
+  ExpandMoreRounded,
+  StorageRounded,
+  VerifiedOutlined,
+  ShieldOutlined,
+} from '@mui/icons-material';
+import { BrandTheme } from '../src/components/BrandTheme';
 import { HeroVideo } from '../src/components/HeroVideo';
-import { Metric, ProtocolPanel, SectionLabel, StatusDot, StatusLine } from '../src/components/ProtocolUI';
-import { Layout } from '../src/Layout';
-import Link from '../src/Link';
+import { FaucetClaimButton } from '../src/components/FaucetClaimButton';
+import { ArchitectureExplorer } from '../src/components/ArchitectureExplorer';
 import { fiducaroToken } from '../src/token';
-import { brand } from '../src/brand';
 import { address as naglfarAddress } from '../src/contracts/contract2';
 import { address as registryAddress } from '../src/contracts/contract3';
 import { faucetAddress } from '../src/contracts/faucet';
+import styles from './home.module.css';
 
-function ObscuraVideo() {
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  return (
-    <Box
-      sx={{
-        position: 'relative',
-        width: '100%',
-        maxWidth: 440,
-        ml: { md: 'auto' },
-        aspectRatio: '16 / 9',
-        overflow: 'hidden',
-        border: '1px solid rgba(104, 199, 107, .25)',
-        borderRadius: 2,
-        bgcolor: '#000',
-      }}
-    >
-      {isPlaying ? (
-        <Box
-          component="iframe"
-          src="https://www.youtube-nocookie.com/embed/TqpJNWg7wQs?autoplay=1"
-          title="The Obscura Covenant"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-          sx={{ display: 'block', width: '100%', height: '100%', border: 0 }}
-        />
-      ) : (
-        <ButtonBase
-          type="button"
-          aria-label="Play The Obscura Covenant audiobook on YouTube"
-          onClick={() => setIsPlaying(true)}
-          sx={{ display: 'block', width: '100%', height: '100%' }}
-        >
-          <Box
-            component="img"
-            src="/brand/fiducaro-dark-wallpaper.webp"
-            alt=""
-            sx={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-          <Box
-            aria-hidden="true"
-            sx={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.32))',
-            }}
-          />
-          <Box
-            aria-hidden="true"
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              width: 72,
-              height: 72,
-              display: 'grid',
-              placeItems: 'center',
-              borderRadius: '50%',
-              transform: 'translate(-50%, -50%)',
-              color: '#071009',
-              bgcolor: 'primary.main',
-              boxShadow: '0 0 0 8px rgba(104, 199, 107, .14), 0 10px 30px rgba(0,0,0,.45)',
-            }}
-          >
-            <PlayArrowRounded sx={{ ml: .4, fontSize: 42 }} />
-          </Box>
-        </ButtonBase>
-      )}
-    </Box>
-  );
-}
-
-function DevelopmentProgress() {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  return (
-    <Box component="section" aria-labelledby="development-title" className={`development-timeline${isExpanded ? ' is-expanded' : ' is-collapsed'}`}>
-      <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" gap={1} sx={{ mb: 3 }} className="development-heading">
-        <Box>
-          <SectionLabel>Development progress</SectionLabel>
-          <Typography component="h2" id="development-title" sx={{ mt: .7, fontSize: { xs: 23, md: 28 }, fontWeight: 600, letterSpacing: '-.03em' }}>From private crypto to private value rails.</Typography>
-        </Box>
-        <Typography color="text.secondary" sx={{ fontSize: 14, alignSelf: { sm: 'flex-end' } }}>Built on Ethereum. Built to expand.</Typography>
-        <ButtonBase
-          type="button"
-          className="development-toggle"
-          aria-expanded={isExpanded}
-          aria-controls="development-stages"
-          onClick={() => setIsExpanded((expanded) => !expanded)}
-        >
-          <Box component="span">{isExpanded ? 'Hide progress' : 'Show progress'}</Box>
-          <ExpandMoreRounded />
-        </ButtonBase>
-      </Stack>
-      <Box component="ol" id="development-stages" className="development-stages">
-        {[
-          { label: 'Private Send', value: 100, status: 'Complete', detail: 'Private Ethereum-native transfers', href: '/platform' },
-          { label: 'Bridge', value: 27, status: 'In development', detail: 'Cross-asset private settlement', href: '/gasless' },
-          { label: 'Funding', value: 2, status: 'In progress', detail: 'Supporting the next phase of growth' },
-          { label: 'Separate Omnione Chain', value: 7, status: 'In development', detail: 'A dedicated infrastructure layer' },
-        ].map(({ label, value, status, detail, href }, index) => (
-          <Box component="li" key={label} className="development-stage">
-            <Box className="development-node" aria-hidden="true">{String(index + 1).padStart(2, '0')}</Box>
-            <Typography component="h3" sx={{ fontSize: 17, fontWeight: 600, mt: 2.5, minHeight: { sm: 54 } }}>{label}</Typography>
-            <Stack direction="row" justifyContent="space-between" alignItems="baseline" gap={1} sx={{ mt: 1.5, mb: 1.25 }}>
-              <Typography color="primary" sx={{ fontSize: 30, fontWeight: 600, lineHeight: 1 }}>{value}<Box component="span" sx={{ fontSize: 16 }}>%</Box></Typography>
-              <Typography color="text.secondary" sx={{ fontSize: 13 }}>{status}</Typography>
-            </Stack>
-            <LinearProgress aria-label={`${label} progress`} variant="determinate" value={value} sx={{ height: 6, borderRadius: 6, bgcolor: 'rgba(255,255,255,.12)', '& .MuiLinearProgress-bar': { borderRadius: 6 } }} />
-            <Typography color="text.secondary" sx={{ fontSize: 14, mt: 1.5, lineHeight: 1.5 }}>{detail}</Typography>
-            {href && <Button component={Link} href={href} size="small" endIcon={<ArrowForward sx={{ fontSize: 16 }} />} sx={{ mt: .75, px: 0, fontSize: 13 }}>{value === 100 ? 'Send privately' : 'Explore bridge'}</Button>}
-          </Box>
-        ))}
-      </Box>
-    </Box>
-  );
-}
+const metrics = [
+  { Icon: VerifiedOutlined, value: '4 years', label: 'Development' },
+  { Icon: AccountBalanceWalletOutlined, value: '~$700K', label: 'Historical development' },
+  { Icon: CodeRounded, value: '3', label: 'Core privacy contracts' },
+  { Icon: StorageRounded, value: 'Ethereum', label: 'Mainnet deployed' },
+];
+const contracts = [
+  { label: 'ADDR REGISTRY', address: registryAddress },
+  { label: 'FIDUCARO', address: fiducaroToken.address },
+  { label: 'NAGLFAR', address: naglfarAddress },
+  { label: 'FAUCET', address: faucetAddress },
+];
 
 export default function Home() {
   const reduceMotion = useReducedMotion();
-  const [showDevelopmentStory, setShowDevelopmentStory] = useState(false);
-  const [isEngineExpanded, setIsEngineExpanded] = useState(false);
-  const [showContracts, setShowContracts] = useState(false);
+  const [story, setStory] = useState(false);
+  const [engine, setEngine] = useState(false);
+  const [directory, setDirectory] = useState(false);
   return (
-    <Layout>
-      <Head><title>Fiducaro · Private value, live on Ethereum</title></Head>
-      <Box component="main" sx={{ background: 'radial-gradient(ellipse at 78% 4%, rgba(220,224,228,.07), transparent 35%), #060c10' }}>
-        <Box component="section" className="home-hero" sx={{ maxWidth: 1600, mx: 'auto', px: { xs: 2.5, sm: 4, lg: 5 }, pt: { xs: 5, md: 6 }, pb: { xs: 6, md: 7 } }}>
-          <Grid container spacing={{ xs: 5, lg: 7 }} alignItems="center">
-            <Grid item xs={12} lg={6}>
-              <Stack sx={{ height: '100%' }}>
-                <Box sx={{ alignSelf: 'flex-start', px: 1.5, py: .65, border: '1px solid rgba(255,255,255,.15)', borderRadius: 8, background: 'rgba(255,255,255,.08)', color: 'text.secondary', fontSize: 13 }}>
-                  Private Financial Infrastructure
-                </Box>
-                <Typography component="h1" sx={{ mt: 3, maxWidth: 760, fontSize: { xs: 42, sm: 58, xl: 66 }, fontWeight: 600, lineHeight: 1.08, letterSpacing: '-.045em' }}>
-                  Private Credit<br /><Box component="span" className="hero-highlight">Live on Ethereum.</Box>
-                </Typography>
-                <Typography color="text.secondary" sx={{ mt: 2, maxWidth: 760, fontSize: { xs: 16, md: 18 }, lineHeight: 1.55 }}>
-                  Claim FIDU, move value into private state, send privately, or recover selected portions of value through live on-chain contracts.
-                </Typography>
-                <Stack direction="row" useFlexGap flexWrap="wrap" gap={1.5} sx={{ mt: 3 }}>
-                  <Button component={Link} href="/platform" variant="contained" endIcon={<ArrowForward />}>Test the Most Secure Crypto Token</Button>
-                </Stack>
-                <Stack direction="row" alignItems="center" gap={1.1} sx={{ mt: 4, color: 'primary.main' }}>
-                  <StatusDot />
-                  <Typography sx={{ fontWeight: 700, fontSize: 13 }}>FIDUCARO MAINNET SYSTEM — OPERATIONAL</Typography>
-                </Stack>
-                <Typography color="text.secondary" sx={{ mt: 1, ml: 2.25, fontSize: 12 }}>
-                  Ethereum Mainnet • {fiducaroToken.totalSupply.toLocaleString('en-US')} FIDU • On-chain execution
-                </Typography>
-                <ProtocolPanel sx={{ mt: 3, p: 2.25 }}>
-                  <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" gap={2}>
-                    <Stack direction="row" gap={1.5} alignItems="center">
-                      <IconButton
-                        type="button"
-                        className={`contract-directory-toggle${showContracts ? ' is-active' : ''}`}
-                        aria-label={showContracts ? 'Hide deployed contract addresses' : 'Show deployed contract addresses'}
-                        aria-expanded={showContracts}
-                        aria-controls="contract-directory"
-                        onClick={() => setShowContracts((isOpen) => !isOpen)}
-                      >
-                        <StorageRounded />
-                      </IconButton>
-                      <Box><SectionLabel>Live FIDU token</SectionLabel><Typography sx={{ mt: .3, fontWeight: 700 }}>Ethereum-native public token</Typography></Box>
-                    </Stack>
-                    <StatusLine label="FIDU Token" />
-                  </Stack>
-                  <AnimatePresence initial={false}>
-                    {showContracts && (
-                      <motion.div
-                        id="contract-directory"
-                        initial={reduceMotion ? false : { opacity: 0, height: 0, y: -6 }}
-                        animate={{ opacity: 1, height: 'auto', y: 0 }}
-                        exit={reduceMotion ? { opacity: 0 } : { opacity: 0, height: 0, y: -6 }}
-                        transition={{ duration: reduceMotion ? .01 : .38, ease: [0.22, 1, 0.36, 1] }}
-                        style={{ overflow: 'hidden' }}
-                      >
-                        <Box className="contract-directory-list">
-                          {[
-                            { label: 'ADDR REGISTRY', address: registryAddress },
-                            { label: 'FIDUCARO', address: fiducaroToken.address },
-                            { label: 'NAGLFAR', address: naglfarAddress },
-                            { label: 'FAUCET', address: faucetAddress },
-                          ].map(({ label, address }) => (
-                            <Box
-                              component="a"
-                              key={label}
-                              href={`https://etherscan.io/address/${address}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="contract-directory-link"
-                            >
-                              <Box component="span" className="contract-directory-label">{label}</Box>
-                              <Box component="code">{address}</Box>
-                              <ArrowForward aria-hidden="true" />
-                            </Box>
-                          ))}
-                        </Box>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </ProtocolPanel>
-              </Stack>
-            </Grid>
-            <Grid item xs={12} lg={6}>
-              <Box className="privacy-portrait">
-                <HeroVideo />
-                <Box className="privacy-portrait-copy">
-                  <Typography component="h2" sx={{ fontSize: { xs: 27, sm: 34 }, fontWeight: 600, lineHeight: 1.18, letterSpacing: '-.035em' }}>{brand.tagline}.</Typography>
-                </Box>
-              </Box>
-            </Grid>
-          </Grid>
-          <Box sx={{ mt: { xs: 5, md: 6 } }}><DevelopmentProgress /></Box>
-        </Box>
+    <BrandTheme>
+      <Head>
+        <title>Fiducaro · Private Credit. A more private world.</title>
+        <meta
+          name="description"
+          content="Spend freely. Prove everything. Reveal nothing. Explore live FIDU privacy tools and the vision for private credit."
+        />
+      </Head>
+      <main className={styles.page}>
+        <div className={styles.topline}>
+          <span>FIDUCARO / YOUR WORLD. YOUR TERMS.</span>
+          <span>
+            <i /> FIDU PRIVACY · LIVE ON ETHEREUM
+          </span>
+        </div>
+        <section className={styles.hero}>
+          <div className={styles.heroCopy}>
+            <span className={styles.eyebrow}>PRIVATE BY PRINCIPLE. OPEN TO POSSIBILITY.</span>
+            <h1>
+              Private Credit
+              <br />
+              <em>
+                Without the
+                <br className={styles.desktopBreak} /> spotlight.
+              </em>
+            </h1>
+            <p>
+              Your money is part of your life. It shouldn’t have to tell your whole story. Start with live FIDU privacy
+              tools. Explore what private credit could become.
+            </p>
+            <div className={styles.actions}>
+              <Link
+                href="/privacy"
+                className={styles.primary}
+              >
+                Test the Most Secure Crypto Token <ArrowForwardRounded />
+              </Link>
+              <Link
+                href="/dash"
+                className={styles.textLink}
+              >
+                Explore private credit <ArrowOutwardRounded />
+              </Link>
+            </div>
+            <div className={styles.heroStatus}>
+              <span>
+                <i />
+                Privacy tools live
+              </span>
+              <span>
+                <i className={styles.red} />
+                Credit is a concept
+              </span>
+            </div>
+          </div>
+          <div className={styles.heroVisual}>
+            <div className={styles.videoEyebrow}>
+              <ShieldOutlined />
+              <span>THE FIDUCARO FILM</span>
+              <span>01 / INTRODUCTION</span>
+            </div>
+            <HeroVideo />
+            <div className={styles.videoCaption}>
+              <span>
+                Spend freely.
+                <br />
+                Prove everything.
+                <br />
+                <em>Reveal nothing.</em>
+              </span>
+              <p>Click the film to start from the beginning, with sound.</p>
+            </div>
+          </div>
+        </section>
 
-        <Box id="protocol" className={`engine-section${isEngineExpanded ? ' is-expanded' : ' is-collapsed'}`} component="section" sx={{ borderTop: '1px solid rgba(255,255,255,.1)', background: '#03080b' }}>
-          <Box sx={{ maxWidth: 1600, mx: 'auto', px: { xs: 2, sm: 3.5, lg: 5 }, py: { xs: 9, md: 12 } }}>
-            <Grid container spacing={3} alignItems="flex-end">
-              <Grid item xs={12} md={7}>
-                <SectionLabel>The engine</SectionLabel>
-                <Typography component="h2" sx={{ mt: 1.5, maxWidth: 780, fontSize: { xs: 36, md: 56 }, lineHeight: 1.06, fontWeight: 600, letterSpacing: '-.045em' }}>A Computer Science Miracle</Typography>
-              </Grid>
-              <Grid item xs={12} md={5}>
-                <Typography color="text.secondary" sx={{ maxWidth: 520, fontSize: 16, lineHeight: 1.8 }}>Four years of development. Deployed on Ethereum. Used with real value before the current product and brand existed.</Typography>
-              </Grid>
-            </Grid>
-            <ButtonBase
-              type="button"
-              className="engine-toggle"
-              aria-expanded={isEngineExpanded}
-              aria-controls="engine-details"
-              onClick={() => {
-                if (isEngineExpanded) setShowDevelopmentStory(false);
-                setIsEngineExpanded(!isEngineExpanded);
-              }}
+        <section
+          className={styles.directory}
+          aria-label="Live FIDU token"
+        >
+          <button
+            className={styles.directoryToggle}
+            aria-expanded={directory}
+            aria-controls="contract-directory"
+            onClick={() => setDirectory(!directory)}
+          >
+            <StorageRounded />
+            <span>
+              <small>THE LIVE FOUNDATION</small>
+              <strong>FIDU on Ethereum</strong>
+            </span>
+            <span className={styles.contractHint}>
+              {directory ? 'Hide' : 'View'} contracts{' '}
+              <ExpandMoreRounded style={{ transform: directory ? 'rotate(180deg)' : undefined }} />
+            </span>
+          </button>
+          <AnimatePresence initial={false}>
+            {directory && (
+              <motion.div
+                id="contract-directory"
+                initial={reduceMotion ? false : { height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: reduceMotion ? 0 : 0.35 }}
+                style={{ overflow: 'hidden' }}
+              >
+                <div className={styles.contracts}>
+                  {contracts.map(({ label, address }) => (
+                    <a
+                      key={label}
+                      href={'https://etherscan.io/address/' + address}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span>{label}</span>
+                      <code>{address}</code>
+                      <ArrowOutwardRounded />
+                    </a>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </section>
+
+        <section
+          className={styles.pathways}
+          aria-label="Explore Fiducaro"
+        >
+          {[
+            {
+              href: '/privacy',
+              label: '01 / PRIVACY',
+              title: 'Move on your terms.',
+              body: 'Send and decrypt the Fiducaro token through live Ethereum contracts.',
+              status: 'Live tools',
+              live: true,
+              Icon: ShieldOutlined,
+            },
+            {
+              href: '/crypto',
+              label: '02 / CRYPTO',
+              title: 'Beyond a single asset.',
+              body: 'Explore the bridge, the activity interface, and voices in the privacy world.',
+              status: 'Concept preview',
+              live: false,
+              Icon: CodeRounded,
+            },
+            {
+              href: '/dash',
+              label: '03 / CREDIT',
+              title: 'A different kind of account.',
+              body: 'A private portfolio, selective disclosure, and a new vision for lending.',
+              status: 'Concept preview',
+              live: false,
+              Icon: AccountBalanceWalletOutlined,
+            },
+          ].map(({ href, label, title, body, status, live, Icon }) => (
+            <Link
+              key={href}
+              href={href}
+              className={styles.pathway}
             >
-              <Box component="span">{isEngineExpanded ? 'Hide engine details' : 'Show engine details'}</Box>
-              <ExpandMoreRounded />
-            </ButtonBase>
-            <Box className="engine-details-shell">
-              <Box id="engine-details" className="engine-details">
-                <Grid container spacing={2} sx={{ mt: 3 }}>
-              {[
-                { icon: <VerifiedOutlined />, value: '4 YEARS', label: 'Development' },
-                { icon: <AccountBalanceWalletOutlined />, value: '~$700K', label: 'Historical development' },
-                { icon: <CodeRounded />, value: '3', label: 'Core privacy contracts' },
-                { icon: <StorageRounded />, value: 'ETHEREUM', label: 'Mainnet deployed' },
-              ].map(({ icon, value, label }, index) => {
-                const metricCard = (
-                  <motion.div initial={reduceMotion ? false : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .25 }} transition={{ duration: .6, delay: index * .1 }} className={`engine-metric${index === 0 && showDevelopmentStory ? ' is-active' : ''}`}>
-                    <Box sx={{ color: 'primary.main', mb: 2 }}>{icon}</Box>
-                    <Metric value={value} label={label} />
-                    {index === 0 && <Typography className="engine-metric-hint">Click to read the story</Typography>}
+              <div className={styles.pathwayTop}>
+                <span>{label}</span>
+                <Icon />
+              </div>
+              <h2>{title}</h2>
+              <p>{body}</p>
+              <div className={styles.pathwayBottom}>
+                <span>
+                  <i className={live ? '' : styles.red} />
+                  {status}
+                </span>
+                <ArrowOutwardRounded />
+              </div>
+            </Link>
+          ))}
+        </section>
+
+        <section
+          id="protocol"
+          className={styles.engine}
+          aria-labelledby="engine-title"
+        >
+          <div className={styles.sectionTop}>
+            <div>
+              <span className={styles.eyebrow}>THE ENGINE / YEARS IN THE MAKING</span>
+              <h2 id="engine-title">
+                A Computer
+                <br />
+                <em>Science Miracle</em>
+              </h2>
+            </div>
+            <p>
+              Four years of development. Deployed on Ethereum. Used with real value before the current product and brand
+              existed.
+            </p>
+          </div>
+          <button
+            className={styles.mobileToggle}
+            aria-expanded={engine}
+            aria-controls="engine-details"
+            onClick={() => {
+              setEngine(!engine);
+              if (engine) setStory(false);
+            }}
+          >
+            {engine ? 'Hide engine details' : 'Explore the engine'}
+            <ExpandMoreRounded style={{ transform: engine ? 'rotate(180deg)' : undefined }} />
+          </button>
+          <div className={styles.mobileCollapse + (engine ? ' ' + styles.expanded : '')}>
+            <div
+              className={styles.collapseInner}
+              id="engine-details"
+            >
+              <div className={styles.metrics}>
+                {metrics.map(({ Icon, value, label }, index) => {
+                  const content = (
+                    <>
+                      <Icon />
+                      <strong>{value}</strong>
+                      <span>{label}</span>
+                      {index === 0 && <small>{story ? 'CLOSE THE STORY −' : 'READ THE STORY ↗'}</small>}
+                    </>
+                  );
+                  return index === 0 ? (
+                    <button
+                      key={label}
+                      aria-expanded={story}
+                      aria-controls="development-origin-story"
+                      onClick={() => setStory(!story)}
+                      className={story ? styles.activeMetric : ''}
+                    >
+                      {content}
+                    </button>
+                  ) : (
+                    <div key={label}>{content}</div>
+                  );
+                })}
+              </div>
+              <AnimatePresence initial={false}>
+                {story && (
+                  <motion.div
+                    id="development-origin-story"
+                    initial={reduceMotion ? false : { height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: reduceMotion ? 0 : 0.48, ease: [0.22, 1, 0.36, 1] }}
+                    style={{ overflow: 'hidden' }}
+                  >
+                    <article className={styles.story}>
+                      <div>
+                        <span className={styles.eyebrow}>FOUR YEARS OF DEVELOPMENT</span>
+                        <button onClick={() => setStory(false)}>Close story</button>
+                      </div>
+                      <p>
+                        At first, it wasn&apos;t even believed that privacy could occur on an open blockchain. Ethereum
+                        itself fought against us, by making the task as difficult as possible. It was nothing short of a
+                        scientific miracle that privacy did actually get achieved, but the implications - that people
+                        could operate a privacy based banking system anywhere in the world, have yet to fully reveal
+                        themselves.
+                      </p>
+                    </article>
                   </motion.div>
-                );
+                )}
+              </AnimatePresence>
+              <div className={styles.protocolStatus}>
+                <span className={styles.eyebrow}>PROTOCOL STATUS</span>
+                <div>
+                  {['FIDU token', 'Private Send', 'Full Decrypt', 'Partial Decrypt'].map((label) => (
+                    <span key={label}>
+                      <i />
+                      {label} · Live
+                    </span>
+                  ))}
+                  <span>
+                    <i className={styles.red} />
+                    Bridge · In development
+                  </span>
+                </div>
+              </div>
+              <div className={styles.architecture}>
+                <ArchitectureExplorer />
+              </div>
+            </div>
+          </div>
+        </section>
 
-                return (
-                  <Grid item xs={6} md={3} key={label}>
-                    {index === 0 ? (
-                      <ButtonBase
-                        type="button"
-                        className="engine-metric-button"
-                        aria-expanded={showDevelopmentStory}
-                        aria-controls="development-origin-story"
-                        onClick={() => setShowDevelopmentStory((isOpen) => !isOpen)}
-                      >
-                        {metricCard}
-                      </ButtonBase>
-                    ) : metricCard}
-                  </Grid>
-                );
-              })}
-                </Grid>
-                <AnimatePresence initial={false}>
-              {showDevelopmentStory && (
-                <motion.div
-                  id="development-origin-story"
-                  initial={reduceMotion ? false : { opacity: 0, height: 0, y: -10 }}
-                  animate={{ opacity: 1, height: 'auto', y: 0 }}
-                  exit={reduceMotion ? { opacity: 0 } : { opacity: 0, height: 0, y: -10 }}
-                  transition={{ duration: reduceMotion ? .01 : .48, ease: [0.22, 1, 0.36, 1] }}
-                  style={{ overflow: 'hidden' }}
-                >
-                  <ProtocolPanel className="engine-origin-story" sx={{ mt: 2, p: { xs: 2.5, md: 3.5 } }}>
-                    <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} gap={2}>
-                      <SectionLabel>Four years of development</SectionLabel>
-                      <Button size="small" variant="text" onClick={() => setShowDevelopmentStory(false)}>Close story</Button>
-                    </Stack>
-                    <Typography sx={{ mt: 1.5, maxWidth: 1180, color: 'text.secondary', fontSize: { xs: 15, md: 17 }, lineHeight: 1.8 }}>
-                      At first, it wasn&apos;t even believed that privacy could occur on an open blockchain. Ethereum itself fought against us, by making the task as difficult as possible. It was nothing short of a scientific miracle that privacy did actually get achieved, but the implications - that people could operate a privacy based banking system anywhere in the world, have yet to fully reveal themselves.
-                    </Typography>
-                  </ProtocolPanel>
-                </motion.div>
-              )}
-                </AnimatePresence>
-                <ProtocolPanel className="engine-status" sx={{ mt: 2, p: { xs: 2, md: 2.5 } }}>
-              <SectionLabel>Live protocol status</SectionLabel>
-              <Stack direction="row" useFlexGap flexWrap="wrap" gap={{ xs: 1.5, md: 3 }} sx={{ mt: 1.4 }}>
-                <StatusLine label="FIDU Token" /><StatusLine label="Private Send" /><StatusLine label="Full Decrypt" /><StatusLine label="Partial Decrypt" /><StatusLine label="Native Asset Bridge" status="In development" tone="muted" /><StatusLine label="Activity" status="Not live" tone="muted" /><StatusLine label="Mobile" status="Planned" tone="muted" />
-              </Stack>
-                </ProtocolPanel>
-                <Box className="fiducaro-grid architecture-stage" sx={{ position: 'relative', mt: 3, p: { xs: 2.5, md: 4 }, borderRadius: 3, overflow: 'hidden', border: '1px solid rgba(104, 199, 107,.14)' }}>
-                  <ArchitectureExplorer />
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-        </Box>
+        <section className={styles.thesisLink}>
+          <span className={styles.eyebrow}>THE IDEA BEHIND THE INTERFACE</span>
+          <div>
+            <h2>
+              Freedom needs
+              <br />
+              <em>a private space.</em>
+            </h2>
+            <p>The Obscura Covenant asks what happens when our lives move beyond the walls that once protected them.</p>
+            <Link
+              href="/thesis"
+              className={styles.textLink}
+            >
+              Explore the thesis <ArrowOutwardRounded />
+            </Link>
+          </div>
+        </section>
 
-        <Box component="section" sx={{ background: 'radial-gradient(circle at 12% 0%, rgba(104, 199, 107,.07), transparent 28%), #091116' }}>
-          <Box sx={{ maxWidth: 1600, mx: 'auto', px: { xs: 2, sm: 3.5, lg: 5 }, py: { xs: 9, md: 12 } }}>
-            <ProtocolPanel className="obscura-card" sx={{ overflow: 'hidden', backgroundImage: 'linear-gradient(90deg, rgba(6,12,16,.94), rgba(6,12,16,.82)), url(/wallpaper/obscura-covenant.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-              <Grid container alignItems="center" spacing={3} sx={{ p: { xs: 3, md: 5 }, width: '100%', m: 0, '& > .MuiGrid-item': { pt: 0, pl: { xs: 0, md: 3 } }, rowGap: 3 }}>
-                <Grid item xs={12} md={7}>
-                  <SectionLabel>The paper & the audiobook</SectionLabel>
-                  <Typography variant="h4" sx={{ mt: 1 }}>The Obscura Covenant</Typography>
-                  <Typography color="text.secondary" sx={{ mt: 1.5, maxWidth: 550 }}>A broader thesis on private value, financial sovereignty, and where Fiducaro goes next.</Typography>
-                  <Button component={Link} href="/whitepaper/Obscura_Coveneant.pdf" target="_blank" rel="noopener noreferrer" variant="contained" sx={{ mt: 3 }}>Read paper</Button>
-                </Grid>
-                <Grid item xs={12} md={5}>
-                  <ObscuraVideo />
-                </Grid>
-              </Grid>
-            </ProtocolPanel>
-            <ProtocolPanel className="claim-banner" sx={{ mt: 3, p: { xs: 3, md: 5 }, borderRadius: 3 }}>
-              <Stack direction={{ xs: 'column', md: 'row' }} alignItems={{ xs: 'flex-start', md: 'center' }} justifyContent="space-between" gap={4}>
-                <Box sx={{ maxWidth: 670 }}>
-                  <Stack direction="row" alignItems="center" gap={1} sx={{ mb: 1.5 }}><StatusDot /><SectionLabel>Live on Ethereum</SectionLabel></Stack>
-                  <Typography variant="h3" sx={{ fontSize: { xs: 30, md: 40 }, letterSpacing: '-.035em' }}>The protocol is live.</Typography>
-                  <Typography color="text.secondary" sx={{ mt: 1.5, lineHeight: 1.7 }}>Claim 100 FIDU and test it yourself. Experience privacy built into Ethereum, with private transfers and selective recovery that put you in control.</Typography>
-                </Box>
-                <Box sx={{ width: { xs: '100%', md: 300 }, flexShrink: 0, '& button': { minHeight: 52, width: '100%', bgcolor: 'primary.main', color: '#071009' } }}>
-                  <FaucetClaimButton />
-                  <Typography color="text.secondary" align="center" sx={{ mt: 1.5, fontSize: 12 }}>No account. No registration.</Typography>
-                </Box>
-              </Stack>
-            </ProtocolPanel>
-          </Box>
-        </Box>
-      </Box>
-    </Layout>
+        <section
+          className={styles.faucet}
+          aria-labelledby="faucet-title"
+        >
+          <div>
+            <span className={styles.eyebrow}>
+              <i /> THE PROTOCOL IS LIVE
+            </span>
+            <h2 id="faucet-title">
+              Don’t just read about it.
+              <br />
+              <em>Try a private move.</em>
+            </h2>
+            <p>
+              Claim 100 FIDU, then explore Send and Decrypt in Privacy. You’ll need a connected Ethereum wallet and ETH
+              for network fees.
+            </p>
+          </div>
+          <div className={styles.claim}>
+            <FaucetClaimButton />
+            <span>No site account. No registration.</span>
+            <Link href="/privacy">
+              Continue to Privacy <ArrowForwardRounded />
+            </Link>
+          </div>
+        </section>
+      </main>
+    </BrandTheme>
   );
 }

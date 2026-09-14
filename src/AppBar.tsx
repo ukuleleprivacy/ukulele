@@ -22,6 +22,7 @@ import { ConnectWallet } from './components/ConnectWallet';
 import { useBodyScrollLock } from './components/useBodyScrollLock';
 import Link from './Link';
 import { Logo } from './Logo';
+import { BuildRoadmap } from './components/BuildRoadmap';
 
 const navActive = (url: string, pathname: string) =>
   pathname === url ||
@@ -280,6 +281,7 @@ export const TopAppBar = () => {
             </IconButton>
           </Stack>
         </Toolbar>
+        <BuildRoadmap />
       </AppBar>
 
       <Drawer
