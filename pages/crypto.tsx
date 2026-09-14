@@ -41,29 +41,6 @@ export default function Crypto() {
             <i /> NOT LIVE · CONCEPT PREVIEW
           </span>
         </div>
-        <header className={styles.hero}>
-          <div>
-            <span className={styles.eyebrow}>THE NEXT CHAPTER. STILL TAKING SHAPE.</span>
-            <h1>
-              A bigger crypto world.
-              <br />
-              <em>A more private way through.</em>
-            </h1>
-            <p>
-              Explore the bridge concept, the activity interface, and people in the privacy world. One space for what
-              comes next.
-            </p>
-          </div>
-          <div className={crypto.previewCard}>
-            <LockOutlined />
-            <span>
-              LOOK AROUND.
-              <br />
-              <strong>Nothing moves here.</strong>
-            </span>
-            <p>No swaps, deposits, or transfers are available in Crypto.</p>
-          </div>
-        </header>
         <div className={`${styles.tabbar} ${crypto.tabs}`}>
           <div
             role="tablist"

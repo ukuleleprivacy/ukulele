@@ -108,7 +108,7 @@ const usd = (value: number) =>
   value.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 
 export default function Dashboard() {
-  const [introOpen, setIntroOpen] = useState(true);
+  const [introOpen, setIntroOpen] = useState(false);
   const [view, setView] = useState<'account' | 'lender'>('account');
   const [hidden, setHidden] = useState(false);
   const [branch, setBranch] = useState(0);
@@ -172,38 +172,24 @@ export default function Dashboard() {
         />
       </Head>
       <main className={styles.dashboard}>
-        <div className={styles.demoBar}>
-          <span>
-            <span className={styles.dot} /> FIDUCARO LABS <span className={styles.barDivider}>/</span> PRIVATE BANKING
-          </span>
-          <span>
-            Interactive concept <b>DEMO DATA</b>
-          </span>
-        </div>
-        <button
-          type="button"
-          className={styles.introToggle}
-          aria-expanded={introOpen}
-          aria-controls="credit-intro"
-          onClick={() => setIntroOpen(!introOpen)}
-        >
-          <span>{introOpen ? 'Collapse account overview' : 'Show account overview'}</span>
-          <ExpandMoreRounded style={{ transform: introOpen ? 'rotate(180deg)' : undefined }} />
-        </button>
-        <div className={`${styles.introShell} ${introOpen ? styles.introOpen : ''}`}>
-          <header
-            id="credit-intro"
-            className={styles.heading}
-          >
-            <div>
-              <p className={styles.eyebrow}>YOUR WORLD. YOUR TERMS.</p>
-              <h1>
-                A little more private.
-                <br />
-                <em>A lot more possibility.</em>
-              </h1>
-              <p>Your assets, your credit, your next move. All in one place.</p>
-            </div>
+        <header className={styles.creditHeader}>
+          <div className={styles.demoBar}>
+            <span>
+              <span className={styles.dot} /> FIDUCARO LABS <span className={styles.barDivider}>/</span> PRIVATE BANKING
+            </span>
+            <span>
+              Interactive concept <b>DEMO DATA</b>
+            </span>
+            <button
+              type="button"
+              className={styles.introToggle}
+              aria-expanded={introOpen}
+              aria-controls="credit-intro"
+              onClick={() => setIntroOpen(!introOpen)}
+            >
+              <span>{introOpen ? 'Close overview' : 'Your world. Your terms.'}</span>
+              <ExpandMoreRounded style={{ transform: introOpen ? 'rotate(180deg)' : undefined }} />
+            </button>
             <Link
               href={`/profile?branch=${branches[branch].code}`}
               className={styles.member}
@@ -216,8 +202,24 @@ export default function Dashboard() {
               </div>
               <ShieldOutlined />
             </Link>
-          </header>
-        </div>
+          </div>
+          <div className={`${styles.introShell} ${introOpen ? styles.introOpen : ''}`}>
+            <header
+              id="credit-intro"
+              className={styles.heading}
+            >
+              <div>
+                <p className={styles.eyebrow}>YOUR WORLD. YOUR TERMS.</p>
+                <h1>
+                  A little more private.
+                  <br />
+                  <em>A lot more possibility.</em>
+                </h1>
+                <p>Your assets, your credit, your next move. All in one place.</p>
+              </div>
+            </header>
+          </div>
+        </header>
         <div className={styles.toolbar}>
           <div
             className={styles.tabs}
