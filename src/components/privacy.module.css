@@ -48,6 +48,23 @@
   background: #b9e991;
   margin-right: 7px;
 }
+.tokenStatus {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+.tokenStatus a {
+  color: #b9e991;
+  text-decoration: none;
+}
+.tokenStatus a:hover {
+  text-decoration: underline;
+}
+.tokenStatus > span {
+  white-space: nowrap;
+}
 .hero {
   display: flex;
   align-items: center;

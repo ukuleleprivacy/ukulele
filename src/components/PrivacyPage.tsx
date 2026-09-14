@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles';
-import { LockOutlined, NorthEastRounded, SouthWestRounded, ShieldOutlined } from '@mui/icons-material';
+import { LockOutlined, NorthEastRounded, SouthWestRounded } from '@mui/icons-material';
 import { PrivacySend } from './PrivacySend';
 import { PrivacyDecrypt } from './PrivacyDecrypt';
 import { ConnectWallet } from './ConnectWallet';
@@ -26,37 +26,19 @@ export function PrivacyPage({ initialTab = 'send' }: { initialTab?: 'send' | 'de
       <main className={styles.page}>
         <div className={styles.topline}>
           <span>FIDUCARO / PRIVACY</span>
-          <span>
-            <i /> ETHEREUM MAINNET · LIVE
-          </span>
-        </div>
-        <header className={styles.hero}>
-          <div>
-            <span className={styles.eyebrow}>YOUR TOKEN. YOUR CHOICE OF VISIBILITY.</span>
-            <h1>
-              Privacy in motion.
-              <br />
-              <em>Control in your hands.</em>
-            </h1>
-            <p>
-              Send FIDU into private state, or bring it back to your public wallet. Two ways to manage the Fiducaro
-              token, in one place.
-            </p>
-          </div>
-          <div className={styles.tokenBadge}>
-            <ShieldOutlined />
-            <strong>
-              FIDU <small>Fiducaro token</small>
-            </strong>
+          <span className={styles.tokenStatus}>
             <a
               href={`https://etherscan.io/token/${fiducaroToken.address}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              View token ↗
+              FIDU token ↗
             </a>
-          </div>
-        </header>
+            <span>
+              <i /> ETHEREUM MAINNET · LIVE
+            </span>
+          </span>
+        </div>
         <div className={styles.tabbar}>
           <div
             role="tablist"
