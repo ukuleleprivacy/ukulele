@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 
 const INTRO_PAUSE_TIME = 3;
 const SKIP_TIME = 5;
+const VIDEO_SRC = '/Videos/fiducaro-hero-web.mp4';
 
 function formatTime(seconds: number) {
   if (!Number.isFinite(seconds)) return '0:00';
@@ -22,13 +23,41 @@ function formatTime(seconds: number) {
 
 export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const expandRef = useRef<HTMLButtonElement>(null);
   const introPauseComplete = useRef(false);
   const pausedAtPreview = useRef(false);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [mediaReady, setMediaReady] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion || connection?.saveData) {
+      introPauseComplete.current = true;
+      pausedAtPreview.current = true;
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.intersectionRatio < 0.5 || document.hidden) return;
+        observer.disconnect();
+        setMediaReady(true);
+        if (!video.getAttribute('src')) video.src = VIDEO_SRC;
+        video.play().catch(() => setIsPlaying(false));
+      },
+      { threshold: 0.5 },
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     // Cached video metadata can load before React attaches its event handlers.
@@ -41,11 +70,26 @@ export function HeroVideo() {
 
   useEffect(() => {
     if (!isExpanded) return undefined;
+    const previousFocus = document.activeElement as HTMLElement | null;
+    closeRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         videoRef.current?.pause();
         setIsExpanded(false);
+      }
+      if (event.key === 'Tab') {
+        const controls = stageRef.current?.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled)');
+        if (!controls?.length) return;
+        const first = controls[0];
+        const last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     };
     const originalOverflow = document.body.style.overflow;
@@ -55,11 +99,15 @@ export function HeroVideo() {
     return () => {
       document.body.style.overflow = originalOverflow;
       window.removeEventListener('keydown', handleKeyDown);
+      if (previousFocus?.isConnected) previousFocus.focus();
+      else expandRef.current?.focus();
     };
   }, [isExpanded]);
 
   const takeControl = () => {
     introPauseComplete.current = true;
+    setMediaReady(true);
+    if (videoRef.current && !videoRef.current.getAttribute('src')) videoRef.current.src = VIDEO_SRC;
   };
 
   const togglePlayback = async () => {
@@ -86,6 +134,7 @@ export function HeroVideo() {
     if (!video) return;
 
     takeControl();
+    pausedAtPreview.current = false;
     video.currentTime = Math.min(Math.max(video.currentTime + seconds, 0), video.duration || 0);
     setCurrentTime(video.currentTime);
   };
@@ -95,6 +144,7 @@ export function HeroVideo() {
     if (!video) return;
 
     takeControl();
+    pausedAtPreview.current = false;
     video.currentTime = Number(event.target.value);
     setCurrentTime(video.currentTime);
   };
@@ -145,8 +195,18 @@ export function HeroVideo() {
         <Box
           className="hero-video-backdrop"
           onClick={closeExpandedPlayer}
-        >
+        />
+      )}
+      <Box
+        ref={stageRef}
+        className={`hero-video-stage${isExpanded ? ' is-expanded' : ''}`}
+        role={isExpanded ? 'dialog' : undefined}
+        aria-modal={isExpanded ? true : undefined}
+        aria-label={isExpanded ? 'Fiducaro film' : undefined}
+      >
+        {isExpanded && (
           <IconButton
+            ref={closeRef}
             type="button"
             aria-label="Close expanded video"
             onClick={closeExpandedPlayer}
@@ -154,20 +214,17 @@ export function HeroVideo() {
           >
             <CloseRounded />
           </IconButton>
-        </Box>
-      )}
-      <Box className={`hero-video-stage${isExpanded ? ' is-expanded' : ''}`}>
+        )}
         <Box
           ref={videoRef}
           component="video"
           className="privacy-portrait-video"
-          src="/Videos/fiducaro-hero.mp4"
+          src={mediaReady ? VIDEO_SRC : undefined}
           poster="/brand/fiducaro-dark-wallpaper.webp"
           aria-label="Fiducaro brand video — Spend Freely. Prove Everything. Reveal Nothing."
-          autoPlay
           muted={isMuted}
           playsInline
-          preload="metadata"
+          preload="none"
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
           onEnded={() => setIsPlaying(false)}
@@ -177,6 +234,7 @@ export function HeroVideo() {
         />
         {!isExpanded && (
           <Box
+            ref={expandRef}
             component="button"
             type="button"
             className="hero-video-expand-hit-area"
@@ -192,6 +250,7 @@ export function HeroVideo() {
           <IconButton
             type="button"
             aria-label="Skip back 5 seconds"
+            disabled={!duration}
             onClick={() => skipBy(-SKIP_TIME)}
           >
             <FastRewindRounded />
@@ -207,6 +266,7 @@ export function HeroVideo() {
           <IconButton
             type="button"
             aria-label="Skip forward 5 seconds"
+            disabled={!duration}
             onClick={() => skipBy(SKIP_TIME)}
           >
             <FastForwardRounded />
@@ -219,6 +279,7 @@ export function HeroVideo() {
             max={duration || 30}
             step="0.01"
             value={currentTime}
+            disabled={!duration}
             aria-label="Video position"
             onChange={seekTo}
           />

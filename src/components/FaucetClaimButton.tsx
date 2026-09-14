@@ -80,12 +80,15 @@ export const FaucetClaimButton = ({ onBalanceChange }: FaucetClaimButtonProps) =
     }
 
     let isCurrent = true;
+    let loading = false;
     // Faucet state is public Ethereum data. Keep these background reads off the
     // injected wallet so a connected/previously-authorized MetaMask session
     // cannot leave the claim button waiting on wallet RPC state.
     const faucet = new ethers.Contract(faucetAddress, faucetAbi, mainnetReadProvider);
 
     const loadFaucetState = async () => {
+      if (loading || document.hidden) return;
+      loading = true;
       setIsChecking(true);
 
       try {
@@ -123,6 +126,7 @@ export const FaucetClaimButton = ({ onBalanceChange }: FaucetClaimButtonProps) =
           setMessage({ tone: 'info', text: 'Faucet status is unavailable; you can still try to claim.' });
         }
       } finally {
+        loading = false;
         if (isCurrent) {
           setIsChecking(false);
         }
@@ -133,11 +137,13 @@ export const FaucetClaimButton = ({ onBalanceChange }: FaucetClaimButtonProps) =
     const refreshFaucetState = () => void loadFaucetState();
     const refreshTimer = window.setInterval(refreshFaucetState, faucetBalanceRefreshInterval);
     window.addEventListener(walletBalanceRefreshEvent, refreshFaucetState);
+    document.addEventListener('visibilitychange', refreshFaucetState);
 
     return () => {
       isCurrent = false;
       window.clearInterval(refreshTimer);
       window.removeEventListener(walletBalanceRefreshEvent, refreshFaucetState);
+      document.removeEventListener('visibilitychange', refreshFaucetState);
     };
   }, [account, onBalanceChange]);
 

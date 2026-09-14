@@ -37,7 +37,7 @@
   padding: 22px 0;
   border-bottom: 1px solid #ffffff15;
   color: #90a498;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.1em;
 }
 .topline i {
@@ -74,7 +74,7 @@
 }
 .eyebrow {
   color: #b9e991;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.14em;
   font-weight: 600;
 }
@@ -116,7 +116,7 @@
 }
 .tokenBadge small {
   display: block;
-  font-size: 10px;
+  font-size: 11px;
   color: #8ea396;
   margin-top: 5px;
 }
@@ -154,7 +154,7 @@
 }
 .tabbar button[role='tab'] small {
   grid-column: 2;
-  font-size: 10px;
+  font-size: 11px;
   color: #90a396;
 }
 .tabbar button.selected {
@@ -190,7 +190,7 @@
   align-items: start;
 }
 .sectionHeading > span {
-  font-size: 10px;
+  font-size: 11px;
   color: #8d9e94;
   letter-spacing: 0.12em;
 }
@@ -203,7 +203,7 @@
 }
 .sectionHeading p {
   color: #8ea396;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.8;
   margin-bottom: 25px;
 }
@@ -236,9 +236,9 @@
   font-weight: 600;
 }
 .guide p {
-  color: #8ea396;
+  color: #a3b7a9;
   line-height: 1.8;
-  font-size: 12px;
+  font-size: 14px;
 }
 .guideNote {
   border-top: 1px solid #b9e99120;
@@ -290,8 +290,8 @@
   margin: 0;
 }
 .decryptCard > p {
-  color: #8ea396;
-  font-size: 13px;
+  color: #a3b7a9;
+  font-size: 14px;
   line-height: 1.8;
 }
 .decryptCard > button {
@@ -335,7 +335,7 @@
     padding: 0 20px 40px;
   }
   .topline {
-    font-size: 8px;
+    font-size: 11px;
   }
   .hero {
     display: block;
@@ -362,7 +362,7 @@
   }
   .tabbar button[role='tab'] small {
     grid-column: 1/-1;
-    font-size: 9px;
+    font-size: 11px;
   }
   .decryptGrid {
     grid-template-columns: 1fr;

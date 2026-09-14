@@ -39,7 +39,7 @@
   width: 100%;
   padding: 9px 20px 4px;
   cursor: pointer;
-  font-size: 10px;
+  font-size: 11px;
 }
 .toggle > span {
   display: inline-flex;
@@ -48,7 +48,7 @@
 }
 .toggle .label {
   color: #b9e991;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.12em;
 }
 .toggle svg {
@@ -108,7 +108,7 @@
 }
 .steps small {
   color: #b9e991;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.08em;
 }
 .steps strong {
@@ -129,14 +129,14 @@
   background: #e47777;
 }
 .steps p {
-  font-size: 10px;
+  font-size: 11px;
   color: #92a698;
   line-height: 1.6;
   margin: 9px 0 0;
 }
 .note {
   text-align: center;
-  font-size: 9px;
+  font-size: 11px;
   padding: 0 20px;
   margin: 12px 0 18px;
 }
@@ -159,10 +159,10 @@
     font-size: 16px;
   }
   .steps p {
-    font-size: 9px;
+    font-size: 11px;
   }
   .note {
-    font-size: 8px;
+    font-size: 11px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

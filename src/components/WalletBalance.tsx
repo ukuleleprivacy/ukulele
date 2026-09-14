@@ -36,9 +36,12 @@ export const usePublicFiduBalance = () => {
     }
 
     let isCurrent = true;
+    let loading = false;
     const tokenContract = new ethers.Contract(fiducaroToken.address, balanceAbi, library);
 
     const loadBalance = async () => {
+      if (loading || document.hidden) return;
+      loading = true;
       try {
         const nextBalance = await tokenContract.balanceOf(account);
 
@@ -52,17 +55,21 @@ export const usePublicFiduBalance = () => {
         if (isCurrent) {
           setHasError(true);
         }
+      } finally {
+        loading = false;
       }
     };
 
     void loadBalance();
     const refreshTimer = window.setInterval(() => void loadBalance(), balanceRefreshInterval);
     window.addEventListener(walletBalanceRefreshEvent, loadBalance);
+    document.addEventListener('visibilitychange', loadBalance);
 
     return () => {
       isCurrent = false;
       window.clearInterval(refreshTimer);
       window.removeEventListener(walletBalanceRefreshEvent, loadBalance);
+      document.removeEventListener('visibilitychange', loadBalance);
     };
   }, [account, active, library]);
 

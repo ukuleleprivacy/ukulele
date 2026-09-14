@@ -1,6 +1,6 @@
 .page {
   --lime: #b9e991;
-  --muted: #91a599;
+  --muted: #a2b6a9;
   max-width: 1520px;
   margin: auto;
   padding: 0 40px 70px;
@@ -35,16 +35,17 @@
 }
 .topline {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 16px;
   padding: 23px 0;
   border-bottom: 1px solid #ffffff12;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   color: var(--muted);
 }
 .eyebrow {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.13em;
   color: var(--lime);
@@ -67,7 +68,7 @@
   max-width: 490px;
   line-height: 1.9;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 16px;
 }
 .actions {
   display: flex;
@@ -114,7 +115,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 22px;
-  font-size: 10px;
+  font-size: 11px;
   color: var(--muted);
 }
 .heroVisual {
@@ -129,7 +130,7 @@
   gap: 10px;
   padding: 20px 24px;
   color: #b7c8ae;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.1em;
 }
 .videoEyebrow svg {
@@ -154,7 +155,7 @@
 }
 .videoCaption p {
   max-width: 135px;
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.7;
   color: var(--muted);
   margin: 0;
@@ -187,7 +188,7 @@
 }
 .directoryToggle small {
   display: block;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.12em;
   color: var(--muted);
   margin-bottom: 7px;
@@ -223,7 +224,7 @@
   border-radius: 8px;
 }
 .contracts a > span {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--lime);
 }
 .contracts code {
@@ -263,7 +264,7 @@
   align-items: center;
   justify-content: space-between;
   color: #a6bb9c;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.1em;
 }
 .pathwayTop svg {
@@ -288,7 +289,7 @@
   margin-top: auto;
   align-items: center;
   justify-content: space-between;
-  font-size: 10px;
+  font-size: 11px;
   color: var(--muted);
 }
 .pathwayBottom > svg {
@@ -358,7 +359,7 @@
   margin-top: 5px;
 }
 .metrics small {
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.07em;
   color: var(--lime);
   margin-top: 22px;
@@ -398,7 +399,7 @@
   gap: 15px 25px;
   margin-top: 16px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 11px;
 }
 .architecture {
   padding: 30px;
@@ -465,7 +466,7 @@
   gap: 17px;
 }
 .claim > span {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--muted);
 }
 .claim > a {
@@ -583,7 +584,7 @@
     font-size: 50px;
   }
   .heroCopy > .eyebrow {
-    font-size: 8px;
+    font-size: 11px;
   }
   .heroCopy > p {
     font-size: 13px;
@@ -599,7 +600,7 @@
   }
   .heroStatus {
     gap: 18px;
-    font-size: 9px;
+    font-size: 11px;
   }
   .videoEyebrow {
     padding: 16px;
@@ -617,7 +618,7 @@
   }
   .videoCaption p {
     max-width: 100px;
-    font-size: 9px;
+    font-size: 11px;
   }
   .directoryToggle {
     gap: 12px;
@@ -626,7 +627,7 @@
     font-size: 14px;
   }
   .contractHint {
-    font-size: 9px;
+    font-size: 11px;
     gap: 3px;
   }
   .contractHint svg {

@@ -93,6 +93,8 @@ export const TopAppBar = () => {
               <ListItemButton
                 component={Link}
                 href={item.url}
+                aria-current={isActive ? 'page' : undefined}
+                prefetch={false}
                 selected={isActive}
                 onClick={handleDrawerToggle}
                 sx={{
@@ -194,6 +196,8 @@ export const TopAppBar = () => {
                   component={Link}
                   key={page.url}
                   href={page.url}
+                  aria-current={isActive ? 'page' : undefined}
+                  prefetch={false}
                   variant="text"
                   color="primary"
                   sx={{

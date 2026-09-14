@@ -1,16 +1,42 @@
-import { useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import Link from 'next/link';
 import { ExpandMoreRounded, ArrowForwardRounded } from '@mui/icons-material';
 import styles from './BuildRoadmap.module.css';
 
 export function BuildRoadmap({ compact = false }: { compact?: boolean }) {
   const [open, setOpen] = useState(false);
+  const panelId = useId();
+  const root = useRef<HTMLDivElement>(null);
+  const toggle = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (event: PointerEvent) => {
+      if (!root.current?.contains(event.target as Node)) setOpen(false);
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+        toggle.current?.focus();
+      }
+    };
+    document.addEventListener('pointerdown', onPointerDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [open]);
   return (
-    <div className={`${styles.roadmap}${compact ? ` ${styles.compact}` : ''}`}>
+    <div
+      ref={root}
+      className={`${styles.roadmap}${compact ? ` ${styles.compact}` : ''}`}
+    >
       <button
+        ref={toggle}
+        type="button"
         className={styles.toggle}
         aria-expanded={open}
-        aria-controls="header-roadmap"
+        aria-controls={panelId}
         onClick={() => setOpen(!open)}
       >
         <span className={styles.label}>COMING NEXT</span>
@@ -22,7 +48,7 @@ export function BuildRoadmap({ compact = false }: { compact?: boolean }) {
       <div className={styles.shell + (open ? ' ' + styles.open : '')}>
         <div
           className={styles.inner}
-          id="header-roadmap"
+          id={panelId}
         >
           <nav
             aria-label="Development roadmap"

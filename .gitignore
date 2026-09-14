@@ -2,6 +2,7 @@
 .next-dev/
 out/
 *.mp4
+!public/Videos/fiducaro-hero-web.mp4
 node_modules/
 tmp/
 *.tsbuildinfo

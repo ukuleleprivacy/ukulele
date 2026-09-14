@@ -21,6 +21,7 @@ import {
 import styles from './dash.module.css';
 import { LogoMark } from '../src/Logo';
 import { useBodyScrollLock } from '../src/components/useBodyScrollLock';
+import { handleTabNavigation } from '../src/lib/tabNavigation';
 
 const initialAssets = [
   {
@@ -172,6 +173,7 @@ export default function Dashboard() {
         />
       </Head>
       <main className={styles.dashboard}>
+        <h1 className="sr-only">Credit: private account and lender desk</h1>
         <header className={styles.creditHeader}>
           <div className={styles.demoBar}>
             <span>
@@ -210,11 +212,11 @@ export default function Dashboard() {
             >
               <div>
                 <p className={styles.eyebrow}>YOUR WORLD. YOUR TERMS.</p>
-                <h1>
+                <h2>
                   A little more private.
                   <br />
                   <em>A lot more possibility.</em>
-                </h1>
+                </h2>
                 <p>Your assets, your credit, your next move. All in one place.</p>
               </div>
             </header>
@@ -225,12 +227,14 @@ export default function Dashboard() {
             className={styles.tabs}
             role="tablist"
             aria-label="Dashboard view"
+            onKeyDown={handleTabNavigation}
           >
             <button
               role="tab"
               id="account-tab"
               aria-controls="account-panel"
               aria-selected={view === 'account'}
+              tabIndex={view === 'account' ? 0 : -1}
               onClick={() => setView('account')}
               className={view === 'account' ? styles.selected : ''}
             >
@@ -241,6 +245,7 @@ export default function Dashboard() {
               id="lender-tab"
               aria-controls="lender-panel"
               aria-selected={view === 'lender'}
+              tabIndex={view === 'lender' ? 0 : -1}
               onClick={() => setView('lender')}
               className={view === 'lender' ? styles.selected : ''}
             >

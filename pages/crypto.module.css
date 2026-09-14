@@ -21,7 +21,7 @@
 .previewCard > span {
   display: block;
   color: #94aa9a;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.09em;
 }
 .previewCard strong {
@@ -61,6 +61,6 @@
     font-size: 18px;
   }
   .tabs button[role='tab'] small {
-    font-size: 8px;
+    font-size: 11px;
   }
 }

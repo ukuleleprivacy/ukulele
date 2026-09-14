@@ -1,6 +1,4 @@
-import '@fontsource/montserrat/400.css';
-import '@fontsource/montserrat/600.css';
-import '@fontsource/montserrat/700.css';
+import localFont from 'next/font/local';
 import './global.css';
 
 import Head from 'next/head';
@@ -9,6 +7,7 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import { Web3ReactProvider } from '@web3-react/core';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
+import GlobalStyles from '@mui/material/GlobalStyles';
 import { ThemeProvider } from '@mui/material/styles';
 import { ethers } from 'ethers';
 
@@ -19,6 +18,27 @@ import { brand } from '../src/brand';
 import theme from '../src/theme';
 
 const clientSideEmotionCache = createEmotionCache();
+const montserratFont = localFont({
+  src: [
+    {
+      path: '../node_modules/@fontsource/montserrat/files/montserrat-latin-400-normal.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../node_modules/@fontsource/montserrat/files/montserrat-latin-600-normal.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../node_modules/@fontsource/montserrat/files/montserrat-latin-700-normal.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  display: 'swap',
+  fallback: ['Arial', 'sans-serif'],
+});
 
 const getLibrary = (provider: any) => new ethers.providers.Web3Provider(provider, 'any');
 
@@ -34,17 +54,30 @@ export default function MyApp(props: MyAppProps) {
     <CacheProvider value={emotionCache}>
       <Head>
         <title>Fiducaro</title>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <meta
+          name="viewport"
+          content="initial-scale=1, width=device-width"
+        />
         <meta
           name="description"
           content={brand.description}
         />
-        <meta property="og:title" content={`FIDUCARO · ${brand.tagline}`} />
-        <meta property="og:description" content={brand.description} />
-        <meta property="og:image" content="/brand/fiducaro-dark-wallpaper.webp" />
+        <meta
+          property="og:title"
+          content={`FIDUCARO · ${brand.tagline}`}
+        />
+        <meta
+          property="og:description"
+          content={brand.description}
+        />
+        <meta
+          property="og:image"
+          content="/brand/fiducaro-dark-wallpaper.webp"
+        />
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <GlobalStyles styles={{ html: { '--font-montserrat': montserratFont.style.fontFamily } }} />
         <Box
           sx={{
             minHeight: '100dvh',
@@ -58,9 +91,20 @@ export default function MyApp(props: MyAppProps) {
           }}
         >
           <Web3ReactProvider getLibrary={getLibrary}>
+            <a
+              className="skip-link"
+              href="#main-content"
+            >
+              Skip to content
+            </a>
             <Box sx={{ width: '100%' }}>
               {!isPrivateArchive && <TopAppBar />}
-              <Component {...pageProps} />
+              <div
+                id="main-content"
+                tabIndex={-1}
+              >
+                <Component {...pageProps} />
+              </div>
             </Box>
             {!isPrivateArchive && <Footer />}
           </Web3ReactProvider>

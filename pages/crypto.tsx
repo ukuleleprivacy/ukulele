@@ -1,13 +1,17 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles';
 import { SwapHorizRounded, TimelineRounded, PeopleOutlineRounded, LockOutlined } from '@mui/icons-material';
 import Bridge from './gasless';
-import Activity from './activity';
-import People from './people';
+import { BrandTheme } from '../src/components/BrandTheme';
+import { PanelLoading } from '../src/components/PanelLoading';
+import { handleTabNavigation } from '../src/lib/tabNavigation';
 import styles from '../src/components/privacy.module.css';
 import crypto from './crypto.module.css';
+
+const Activity = dynamic(() => import('./activity'), { loading: PanelLoading });
+const People = dynamic(() => import('./people'), { loading: PanelLoading });
 
 const sections = [
   { name: 'Bridge', detail: 'Between assets', icon: SwapHorizRounded },
@@ -17,24 +21,13 @@ const sections = [
 
 export default function Crypto() {
   const [tab, setTab] = useState(0);
-  const baseTheme = useTheme();
-  const theme = useMemo(
-    () =>
-      createTheme(baseTheme, {
-        palette: {
-          primary: { main: '#b9e991', light: '#d1f3b5', dark: '#8fbc6b', contrastText: '#142211' },
-          background: { paper: '#0d1b17' },
-          text: { primary: '#e7eeea', secondary: '#95aa9c' },
-        },
-      }),
-    [baseTheme],
-  );
   return (
-    <ThemeProvider theme={theme}>
+    <BrandTheme>
       <Head>
         <title>Crypto · Fiducaro</title>
       </Head>
       <main className={`${styles.page} ${crypto.page}`}>
+        <h1 className="sr-only">Crypto</h1>
         <div className={styles.topline}>
           <span>FIDUCARO / CRYPTO</span>
           <span className={crypto.status}>
@@ -45,6 +38,7 @@ export default function Crypto() {
           <div
             role="tablist"
             aria-label="Crypto sections"
+            onKeyDown={handleTabNavigation}
           >
             {sections.map(({ name, detail, icon: Icon }, index) => (
               <button
@@ -56,23 +50,6 @@ export default function Crypto() {
                 tabIndex={tab === index ? 0 : -1}
                 className={tab === index ? styles.selected : ''}
                 onClick={() => setTab(index)}
-                onKeyDown={(event) => {
-                  const next =
-                    event.key === 'ArrowRight'
-                      ? (index + 1) % 3
-                      : event.key === 'ArrowLeft'
-                        ? (index + 2) % 3
-                        : event.key === 'Home'
-                          ? 0
-                          : event.key === 'End'
-                            ? 2
-                            : null;
-                  if (next !== null) {
-                    event.preventDefault();
-                    setTab(next);
-                    document.getElementById(`crypto-tab-${next}`)?.focus();
-                  }
-                }}
               >
                 <Icon />
                 {name}
@@ -95,6 +72,6 @@ export default function Crypto() {
           {tab === 0 ? <Bridge embedded /> : tab === 1 ? <Activity embedded /> : <People embedded />}
         </div>
       </main>
-    </ThemeProvider>
+    </BrandTheme>
   );
 }

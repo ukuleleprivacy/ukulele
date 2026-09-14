@@ -1,9 +1,12 @@
 import Document, { Html, Head, Main, NextScript, DocumentProps, DocumentContext } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
 import { AppType } from 'next/app';
-import { montserrat } from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
 import { MyAppProps } from './_app';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+const walletExtensionGuard = readFileSync(join(process.cwd(), 'public/wallet-extension-errors.js'), 'utf8');
 
 interface MyDocumentProps extends DocumentProps {
   emotionStyleTags: JSX.Element[];
@@ -11,17 +14,26 @@ interface MyDocumentProps extends DocumentProps {
 
 export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
   return (
-    <Html
-      lang="en"
-      className={montserrat.className}
-    >
+    <Html lang="en">
       <Head>
         {/* Install before Next's runtime so extension startup failures are isolated. */}
-        <script src="/wallet-extension-errors.js" />
+        <script dangerouslySetInnerHTML={{ __html: walletExtensionGuard }} />
         {/* PWA primary color */}
-        <meta name="theme-color" content="#060c10" />
-        <link rel="icon" href="/brand/favicon-dark.png" type="image/png" sizes="32x32" />
-        <link rel="apple-touch-icon" href="/brand/apple-touch-icon-dark.png" sizes="180x180" />
+        <meta
+          name="theme-color"
+          content="#060c10"
+        />
+        <link
+          rel="icon"
+          href="/brand/favicon-dark.png"
+          type="image/png"
+          sizes="32x32"
+        />
+        <link
+          rel="apple-touch-icon"
+          href="/brand/apple-touch-icon-dark.png"
+          sizes="180x180"
+        />
         <meta
           name="emotion-insertion-point"
           content=""
