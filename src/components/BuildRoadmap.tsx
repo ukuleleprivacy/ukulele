@@ -3,10 +3,10 @@ import Link from 'next/link';
 import { ExpandMoreRounded, ArrowForwardRounded } from '@mui/icons-material';
 import styles from './BuildRoadmap.module.css';
 
-export function BuildRoadmap() {
+export function BuildRoadmap({ compact = false }: { compact?: boolean }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className={styles.roadmap}>
+    <div className={`${styles.roadmap}${compact ? ` ${styles.compact}` : ''}`}>
       <button
         className={styles.toggle}
         aria-expanded={open}

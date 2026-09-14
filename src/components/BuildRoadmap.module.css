@@ -2,6 +2,31 @@
   border-top: 1px solid #b9e99113;
   color: #99ae9c;
 }
+.compact {
+  position: relative;
+  border-top: 0;
+  margin-top: 3px;
+}
+.compact .toggle {
+  justify-content: flex-end;
+  width: auto;
+  margin-left: auto;
+  padding: 3px 1px 0 12px;
+  gap: 14px;
+}
+.compact .shell {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 2;
+  width: min(720px, calc(100vw - 48px));
+  border-radius: 12px;
+  background: rgba(3, 8, 11, 0.98);
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.5);
+}
+.compact .shell.open {
+  border: 1px solid #b9e99130;
+}
 .toggle {
   display: flex;
   justify-content: center;

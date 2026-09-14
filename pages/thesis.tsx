@@ -69,7 +69,6 @@ function ConceptIllustration({ selected, revealed }: { selected: number; reveale
           className={styles.sanctuary}
           animate={{
             borderRadius: revealed ? 28 : 8,
-            rotate: revealed ? 0 : -4,
             borderColor: revealed ? '#b9e991' : '#627564',
           }}
           transition={transition}
@@ -115,7 +114,7 @@ function ConceptIllustration({ selected, revealed }: { selected: number; reveale
           ].map(([receipt, insight, amount], i) => (
             <motion.div
               key={receipt}
-              animate={{ x: revealed ? 0 : (i - 1) * 7, backgroundColor: revealed ? '#203422' : '#102019' }}
+              animate={{ backgroundColor: revealed ? '#203422' : '#102019' }}
               transition={{ ...transition, delay: reduced ? 0 : i * 0.12 }}
             >
               <span>

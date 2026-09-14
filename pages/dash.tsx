@@ -41,7 +41,7 @@ const branches = [
     code: 'RIO',
     zone: 'America/Sao_Paulo',
     description: 'Between the mountains and the Atlantic.',
-    position: [35, 72],
+    position: [28, 78],
   },
   {
     city: 'Dubai',

@@ -218,70 +218,77 @@ export const TopAppBar = () => {
             })}
           </Stack>
 
-          <Stack
-            direction="row"
-            alignItems="center"
-            gap={1}
-          >
-            <Tooltip
-              title="Join Fiducaro on Telegram"
-              arrow
+          <Stack alignItems="flex-end">
+            <Stack
+              direction="row"
+              alignItems="center"
+              gap={1}
             >
-              <IconButton
-                component="a"
-                href="https://t.me/+zVqxwbcpLTlmOWJl"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Join Fiducaro on Telegram"
-                sx={{
-                  color: 'primary.main',
-                  border: '1px solid rgba(104, 199, 107,.24)',
-                  '&:hover': {
-                    backgroundColor: 'rgba(104, 199, 107,.1)',
-                    boxShadow: '0 0 18px rgba(104, 199, 107,.18)',
-                  },
-                }}
+              <Tooltip
+                title="Join Fiducaro on Telegram"
+                arrow
               >
-                <FaTelegramPlane size={17} />
-              </IconButton>
-            </Tooltip>
-            <Box
-              sx={{
-                display: { xs: 'none', lg: 'flex' },
-                alignItems: 'center',
-                gap: 1,
-                minHeight: 40,
-                px: 1.5,
-                border: '1px solid rgba(255,255,255,.14)',
-                borderRadius: 1,
-                color: 'text.primary',
-                fontSize: 13,
-              }}
-            >
+                <IconButton
+                  component="a"
+                  href="https://t.me/+zVqxwbcpLTlmOWJl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Join Fiducaro on Telegram"
+                  sx={{
+                    color: 'primary.main',
+                    border: '1px solid rgba(104, 199, 107,.24)',
+                    '&:hover': {
+                      backgroundColor: 'rgba(104, 199, 107,.1)',
+                      boxShadow: '0 0 18px rgba(104, 199, 107,.18)',
+                    },
+                  }}
+                >
+                  <FaTelegramPlane size={17} />
+                </IconButton>
+              </Tooltip>
               <Box
                 sx={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: '50%',
-                  bgcolor: 'primary.main',
-                  boxShadow: '0 0 12px rgba(104, 199, 107,.8)',
+                  display: { xs: 'none', lg: 'flex' },
+                  alignItems: 'center',
+                  gap: 1,
+                  minHeight: 40,
+                  px: 1.5,
+                  border: '1px solid rgba(255,255,255,.14)',
+                  borderRadius: 1,
+                  color: 'text.primary',
+                  fontSize: 13,
                 }}
-              />
-              Ethereum Mainnet
+              >
+                <Box
+                  sx={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    bgcolor: 'primary.main',
+                    boxShadow: '0 0 12px rgba(104, 199, 107,.8)',
+                  }}
+                />
+                Ethereum Mainnet
+              </Box>
+              <ConnectWallet sx={{ display: { xs: 'none', sm: 'inline-flex' } }} />
+              <IconButton
+                color="inherit"
+                aria-label="Open menu"
+                edge="end"
+                onClick={handleDrawerToggle}
+                sx={{ display: { xs: 'inline-flex', md: 'none' }, color: 'text.primary' }}
+              >
+                <Menu />
+              </IconButton>
+            </Stack>
+            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+              <BuildRoadmap compact />
             </Box>
-            <ConnectWallet sx={{ display: { xs: 'none', sm: 'inline-flex' } }} />
-            <IconButton
-              color="inherit"
-              aria-label="Open menu"
-              edge="end"
-              onClick={handleDrawerToggle}
-              sx={{ display: { xs: 'inline-flex', md: 'none' }, color: 'text.primary' }}
-            >
-              <Menu />
-            </IconButton>
           </Stack>
         </Toolbar>
-        <BuildRoadmap />
+        <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+          <BuildRoadmap />
+        </Box>
       </AppBar>
 
       <Drawer

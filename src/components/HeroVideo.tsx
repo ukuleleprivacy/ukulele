@@ -23,6 +23,7 @@ function formatTime(seconds: number) {
 export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const introPauseComplete = useRef(false);
+  const pausedAtPreview = useRef(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
@@ -67,7 +68,13 @@ export function HeroVideo() {
 
     takeControl();
     if (video.paused) {
-      if (video.ended) video.currentTime = 0;
+      if (video.ended || pausedAtPreview.current) {
+        video.currentTime = 0;
+        video.muted = false;
+        setCurrentTime(0);
+        setIsMuted(false);
+        pausedAtPreview.current = false;
+      }
       await video.play().catch(() => setIsPlaying(false));
     } else {
       video.pause();
@@ -106,6 +113,7 @@ export function HeroVideo() {
 
     if (!introPauseComplete.current && video.currentTime >= INTRO_PAUSE_TIME) {
       introPauseComplete.current = true;
+      pausedAtPreview.current = true;
       video.currentTime = INTRO_PAUSE_TIME;
       video.pause();
     }
@@ -122,6 +130,7 @@ export function HeroVideo() {
     if (!video) return;
 
     takeControl();
+    pausedAtPreview.current = false;
     video.currentTime = 0;
     video.muted = false;
     setCurrentTime(0);
@@ -156,7 +165,7 @@ export function HeroVideo() {
           poster="/brand/fiducaro-dark-wallpaper.webp"
           aria-label="Fiducaro brand video — Spend Freely. Prove Everything. Reveal Nothing."
           autoPlay
-          muted
+          muted={isMuted}
           playsInline
           preload="metadata"
           onPlay={() => setIsPlaying(true)}
