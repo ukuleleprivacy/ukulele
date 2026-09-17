@@ -14,6 +14,7 @@ import {
 } from '@mui/icons-material';
 import { BrandTheme } from '../src/components/BrandTheme';
 import { HeroVideo } from '../src/components/HeroVideo';
+import { TokenAllocation } from '../src/components/TokenAllocation';
 import { FaucetClaimButton } from '../src/components/FaucetClaimButton';
 import { ArchitectureExplorer } from '../src/components/ArchitectureExplorer';
 import { fiducaroToken } from '../src/token';
@@ -160,6 +161,7 @@ export default function Home() {
                     </a>
                   ))}
                 </div>
+                <TokenAllocation />
               </motion.div>
             )}
           </AnimatePresence>
