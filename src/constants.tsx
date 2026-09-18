@@ -19,8 +19,7 @@ export const progressMessagesMap: Record<Steps, Message> = {
         wallet request before approving it.
         <br />
         <br />
-        Read The Obscura Protocol before continuing. Keep the recovery record private and retain it
-        until PART II is complete.
+        Your send details are saved in Account. Keep this page open until PART II is complete.
       </>
     ),
     buttonTitle: '',
@@ -37,7 +36,7 @@ export const progressMessagesMap: Record<Steps, Message> = {
           lineHeight: 1.25,
         }}
       >
-        Please wait for and accept the 2nd transaction
+        Confirm PART I in your wallet, then wait for Ethereum confirmation.
       </span>
     ),
     buttonTitle: 'Setting up the hash. Part 1 / 2',
@@ -45,13 +44,13 @@ export const progressMessagesMap: Record<Steps, Message> = {
   2: {
     title: 'Completing the Private Transaction Send',
     description:
-      "You'll have a plain text file downloaded to you, it has your amount, recipient and SALT just in case the 2nd transaction doesn't pass and for your own personal records, don't freak out out if your balance is zero, that's fine!",
-    buttonTitle: 'Sending BV3 to Recipient. Part 2 / 2',
+      'Your amount, recipient, SALT and note are saved in Account. Confirm PART II in your wallet and keep this page open until it completes. Your public balance may show zero after PART I.',
+    buttonTitle: 'Completing private send · PART II',
   },
   3: {
     title: 'The Two-Step SEND Confirmed',
     description:
-      'Both Ethereum transactions confirmed. Your private SEND is complete; retain the recovery record and inspect the resulting wallet state.',
+      'Both Ethereum transactions confirmed. Your private send is complete. View the record and cached private balance in Account.',
     buttonTitle: '',
   },
   4: {

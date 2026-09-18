@@ -65,3 +65,11 @@ test('storage failures propagate and existing corrupt records are never overwrit
   localStorage.setItem = () => { throw new Error('Quota exceeded'); };
   assert.throws(() => api.savePrivateSend(record), /Quota/);
 });
+
+test('notes persist with transaction details and old records without notes still load', () => {
+  const { api } = setup();
+  api.savePrivateSend(record);
+  api.savePrivateSend({ ...record, id: 'with-note', note: 'n'.repeat(1000), publicBalanceBefore: '5000' });
+  assert.equal(api.readPrivateSends(record.sender)[0].note.length, 1000);
+  assert.equal(api.readPrivateSends(record.sender)[1].note, undefined);
+});

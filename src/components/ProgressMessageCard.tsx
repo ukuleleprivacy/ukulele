@@ -1,6 +1,7 @@
 // src/components/ProgressMessageCard.tsx
 
-import { Card, CardContent, Stack, Typography, Box } from '@mui/material';
+import { Card, CardContent, Stack, Typography, Box, IconButton } from '@mui/material';
+import Close from '@mui/icons-material/Close';
 import { IoMdAlert } from 'react-icons/io';
 import type { ReactNode } from 'react';
 
@@ -14,9 +15,10 @@ interface ProgressMessageCardProps {
   message: Message;
   step: number;
   error: { title: string; description: string } | null;
+  onDismiss?: () => void;
 }
 
-export const ProgressMessageCard = ({ message, step, error }: ProgressMessageCardProps) => {
+export const ProgressMessageCard = ({ message, step, error, onDismiss }: ProgressMessageCardProps) => {
   const activeMessage = error || message;
   const isAttention = step === 0 && !error;
   const accentColor = isAttention ? '#68c76b' : '#E6E6E6';
@@ -53,6 +55,7 @@ export const ProgressMessageCard = ({ message, step, error }: ProgressMessageCar
             <Typography variant="h5" fontWeight="600">
               {activeMessage.title}
             </Typography>
+            {onDismiss && <IconButton aria-label="Dismiss confirmation" onClick={onDismiss} sx={{ ml: 'auto' }}><Close /></IconButton>}
           </Stack>
           {activeMessage.description && (
             <Typography color="text.secondary" sx={{ mt: 1.5, ml: isAttention || error ? 6 : 0 }}>

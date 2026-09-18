@@ -4,11 +4,13 @@ export type PrivateSendRecord = {
   recipient: string;
   amount: string;
   salt: string;
+  note?: string;
   createdAt: string;
   updatedAt: string;
   status: 'prepared' | 'part-one-pending' | 'part-one-confirmed' | 'part-two-pending' | 'complete' | 'incomplete';
   partOneHash?: string;
   partTwoHash?: string;
+  publicBalanceBefore?: string;
 };
 
 export const privateHistoryEvent = 'fiducaro.privateHistory.changed';
@@ -37,6 +39,7 @@ export function readPrivateSends(sender: string): PrivateSendRecord[] {
     !record || typeof record.id !== 'string' || typeof record.sender !== 'string' ||
     record.sender.toLowerCase() !== sender.toLowerCase() || typeof record.recipient !== 'string' ||
     typeof record.amount !== 'string' || !/^\d{39}$/.test(record.salt) ||
+    (record.note !== undefined && (typeof record.note !== 'string' || record.note.length > 1000)) ||
     !Number.isFinite(Date.parse(record.createdAt)) ||
     !['prepared', 'part-one-pending', 'part-one-confirmed', 'part-two-pending', 'complete', 'incomplete'].includes(record.status)
   )) throw new Error('The saved private-send history could not be read.');

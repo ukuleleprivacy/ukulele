@@ -11,6 +11,7 @@ import {
   TextField,
   Typography,
   CircularProgress,
+  MenuItem,
 } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import { BaseSyntheticEvent } from 'react';
@@ -22,6 +23,7 @@ export interface PrivateSendFields {
   address: string;
   amount: string;
   salt: string;
+  note: string;
 }
 
 interface PrivateSendFormProps {
@@ -36,6 +38,9 @@ interface PrivateSendFormProps {
   step: number;
   submitLabel?: string;
   onGenerateSalt: () => void;
+  previousRecipients: string[];
+  onSelectRecipient: (address: string) => void;
+  noteLength: number;
 }
 
 export const PrivateSendForm = ({
@@ -50,6 +55,9 @@ export const PrivateSendForm = ({
   step,
   submitLabel = 'Begin private send',
   onGenerateSalt,
+  previousRecipients,
+  onSelectRecipient,
+  noteLength,
 }: PrivateSendFormProps) => {
   const isReadOnly = isLocked || isInProcess || Boolean(encryptedValuesState);
 
@@ -58,7 +66,7 @@ export const PrivateSendForm = ({
   if (step === 1) {
     cardTitle = 'Sending a Private Tx (1/2)';
   } else if (step === 2) {
-    cardTitle = 'Completing the Private Transaction Send (2/2)';
+    cardTitle = 'Completing private send (2/2)';
   } else if (isLocked) {
     cardTitle = 'Private Send Locked';
   }
@@ -73,37 +81,19 @@ export const PrivateSendForm = ({
         background:
           'radial-gradient(circle at 12% 0%, rgba(104, 199, 107, .09), transparent 34%), linear-gradient(145deg, #101c22 0%, #0b1419 58%, #071014 100%)',
         boxShadow: 'inset 0 1px rgba(255,255,255,.035), 0 22px 70px rgba(0,0,0,.36)',
-        ...(isLocked && {
-          filter: 'grayscale(100%)',
-          opacity: 0.6,
-        }),
       }}
     >
-      {/* Overlay Lock Icon when Locked */}
       {isLocked && (
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 1,
-            display: 'flex',
-            alignItems: 'center',
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            borderRadius: '50%',
-            padding: 2,
-          }}
-        >
-          <LockIcon sx={{ color: 'white', fontSize: 48 }} />
-        </Box>
+        <Stack direction="row" alignItems="center" gap={1} role="status" sx={{ px: 3, pt: 2, color: 'primary.main' }}>
+          <LockIcon fontSize="small" />
+          <Typography variant="body2">Send details are locked until PART II confirms.</Typography>
+        </Stack>
       )}
       <form onSubmit={onSubmit}>
         <CardContent
           sx={{
             p: { xs: '24px!important', sm: '28px 32px!important' },
             transition: 'opacity 0.5s ease-in-out',
-            pointerEvents: isLocked ? 'none' : 'auto', // Disable interaction when locked
           }}
         >
           <Stack
@@ -207,6 +197,14 @@ export const PrivateSendForm = ({
             {errors.address && (
               <InputLabel sx={{ fontSize: 12, mt: 1, color: '#e6e6e6' }}>{errors.address.message}</InputLabel>
             )}
+            {previousRecipients.length > 0 && (
+              <TextField select fullWidth size="small" value="" disabled={isReadOnly}
+                onChange={(event) => onSelectRecipient(event.target.value)}
+                SelectProps={{ displayEmpty: true, inputProps: { 'aria-label': 'Previous recipients' } }} sx={{ mt: 1 }}>
+                <MenuItem value="" disabled>Choose a previous recipient</MenuItem>
+                {previousRecipients.map((address) => <MenuItem key={address} value={address} sx={{ fontSize: 12, overflowWrap: 'anywhere', whiteSpace: 'normal' }}>{address}</MenuItem>)}
+              </TextField>
+            )}
           </Box>
 
           {/* Salt Input */}
@@ -266,11 +264,9 @@ export const PrivateSendForm = ({
               fullWidth
               sx={{ px: 3, minHeight: 54 }}
               variant="contained"
-              disabled={isLocked || isInProcess}
+              disabled={isInProcess}
             >
-              {isLocked ? (
-                'Locked'
-              ) : isInProcess ? (
+              {isInProcess ? (
                 <>
                   <CircularProgress
                     size={24}
@@ -289,6 +285,14 @@ export const PrivateSendForm = ({
               You will confirm PART I and PART II in your wallet.
             </Typography>
           </Stack>
+          <Box component="details" sx={{ mt: 2, '& summary': { cursor: 'pointer', color: 'text.secondary', fontSize: 13, py: 1 } }}>
+            <summary>Note (optional)</summary>
+            <TextField fullWidth multiline minRows={3} label="Private note (optional)"
+              placeholder="Add a note to this send in Account"
+              InputProps={{ readOnly: isReadOnly }} inputProps={{ maxLength: 1000 }}
+              {...register('note', { maxLength: { value: 1000, message: 'Notes can contain up to 1,000 characters.' } })}
+              error={Boolean(errors.note)} helperText={errors.note?.message || `${noteLength} / 1,000 characters · Saved in Account`} sx={{ mt: 1 }} />
+          </Box>
         </CardContent>
       </form>
     </Card>

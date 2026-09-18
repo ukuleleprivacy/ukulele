@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
-import { Button, CircularProgress, TextField, Typography } from '@mui/material';
+import { Alert, Button, CircularProgress, TextField, Typography } from '@mui/material';
+import { applyPrivateBalanceChange } from '../lib/privateBalanceCache';
 import { abi, address } from '../contracts/contract1';
 import {
   TransactionMessage,
@@ -26,6 +27,7 @@ export function PrivacyDecrypt({ onBusyChange }: { onBusyChange: (busy: boolean)
   const [status, setStatus] = useState<TransactionMessage | null>(null);
   const [failed, setFailed] = useState(false);
   const [hash, setHash] = useState('');
+  const [balanceError, setBalanceError] = useState('');
   const running = useRef(false);
   usePrivacyOperation(Boolean(busy || pending), onBusyChange);
   const run = async (action: Action) => {
@@ -62,6 +64,13 @@ export function PrivacyDecrypt({ onBusyChange }: { onBusyChange: (busy: boolean)
         description: 'Your transaction is submitted. Keep this page open while it confirms.',
       });
       const receipt = await confirmPrivacyTransaction(operation.tx);
+      try {
+        applyPrivateBalanceChange(operation.owner, receipt.transactionHash,
+          operation.action === 'full' ? '0' : parseFiduAmount(operation.amount).mul(-1).toString(), operation.action === 'full');
+        setBalanceError('');
+      } catch {
+        setBalanceError('Decrypt confirmed, but the cached private balance could not be updated. Correct it in Account.');
+      }
       setHash(receipt.transactionHash);
       setPending(null);
       setStatus({
@@ -167,6 +176,7 @@ export function PrivacyDecrypt({ onBusyChange }: { onBusyChange: (busy: boolean)
           <p>{status.description}</p>
         </div>
       )}
+      {balanceError && <Alert severity="warning" sx={{ mt: 2 }}>{balanceError}</Alert>}
       {hash && (
         <a
           className={styles.transactionLink}

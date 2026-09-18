@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 import { useForm } from 'react-hook-form';
@@ -20,7 +20,9 @@ import {
 } from '../lib/privacyTransactions';
 import { walletBalanceRefreshEvent } from '../lib/wallet';
 import { usePrivacyOperation } from './usePrivacyOperation';
-import { generatePrivateSalt, savePrivateSend, type PrivateSendRecord } from '../lib/privateSendHistory';
+import { generatePrivateSalt, readPrivateSends, savePrivateSend, privateHistoryEvent, type PrivateSendRecord } from '../lib/privateSendHistory';
+import { applyPrivateBalanceChange } from '../lib/privateBalanceCache';
+import { fiducaroToken } from '../token';
 import styles from './privacy.module.css';
 
 type Draft = {
@@ -40,6 +42,8 @@ export function PrivacySend({ onBusyChange }: { onBusyChange: (busy: boolean) =>
   const [draft, setDraft] = useState<Draft | null>(null);
   const [hash, setHash] = useState('');
   const [storageError, setStorageError] = useState('');
+  const [balanceError, setBalanceError] = useState('');
+  const [recipients, setRecipients] = useState<{ owner: string; addresses: string[] }>({ owner: '', addresses: [] });
   const running = useRef(false);
   const {
     register,
@@ -48,8 +52,28 @@ export function PrivacySend({ onBusyChange }: { onBusyChange: (busy: boolean) =>
     reset,
     setValue,
     formState: { errors },
-  } = useForm<PrivateSendFields>({ mode: 'onChange', defaultValues: { amount: '', address: '', salt: '' } });
+  } = useForm<PrivateSendFields>({ mode: 'onChange', defaultValues: { amount: '', address: '', salt: '', note: '' } });
   usePrivacyOperation(busy || Boolean(draft), onBusyChange);
+  useEffect(() => {
+    if (step !== 3) return;
+    const timer = window.setTimeout(() => setStep(0), 15_000);
+    return () => window.clearTimeout(timer);
+  }, [step]);
+  useEffect(() => {
+    const load = () => {
+      try {
+        const addresses = new Map<string, string>();
+        if (account) readPrivateSends(account).filter((record) => record.status === 'complete').forEach((record) => addresses.set(record.recipient.toLowerCase(), record.recipient));
+        setRecipients({ owner: account || '', addresses: Array.from(addresses.values()) });
+      } catch {
+        setRecipients({ owner: account || '', addresses: [] });
+      }
+    };
+    load();
+    window.addEventListener(privateHistoryEvent, load);
+    window.addEventListener('storage', load);
+    return () => { window.removeEventListener(privateHistoryEvent, load); window.removeEventListener('storage', load); };
+  }, [account]);
   const remainingDigits = Math.max(0, 39 - (watch('salt') || '').length);
 
   const generateSalt = () => {
@@ -65,6 +89,7 @@ export function PrivacySend({ onBusyChange }: { onBusyChange: (busy: boolean) =>
     running.current = true;
     setBusy(true);
     setError(null);
+    setStep(draft?.partOneDone ? 2 : 1);
     let operation = draft;
     const updateHistory = (changes: Partial<PrivateSendRecord>) => {
       if (!operation) return;
@@ -85,13 +110,14 @@ export function PrivacySend({ onBusyChange }: { onBusyChange: (busy: boolean) =>
           throw new PrivacyError('Check the recipient', 'Use a valid, non-zero Ethereum address.');
         if (!/^\d{39}$/.test(fields.salt))
           throw new PrivacyError('Check the SALT', 'Use exactly 39 numeric digits and keep them private.');
+        if ((fields.note || '').length > 1000) throw new PrivacyError('Shorten the note', 'Notes can contain up to 1,000 characters.');
         const contract = new ethers.Contract(privacyAddress, privacyAbi, signer);
         const encrypted = await contract.encryptValues(ethers.utils.getAddress(fields.address), amount, fields.salt);
         const owner = await signer.getAddress();
         const now = new Date().toISOString();
         const record: PrivateSendRecord = {
           id: crypto.randomUUID(), sender: owner, recipient: ethers.utils.getAddress(fields.address),
-          amount: fields.amount, salt: fields.salt, createdAt: now, updatedAt: now, status: 'prepared',
+          amount: fields.amount, salt: fields.salt, note: fields.note || '', createdAt: now, updatedAt: now, status: 'prepared',
         };
         try {
           savePrivateSend(record);
@@ -112,6 +138,11 @@ export function PrivacySend({ onBusyChange }: { onBusyChange: (busy: boolean) =>
               : [privacyAddress, operation.encrypted, transactionOptions];
           await contract.callStatic[part](...args);
           await requirePrivacySigner(library, account, operation.owner);
+          if (part === 'PART_I_') {
+            const token = new ethers.Contract(fiducaroToken.address, ['function truebalanceOf(address) view returns (uint256)'], currentSigner);
+            const publicBefore: ethers.BigNumber = await token.truebalanceOf(operation.owner);
+            updateHistory({ publicBalanceBefore: publicBefore.toString() });
+          }
           operation.tx = await contract[part](...args);
           updateHistory(part === 'PART_I_'
             ? { status: 'part-one-pending', partOneHash: operation.tx!.hash }
@@ -124,6 +155,18 @@ export function PrivacySend({ onBusyChange }: { onBusyChange: (busy: boolean) =>
         updateHistory(part === 'PART_I_'
           ? { status: 'part-one-confirmed', partOneHash: receipt.transactionHash }
           : { status: 'complete', partTwoHash: receipt.transactionHash });
+        try {
+          const amount = parseFiduAmount(operation.fields.amount);
+          if (part === 'PART_I_') {
+            if (operation.record.publicBalanceBefore === undefined) throw new Error('Missing balance snapshot');
+            applyPrivateBalanceChange(operation.owner, receipt.transactionHash,
+              ethers.BigNumber.from(operation.record.publicBalanceBefore).sub(amount).toString());
+          } else {
+            applyPrivateBalanceChange(operation.fields.address, receipt.transactionHash, amount.toString());
+          }
+        } catch {
+          setBalanceError('The transaction confirmed, but the cached private balance could not be updated. Check and update it in Account.');
+        }
         operation.tx = undefined;
       };
       if (!operation.partOneDone) {
@@ -158,7 +201,7 @@ export function PrivacySend({ onBusyChange }: { onBusyChange: (busy: boolean) =>
   return (
     <div className={styles.workspaceGrid}>
       <section>
-        <div className={styles.sectionHeading}>
+        {!busy && !draft && step === 0 && <div className={styles.sectionHeading}>
           <span>01 / SEND FIDU</span>
           <h2>
             Choose what moves.
@@ -166,15 +209,17 @@ export function PrivacySend({ onBusyChange }: { onBusyChange: (busy: boolean) =>
             Keep the details yours.
           </h2>
           <p>Send the Fiducaro token into private state. This is a live, two-transaction Ethereum flow.</p>
-        </div>
+        </div>}
         {(error || step > 0) && (
           <ProgressMessageCard
             message={progressMessagesMap[step]}
             step={step}
             error={error}
+            onDismiss={step === 3 && !error ? () => setStep(0) : undefined}
           />
         )}
         {storageError && <Alert severity="warning" sx={{ my: 2 }}>{storageError}</Alert>}
+        {balanceError && <Alert severity="warning" sx={{ my: 2 }} onClose={() => setBalanceError('')}>{balanceError}</Alert>}
         {draft && (
           <Box className={styles.recovery}>
             <Typography>
@@ -191,10 +236,13 @@ export function PrivacySend({ onBusyChange }: { onBusyChange: (busy: boolean) =>
           encryptedValuesState={draft?.encrypted || null}
           remainingDigits={remainingDigits}
           message={progressMessagesMap[step]}
-          isLocked={false}
+          isLocked={step === 2 && (busy || Boolean(draft))}
           step={step}
           submitLabel={draft?.tx ? 'Check confirmation' : draft?.partOneDone ? 'Retry PART II' : 'Begin private send'}
           onGenerateSalt={generateSalt}
+          previousRecipients={recipients.owner === account ? recipients.addresses : []}
+          onSelectRecipient={(address) => setValue('address', address, { shouldValidate: true, shouldDirty: true })}
+          noteLength={(watch('note') || '').length}
         />
         {hash && (
           <a

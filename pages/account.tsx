@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useWeb3React } from '@web3-react/core';
-import { Alert, Box, Button, Card, CardContent, Chip, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import { Alert, Box, Button, Card, CardContent, Chip, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Stack, TextField, Tooltip, Typography } from '@mui/material';
+import { utils } from 'ethers';
 import DeleteOutline from '@mui/icons-material/DeleteOutline';
 import { BrandTheme } from '../src/components/BrandTheme';
 import { deletePrivateSend, privateHistoryEvent, readPrivateSends, type PrivateSendRecord } from '../src/lib/privateSendHistory';
+import { readPrivateBalance, setPrivateBalance, type CachedPrivateBalance } from '../src/lib/privateBalanceCache';
 
 const statusLabels: Record<PrivateSendRecord['status'], string> = {
   prepared: 'Prepared',
@@ -22,16 +24,21 @@ export default function Account() {
   const [loadedAccount, setLoadedAccount] = useState('');
   const [selected, setSelected] = useState<PrivateSendRecord | null>(null);
   const [revealed, setRevealed] = useState<string[]>([]);
+  const [cachedBalance, setCachedBalance] = useState<CachedPrivateBalance | null>(null);
+  const [balanceInput, setBalanceInput] = useState('');
 
   useEffect(() => {
     setRevealed([]);
     setSelected(null);
+    setBalanceInput('');
     const load = () => {
       setError('');
       try {
         setRecords(account ? readPrivateSends(account) : []);
+        setCachedBalance(account ? readPrivateBalance(account) : null);
       } catch {
         setRecords([]);
+        setCachedBalance(null);
         setError('Your saved history could not be read. Check browser storage access. No records have been removed.');
       }
       setLoadedAccount(account || '');
@@ -64,10 +71,38 @@ export default function Account() {
         <Typography color="primary.main" sx={{ fontSize: 12, letterSpacing: '.16em' }}>FIDUCARO / ACCOUNT</Typography>
         <Typography component="h1" sx={{ fontSize: { xs: 36, md: 52 }, mt: 1, mb: 2 }}>Your private sends</Typography>
         <Typography color="text.secondary" sx={{ maxWidth: 780 }}>
-          Records saved on this browser, including recipients and SALTs. Clearing site data or deleting a record removes your local copy. Keep any details you still need before deleting.
+          Your send records, recipients, SALTs and notes are saved in Account. Account data stays in this browser and is removed when you clear site data.
         </Typography>
         {account && <Typography sx={{ mt: 2, overflowWrap: 'anywhere', fontSize: 13 }}>Wallet: {account}</Typography>}
         {error && <Alert severity="error" sx={{ mt: 3 }}>{error}</Alert>}
+        {account && loadedAccount === account && (
+          <Card variant="outlined" sx={{ mt: 3, borderColor: '#b9e99140' }}>
+            <CardContent sx={{ p: 3 }}>
+              <Typography color="text.secondary">Private balance · cached</Typography>
+              <Typography sx={{ fontSize: { xs: 28, sm: 38 }, my: 1, overflowWrap: 'anywhere' }}>
+                {cachedBalance?.amount != null ? `${utils.formatUnits(cachedBalance.amount, 18)} FIDU` : 'Opening balance needed'}
+              </Typography>
+              <Typography color="text.secondary" sx={{ fontSize: 13 }}>
+                An estimate based on confirmed sends and decrypts recorded here, even when your public balance is zero. Activity on other devices or through other apps may be missing. Deleting a send record does not change this total.
+              </Typography>
+              <Box component="details" sx={{ mt: 2, '& summary': { cursor: 'pointer', color: 'primary.main' } }}>
+                <summary>Set or correct cached balance</summary>
+                <Typography color="text.secondary" sx={{ fontSize: 13, my: 1 }}>Enter your current private FIDU balance if you held tokens before tracking began or have activity missing from Account.</Typography>
+                <Box component="form" onSubmit={(event) => {
+                  event.preventDefault();
+                  try {
+                    setPrivateBalance(account, balanceInput);
+                    setBalanceInput('');
+                    setError('');
+                  } catch { setError('Could not save the balance. Enter a non-negative amount with up to 18 decimal places and check browser storage access.'); }
+                }} sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                  <TextField label="Current private balance (FIDU)" value={balanceInput} onChange={(event) => setBalanceInput(event.target.value)} inputProps={{ inputMode: 'decimal' }} size="small" />
+                  <Button type="submit" variant="outlined">Save balance</Button>
+                </Box>
+              </Box>
+            </CardContent>
+          </Card>
+        )}
         <Stack spacing={2} sx={{ mt: 4 }}>
           {!visibleRecords.length && !error && (
             <Card variant="outlined"><CardContent sx={{ p: 4 }}>
@@ -92,6 +127,7 @@ export default function Account() {
                   <dt>From</dt><dd>{record.sender}</dd>
                   <dt>To</dt><dd>{record.recipient}</dd>
                   <dt>Network</dt><dd>Ethereum Mainnet</dd>
+                  {record.note && <><dt>Note</dt><dd style={{ whiteSpace: 'pre-wrap' }}>{record.note}</dd></>}
                   <dt>SALT</dt><dd>
                     {revealed.includes(record.id) ? record.salt : 'Hidden'}
                     <Button size="small" onClick={() => setRevealed((ids) => ids.includes(record.id) ? ids.filter((id) => id !== record.id) : [...ids, record.id])} sx={{ ml: 1 }}>
