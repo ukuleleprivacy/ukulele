@@ -5,7 +5,6 @@ import { LockOutlined, NorthEastRounded, SouthWestRounded } from '@mui/icons-mat
 import { BrandTheme } from './BrandTheme';
 import { PanelLoading } from './PanelLoading';
 import { handleTabNavigation } from '../lib/tabNavigation';
-import { ConnectWallet } from './ConnectWallet';
 import { fiducaroToken } from '../token';
 import styles from './privacy.module.css';
 
@@ -76,7 +75,6 @@ export function PrivacyPage({ initialTab = 'send' }: { initialTab?: 'send' | 'de
               </button>
             ))}
           </div>
-          <ConnectWallet />
         </div>
         <div className={styles.liveNote}>
           <LockOutlined />
