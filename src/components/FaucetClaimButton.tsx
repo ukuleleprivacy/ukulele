@@ -116,7 +116,6 @@ export const FaucetClaimButton = ({ onBalanceChange }: FaucetClaimButtonProps) =
               : null,
         );
       } catch (error) {
-        console.warn('[Faucet] Could not load getBalance().', error);
 
         if (isCurrent) {
           setFaucetBalance(null);
@@ -208,7 +207,6 @@ export const FaucetClaimButton = ({ onBalanceChange }: FaucetClaimButtonProps) =
       setMessage({ tone: 'success', text: 'Claim confirmed — 100 FIDU is now in your wallet.' });
       window.dispatchEvent(new Event(walletBalanceRefreshEvent));
     } catch (error) {
-      console.error('[Faucet] Claim failed.', error);
       setMessage({ tone: 'error', text: getClaimError(error) });
     } finally {
       setIsClaiming(false);

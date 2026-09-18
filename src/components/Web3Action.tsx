@@ -33,7 +33,7 @@ export function Web3Action({
       const contract = new ethers.Contract(contractAddress, contractAbi, signer);
       await action(contract);
     } catch (err) {
-      console.error('Error performing action:', err);
+      alert('The wallet operation could not finish. Check your wallet and network connection.');
     }
   };
 
@@ -63,7 +63,7 @@ export function UnstyledWeb3Action({
       const contract = new ethers.Contract(contractAddress, contractAbi, signer);
       await action(contract);
     } catch (err) {
-      console.error('Error performing action:', err);
+      alert('The wallet operation could not finish. Check your wallet and network connection.');
     }
   };
 

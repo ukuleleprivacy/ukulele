@@ -33,7 +33,7 @@ for (const type of ['error', 'unhandledrejection']) {
     assert.deepEqual(dispatch(type, {
       message: 'Failed to connect to MetaMask',
       stack: `i: Failed to connect to MetaMask\n    at Object.connect (${extensionScript}:7:84292)`,
-    }), { prevented: true, stopped: true, warned: true });
+    }), { prevented: true, stopped: true, warned: false });
   });
 
   test(`${type}: preserves application errors and other wallet failures`, () => {
@@ -50,5 +50,5 @@ for (const type of ['error', 'unhandledrejection']) {
 
 test('uses the error event filename when a stack is unavailable', () => {
   assert.deepEqual(dispatch('error', { message: 'Failed to connect to MetaMask' }, extensionScript),
-    { prevented: true, stopped: true, warned: true });
+    { prevented: true, stopped: true, warned: false });
 });

@@ -43,7 +43,6 @@ export const CreateToken: React.FC = () => {
         const priceUsd = parseFloat(ethResponse.data.ethereum.usd);
         setEthPriceInUSD(priceUsd);
       } catch (error) {
-        console.error('Error fetching prices:', error);
       }
     };
 

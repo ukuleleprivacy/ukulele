@@ -50,7 +50,6 @@ export const ConnectWallet = (props: ButtonProps) => {
       await ensureEthereumMainnet();
       await activate(injectedConnector, undefined, true);
     } catch (ex) {
-      console.error(ex);
       setError(
         (ex as { code?: number }).code === 4001
           ? 'Ethereum network switch or wallet connection was declined.'
@@ -78,7 +77,6 @@ export const ConnectWallet = (props: ButtonProps) => {
       await ensureEthereumMainnet();
       await activate(injectedConnector, undefined, true);
     } catch (ex) {
-      console.error(ex);
       setError('Could not switch accounts. Check your wallet and try again.');
     }
   };

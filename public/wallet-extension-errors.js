@@ -15,10 +15,9 @@
     if (!fromMetaMask) return;
 
     // Keep this extension failure out of the application runtime overlay, but
-    // retain a diagnostic. Wallet requests still report failures in their UI.
+    // keep wallet request failures in the application UI without logging provider data.
     event.preventDefault();
     event.stopImmediatePropagation();
-    console.warn('[Wallet] MetaMask extension could not initialize.', error);
   }
 
   window.addEventListener('error', handleExtensionFailure, true);

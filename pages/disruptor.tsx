@@ -171,7 +171,6 @@ export default function Disruptor() {
           : 'No shadowDuster transactions were found among the latest scanned token transfers.',
       );
     } catch (historyError) {
-      console.error('[Disruptor] Could not load recent shadow sends.', historyError);
       setRecentShadowSends([]);
       setHistoryMessage('Recent sends could not be loaded from the connected Ethereum provider.');
     } finally {

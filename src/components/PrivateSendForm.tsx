@@ -35,6 +35,7 @@ interface PrivateSendFormProps {
   isLocked: boolean;
   step: number;
   submitLabel?: string;
+  onGenerateSalt: () => void;
 }
 
 export const PrivateSendForm = ({
@@ -48,6 +49,7 @@ export const PrivateSendForm = ({
   isLocked,
   step,
   submitLabel = 'Begin private send',
+  onGenerateSalt,
 }: PrivateSendFormProps) => {
   const isReadOnly = isLocked || isInProcess || Boolean(encryptedValuesState);
 
@@ -212,9 +214,14 @@ export const PrivateSendForm = ({
             gap={1}
             sx={{ mb: 2.5 }}
           >
-            <InputLabel sx={{ fontSize: 11, color: 'text.secondary', mb: 0.7, textTransform: 'uppercase' }}>
-              39-digit SALT
-            </InputLabel>
+            <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 0.7 }}>
+              <InputLabel sx={{ fontSize: 11, color: 'text.secondary', textTransform: 'uppercase' }}>
+                39-digit SALT
+              </InputLabel>
+              <Button type="button" size="small" variant="outlined" disabled={isReadOnly} onClick={onGenerateSalt}>
+                Generate SALT
+              </Button>
+            </Stack>
             <TextField
               InputProps={{
                 readOnly: isReadOnly,

@@ -104,7 +104,6 @@ export const TestCaseBanner = () => {
               : null,
         );
       } catch (error) {
-        console.warn('[Faucet] Could not load the claim state.', error);
 
         if (isCurrent) {
           setStatus({ tone: 'error', message: 'The Faucet status could not be loaded.' });
@@ -171,7 +170,6 @@ export const TestCaseBanner = () => {
       setStatus({ tone: 'success', message: 'Claim confirmed — 100 FIDU is now in your wallet.' });
       window.dispatchEvent(new Event(walletBalanceRefreshEvent));
     } catch (error) {
-      console.error('[Faucet] Claim failed.', error);
       setStatus({ tone: 'error', message: getFaucetError(error) });
     } finally {
       setIsClaiming(false);

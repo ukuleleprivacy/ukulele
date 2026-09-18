@@ -50,7 +50,6 @@ export const usePublicFiduBalance = () => {
           setHasError(false);
         }
       } catch (error) {
-        console.warn('[Wallet] Could not load the public FIDUCARO balance.', error);
 
         if (isCurrent) {
           setHasError(true);
