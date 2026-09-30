@@ -100,7 +100,7 @@ export default function Home() {
           <div className={styles.heroVisual}>
             <div className={styles.videoEyebrow}>
               <ShieldOutlined />
-              <span>THE FIDUCARO FILM</span>
+              <span>FIDUCARO PRIVATE CREDIT</span>
               <span>01 / INTRODUCTION</span>
             </div>
             <HeroVideo />
@@ -112,7 +112,7 @@ export default function Home() {
                 <br />
                 <em>Reveal nothing.</em>
               </span>
-              <p>Click the film to start from the beginning, with sound.</p>
+              <p>Click the video to start from the beginning, with sound.</p>
             </div>
           </div>
         </section>

@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 
 const INTRO_PAUSE_TIME = 3;
 const SKIP_TIME = 5;
-const VIDEO_SRC = '/Videos/fiducaro-hero-web.mp4';
+const VIDEO_SRC = '/Videos/fiducaro-hero-sequence.mp4';
 
 function formatTime(seconds: number) {
   if (!Number.isFinite(seconds)) return '0:00';
@@ -202,7 +202,7 @@ export function HeroVideo() {
         className={`hero-video-stage${isExpanded ? ' is-expanded' : ''}`}
         role={isExpanded ? 'dialog' : undefined}
         aria-modal={isExpanded ? true : undefined}
-        aria-label={isExpanded ? 'Fiducaro film' : undefined}
+        aria-label={isExpanded ? 'Fiducaro Private Credit video' : undefined}
       >
         {isExpanded && (
           <IconButton
